@@ -1,0 +1,550 @@
+// Main Theme Index
+// Import all variables
+@use 'variables/colors' as *;
+@use 'variables/dimensions' as *;
+@use 'variables/spacing' as *;
+@use 'variables/typography' as *;
+
+// Import all mixins
+@use 'mixins/forms' as forms;
+@use 'mixins/cards' as cards;
+@use 'mixins/layout' as layout;
+@use 'mixins/controls' as controls;
+@use 'mixins/tables' as tables;
+@use 'mixins/tabs' as tabs;
+
+// Import Material 3 component overrides
+@use 'material/material3-overrides';
+
+// Import utility classes
+@use 'utilities/utilities';
+
+// Import theme variants
+@use 'variants/theme-variants';
+
+// Import all components
+@use 'components/orders';
+
+// Forward variables for external use
+@forward 'variables/colors';
+@forward 'variables/spacing';
+@forward 'variables/typography';
+@forward 'variables/dimensions';
+
+// Additional icon sizes
+$icon-size-xs: 14px;
+
+// CSS Custom Properties for Runtime Theme Switching
+:root {
+  // Colors
+  --primary-color: #{$primary-color};
+  --primary-light: #{$primary-light};
+  --primary-dark: #{$primary-dark};
+  
+  --secondary-color: #{$secondary-color};
+  --accent-color: #{$accent-color};
+  --accent-light: #{$accent-light};
+  
+  --success-color: #{$success-color};
+  --warning-color: #{$warning-color};
+  --error-color: #{$error-color};
+  --info-color: #{$info-color};
+  
+  --white: #{$white};
+  --black: #{$black};
+  
+  --gray-50: #{$gray-50};
+  --gray-100: #{$gray-100};
+  --gray-300: #{$gray-300};
+  --gray-500: #{$gray-500};
+  --gray-700: #{$gray-700};
+  --gray-900: #{$gray-900};
+  
+  --text-primary: #{$text-primary};
+  --text-secondary: #{$text-secondary};
+  --text-disabled: #{$text-disabled};
+  
+  --background-primary: #{$background-primary};
+  --background-secondary: #{$background-secondary};
+  --background-tertiary: #{$background-tertiary};
+  --background-card: #{$background-card};
+  --background-hover: #{$background-hover};
+  --background-zebra: #{$background-zebra};
+  
+  // Status colors with light variants
+  --success-light: #{$success-light};
+  --success-dark: #{$success-dark};
+  --warning-light: #{$warning-light};
+  --warning-dark: #{$warning-dark};
+  --error-light: #{$error-light};
+  --error-dark: #{$error-dark};
+  --info-light: #{$info-light};
+  --info-dark: #{$info-dark};
+  
+  --border-light: #{$border-light};
+  --border-medium: #{$border-medium};
+  
+  --shadow-sm: #{$shadow-sm};
+  --shadow-md: #{$shadow-md};
+  --shadow-lg: #{$shadow-lg};
+  --shadow-xl: #{$shadow-xl};
+  --shadow-2xl: #{$shadow-2xl};
+  
+  // Spacing
+  --spacing-xs: #{$spacing-xs};
+  --spacing-sm: #{$spacing-sm};
+  --spacing-md: #{$spacing-md};
+  --spacing-lg: #{$spacing-lg};
+  --spacing-xl: #{$spacing-xl};
+  --spacing-xxl: #{$spacing-xxl};
+  
+  --form-field-gap: #{$form-field-gap};
+  --form-section-gap: #{$form-section-gap};
+  --form-column-gap: #{$form-column-gap};
+  
+  --card-padding: #{$card-padding};
+  --card-margin: #{$card-margin};
+  --card-header-padding: #{$card-header-padding};
+  
+  --container-padding: #{$container-padding};
+  --grid-gap: #{$grid-gap};
+  
+  // Typography
+  --font-family-primary: #{$font-family-primary};
+  
+  --font-size-xs: #{$font-size-xs};
+  --font-size-sm: #{$font-size-sm};
+  --font-size-md: #{$font-size-md};
+  --font-size-lg: #{$font-size-lg};
+  --font-size-xl: #{$font-size-xl};
+  --font-size-xxl: #{$font-size-xxl};
+  --font-size-xxxl: #{$font-size-xxxl};
+  --font-size-display: #{$font-size-display};
+  
+  --font-weight-light: #{$font-weight-light};
+  --font-weight-normal: #{$font-weight-normal};
+  --font-weight-medium: #{$font-weight-medium};
+  --font-weight-semibold: #{$font-weight-semibold};
+  --font-weight-bold: #{$font-weight-bold};
+  --font-weight-extrabold: #{$font-weight-extrabold};
+  
+  // Dimensions
+  --border-radius-sm: #{$border-radius-sm};
+  --border-radius-md: #{$border-radius-md};
+  --border-radius-lg: #{$border-radius-lg};
+  --border-radius-xl: #{$border-radius-xl};
+  
+  --border-width-thin: #{$border-width-thin};
+  --border-width-medium: #{$border-width-medium};
+  
+  --form-field-height-compact: #{$form-field-height-compact};
+  --form-field-height-normal: #{$form-field-height-normal};
+  --form-field-height-large: #{$form-field-height-large};
+  
+  --input-height: #{$input-height};
+  --input-font-size: #{$input-font-size};
+  --input-line-height: #{$input-line-height};
+  
+  --button-height-sm: #{$button-height-sm};
+  --button-height-md: #{$button-height-md};
+  --button-height-lg: #{$button-height-lg};
+  
+  --icon-size-xs: #{$icon-size-xs};
+  --icon-size-sm: #{$icon-size-sm};
+  --icon-size-md: #{$icon-size-md};
+  --icon-size-lg: #{$icon-size-lg};
+  --icon-size-xl: #{$icon-size-xl};
+  --icon-size-xxl: #{$icon-size-xxl};
+  
+  // Line heights for compact layouts
+  --line-height-compact: 1.2;
+  --line-height-normal: 1.4;
+  --line-height-relaxed: 1.6;
+  
+  // Component dimensions
+  --header-height: #{$header-height};
+  --footer-height: #{$footer-height};
+  --sidenav-width: #{$sidenav-width};
+  --sidenav-header-height: #{$sidenav-header-height};
+  
+  // Compact layout spacing
+  --compact-padding: #{$spacing-xs};
+  --compact-margin: #{$spacing-sm};
+  --compact-header-height: 64px;
+  --compact-row-height: 44px;
+  --compact-button-height: 36px;
+}
+
+// ============================================
+// GLOBAL COMPONENT STYLES - GENERIC & REUSABLE
+// ============================================
+// All component styles are included globally here
+// Use generic class names that can be shared across components
+// No need to import in individual components
+
+// Generic Page Container - Can be used by any page component
+.page-container {
+  @include layout.full-width-container();
+}
+
+// BUTTONS (Material 3 compliant, reusable)
+.action-button-primary {
+  @include layout.button-primary();
+  @include layout.button-compact(var(--button-height-md));
+}
+.action-button-secondary {
+  @include layout.button-secondary();
+  @include layout.button-compact(var(--button-height-md));
+}
+.action-button-accent {
+  background: var(--accent-color);
+  color: var(--white);
+  @include layout.button-compact(var(--button-height-md));
+  &:hover {
+    background: var(--accent-light);
+  }
+}
+.action-button-warning {
+  background: var(--warning-color);
+  color: var(--white);
+  @include layout.button-compact(var(--button-height-md));
+  &:hover {
+    background: var(--warning-light);
+  }
+}
+
+// CARDS
+.content-card {
+  @include cards.card-base();
+  mat-card-header {
+    @include cards.card-header();
+  }
+}
+
+// FORMS
+.data-form {
+  @include layout.two-column-layout();
+  .form-column {
+    @include layout.flex-column();
+    gap: var(--form-section-gap);
+  }
+  .form-section {
+    @include forms.form-section();
+  }
+  .form-section-full {
+    @include forms.form-section();
+    grid-column: 1 / -1;
+    background: var(--background-tertiary);
+    margin-bottom: var(--spacing-lg);
+  }
+  .form-grid {
+    @include forms.form-grid();
+  }
+  .shipping-grid {
+    @include forms.form-grid();
+    .shipping-address { grid-column: 1 / -1; }
+    .shipping-details { @include forms.form-grid(120px); }
+  }
+  mat-form-field {
+    @include forms.form-field-compact();
+  }
+  .total-display {
+    @include layout.flex-center();
+    min-height: 50px;
+    grid-column: 1 / -1;
+    .total-card {
+      background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+      color: var(--white);
+      padding: var(--spacing-md) var(--spacing-lg);
+      border-radius: var(--border-radius-sm);
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      min-width: 120px;
+      h4 {
+        margin: 0 0 var(--spacing-xs) 0;
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-medium);
+        opacity: 0.9;
+      }
+      .total-amount {
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-semibold);
+      }
+    }
+  }
+}
+
+// CARDS ACTIONS
+.form-actions {
+  @include cards.card-actions();
+  button {
+    @include layout.button-compact();
+    &[color="primary"] { @include layout.button-primary(); }
+    &[mat-stroked-button] { @include layout.button-secondary(); }
+  }
+}
+
+// GRIDS
+.content-grid {
+  @include layout.content-grid();
+}
+.info-grid {
+  @include layout.info-grid();
+}
+
+// Generic Form Validation Styles
+mat-form-field.ng-invalid.ng-touched {
+  .mat-form-field-outline-thick {
+    color: var(--error-color) !important;
+  }
+}
+
+// Global Form States
+.form-loading {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.form-success {
+  border: var(--border-width-medium) solid var(--success-color);
+  border-radius: var(--border-radius-sm);
+}
+
+// Generic Layout Components - Full Width & Responsive
+.content-grid {
+  @include layout.content-grid();
+}
+
+.action-bar {
+  @include layout.action-bar();
+  
+  &.center {
+    @include layout.action-bar(center);
+  }
+  
+  &.end {
+    @include layout.action-bar(flex-end);
+  }
+  
+  // Standard action buttons with consistent styling
+  .action-button-primary {
+    @include layout.button-primary();
+    min-width: 140px;
+    height: 40px;
+    
+    mat-icon {
+      margin-right: var(--spacing-xs);
+      font-size: var(--icon-size-sm);
+      width: var(--icon-size-sm);
+      height: var(--icon-size-sm);
+    }
+  }
+  
+  .action-button-secondary {
+    @include layout.button-secondary();
+    min-width: 140px;
+    height: 40px;
+    
+    mat-icon {
+      margin-right: var(--spacing-xs);
+      font-size: var(--icon-size-sm);
+      width: var(--icon-size-sm);
+      height: var(--icon-size-sm);
+    }
+  }
+  
+  .action-button-accent {
+    background: var(--accent-color);
+    color: var(--white);
+    min-width: 140px;
+    height: 40px;
+    
+    &:hover {
+      background: var(--accent-light);
+    }
+    
+    mat-icon {
+      margin-right: var(--spacing-xs);
+      font-size: var(--icon-size-sm);
+      width: var(--icon-size-sm);
+      height: var(--icon-size-sm);
+    }
+  }
+  
+  .action-button-warning {
+    background: var(--warning-color);
+    color: var(--white);
+    min-width: 140px;
+    height: 40px;
+    
+    &:hover {
+      background: var(--warning-light);
+    }
+    
+    mat-icon {
+      margin-right: var(--spacing-xs);
+      font-size: var(--icon-size-sm);
+      width: var(--icon-size-sm);
+      height: var(--icon-size-sm);
+    }
+  }
+}
+
+.info-grid {
+  @include layout.info-grid();
+}
+
+// Full Width Utilities
+.full-width {
+  width: 100% !important;
+}
+
+.no-max-width {
+  max-width: none !important;
+}
+
+// Dashboard specific styles using full-width layout
+.dashboard-container,
+.stats-grid,
+.content-grid {
+  width: 100%;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+}
+
+// Widget Cards - Full responsive width
+.widget-card {
+  width: 100%;
+  height: 100%;
+}
+
+// Responsive Design for All Components
+@media (max-width: 768px) {
+  .data-form {
+    .form-section,
+    .form-section-full {
+      padding: var(--spacing-md);
+    }
+
+    .form-grid,
+    .shipping-details {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-sm);
+    }
+  }
+
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+
+    button {
+      width: 100%;
+      min-width: auto;
+    }
+  }
+}
+
+// ============================================
+// COMPONENT PLACEHOLDER STYLES
+// ============================================
+// Generic containers for different page types
+
+// Dashboard Component
+.dashboard-container {
+  @include layout.responsive-container();
+}
+
+// Analytics Component
+.analytics-container {
+  @include layout.responsive-container();
+}
+
+// Data Management Components (Tables, Lists, etc.)
+.data-container {
+  @include layout.responsive-container();
+}
+
+// Settings/Configuration Components
+.settings-container {
+  @include layout.responsive-container();
+}
+
+// Profile/User Components
+.profile-container {
+  @include layout.responsive-container();
+}
+
+// Two-Panel Layout Container - Global reusable responsive layout
+.two-panel-container {
+  @include layout.two-panel-layout();
+}
+
+// Alternative layouts for different column ratios
+.two-panel-equal {
+  @include layout.two-panel-layout(1fr, 1fr); // Equal columns
+}
+
+.two-panel-wide-left {
+  @include layout.two-panel-layout(2fr, 1fr); // Left panel wider
+}
+
+.two-panel-narrow-left {
+  @include layout.two-panel-layout(1fr, 3fr); // Right panel much wider
+}
+
+// Equal height container for maintaining consistent card heights
+.equal-height-container {
+  @include layout.equal-height-container();
+}
+
+// Page header styling for consistency
+.page-header {
+  margin-bottom: var(--spacing-lg);
+  text-align: left;
+  width: 100%;
+  
+  .page-title {
+    margin: 0 0 var(--spacing-xs) 0;
+    font-size: var(--font-size-xxl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+    text-align: left;
+  }
+  
+  .page-subtitle {
+    margin: 0;
+    font-size: var(--font-size-md);
+    color: var(--text-secondary);
+    text-align: left;
+  }
+}
+
+// Generic status button styling for tables
+button[mat-icon-button] {
+  &[color="primary"] {
+    .mat-icon {
+      color: var(--primary-color);
+    }
+  }
+
+  &[color="warn"] {
+    .mat-icon {
+      color: var(--error-color);
+    }
+  }
+
+  .mat-icon {
+    transition: color 0.2s ease;
+  }
+}

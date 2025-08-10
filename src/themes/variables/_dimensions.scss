@@ -1,0 +1,32 @@
+// Border Radius
+$border-radius-sm: 4px;
+$border-radius-md: 6px;
+$border-radius-lg: 8px;
+$border-radius-xl: 12px;
+
+// Border Widths
+$border-width-thin: 1px;
+$border-width-medium: 2px;
+$border-width-thick: 3px;
+
+// Box Shadows - Material 3 elevation system
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+$shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.06);
+$shadow-2xl: 0 16px 32px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.06);
+
+// Form Field Heights - Balanced for better usability
+$form-field-height-compact: 36px;
+$form-field-height-normal: 40px;
+$form-field-height-large: 48px;
+
+// Input specific dimensions  
+$input-height: 26px;
+$input-font-size: 15px;
+$input-line-height: 26px;
+
+// Button Heights - Balanced for better touch targets
+$button-height-sm: 32px;
+$button-height-md: 36px;
+$button-height-lg: 44px;

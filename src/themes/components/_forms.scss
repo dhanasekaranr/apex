@@ -1,0 +1,181 @@
+@use '../variables/colors' as colors;
+@use '../variables/spacing' as spacing;
+@use '../variables/dimensions' as dimensions;
+@use '../variables/typography' as typography;
+@use '../mixins/layout' as layout;
+
+// Form container styles
+.form-container {
+  width: 100%;
+}
+
+.form-section {
+  margin-bottom: var(--spacing-xl);
+  
+  h3 {
+    color: var(--primary-color);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-xs);
+    border-bottom: var(--border-width-thin) solid var(--border-light);
+  }
+  
+  .form-row {
+    @include layout.content-grid(180px);
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-sm);
+    }
+  }
+  
+  .full-width {
+    grid-column: 1 / -1;
+    margin-bottom: var(--spacing-md);
+  }
+}
+
+// Loading spinner styles
+.loading-spinner {
+  @include layout.flex-center();
+  flex-direction: column;
+  gap: var(--spacing-md);
+  min-height: 300px;
+  
+  p {
+    color: var(--text-secondary);
+    font-size: var(--font-size-md);
+  }
+}
+
+// Form field styles
+.form-field {
+  width: 100%;
+  
+  &.mat-form-field-invalid .mat-form-field-outline-thick {
+    color: var(--error-color);
+  }
+  
+  mat-label {
+    color: var(--text-secondary);
+    font-weight: var(--font-weight-medium);
+  }
+  
+  input, mat-select, textarea {
+    color: var(--text-primary);
+  }
+  
+  mat-error {
+    font-size: var(--font-size-xs);
+    color: var(--error-color);
+  }
+}
+
+// Radio group styles
+.radio-group {
+  display: flex;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  
+  mat-radio-button {
+    color: var(--text-primary);
+    
+    &.mat-mdc-radio-checked {
+      .mdc-radio__native-control:checked + .mdc-radio__background .mdc-radio__outer-circle {
+        border-color: var(--primary-color);
+      }
+      
+      .mdc-radio__background .mdc-radio__inner-circle {
+        background-color: var(--primary-color);
+      }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+}
+
+// Checkbox styles
+.checkbox-field {
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-primary);
+  
+  .mat-mdc-checkbox-checked .mdc-checkbox__background {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+}
+
+// Conditional form sections
+.conditional-form-section {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--background-tertiary);
+  border-radius: var(--border-radius-sm);
+  border: var(--border-width-thin) solid var(--border-light);
+}
+
+// Document list styles
+.documents-list {
+  .document-item {
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--background-secondary);
+    border-radius: var(--border-radius-sm);
+    border: var(--border-width-thin) solid var(--border-light);
+    
+    .form-row {
+      align-items: center;
+      grid-template-columns: 1fr 1fr auto;
+      gap: var(--spacing-sm);
+    }
+  }
+}
+
+.add-document-btn {
+  margin-top: var(--spacing-md);
+  min-width: 140px;
+}
+
+// Form components with Material 3 CSS custom properties
+.form-container {
+  // Material form field theming via CSS custom properties
+  --mdc-outlined-text-field-label-text-color: var(--text-secondary);
+  --mdc-outlined-text-field-input-text-color: var(--text-primary);
+  --mdc-outlined-text-field-outline-color: var(--border-light);
+  --mdc-outlined-text-field-focus-outline-color: var(--primary-color);
+  --mdc-outlined-text-field-error-outline-color: var(--error-color);
+  --mdc-outlined-text-field-focus-label-text-color: var(--primary-color);
+  
+  // Radio button theming
+  --mdc-radio-selected-focus-icon-color: var(--primary-color);
+  --mdc-radio-selected-hover-icon-color: var(--primary-color);
+  --mdc-radio-selected-icon-color: var(--primary-color);
+  --mdc-radio-selected-pressed-icon-color: var(--primary-color);
+  
+  // Checkbox theming
+  --mdc-checkbox-selected-checkmark-color: #ffffff;
+  --mdc-checkbox-selected-focus-icon-color: var(--primary-color);
+  --mdc-checkbox-selected-hover-icon-color: var(--primary-color);
+  --mdc-checkbox-selected-icon-color: var(--primary-color);
+  --mdc-checkbox-selected-pressed-icon-color: var(--primary-color);
+  
+  mat-form-field {
+    &.mat-form-field-invalid {
+      --mdc-outlined-text-field-outline-color: var(--error-color);
+    }
+  }
+  
+  mat-radio-group {
+    --mdc-radio-state-layer-size: 40px;
+  }
+  
+  mat-checkbox {
+    --mdc-checkbox-state-layer-size: 40px;
+  }
+}

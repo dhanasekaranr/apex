@@ -1,0 +1,206 @@
+// Table Mixins - Reusable table patterns for new components
+// Use these mixins to create consistent table layouts across the application
+
+// Basic data table mixin with responsive design
+@mixin data-table-base {
+  .table-container {
+    background: var(--background-card);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-lg);
+    background: var(--background-secondary);
+    border-bottom: var(--border-width-thin) solid var(--border-light);
+
+    .table-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .table-actions {
+      display: flex;
+      gap: var(--spacing-sm);
+      align-items: center;
+    }
+  }
+
+  .table-filters {
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--background-tertiary);
+    border-bottom: var(--border-width-thin) solid var(--border-light);
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+    flex-wrap: wrap;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--spacing-sm);
+    }
+  }
+
+  .mat-mdc-table {
+    width: 100%;
+    background: transparent;
+
+    .mat-mdc-header-row {
+      background: var(--background-secondary);
+      border-bottom: var(--border-width-medium) solid var(--border-medium);
+    }
+
+    .mat-mdc-row {
+      &:nth-child(even) {
+        background: var(--background-zebra);
+      }
+
+      &:hover {
+        background: var(--background-hover);
+      }
+    }
+
+    .mat-mdc-cell,
+    .mat-mdc-header-cell {
+      padding: var(--spacing-md);
+      border-bottom: var(--border-width-thin) solid var(--border-light);
+    }
+
+    .mat-mdc-header-cell {
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+  }
+}
+
+// Compact table variant
+@mixin data-table-compact {
+  .mat-mdc-table {
+    .mat-mdc-row {
+      height: 36px;
+    }
+
+    .mat-mdc-header-row {
+      height: 40px;
+    }
+
+    .mat-mdc-cell,
+    .mat-mdc-header-cell {
+      padding: var(--spacing-sm);
+      font-size: var(--font-size-sm);
+    }
+  }
+}
+
+// Table with action buttons
+@mixin data-table-with-actions {
+  .mat-mdc-table {
+    .actions-cell {
+      width: 120px;
+      text-align: right;
+      
+      .action-buttons {
+        display: flex;
+        gap: var(--spacing-xs);
+        justify-content: flex-end;
+        
+        button {
+          min-width: 32px;
+          height: 32px;
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
+// Responsive table - converts to cards on mobile
+@mixin data-table-responsive {
+  @media (max-width: 768px) {
+    .table-container {
+      .mat-mdc-table,
+      .mat-mdc-header-row {
+        display: none;
+      }
+      
+      .mobile-cards {
+        display: block;
+        
+        .mobile-card {
+          background: var(--background-card);
+          border: var(--border-width-thin) solid var(--border-light);
+          border-radius: var(--border-radius-md);
+          padding: var(--spacing-md);
+          margin-bottom: var(--spacing-sm);
+          
+          .card-field {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-xs);
+            
+            .field-label {
+              font-weight: var(--font-weight-medium);
+              color: var(--text-secondary);
+            }
+            
+            .field-value {
+              color: var(--text-primary);
+            }
+          }
+          
+          .card-actions {
+            margin-top: var(--spacing-sm);
+            padding-top: var(--spacing-sm);
+            border-top: var(--border-width-thin) solid var(--border-light);
+            text-align: right;
+          }
+        }
+      }
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .mobile-cards {
+      display: none;
+    }
+  }
+}
+
+// Table with status indicators
+@mixin data-table-status {
+  .status-chip {
+    padding: 4px 12px;
+    border-radius: var(--border-radius-xl);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    text-transform: uppercase;
+    
+    &.status-active {
+      background: var(--success-light);
+      color: var(--success-dark);
+    }
+    
+    &.status-inactive {
+      background: var(--gray-100);
+      color: var(--gray-700);
+    }
+    
+    &.status-pending {
+      background: var(--warning-light);
+      color: var(--warning-dark);
+    }
+    
+    &.status-error {
+      background: var(--error-light);
+      color: var(--error-dark);
+    }
+  }
+}

@@ -1,0 +1,85 @@
+<div class="page-container">
+  <h1 class="dashboard-title">Dashboard Overview</h1>
+  
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <mat-card *ngFor="let stat of stats" class="stat-card widget-card">
+      <mat-card-content>
+        <div class="stat-content">
+          <div class="stat-icon" [style.background-color]="stat.color">
+            <mat-icon>{{ stat.icon }}</mat-icon>
+          </div>
+          <div class="stat-info">
+            <h3 class="stat-value">{{ stat.value }}</h3>
+            <p class="stat-title">{{ stat.title }}</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+  <!-- Content Grid -->
+  <div class="content-grid">
+    <!-- Chart Placeholder -->
+    <mat-card class="chart-card widget-card">
+      <mat-card-header>
+        <mat-card-title>Sales Analytics</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="chart-placeholder">
+          <mat-icon class="chart-icon">trending_up</mat-icon>
+          <p class="chart-title">Chart would go here</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    
+    <!-- Recent Activities -->
+    <mat-card class="activities-card widget-card">
+      <mat-card-header>
+        <mat-card-title>Recent Activities</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="activity-list">
+          <div *ngFor="let activity of recentActivities" class="activity-item">
+            <mat-icon 
+              class="activity-icon" 
+              [ngClass]="'activity-icon-' + activity.type">
+              {{ activity.icon }}
+            </mat-icon>
+            <div class="activity-content">
+              <p class="activity-action">{{ activity.action }}</p>
+              <span class="activity-time">{{ activity.time }}</span>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+  <!-- Quick Actions -->
+  <mat-card class="actions-card widget-card">
+    <mat-card-header>
+      <mat-card-title>Quick Actions</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="actions-grid">
+        <button mat-raised-button color="primary">
+          <mat-icon>add</mat-icon>
+          Add User
+        </button>
+        <button mat-raised-button color="accent">
+          <mat-icon>add_shopping_cart</mat-icon>
+          New Order
+        </button>
+        <button mat-raised-button color="warn">
+          <mat-icon>inventory_2</mat-icon>
+          Add Product
+        </button>
+        <button mat-raised-button>
+          <mat-icon>assessment</mat-icon>
+          Generate Report
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

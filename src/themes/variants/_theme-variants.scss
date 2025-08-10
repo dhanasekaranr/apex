@@ -1,0 +1,236 @@
+@use '../variables/colors' as *;
+
+// Theme Variants - Different density modes for Material 3
+// Supports compact, comfortable, and standard density levels
+
+// Compact Theme Variant - High density
+.theme-compact {
+  // Spacing overrides
+  --spacing-xs: 2px;
+  --spacing-sm: 4px;
+  --spacing-md: 6px;
+  --spacing-lg: 8px;
+  --spacing-xl: 12px;
+  
+  // Typography overrides
+  --font-size-xs: 10px;
+  --font-size-sm: 11px;
+  --font-size-md: 12px;
+  --font-size-lg: 14px;
+  
+  // Component height overrides
+  --button-height: 36px;
+  --input-height: 36px;
+  --table-row-height: 44px;
+  --table-header-height: 48px;
+  
+  // Apply compact styles to Material components
+  .mat-mdc-form-field {
+    .mat-mdc-text-field-wrapper {
+      height: var(--input-height) !important;
+    }
+    
+    .mat-mdc-form-field-infix {
+      min-height: 24px !important;
+      padding: 4px 0 !important;
+    }
+  }
+  
+  .mat-mdc-button,
+  .mat-mdc-outlined-button,
+  .mat-mdc-raised-button {
+    height: var(--button-height) !important;
+  }
+  
+  .mat-mdc-table {
+    .mat-mdc-row {
+      height: var(--table-row-height) !important;
+    }
+    
+    .mat-mdc-header-row {
+      height: var(--table-header-height) !important;
+    }
+  }
+  
+  .mat-mdc-chip {
+    height: 24px !important;
+    font-size: 11px !important;
+  }
+}
+
+// Comfortable Theme Variant - Low density, more spacious
+.theme-comfortable {
+  // Spacing overrides
+  --spacing-xs: 6px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+  
+  // Typography overrides
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  
+  // Component height overrides
+  --button-height: 48px;
+  --input-height: 48px;
+  --table-row-height: 56px;
+  --table-header-height: 60px;
+  
+  // Apply comfortable styles to Material components
+  .mat-mdc-form-field {
+    .mat-mdc-text-field-wrapper {
+      height: var(--input-height) !important;
+    }
+    
+    .mat-mdc-form-field-infix {
+      min-height: 32px !important;
+      padding: 8px 0 !important;
+    }
+  }
+  
+  .mat-mdc-button,
+  .mat-mdc-outlined-button,
+  .mat-mdc-raised-button {
+    height: var(--button-height) !important;
+  }
+  
+  .mat-mdc-table {
+    .mat-mdc-row {
+      height: var(--table-row-height) !important;
+    }
+    
+    .mat-mdc-header-row {
+      height: var(--table-header-height) !important;
+    }
+  }
+  
+  .mat-mdc-chip {
+    height: 32px !important;
+    font-size: 13px !important;
+  }
+}
+
+// Standard Theme Variant - Default Material 3 density
+.theme-standard {
+  // Spacing (Material 3 defaults)
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  
+  // Typography (Material 3 defaults)
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  
+  // Component height (Material 3 defaults)
+  --button-height: 40px;
+  --input-height: 40px;
+  --table-row-height: 48px;
+  --table-header-height: 52px;
+}
+
+// Dark Theme Variant
+.theme-dark {
+  // Dark theme color overrides
+  --text-primary: #{$white};
+  --text-secondary: #{$gray-300};
+  --text-disabled: #{$gray-500};
+  
+  --background-primary: #{$gray-900};
+  --background-secondary: #{$gray-800};
+  --background-tertiary: #{$gray-700};
+  --background-card: #{$gray-800};
+  
+  --border-light: #{$gray-600};
+  --border-medium: #{$gray-500};
+  
+  // Material component dark theme adjustments
+  .mat-mdc-form-field {
+    &.mat-mdc-form-field-appearance-outline {
+      .mat-mdc-form-field-outline {
+        color: var(--border-light);
+      }
+    }
+  }
+  
+  .mat-mdc-table {
+    background: var(--background-card);
+    color: var(--text-primary);
+  }
+  
+  .mat-mdc-card {
+    background: var(--background-card);
+    color: var(--text-primary);
+  }
+}
+
+// High Contrast Theme Variant for accessibility
+.theme-high-contrast {
+  --text-primary: #{$black};
+  --text-secondary: #{$black};
+  --background-primary: #{$white};
+  --background-secondary: #{$white};
+  --background-card: #{$white};
+  --border-light: #{$black};
+  --border-medium: #{$black};
+  
+  // High contrast adjustments
+  .mat-mdc-form-field {
+    &.mat-mdc-form-field-appearance-outline {
+      .mat-mdc-form-field-outline {
+        border-width: 2px !important;
+        border-color: var(--border-medium) !important;
+      }
+    }
+  }
+  
+  .mat-mdc-button,
+  .mat-mdc-outlined-button {
+    border-width: 2px !important;
+  }
+  
+  .mat-mdc-table {
+    .mat-mdc-row {
+      border-bottom: 2px solid var(--border-light) !important;
+    }
+  }
+}
+
+// Animation preferences
+@media (prefers-reduced-motion: reduce) {
+  .theme-reduced-motion {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+// Print styles
+@media print {
+  .theme-print {
+    --text-primary: #{$black};
+    --text-secondary: #{$black};
+    --background-primary: #{$white};
+    --background-secondary: #{$white};
+    --background-card: #{$white};
+    
+    .mat-mdc-button,
+    .mat-mdc-icon-button {
+      display: none !important;
+    }
+    
+    .mat-mdc-table {
+      .mat-mdc-row {
+        page-break-inside: avoid;
+      }
+    }
+  }
+}

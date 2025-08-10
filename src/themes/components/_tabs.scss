@@ -1,0 +1,253 @@
+@use '../variables/colors' as colors;
+@use '../variables/spacing' as spacing;
+@use '../variables/dimensions' as dimensions;
+@use '../variables/typography' as typography;
+@use '../material/tabs-theme' as tabs-theme;
+
+// Windows Forms style tab control
+.tab-control {
+  width: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
+  // Apply Windows Forms tab styling through CSS custom properties
+  --mdc-secondary-navigation-tab-container-height: 32px;
+  --mat-tab-header-label-text-color: #333333;
+  --mat-tab-header-label-text-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --mat-tab-header-label-text-size: 11px;
+  --mat-tab-header-label-text-weight: 400;
+  --mat-tab-header-label-text-line-height: 1;
+  --mat-tab-header-active-label-text-color: #000000;
+  --mat-tab-header-inactive-label-text-color: #333333;
+  --mat-tab-header-disabled-label-text-color: #808080;
+  --mat-tab-header-active-ripple-color: transparent;
+  --mat-tab-header-inactive-ripple-color: transparent;
+  
+  .tab-group {
+    background: #ffffff;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  
+  mat-tab-group {
+    .mat-mdc-tab-header {
+      background: #f0f0f0;
+      border-bottom: 1px solid #c0c0c0;
+      border-radius: 0;
+      
+      .mat-mdc-tab-header-pagination {
+        display: none;
+      }
+      
+      .mat-mdc-tab-list {
+        .mat-mdc-tab {
+          background: linear-gradient(to bottom, #f8f8f8 0%, #e8e8e8 100%);
+          border: 1px solid #c0c0c0;
+          border-bottom: none;
+          border-radius: 4px 4px 0 0;
+          margin-right: 2px;
+          min-width: 120px;
+          position: relative;
+          
+          &:hover {
+            background: linear-gradient(to bottom, #ffffff 0%, #f0f0f0 100%);
+          }
+          
+          &.mdc-tab--active {
+            background: #ffffff;
+            border-bottom: 1px solid #ffffff;
+            z-index: 10;
+            margin-bottom: -1px;
+          }
+          
+          &.mat-mdc-tab-disabled {
+            background: #e8e8e8;
+            border-color: #d0d0d0;
+            opacity: 1;
+          }
+          
+          .mdc-tab__content {
+            padding: 0 16px;
+          }
+          
+          .mdc-tab__text-label {
+            text-transform: none;
+          }
+          
+          // Hide Material's default indicators
+          .mdc-tab-indicator,
+          .mat-mdc-tab-ripple {
+            display: none;
+          }
+        }
+      }
+    }
+    
+    .mat-mdc-tab-body-wrapper {
+      background: #ffffff;
+      border: none;
+      padding: 16px;
+      min-height: 400px;
+    }
+  }
+  
+  .tab-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      
+      .status-icon {
+        font-size: 14px;
+        width: 14px;
+        height: 14px;
+        
+        &.valid {
+          color: #008000;
+        }
+        
+        &.invalid {
+          color: #ff0000;
+        }
+        
+        &.disabled {
+          color: #808080;
+        }
+      }
+    }
+  }
+  
+  .tab-content {
+    background: #ffffff;
+    min-height: 400px;
+    position: relative;
+  }
+  
+  .per-tab-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e0e0e0;
+    
+    button {
+      min-width: 80px;
+      height: 24px;
+      font-size: 11px;
+      border-radius: 2px;
+      
+      &.mat-mdc-raised-button {
+        background: linear-gradient(to bottom, #f8f8f8 0%, #e8e8e8 100%);
+        border: 1px solid #c0c0c0;
+        color: #333333;
+        
+        &:hover {
+          background: linear-gradient(to bottom, #ffffff 0%, #f0f0f0 100%);
+        }
+        
+        &[color="primary"] {
+          background: linear-gradient(to bottom, #0078d4 0%, #005a9e 100%);
+          border: 1px solid #005a9e;
+          color: #ffffff;
+          
+          &:hover {
+            background: linear-gradient(to bottom, #106ebe 0%, #005a9e 100%);
+          }
+        }
+      }
+      
+      &.mat-mdc-stroked-button {
+        background: linear-gradient(to bottom, #f8f8f8 0%, #e8e8e8 100%);
+        border: 1px solid #c0c0c0;
+        color: #333333;
+        
+        &:hover {
+          background: linear-gradient(to bottom, #ffffff 0%, #f0f0f0 100%);
+        }
+      }
+      
+      mat-icon {
+        margin-right: 4px;
+        font-size: 12px;
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
+  
+  .global-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 16px;
+    background: #f8f8f8;
+    border: 1px solid #e0e0e0;
+    border-radius: 0;
+    
+    .global-reset-btn,
+    .global-save-btn {
+      min-width: 100px;
+      height: 28px;
+      font-size: 11px;
+      border-radius: 2px;
+      
+      mat-icon {
+        margin-right: 4px;
+        font-size: 12px;
+        width: 12px;
+        height: 12px;
+      }
+    }
+    
+    .global-reset-btn {
+      background: linear-gradient(to bottom, #f8f8f8 0%, #e8e8e8 100%);
+      border: 1px solid #c0c0c0;
+      color: #333333;
+      
+      &:hover {
+        background: linear-gradient(to bottom, #ffffff 0%, #f0f0f0 100%);
+      }
+    }
+    
+    .global-save-btn {
+      background: linear-gradient(to bottom, #0078d4 0%, #005a9e 100%);
+      border: 1px solid #005a9e;
+      color: #ffffff;
+      
+      &:hover {
+        background: linear-gradient(to bottom, #106ebe 0%, #005a9e 100%);
+      }
+      
+      &:disabled {
+        background: #e8e8e8;
+        border: 1px solid #d0d0d0;
+        color: #808080;
+      }
+    }
+  }
+}
+
+// Responsive design adjustments
+@media (max-width: 768px) {
+  .tab-control {
+    .per-tab-actions,
+    .global-actions {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 4px;
+      
+      button {
+        width: 100%;
+        height: 32px;
+      }
+    }
+  }
+}

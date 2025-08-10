@@ -1,0 +1,379 @@
+<div class="header-container">
+  <!-- Main Toolbar -->
+  <mat-toolbar class="header-toolbar">
+    <button
+      type="button"
+      aria-label="Toggle sidenav"
+      mat-icon-button
+      (click)="drawer.toggle()"
+      *ngIf="isHandset">
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    
+    <span class="spacer"></span>
+    
+    <!-- Metrics Section (moved from dashboard-info-row) -->
+    <div class="metrics-section">
+      <div class="metric-item" *ngFor="let metric of topMetrics" [class]="'metric-' + metric.color">
+        <span class="metric-label">{{ metric.label }}</span>
+        <span class="metric-value">{{ metric.value }}</span>
+      </div>
+    </div>
+    
+    <!-- Info Panels Section -->
+    <div class="info-panels">
+      <div class="info-panel" *ngFor="let panel of infoPanels">
+        <div class="panel-label">{{ panel.label }}</div>
+        <div class="panel-value">{{ panel.value }}</div>
+      </div>
+    </div>
+    
+    <span class="spacer-small"></span>
+    
+    <div class="header-actions">
+      <!-- Quick Tools Dropdown -->
+      <button mat-icon-button 
+              [matMenuTriggerFor]="quickToolsMenu" 
+              aria-label="Quick Tools">
+        <mat-icon>build</mat-icon>
+      </button>
+      
+      <!-- Notifications Dropdown -->
+      <button mat-icon-button 
+              [matMenuTriggerFor]="notificationsMenu" 
+              aria-label="Notifications"
+              [class.has-notifications]="hasUnreadNotifications">
+        <mat-icon>notifications</mat-icon>
+        <span class="notification-badge" *ngIf="unreadCount > 0">{{ unreadCount }}</span>
+      </button>
+      
+      <!-- System Admin Dropdown -->
+      <button mat-icon-button 
+              [matMenuTriggerFor]="systemAdminMenu" 
+              aria-label="System Administration">
+        <mat-icon>admin_panel_settings</mat-icon>
+      </button>
+      
+      <!-- User Profile Dropdown -->
+      <button mat-icon-button 
+              [matMenuTriggerFor]="userProfileMenu" 
+              aria-label="User Profile">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+
+  <!-- Quick Tools Menu -->
+  <mat-menu #quickToolsMenu="matMenu" class="header-dropdown-menu">
+    <button mat-menu-item [matMenuTriggerFor]="dataToolsSubmenu">
+      <mat-icon>database</mat-icon>
+      <span>Data Tools</span>
+      <mat-icon class="submenu-arrow">chevron_right</mat-icon>
+    </button>
+    
+    <button mat-menu-item [matMenuTriggerFor]="reportsSubmenu">
+      <mat-icon>assessment</mat-icon>
+      <span>Quick Reports</span>
+      <mat-icon class="submenu-arrow">chevron_right</mat-icon>
+    </button>
+    
+    <button mat-menu-item (click)="openCalculator()">
+      <mat-icon>calculate</mat-icon>
+      <span>Calculator</span>
+    </button>
+    
+    <button mat-menu-item (click)="openNotepad()">
+      <mat-icon>note_add</mat-icon>
+      <span>Quick Notes</span>
+    </button>
+    
+    <mat-divider></mat-divider>
+    
+    <button mat-menu-item [matMenuTriggerFor]="integrationSubmenu">
+      <mat-icon>integration_instructions</mat-icon>
+      <span>Integrations</span>
+      <mat-icon class="submenu-arrow">chevron_right</mat-icon>
+    </button>
+  </mat-menu>
+
+  <!-- Data Tools Submenu -->
+  <mat-menu #dataToolsSubmenu="matMenu">
+    <button mat-menu-item (click)="exportAllData()">
+      <mat-icon>file_download</mat-icon>
+      <span>Export All Data</span>
+    </button>
+    <button mat-menu-item (click)="importData()">
+      <mat-icon>file_upload</mat-icon>
+      <span>Import Data</span>
+    </button>
+    <button mat-menu-item (click)="backupDatabase()">
+      <mat-icon>backup</mat-icon>
+      <span>Backup Database</span>
+    </button>
+    <button mat-menu-item (click)="dataValidation()">
+      <mat-icon>fact_check</mat-icon>
+      <span>Data Validation</span>
+    </button>
+  </mat-menu>
+
+  <!-- Reports Submenu -->
+  <mat-menu #reportsSubmenu="matMenu">
+    <button mat-menu-item (click)="generateDailyReport()">
+      <mat-icon>today</mat-icon>
+      <span>Daily Summary</span>
+    </button>
+    <button mat-menu-item (click)="generateWeeklyReport()">
+      <mat-icon>date_range</mat-icon>
+      <span>Weekly Report</span>
+    </button>
+    <button mat-menu-item (click)="generateMonthlyReport()">
+      <mat-icon>calendar_month</mat-icon>
+      <span>Monthly Report</span>
+    </button>
+    <button mat-menu-item (click)="customReport()">
+      <mat-icon>tune</mat-icon>
+      <span>Custom Report</span>
+    </button>
+  </mat-menu>
+
+  <!-- Integration Submenu -->
+  <mat-menu #integrationSubmenu="matMenu">
+    <button mat-menu-item (click)="syncWithERP()">
+      <mat-icon>sync</mat-icon>
+      <span>Sync with ERP</span>
+    </button>
+    <button mat-menu-item (click)="connectToAPI()">
+      <mat-icon>api</mat-icon>
+      <span>API Connections</span>
+    </button>
+    <button mat-menu-item (click)="webhookSettings()">
+      <mat-icon>webhook</mat-icon>
+      <span>Webhook Settings</span>
+    </button>
+  </mat-menu>
+
+  <!-- Notifications Menu -->
+  <mat-menu #notificationsMenu="matMenu" class="notifications-menu">
+    <div class="notification-header">
+      <h3>Notifications</h3>
+      <button mat-icon-button (click)="markAllAsRead()" matTooltip="Mark all as read">
+        <mat-icon>done_all</mat-icon>
+      </button>
+    </div>
+    
+    <mat-divider></mat-divider>
+    
+    <div class="notification-list" *ngIf="notifications.length > 0; else noNotifications">
+      <div class="notification-item" 
+           *ngFor="let notification of notifications" 
+           [class.unread]="!notification.read"
+           (click)="markAsRead(notification)">
+        <div class="notification-icon">
+          <mat-icon [color]="getNotificationColor(notification.type)">
+            {{ getNotificationIcon(notification.type) }}
+          </mat-icon>
+        </div>
+        <div class="notification-content">
+          <div class="notification-title">{{ notification.title }}</div>
+          <div class="notification-message">{{ notification.message }}</div>
+          <div class="notification-time">{{ notification.time | date:'short' }}</div>
+        </div>
+      </div>
+    </div>
+    
+    <ng-template #noNotifications>
+      <div class="no-notifications">
+        <mat-icon>notifications_off</mat-icon>
+        <span>No new notifications</span>
+      </div>
+    </ng-template>
+    
+    <mat-divider></mat-divider>
+    
+    <button mat-menu-item (click)="viewAllNotifications()">
+      <mat-icon>list</mat-icon>
+      <span>View All Notifications</span>
+    </button>
+  </mat-menu>
+
+  <!-- System Admin Menu -->
+  <mat-menu #systemAdminMenu="matMenu" class="header-dropdown-menu">
+    <button mat-menu-item [matMenuTriggerFor]="userManagementSubmenu">
+      <mat-icon>group</mat-icon>
+      <span>User Management</span>
+      <mat-icon class="submenu-arrow">chevron_right</mat-icon>
+    </button>
+    
+    <button mat-menu-item [matMenuTriggerFor]="systemSettingsSubmenu">
+      <mat-icon>settings</mat-icon>
+      <span>System Settings</span>
+      <mat-icon class="submenu-arrow">chevron_right</mat-icon>
+    </button>
+    
+    <button mat-menu-item [matMenuTriggerFor]="securitySubmenu">
+      <mat-icon>security</mat-icon>
+      <span>Security & Permissions</span>
+      <mat-icon class="submenu-arrow">chevron_right</mat-icon>
+    </button>
+    
+    <button mat-menu-item (click)="viewSystemLogs()">
+      <mat-icon>receipt_long</mat-icon>
+      <span>System Logs</span>
+    </button>
+    
+    <mat-divider></mat-divider>
+    
+    <button mat-menu-item [matMenuTriggerFor]="maintenanceSubmenu">
+      <mat-icon>build</mat-icon>
+      <span>Maintenance</span>
+      <mat-icon class="submenu-arrow">chevron_right</mat-icon>
+    </button>
+  </mat-menu>
+
+  <!-- User Management Submenu -->
+  <mat-menu #userManagementSubmenu="matMenu">
+    <button mat-menu-item (click)="manageUsers()">
+      <mat-icon>person</mat-icon>
+      <span>Manage Users</span>
+    </button>
+    <button mat-menu-item (click)="manageRoles()">
+      <mat-icon>badge</mat-icon>
+      <span>Roles & Permissions</span>
+    </button>
+    <button mat-menu-item (click)="activeUsers()">
+      <mat-icon>people_alt</mat-icon>
+      <span>Active Sessions</span>
+    </button>
+    <button mat-menu-item (click)="userAudit()">
+      <mat-icon>history</mat-icon>
+      <span>User Audit Trail</span>
+    </button>
+  </mat-menu>
+
+  <!-- System Settings Submenu -->
+  <mat-menu #systemSettingsSubmenu="matMenu">
+    <button mat-menu-item (click)="generalSettings()">
+      <mat-icon>tune</mat-icon>
+      <span>General Settings</span>
+    </button>
+    <button mat-menu-item (click)="emailSettings()">
+      <mat-icon>email</mat-icon>
+      <span>Email Configuration</span>
+    </button>
+    <button mat-menu-item (click)="databaseSettings()">
+      <mat-icon>storage</mat-icon>
+      <span>Database Settings</span>
+    </button>
+    <button mat-menu-item (click)="backupSettings()">
+      <mat-icon>backup</mat-icon>
+      <span>Backup Configuration</span>
+    </button>
+  </mat-menu>
+
+  <!-- Security Submenu -->
+  <mat-menu #securitySubmenu="matMenu">
+    <button mat-menu-item (click)="passwordPolicy()">
+      <mat-icon>key</mat-icon>
+      <span>Password Policy</span>
+    </button>
+    <button mat-menu-item (click)="twoFactorAuth()">
+      <mat-icon>verified_user</mat-icon>
+      <span>Two-Factor Authentication</span>
+    </button>
+    <button mat-menu-item (click)="accessControl()">
+      <mat-icon>lock</mat-icon>
+      <span>Access Control</span>
+    </button>
+    <button mat-menu-item (click)="securityLogs()">
+      <mat-icon>shield</mat-icon>
+      <span>Security Logs</span>
+    </button>
+  </mat-menu>
+
+  <!-- Maintenance Submenu -->
+  <mat-menu #maintenanceSubmenu="matMenu">
+    <button mat-menu-item (click)="systemHealth()">
+      <mat-icon>monitor_heart</mat-icon>
+      <span>System Health</span>
+    </button>
+    <button mat-menu-item (click)="clearCache()">
+      <mat-icon>cached</mat-icon>
+      <span>Clear Cache</span>
+    </button>
+    <button mat-menu-item (click)="optimizeDatabase()">
+      <mat-icon>speed</mat-icon>
+      <span>Optimize Database</span>
+    </button>
+    <button mat-menu-item (click)="systemRestart()">
+      <mat-icon>restart_alt</mat-icon>
+      <span>System Restart</span>
+    </button>
+  </mat-menu>
+
+  <!-- User Profile Menu -->
+  <mat-menu #userProfileMenu="matMenu" class="user-profile-menu">
+    <div class="user-profile-header">
+      <mat-icon class="user-avatar-icon">account_circle</mat-icon>
+      <div class="user-info">
+        <div class="user-name">{{ currentUser.name }}</div>
+        <div class="user-role">{{ currentUser.role }}</div>
+        <div class="user-email">{{ currentUser.email }}</div>
+      </div>
+    </div>
+    
+    <mat-divider></mat-divider>
+    
+    <button mat-menu-item (click)="viewProfile()">
+      <mat-icon>person</mat-icon>
+      <span>My Profile</span>
+    </button>
+    
+    <button mat-menu-item [matMenuTriggerFor]="preferencesSubmenu">
+      <mat-icon>settings</mat-icon>
+      <span>Preferences</span>
+      <mat-icon class="submenu-arrow">chevron_right</mat-icon>
+    </button>
+    
+    <button mat-menu-item (click)="changePassword()">
+      <mat-icon>lock</mat-icon>
+      <span>Change Password</span>
+    </button>
+    
+    <button mat-menu-item (click)="myActivity()">
+      <mat-icon>history</mat-icon>
+      <span>My Activity</span>
+    </button>
+    
+    <mat-divider></mat-divider>
+    
+    <button mat-menu-item (click)="helpSupport()">
+      <mat-icon>help</mat-icon>
+      <span>Help & Support</span>
+    </button>
+    
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+
+  <!-- Preferences Submenu -->
+  <mat-menu #preferencesSubmenu="matMenu">
+    <button mat-menu-item (click)="themeSettings()">
+      <mat-icon>palette</mat-icon>
+      <span>Theme Settings</span>
+    </button>
+    <button mat-menu-item (click)="languageSettings()">
+      <mat-icon>language</mat-icon>
+      <span>Language</span>
+    </button>
+    <button mat-menu-item (click)="notificationSettings()">
+      <mat-icon>notifications</mat-icon>
+      <span>Notifications</span>
+    </button>
+    <button mat-menu-item (click)="privacySettings()">
+      <mat-icon>privacy_tip</mat-icon>
+      <span>Privacy Settings</span>
+    </button>
+  </mat-menu>
+</div>

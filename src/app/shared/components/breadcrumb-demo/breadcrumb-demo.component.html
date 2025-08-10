@@ -1,0 +1,48 @@
+<div class="breadcrumb-demo-container">
+  <mat-card class="demo-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>tune</mat-icon>
+        Breadcrumb Style Demo
+      </mat-card-title>
+      <mat-card-subtitle>
+        Choose different styles to see how breadcrumbs can look with various fonts and designs
+      </mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <!-- Current Style Preview -->
+      <div class="preview-section">
+        <h3>Current Style: {{ currentStyle | titlecase }}</h3>
+        <div class="breadcrumb-preview">
+          <app-breadcrumb [breadcrumbStyle]="currentStyle"></app-breadcrumb>
+        </div>
+      </div>
+      
+      <!-- Style Selection Buttons -->
+      <div class="style-buttons">
+        <h3>Available Styles</h3>
+        <div class="button-grid">
+          <button 
+            *ngFor="let style of breadcrumbStyles"
+            mat-raised-button
+            [class.selected]="currentStyle === style.style"
+            [color]="currentStyle === style.style ? 'primary' : 'basic'"
+            (click)="setStyle(style.style)"
+            class="style-button">
+            <div class="button-content">
+              <strong>{{ style.label }}</strong>
+              <small>{{ style.description }}</small>
+            </div>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Usage Example -->
+      <div class="usage-section">
+        <h3>Usage</h3>
+        <pre><code>&lt;app-breadcrumb breadcrumbStyle="{{ currentStyle }}"&gt;&lt;/app-breadcrumb&gt;</code></pre>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

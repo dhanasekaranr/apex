@@ -1,0 +1,59 @@
+// Settings Page Breadcrumb Demo Styles
+
+.breadcrumb-preview {
+  margin: var(--spacing-lg) 0;
+  
+  h4 {
+    color: var(--mat-sys-primary);
+    margin-bottom: var(--spacing-md);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-md);
+  }
+  
+  .preview-container {
+    background: var(--mat-sys-surface-variant);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    border: 1px solid var(--mat-sys-outline-variant);
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.code-example {
+  margin-top: var(--spacing-lg);
+  
+  h4 {
+    color: var(--mat-sys-primary);
+    margin-bottom: var(--spacing-md);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-md);
+  }
+  
+  pre {
+    background: var(--mat-sys-surface-container);
+    border: 1px solid var(--mat-sys-outline-variant);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+    overflow-x: auto;
+    font-family: 'Roboto Mono', 'Courier New', monospace;
+    font-size: var(--font-size-sm);
+    
+    code {
+      color: var(--mat-sys-on-surface);
+      background: none;
+    }
+  }
+}
+
+.setting-section {
+  .setting-row {
+    margin-bottom: var(--spacing-md);
+    
+    mat-form-field {
+      width: 100%;
+      max-width: 400px;
+    }
+  }
+}

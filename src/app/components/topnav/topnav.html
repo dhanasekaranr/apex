@@ -1,0 +1,406 @@
+<!-- Dynamic Horizontal Menu Bar -->
+<div class="horizontal-menu-bar">
+  <nav class="menu-nav">
+    <!-- Generate menu items dynamically from configuration -->
+    <ng-container *ngIf="topNavConfig$ | async as config">
+      <div 
+        *ngFor="let section of config.menuSections" 
+        class="menu-item-container">
+        
+        <ng-container *ngFor="let item of section.items">
+          <!-- Single menu item without dropdown -->
+          <button 
+            *ngIf="!hasChildren(item)"
+            mat-button 
+            [class.active]="(activeMenuTab$ | async) === item.id"
+            [routerLink]="item.routerLink"
+            (click)="onMenuItemClicked(item)"
+            class="menu-item">
+            <mat-icon>{{ item.icon }}</mat-icon>
+            {{ item.label }}
+            <span *ngIf="item.badge" class="menu-badge" [ngClass]="'badge-' + item.badge.color">
+              {{ item.badge.text }}
+            </span>
+          </button>
+
+          <!-- Menu item with dropdown (simplified static approach) -->
+          <ng-container *ngIf="hasChildren(item)">
+            <ng-container [ngSwitch]="item.id">
+              
+              <!-- Resources Menu -->
+              <ng-container *ngSwitchCase="'resources-main'">
+                <button mat-button 
+                        [class.active]="(activeMenuTab$ | async) === 'resources'" 
+                        [matMenuTriggerFor]="resourcesMenu"
+                        class="menu-item dropdown">
+                  <mat-icon>{{ item.icon }}</mat-icon>
+                  {{ item.label }}
+                  <mat-icon class="dropdown-arrow">arrow_drop_down</mat-icon>
+                </button>
+                
+                <mat-menu #resourcesMenu="matMenu" class="custom-menu" [overlapTrigger]="false">
+                  <ng-container *ngFor="let child of item.children; let last = last">
+                    <button 
+                      *ngIf="!hasChildren(child)"
+                      mat-menu-item 
+                      [routerLink]="child.routerLink"
+                      (click)="onMenuItemClicked(child)">
+                      <mat-icon>{{ child.icon }}</mat-icon>
+                      <span>{{ child.label }}</span>
+                    </button>
+                    
+                    <button 
+                      *ngIf="hasChildren(child) && child.id === 'resource-management'"
+                      mat-menu-item 
+                      [matMenuTriggerFor]="resourceMgmtMenu">
+                      <mat-icon>{{ child.icon }}</mat-icon>
+                      <span>{{ child.label }}</span>
+                      <mat-icon class="submenu-arrow">arrow_right</mat-icon>
+                    </button>
+                    
+                    <button 
+                      *ngIf="hasChildren(child) && child.id === 'resource-roles'"
+                      mat-menu-item 
+                      [matMenuTriggerFor]="resourceRolesMenu">
+                      <mat-icon>{{ child.icon }}</mat-icon>
+                      <span>{{ child.label }}</span>
+                      <mat-icon class="submenu-arrow">arrow_right</mat-icon>
+                    </button>
+                    
+                    <mat-divider *ngIf="child.dividerAfter && !last"></mat-divider>
+                  </ng-container>
+                </mat-menu>
+
+                <!-- Resource Management Submenu -->
+                <mat-menu #resourceMgmtMenu="matMenu" class="custom-submenu">
+                  <ng-container *ngFor="let mgmtItem of getChildrenById(item, 'resource-management'); let last = last">
+                    <button mat-menu-item (click)="onMenuItemClicked(mgmtItem)">
+                      <mat-icon>{{ mgmtItem.icon }}</mat-icon>
+                      <span>{{ mgmtItem.label }}</span>
+                    </button>
+                    <mat-divider *ngIf="mgmtItem.dividerAfter && !last"></mat-divider>
+                  </ng-container>
+                </mat-menu>
+
+                <!-- Resource Roles Submenu -->
+                <mat-menu #resourceRolesMenu="matMenu" class="custom-submenu">
+                  <ng-container *ngFor="let roleItem of getChildrenById(item, 'resource-roles')">
+                    <button mat-menu-item (click)="onMenuItemClicked(roleItem)">
+                      <mat-icon>{{ roleItem.icon }}</mat-icon>
+                      <span>{{ roleItem.label }}</span>
+                    </button>
+                  </ng-container>
+                </mat-menu>
+              </ng-container>
+
+              <!-- Messaging Menu -->
+              <ng-container *ngSwitchCase="'queue-main'">
+                <button mat-button 
+                        [class.active]="(activeMenuTab$ | async) === 'messaging'" 
+                        [matMenuTriggerFor]="messagingMenu"
+                        class="menu-item dropdown">
+                  <mat-icon>{{ item.icon }}</mat-icon>
+                  {{ item.label }}
+                  <mat-icon class="dropdown-arrow">arrow_drop_down</mat-icon>
+                </button>
+                
+                <mat-menu #messagingMenu="matMenu" class="custom-menu" [overlapTrigger]="false">
+                  <ng-container *ngFor="let child of item.children; let last = last">
+                    <button 
+                      *ngIf="!hasChildren(child)"
+                      mat-menu-item 
+                      [routerLink]="child.routerLink"
+                      (click)="onMenuItemClicked(child)">
+                      <mat-icon>{{ child.icon }}</mat-icon>
+                      <span>{{ child.label }}</span>
+                    </button>
+                    
+                    <button 
+                      *ngIf="hasChildren(child) && child.id === 'order-status'"
+                      mat-menu-item 
+                      [matMenuTriggerFor]="messageStatusMenu">
+                      <mat-icon>{{ child.icon }}</mat-icon>
+                      <span>{{ child.label }}</span>
+                      <mat-icon class="submenu-arrow">arrow_right</mat-icon>
+                    </button>
+                    
+                    <button 
+                      *ngIf="hasChildren(child) && child.id === 'order-reports'"
+                      mat-menu-item 
+                      [matMenuTriggerFor]="messageReportsMenu">
+                      <mat-icon>{{ child.icon }}</mat-icon>
+                      <span>{{ child.label }}</span>
+                      <mat-icon class="submenu-arrow">arrow_right</mat-icon>
+                    </button>
+                    
+                    <mat-divider *ngIf="child.dividerAfter && !last"></mat-divider>
+                  </ng-container>
+                </mat-menu>
+
+                <!-- Message Status Submenu -->
+                <mat-menu #messageStatusMenu="matMenu" class="custom-submenu">
+                  <ng-container *ngFor="let statusItem of getChildrenById(item, 'order-status')">
+                    <button mat-menu-item (click)="onMenuItemClicked(statusItem)">
+                      <mat-icon>{{ statusItem.icon }}</mat-icon>
+                      <span>{{ statusItem.label }}</span>
+                    </button>
+                  </ng-container>
+                </mat-menu>
+
+                <!-- Message Reports Submenu -->
+                <mat-menu #messageReportsMenu="matMenu" class="custom-submenu">
+                  <ng-container *ngFor="let reportItem of getChildrenById(item, 'order-reports')">
+                    <button mat-menu-item (click)="onMenuItemClicked(reportItem)">
+                      <mat-icon>{{ reportItem.icon }}</mat-icon>
+                      <span>{{ reportItem.label }}</span>
+                    </button>
+                  </ng-container>
+                </mat-menu>
+              </ng-container>
+
+              <!-- Documents Menu -->
+              <ng-container *ngSwitchCase="'documents-main'">
+                <button mat-button 
+                        [class.active]="(activeMenuTab$ | async) === 'documents'" 
+                        [matMenuTriggerFor]="documentsMenu"
+                        class="menu-item dropdown">
+                  <mat-icon>{{ item.icon }}</mat-icon>
+                  {{ item.label }}
+                  <mat-icon class="dropdown-arrow">arrow_drop_down</mat-icon>
+                </button>
+                
+                <mat-menu #documentsMenu="matMenu" class="custom-menu" [overlapTrigger]="false">
+                  <ng-container *ngFor="let child of item.children; let last = last">
+                    <button 
+                      *ngIf="!hasChildren(child)"
+                      mat-menu-item 
+                      [routerLink]="child.routerLink"
+                      (click)="onMenuItemClicked(child)">
+                      <mat-icon>{{ child.icon }}</mat-icon>
+                      <span>{{ child.label }}</span>
+                    </button>
+                    
+                    <button 
+                      *ngIf="hasChildren(child) && child.id === 'financial-reports'"
+                      mat-menu-item 
+                      [matMenuTriggerFor]="financialReportsMenu">
+                      <mat-icon>{{ child.icon }}</mat-icon>
+                      <span>{{ child.label }}</span>
+                      <mat-icon class="submenu-arrow">arrow_right</mat-icon>
+                    </button>
+                    
+                    <button 
+                      *ngIf="hasChildren(child) && child.id === 'operational-reports'"
+                      mat-menu-item 
+                      [matMenuTriggerFor]="operationalReportsMenu">
+                      <mat-icon>{{ child.icon }}</mat-icon>
+                      <span>{{ child.label }}</span>
+                      <mat-icon class="submenu-arrow">arrow_right</mat-icon>
+                    </button>
+                    
+                    <button 
+                      *ngIf="hasChildren(child) && child.id === 'custom-reports'"
+                      mat-menu-item 
+                      [matMenuTriggerFor]="customReportsMenu">
+                      <mat-icon>{{ child.icon }}</mat-icon>
+                      <span>{{ child.label }}</span>
+                      <mat-icon class="submenu-arrow">arrow_right</mat-icon>
+                    </button>
+                    
+                    <mat-divider *ngIf="child.dividerAfter && !last"></mat-divider>
+                  </ng-container>
+                </mat-menu>
+
+                <!-- Financial Reports Submenu -->
+                <mat-menu #financialReportsMenu="matMenu" class="custom-submenu">
+                  <ng-container *ngFor="let reportItem of getChildrenById(item, 'financial-reports')">
+                    <button mat-menu-item (click)="onMenuItemClicked(reportItem)">
+                      <mat-icon>{{ reportItem.icon }}</mat-icon>
+                      <span>{{ reportItem.label }}</span>
+                    </button>
+                  </ng-container>
+                </mat-menu>
+
+                <!-- Operational Reports Submenu -->
+                <mat-menu #operationalReportsMenu="matMenu" class="custom-submenu">
+                  <ng-container *ngFor="let reportItem of getChildrenById(item, 'operational-reports')">
+                    <button mat-menu-item (click)="onMenuItemClicked(reportItem)">
+                      <mat-icon>{{ reportItem.icon }}</mat-icon>
+                      <span>{{ reportItem.label }}</span>
+                    </button>
+                  </ng-container>
+                </mat-menu>
+
+                <!-- Custom Reports Submenu -->
+                <mat-menu #customReportsMenu="matMenu" class="custom-submenu">
+                  <ng-container *ngFor="let reportItem of getChildrenById(item, 'custom-reports')">
+                    <button mat-menu-item (click)="onMenuItemClicked(reportItem)">
+                      <mat-icon>{{ reportItem.icon }}</mat-icon>
+                      <span>{{ reportItem.label }}</span>
+                    </button>
+                  </ng-container>
+                </mat-menu>
+              </ng-container>
+
+              <!-- Settings Menu -->
+              <ng-container *ngSwitchCase="'settings-main'">
+                <button mat-button 
+                        [class.active]="(activeMenuTab$ | async) === 'settings'" 
+                        [matMenuTriggerFor]="settingsMenu"
+                        class="menu-item dropdown">
+                  <mat-icon>{{ item.icon }}</mat-icon>
+                  {{ item.label }}
+                  <mat-icon class="dropdown-arrow">arrow_drop_down</mat-icon>
+                </button>
+                
+                <mat-menu #settingsMenu="matMenu" class="custom-menu" [overlapTrigger]="false">
+                  <ng-container *ngFor="let child of item.children; let last = last">
+                    <button 
+                      *ngIf="!hasChildren(child)"
+                      mat-menu-item 
+                      [routerLink]="child.routerLink"
+                      (click)="onMenuItemClicked(child)">
+                      <mat-icon>{{ child.icon }}</mat-icon>
+                      <span>{{ child.label }}</span>
+                    </button>
+                    
+                    <button 
+                      *ngIf="hasChildren(child) && child.id === 'system-settings'"
+                      mat-menu-item 
+                      [matMenuTriggerFor]="systemSettingsMenu">
+                      <mat-icon>{{ child.icon }}</mat-icon>
+                      <span>{{ child.label }}</span>
+                      <mat-icon class="submenu-arrow">arrow_right</mat-icon>
+                    </button>
+                    
+                    <button 
+                      *ngIf="hasChildren(child) && child.id === 'user-preferences'"
+                      mat-menu-item 
+                      [matMenuTriggerFor]="userPreferencesMenu">
+                      <mat-icon>{{ child.icon }}</mat-icon>
+                      <span>{{ child.label }}</span>
+                      <mat-icon class="submenu-arrow">arrow_right</mat-icon>
+                    </button>
+                    
+                    <button 
+                      *ngIf="hasChildren(child) && child.id === 'security-settings'"
+                      mat-menu-item 
+                      [matMenuTriggerFor]="securitySettingsMenu">
+                      <mat-icon>{{ child.icon }}</mat-icon>
+                      <span>{{ child.label }}</span>
+                      <mat-icon class="submenu-arrow">arrow_right</mat-icon>
+                    </button>
+                    
+                    <mat-divider *ngIf="child.dividerAfter && !last"></mat-divider>
+                  </ng-container>
+                </mat-menu>
+
+                <!-- System Settings Submenu -->
+                <mat-menu #systemSettingsMenu="matMenu" class="custom-submenu">
+                  <ng-container *ngFor="let settingItem of getChildrenById(item, 'system-settings')">
+                    <button mat-menu-item (click)="onMenuItemClicked(settingItem)">
+                      <mat-icon>{{ settingItem.icon }}</mat-icon>
+                      <span>{{ settingItem.label }}</span>
+                    </button>
+                  </ng-container>
+                </mat-menu>
+
+                <!-- User Preferences Submenu -->
+                <mat-menu #userPreferencesMenu="matMenu" class="custom-submenu">
+                  <ng-container *ngFor="let prefItem of getChildrenById(item, 'user-preferences')">
+                    <button mat-menu-item (click)="onMenuItemClicked(prefItem)">
+                      <mat-icon>{{ prefItem.icon }}</mat-icon>
+                      <span>{{ prefItem.label }}</span>
+                    </button>
+                  </ng-container>
+                </mat-menu>
+
+                <!-- Security Settings Submenu -->
+                <mat-menu #securitySettingsMenu="matMenu" class="custom-submenu">
+                  <ng-container *ngFor="let secItem of getChildrenById(item, 'security-settings')">
+                    <button mat-menu-item (click)="onMenuItemClicked(secItem)">
+                      <mat-icon>{{ secItem.icon }}</mat-icon>
+                      <span>{{ secItem.label }}</span>
+                    </button>
+                  </ng-container>
+                </mat-menu>
+              </ng-container>
+
+              <!-- Other menu items use simplified single level dropdown -->
+              <ng-container *ngSwitchDefault>
+                <button mat-button 
+                        [class.active]="(activeMenuTab$ | async) === item.id"
+                        [matMenuTriggerFor]="defaultMenu"
+                        class="menu-item dropdown">
+                  <mat-icon>{{ item.icon }}</mat-icon>
+                  {{ item.label }}
+                  <mat-icon class="dropdown-arrow">arrow_drop_down</mat-icon>
+                </button>
+                
+                <mat-menu #defaultMenu="matMenu" class="custom-menu" [overlapTrigger]="false">
+                  <ng-container *ngFor="let child of item.children; let last = last">
+                    <button 
+                      mat-menu-item 
+                      [routerLink]="child.routerLink"
+                      (click)="onMenuItemClicked(child)">
+                      <mat-icon>{{ child.icon }}</mat-icon>
+                      <span>{{ child.label }}</span>
+                    </button>
+                    <mat-divider *ngIf="child.dividerAfter && !last"></mat-divider>
+                  </ng-container>
+                </mat-menu>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+    </ng-container>
+  </nav>
+
+  <!-- Dynamic Action Buttons Section -->
+  <div class="action-buttons">
+    <ng-container *ngIf="topNavConfig$ | async as config">
+      <!-- Search Input Field -->
+      <div class="search-container">
+        <mat-form-field appearance="outline" class="search-field">
+          <input matInput placeholder="Search..." [(ngModel)]="searchText" (keyup.enter)="performSearch()">
+        </mat-form-field>
+      </div>
+      
+      <!-- Generate action buttons dynamically -->
+      <ng-container *ngFor="let button of config.actionButtons">
+        <button 
+          *ngIf="button.id !== 'more'"
+          mat-icon-button 
+          [matTooltip]="button.tooltip" 
+          (click)="onActionButtonClicked(button)">
+          <mat-icon>{{ button.icon }}</mat-icon>
+          <span *ngIf="button.badge" class="action-badge" [ngClass]="'badge-' + button.badge.color">
+            {{ button.badge.text }}
+          </span>
+        </button>
+      </ng-container>
+      
+      <!-- More menu button -->
+      <button mat-icon-button [matMenuTriggerFor]="moreMenu" matTooltip="More Options">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      
+      <mat-menu #moreMenu="matMenu">
+        <button mat-menu-item (click)="openHelp()">
+          <mat-icon>help</mat-icon>
+          <span>Help & Support</span>
+        </button>
+        <button mat-menu-item (click)="openNotifications()">
+          <mat-icon>notifications</mat-icon>
+          <span>Notifications</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="openSettings()">
+          <mat-icon>tune</mat-icon>
+          <span>System Settings</span>
+        </button>
+      </mat-menu>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,97 @@
+.breadcrumb-demo-container {
+  padding: var(--spacing-md);
+}
+
+.demo-card {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.preview-section {
+  margin-bottom: var(--spacing-xl);
+  
+  h3 {
+    color: var(--mat-sys-primary);
+    margin-bottom: var(--spacing-md);
+    font-weight: var(--font-weight-semibold);
+  }
+  
+  .breadcrumb-preview {
+    background: var(--mat-sys-surface-variant);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    border: 1px solid var(--mat-sys-outline-variant);
+  }
+}
+
+.style-buttons {
+  margin-bottom: var(--spacing-xl);
+  
+  h3 {
+    color: var(--mat-sys-primary);
+    margin-bottom: var(--spacing-md);
+    font-weight: var(--font-weight-semibold);
+  }
+  
+  .button-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+  }
+  
+  .style-button {
+    height: auto;
+    padding: var(--spacing-md);
+    text-align: left;
+    
+    &.selected {
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(var(--mat-sys-primary-rgb), 0.3);
+    }
+    
+    .button-content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xs);
+      
+      strong {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-semibold);
+      }
+      
+      small {
+        font-size: var(--font-size-sm);
+        opacity: 0.8;
+        line-height: 1.3;
+      }
+    }
+  }
+}
+
+.usage-section {
+  h3 {
+    color: var(--mat-sys-primary);
+    margin-bottom: var(--spacing-md);
+    font-weight: var(--font-weight-semibold);
+  }
+  
+  pre {
+    background: var(--mat-sys-surface-container);
+    border: 1px solid var(--mat-sys-outline-variant);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+    overflow-x: auto;
+    
+    code {
+      font-family: 'Roboto Mono', 'Courier New', monospace;
+      font-size: var(--font-size-sm);
+      color: var(--mat-sys-on-surface);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .button-grid {
+    grid-template-columns: 1fr;
+  }
+}

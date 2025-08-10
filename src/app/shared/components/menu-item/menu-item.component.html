@@ -1,0 +1,84 @@
+<!-- Menu Item Component Template -->
+<div class="menu-item-container">
+  <!-- Single menu item without dropdown -->
+  <button 
+    *ngIf="!hasChildren(item)"
+    mat-button 
+    [class.active]="isActive(item)"
+    [routerLink]="item.routerLink"
+    (click)="onItemClick(item)"
+    class="menu-item">
+    <mat-icon>{{ item.icon }}</mat-icon>
+    {{ item.label }}
+    <span *ngIf="item.badge" class="menu-badge" [ngClass]="'badge-' + item.badge.color">
+      {{ item.badge.text }}
+    </span>
+  </button>
+
+  <!-- Menu item with dropdown -->
+  <ng-container *ngIf="hasChildren(item)">
+    <button 
+      mat-button 
+      [class.active]="isActive(item)"
+      [matMenuTriggerFor]="mainMenu"
+      class="menu-item dropdown">
+      <mat-icon>{{ item.icon }}</mat-icon>
+      {{ item.label }}
+      <mat-icon class="dropdown-arrow">arrow_drop_down</mat-icon>
+      <span *ngIf="item.badge" class="menu-badge" [ngClass]="'badge-' + item.badge.color">
+        {{ item.badge.text }}
+      </span>
+    </button>
+    
+    <mat-menu #mainMenu="matMenu" class="custom-menu" [overlapTrigger]="false">
+      <ng-container *ngFor="let child of item.children; let last = last">
+        <!-- Simple menu item -->
+        <button 
+          *ngIf="!hasChildren(child)"
+          mat-menu-item 
+          [routerLink]="child.routerLink"
+          (click)="onSubmenuItemClick(child)">
+          <mat-icon>{{ child.icon }}</mat-icon>
+          <span>{{ child.label }}</span>
+          <span *ngIf="child.badge" class="menu-badge" [ngClass]="'badge-' + child.badge.color">
+            {{ child.badge.text }}
+          </span>
+        </button>
+        
+        <!-- Submenu item with children - Simplified approach -->
+        <ng-container *ngIf="hasChildren(child)">
+          <button 
+            mat-menu-item 
+            [matMenuTriggerFor]="submenu">
+            <mat-icon>{{ child.icon }}</mat-icon>
+            <span>{{ child.label }}</span>
+            <mat-icon class="submenu-arrow">arrow_right</mat-icon>
+            <span *ngIf="child.badge" class="menu-badge" [ngClass]="'badge-' + child.badge.color">
+              {{ child.badge.text }}
+            </span>
+          </button>
+
+          <!-- Simple submenu -->
+          <mat-menu #submenu="matMenu" class="custom-submenu">
+            <ng-container *ngFor="let grandchild of child.children; let sublast = last">
+              <button 
+                mat-menu-item 
+                [routerLink]="grandchild.routerLink"
+                (click)="onSubmenuItemClick(grandchild)">
+                <mat-icon>{{ grandchild.icon }}</mat-icon>
+                <span>{{ grandchild.label }}</span>
+                <span *ngIf="grandchild.badge" class="menu-badge" [ngClass]="'badge-' + grandchild.badge.color">
+                  {{ grandchild.badge.text }}
+                </span>
+              </button>
+              <mat-divider *ngIf="grandchild.dividerAfter && !sublast"></mat-divider>
+            </ng-container>
+          </mat-menu>
+        </ng-container>
+        
+        <!-- Divider -->
+        <mat-divider *ngIf="child.dividerAfter && !last"></mat-divider>
+      </ng-container>
+    </mat-menu>
+  </ng-container>
+</div>

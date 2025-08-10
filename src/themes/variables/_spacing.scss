@@ -1,0 +1,40 @@
+// Spacing System - Balanced for 36px components
+$spacing-xs: 6px;   // Increased from 4px
+$spacing-sm: 8px;   // Increased from 6px  
+$spacing-md: 12px;  // Increased from 8px
+$spacing-lg: 16px;  // Increased from 12px
+$spacing-xl: 20px;  // Increased from 16px
+$spacing-xxl: 24px; // Increased from 20px
+$spacing-xxxl: 32px; // Increased from 24px
+
+// Form Spacing
+$form-field-gap: $spacing-md;
+$form-section-gap: $spacing-lg;
+$form-column-gap: $spacing-xl;
+
+// Card Spacing - Increased for dashboard widgets
+$card-padding: 20px;        // Increased from 16px
+$card-margin: $spacing-lg;  // Use lg spacing
+$card-header-padding: 24px; // Increased from 16px
+
+// Container Spacing - Enhanced for uniform layouts
+$container-padding: $spacing-md; // Reduced from lg to md for better visual balance
+$container-max-width: none;      // Allow full width by default
+
+// Component Spacing
+$header-height: 64px;
+$footer-height: 40px; // Reduced from 48px for better proportions
+$sidenav-width: 250px;
+$sidenav-header-height: 105px; // Match top header area height
+
+// Grid Spacing
+$grid-gap: $spacing-md;
+$grid-column-min-width: 180px;
+
+// Responsive Breakpoints
+$breakpoint-xs: 480px;
+$breakpoint-sm: 768px;
+$breakpoint-md: 992px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;

@@ -1,0 +1,50 @@
+// Card Mixins
+@mixin card-base($padding: 20px) { // Increased default padding
+  background: var(--background-card);
+  border-radius: var(--border-radius-lg); // Use larger radius
+  box-shadow: var(--shadow-md);
+  padding: $padding;
+  margin-bottom: var(--spacing-lg); // Increased margin
+}
+
+@mixin card-header($gradient: true) {
+  @if $gradient {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+  } @else {
+    background: var(--primary-color);
+  }
+  color: var(--white);
+  margin: calc(-1 * var(--card-header-padding)) calc(-1 * var(--card-header-padding)) var(--card-header-padding) calc(-1 * var(--card-header-padding));
+  padding: var(--card-header-padding);
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0; // Use larger radius
+
+  .card-title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm); // Increased gap
+    font-size: var(--font-size-xxl);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-sm); // Increased margin
+
+    mat-icon {
+      font-size: var(--icon-size-lg);
+      width: var(--icon-size-lg);
+      height: var(--icon-size-lg);
+    }
+  }
+
+  .card-subtitle {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0;
+    font-size: var(--font-size-sm);
+  }
+}
+
+@mixin card-actions($gap: 12px) { // Increased default gap
+  display: flex;
+  gap: $gap;
+  justify-content: flex-end;
+  padding: var(--spacing-lg) 0 0 0;
+  border-top: var(--border-width-thin) solid var(--border-light);
+  margin-top: var(--spacing-lg);
+}

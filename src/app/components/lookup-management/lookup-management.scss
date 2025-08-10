@@ -1,0 +1,16 @@
+// Lookup Management Component Styles - Minimal
+// All styling has been moved to /themes/mixins/_layout.scss and /themes/_index.scss
+// for better organization, reusability, and Material 3 compliance
+
+// The component now uses the global two-panel-layout pattern:
+// - .two-panel-container (main container)
+// - .left-panel.data-list-panel (left column for lists)
+// - .right-panel.data-details-panel (right column for details)
+// - .data-list, .data-info, .data-table-container (content areas)
+
+// This pattern can be reused in other components by using the same class names
+
+// Component-specific overrides only (if any needed)
+// .lookup-management-specific {
+//   // Custom overrides specific to this component instance
+// }

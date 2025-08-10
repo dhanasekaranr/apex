@@ -1,0 +1,149 @@
+/* Global Styles - Angular 20 with Material 3 */
+
+// Import the main theme FIRST (includes all variables and overrides)
+@use 'themes/index' as *;
+
+@import "@fontsource/material-icons/index.css";
+
+/* now define the ligature-class that Fontsource omits */
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;          /* adjust as needed */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga';
+}
+
+// Enhanced font-weight overrides for better UI readability
+// Navigation and menu items should be more prominent
+.mat-toolbar,
+.mat-toolbar .mat-button,
+.mat-toolbar .mat-icon-button,
+.mat-sidenav,
+.mat-nav-list .mat-list-item,
+.mat-menu-item,
+.topnav-menu .mat-button,
+.header-container,
+nav button,
+.menu-item {
+  font-weight: var(--font-weight-medium, 500) !important;
+}
+
+// Headers should be even more prominent
+h1, h2, h3, h4, h5, h6,
+.mat-card-title,
+.section-title,
+.dashboard-title,
+mat-card-title {
+  font-weight: var(--font-weight-semibold, 600) !important;
+}
+
+// Form labels and important text
+.mat-form-field-label,
+.mat-select-value,
+.mat-input-element,
+mat-label {
+  font-weight: var(--font-weight-medium, 500) !important;
+}
+
+html, body { 
+  height: 100%; 
+}
+
+body { 
+  margin: 0; 
+  font-family: var(--font-family-primary, 'Roboto', sans-serif);
+  background-color: var(--background-primary, #fafafa);
+  color: var(--text-primary, #212121);
+}
+
+// Set default theme to standard density
+// This can be changed dynamically by adding/removing CSS classes
+body {
+  @extend .theme-standard;
+}
+
+/* Windows-style Tab Global Overrides */
+.shared-tab-group-container {
+  
+  // Force Windows-style tab header styling
+  .mat-tab-header {
+    background: linear-gradient(135deg, #f1f3f4 0%, #e8eaed 100%) !important;
+    border-bottom: 1px solid #dadce0 !important;
+  }
+
+  // Force Windows-style tab labels
+  .mat-tab-label {
+    background: transparent !important;
+    border-right: 1px solid rgba(218, 220, 224, 0.6) !important;
+    padding: 12px 24px !important;
+    min-width: 120px !important;
+    font-weight: 500 !important;
+    color: #5f6368 !important;
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1) !important;
+  }
+
+  // Force Windows-style hover effects
+  .mat-tab-label:hover {
+    background: linear-gradient(135deg, rgba(26, 115, 232, 0.04) 0%, rgba(26, 115, 232, 0.08) 100%) !important;
+    color: #1a73e8 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 4px rgba(26, 115, 232, 0.1) !important;
+  }
+
+  // Force Windows-style active tab
+  .mat-tab-label-active {
+    background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%) !important;
+    color: #1a73e8 !important;
+    font-weight: 600 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 -2px 8px rgba(26, 115, 232, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+    z-index: 1 !important;
+    position: relative !important;
+  }
+
+  // Force disabled tab styling
+  .mat-tab-disabled {
+    background: #f8f9fa !important;
+    color: #9aa0a6 !important;
+    cursor: not-allowed !important;
+    opacity: 0.6 !important;
+  }
+
+  .mat-tab-disabled:hover {
+    background: #f8f9fa !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  // Hide default ink bar
+  .mat-ink-bar {
+    display: none !important;
+  }
+
+  // Force Windows-style body
+  .mat-tab-body-wrapper {
+    background: #ffffff !important;
+    border-radius: 0 0 8px 8px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+  }
+
+  .mat-tab-body {
+    background: #ffffff !important;
+    border-radius: 0 0 8px 8px !important;
+  }
+
+  .mat-tab-body-content {
+    background: #ffffff !important;
+  }
+}

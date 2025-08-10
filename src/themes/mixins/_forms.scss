@@ -1,0 +1,84 @@
+// Form Field Mixins
+@mixin form-field-compact {
+  width: 100%;
+  
+  &.mat-form-field-appearance-outline {
+    .mat-form-field-outline {
+      color: var(--border-light);
+    }
+
+    &.mat-focused .mat-form-field-outline-thick {
+      color: var(--primary-color);
+    }
+    
+    .mat-form-field-wrapper {
+      padding-bottom: 0.75em;
+    }
+    
+    .mat-form-field-infix {
+      padding: 0.5em 0;
+      border-top: 0.75em solid transparent;
+    }
+  }
+
+  mat-label {
+    color: var(--text-secondary);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-sm);
+  }
+
+  input, textarea {
+    color: var(--text-primary);
+    font-size: var(--font-size-md);
+  }
+
+  mat-icon {
+    color: var(--text-secondary);
+    font-size: var(--icon-size-md);
+    width: var(--icon-size-md);
+    height: var(--icon-size-md);
+  }
+
+  mat-error {
+    font-size: var(--font-size-xs);
+    color: var(--error-color);
+  }
+}
+
+@mixin form-grid($min-width: 180px, $gap: 8px) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+  gap: $gap;
+  align-items: start;
+
+  .grid-item {
+    width: 100%;
+  }
+
+  .grid-item-full {
+    grid-column: 1 / -1;
+  }
+
+  .grid-item-half {
+    grid-column: span 1;
+  }
+}
+
+@mixin form-section($padding: 10px) {
+  background: var(--background-secondary);
+  padding: $padding;
+  border-radius: var(--border-radius-sm);
+  border: var(--border-width-thin) solid var(--border-light);
+  margin-bottom: 0;
+
+  .section-title {
+    color: var(--primary-color);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-xs);
+    border-bottom: var(--border-width-thin) solid var(--border-light);
+    display: flex;
+    align-items: center;
+  }
+}

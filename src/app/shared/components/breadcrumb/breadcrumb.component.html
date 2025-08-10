@@ -1,0 +1,40 @@
+<nav 
+  class="breadcrumb-container" 
+  [ngClass]="breadcrumbStyle !== 'default' ? 'breadcrumb-' + breadcrumbStyle : ''"
+  aria-label="Breadcrumb navigation">
+  <ol class="breadcrumb-list">
+    <li 
+      *ngFor="let breadcrumb of breadcrumbs; let last = last" 
+      class="breadcrumb-item"
+      [class.current]="isCurrentRoute(breadcrumb.url)">
+      
+      <!-- Clickable breadcrumb item (not current) -->
+      <button 
+        *ngIf="!isCurrentRoute(breadcrumb.url)" 
+        mat-button 
+        class="breadcrumb-link"
+        (click)="navigateTo(breadcrumb.url)"
+        [attr.aria-label]="'Navigate to ' + breadcrumb.label">
+        <mat-icon *ngIf="breadcrumb.icon" class="breadcrumb-icon">{{ breadcrumb.icon }}</mat-icon>
+        <span class="breadcrumb-label">{{ breadcrumb.label }}</span>
+      </button>
+      
+      <!-- Current page (non-clickable) -->
+      <span 
+        *ngIf="isCurrentRoute(breadcrumb.url)" 
+        class="breadcrumb-current"
+        [attr.aria-current]="'page'">
+        <mat-icon *ngIf="breadcrumb.icon" class="breadcrumb-icon">{{ breadcrumb.icon }}</mat-icon>
+        <span class="breadcrumb-label">{{ breadcrumb.label }}</span>
+      </span>
+      
+      <!-- Separator -->
+      <mat-icon 
+        *ngIf="!last" 
+        class="breadcrumb-separator"
+        aria-hidden="true">
+        chevron_right
+      </mat-icon>
+    </li>
+  </ol>
+</nav>

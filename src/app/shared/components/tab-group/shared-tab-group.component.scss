@@ -1,0 +1,69 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.tab-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  // Disabled state styles for tabs - similar to sidenav
+  &.disabled-tab {
+    opacity: 0.6;
+    
+    .tab-icon:not(.info-icon) {
+      color: var(--text-disabled, rgba(0, 0, 0, 0.38));
+    }
+    
+    .info-icon {
+      color: var(--warning-color, #ff9800) !important;
+      margin-left: auto;
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      // Keep pointer events for tooltip
+      pointer-events: auto;
+    }
+  }
+}
+
+.tab-icon {
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+  margin-right: 0.25rem;
+  color: var(--mat-sys-on-surface);
+}
+
+.status-icon {
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+}
+
+.per-tab-actions {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  background: var(--mat-sys-surface-1);
+}
+
+.spinner-wrap {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  height: 240px;
+}
+
+.global-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  padding: 0.5rem 1rem;
+  border-top: 1px solid var(--mat-sys-outline-variant);
+  background: var(--mat-sys-surface-1);
+}

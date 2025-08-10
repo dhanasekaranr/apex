@@ -1,0 +1,87 @@
+// Control Group Mixins
+@mixin checkbox-group-compact($gap: 4px) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+  margin-bottom: var(--spacing-md);
+
+  mat-checkbox {
+    .mat-checkbox-label {
+      font-size: var(--font-size-sm);
+      color: var(--text-primary);
+    }
+    
+    .mat-checkbox-layout {
+      margin-bottom: var(--spacing-xs);
+    }
+  }
+}
+
+@mixin radio-group-compact($gap: 4px) {
+  margin-bottom: var(--spacing-md);
+
+  .radio-group-label {
+    display: block;
+    font-weight: var(--font-weight-medium);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+  }
+
+  .radio-group-content {
+    display: flex;
+    flex-direction: column;
+    gap: $gap;
+
+    mat-radio-button {
+      .mat-radio-label-content {
+        font-size: var(--font-size-sm);
+        color: var(--text-primary);
+      }
+      
+      .mat-radio-label {
+        margin-bottom: var(--spacing-xs);
+      }
+    }
+  }
+}
+
+@mixin toggle-group-compact {
+  margin-bottom: var(--spacing-md);
+
+  mat-slide-toggle {
+    .mat-slide-toggle-label {
+      font-size: var(--font-size-sm);
+      color: var(--text-primary);
+    }
+  }
+}
+
+@mixin terms-section-compact($padding: 8px) {
+  background: var(--background-secondary);
+  padding: $padding;
+  border-radius: var(--border-radius-sm);
+  border-left: var(--border-width-medium) solid var(--warning-color);
+
+  mat-checkbox {
+    .mat-checkbox-label {
+      font-size: var(--font-size-sm);
+      color: var(--text-primary);
+
+      a {
+        color: var(--primary-color);
+        text-decoration: none;
+        
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  mat-error {
+    margin-top: var(--spacing-xs);
+    font-size: var(--font-size-xs);
+    color: var(--error-color);
+  }
+}

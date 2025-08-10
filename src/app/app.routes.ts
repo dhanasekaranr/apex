@@ -1,0 +1,88 @@
+import { Routes } from '@angular/router';
+import { BookingComponent } from './components/booking/booking.component';
+import { Dashboard } from './components/dashboard/dashboard';
+import { LookupManagement } from './components/lookup-management/lookup-management';
+import { Orders } from './components/orders/orders';
+import { Users } from './components/users/users';
+import { DocumentationViewerComponent } from './pages/documentation/documentation-viewer.component';
+import { Settings } from './pages/settings/settings';
+
+export const routes: Routes = [
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  {
+    path: 'dashboard',
+    component: Dashboard,
+    data: { breadcrumb: 'Dashboard', icon: 'dashboard' },
+  },
+  {
+    path: 'analytics',
+    component: Dashboard,
+    data: { breadcrumb: 'Analytics', icon: 'analytics' },
+  },
+  {
+    path: 'users',
+    component: Users,
+    data: { breadcrumb: 'Users', icon: 'people' },
+  },
+  {
+    path: 'products',
+    component: Dashboard,
+    data: { breadcrumb: 'Products', icon: 'inventory' },
+  },
+  {
+    path: 'orders',
+    component: Orders,
+    data: { breadcrumb: 'Orders', icon: 'shopping_cart' },
+  },
+  {
+    path: 'booking',
+    component: BookingComponent,
+    data: { breadcrumb: 'Booking', icon: 'book_online' },
+  },
+  {
+    path: 'reports',
+    component: Dashboard,
+    data: { breadcrumb: 'Reports', icon: 'assessment' },
+  },
+  {
+    path: 'lookup-management',
+    component: LookupManagement,
+    data: { breadcrumb: 'Lookup Management', icon: 'manage_search' },
+  },
+  {
+    path: 'settings/general',
+    component: Settings,
+    data: { breadcrumb: 'General Settings', icon: 'tune' },
+  },
+  {
+    path: 'settings/preferences',
+    component: Dashboard,
+    data: { breadcrumb: 'User Preferences', icon: 'person_pin' },
+  },
+  {
+    path: 'documentation',
+    component: DocumentationViewerComponent,
+    data: { breadcrumb: 'Documentation', icon: 'description' },
+  },
+  {
+    path: 'documentation/:id',
+    component: DocumentationViewerComponent,
+    data: { breadcrumb: 'Documentation', icon: 'description' },
+  },
+  {
+    path: 'help',
+    redirectTo: '/documentation',
+    pathMatch: 'full',
+  },
+  {
+    path: 'support',
+    component: Dashboard,
+    data: { breadcrumb: 'Contact Support', icon: 'support_agent' },
+  },
+  {
+    path: 'report-issue',
+    component: Dashboard,
+    data: { breadcrumb: 'Report Issue', icon: 'bug_report' },
+  },
+  { path: '**', redirectTo: '/dashboard' },
+];

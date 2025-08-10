@@ -1,0 +1,320 @@
+// Tab Mixins - Reusable tab patterns for new components
+// Use these mixins to create consistent tab layouts across the application
+
+// Basic tab group styling
+@mixin tab-group-base {
+  .mat-mdc-tab-group {
+    background: var(--background-card);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+
+    .mat-mdc-tab-header {
+      background: var(--background-secondary);
+      border-bottom: var(--border-width-thin) solid var(--border-light);
+      
+      .mat-mdc-tab {
+        color: var(--text-secondary);
+        font-weight: var(--font-weight-medium);
+        font-size: var(--font-size-md);
+        min-width: 120px;
+        padding: 0 var(--spacing-lg);
+        
+        &:hover {
+          color: var(--text-primary);
+          background: var(--background-hover);
+        }
+        
+        &.mdc-tab--active {
+          color: var(--primary-color);
+          background: var(--background-card);
+        }
+      }
+      
+      .mat-mdc-tab-header-pagination {
+        display: none;
+      }
+      
+      .mat-ink-bar {
+        background-color: var(--primary-color);
+        height: 3px;
+        border-radius: var(--border-radius-sm);
+      }
+    }
+    
+    .mat-mdc-tab-body-wrapper {
+      padding: var(--spacing-lg);
+      background: var(--background-card);
+    }
+  }
+}
+
+// Compact tab variant
+@mixin tab-group-compact {
+  .mat-mdc-tab-group {
+    .mat-mdc-tab-header {
+      .mat-mdc-tab {
+        min-width: 80px;
+        padding: 0 var(--spacing-md);
+        font-size: var(--font-size-sm);
+        height: 36px;
+      }
+    }
+    
+    .mat-mdc-tab-body-wrapper {
+      padding: var(--spacing-md);
+    }
+  }
+}
+
+// Pill-style tabs
+@mixin tab-group-pills {
+  .mat-mdc-tab-group {
+    .mat-mdc-tab-header {
+      background: transparent;
+      border-bottom: none;
+      padding: var(--spacing-sm);
+      
+      .mat-mdc-tab {
+        border-radius: var(--border-radius-xl);
+        margin: 0 var(--spacing-xs);
+        background: var(--background-tertiary);
+        color: var(--text-secondary);
+        transition: all 0.2s ease;
+        
+        &:hover {
+          background: var(--background-hover);
+          color: var(--text-primary);
+        }
+        
+        &.mdc-tab--active {
+          background: var(--primary-color);
+          color: var(--white);
+        }
+      }
+      
+      .mat-ink-bar {
+        display: none;
+      }
+    }
+  }
+}
+
+// Vertical tabs
+@mixin tab-group-vertical {
+  .mat-mdc-tab-group {
+    display: flex;
+    
+    .mat-mdc-tab-header {
+      width: 200px;
+      flex-direction: column;
+      border-bottom: none;
+      border-right: var(--border-width-thin) solid var(--border-light);
+      
+      .mat-mdc-tab {
+        width: 100%;
+        text-align: left;
+        justify-content: flex-start;
+        padding: var(--spacing-md) var(--spacing-lg);
+        border-radius: 0;
+        
+        .mat-mdc-tab-label {
+          justify-content: flex-start;
+        }
+      }
+      
+      .mat-ink-bar {
+        width: 3px;
+        height: auto;
+        right: 0;
+        left: auto;
+      }
+    }
+    
+    .mat-mdc-tab-body-wrapper {
+      flex: 1;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .mat-mdc-tab-group {
+      flex-direction: column;
+      
+      .mat-mdc-tab-header {
+        width: 100%;
+        flex-direction: row;
+        border-right: none;
+        border-bottom: var(--border-width-thin) solid var(--border-light);
+        overflow-x: auto;
+        
+        .mat-mdc-tab {
+          min-width: 120px;
+          text-align: center;
+        }
+        
+        .mat-ink-bar {
+          width: auto;
+          height: 3px;
+          bottom: 0;
+          right: auto;
+          left: 0;
+        }
+      }
+    }
+  }
+}
+
+// Tabs with icons
+@mixin tab-group-with-icons {
+  .mat-mdc-tab-group {
+    .mat-mdc-tab {
+      .mat-mdc-tab-label {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        
+        mat-icon {
+          font-size: var(--icon-size-md);
+          width: var(--icon-size-md);
+          height: var(--icon-size-md);
+        }
+      }
+    }
+  }
+}
+
+// Tabs with badges/counters
+@mixin tab-group-with-badges {
+  .mat-mdc-tab-group {
+    .mat-mdc-tab {
+      .mat-mdc-tab-label {
+        position: relative;
+        
+        .tab-badge {
+          position: absolute;
+          top: -8px;
+          right: -8px;
+          background: var(--error-color);
+          color: var(--white);
+          border-radius: 50%;
+          min-width: 18px;
+          height: 18px;
+          font-size: var(--font-size-xs);
+          font-weight: var(--font-weight-bold);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          
+          &.badge-primary {
+            background: var(--primary-color);
+          }
+          
+          &.badge-success {
+            background: var(--success-color);
+          }
+          
+          &.badge-warning {
+            background: var(--warning-color);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive tabs - converts to accordion on mobile
+@mixin tab-group-responsive {
+  @media (max-width: 768px) {
+    .mat-mdc-tab-group {
+      .mat-mdc-tab-header {
+        display: none;
+      }
+      
+      .mat-mdc-tab-body-wrapper {
+        padding: 0;
+        
+        .tab-accordion {
+          .accordion-item {
+            border-bottom: var(--border-width-thin) solid var(--border-light);
+            
+            .accordion-header {
+              padding: var(--spacing-md);
+              background: var(--background-secondary);
+              cursor: pointer;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              font-weight: var(--font-weight-medium);
+              
+              &:hover {
+                background: var(--background-hover);
+              }
+              
+              .expand-icon {
+                transition: transform 0.2s ease;
+                
+                &.expanded {
+                  transform: rotate(180deg);
+                }
+              }
+            }
+            
+            .accordion-content {
+              padding: var(--spacing-lg);
+              background: var(--background-card);
+              
+              &.collapsed {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Tab group with loading states
+@mixin tab-group-loading {
+  .mat-mdc-tab-group {
+    .tab-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-xl);
+      color: var(--text-secondary);
+      
+      mat-spinner {
+        margin-right: var(--spacing-sm);
+      }
+    }
+    
+    .tab-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-xl);
+      color: var(--text-secondary);
+      text-align: center;
+      
+      mat-icon {
+        font-size: 48px;
+        width: 48px;
+        height: 48px;
+        margin-bottom: var(--spacing-md);
+        opacity: 0.5;
+      }
+      
+      .empty-title {
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-medium);
+        margin-bottom: var(--spacing-sm);
+      }
+      
+      .empty-description {
+        font-size: var(--font-size-sm);
+      }
+    }
+  }
+}

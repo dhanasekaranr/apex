@@ -1,0 +1,58 @@
+<!-- * * <mat-sidenav-container class="sidenav-container">
+  <mat-sidenav 
+    #drawer 
+    class="sidenav" 
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false">
+    <app-sidenav></app-sidenav>
+  </mat-sidenav>
+  
+  <mat-sidenav-content>
+    <app-header [drawer]="drawer" [isHandset]="isHandset$ | async"></app-header>* * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav 
+    #drawer 
+    class="sidenav" 
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false">
+    <app-sidenav></app-sidenav>
+  </mat-sidenav>
+  
+  <mat-sidenav-content>
+    <app-header [drawer]="drawer" [isHandset]="isHandset$ | async"></app-header>
+    
+    <!-- Top Navigation Component -->
+    <app-topnav 
+      (menuTabChanged)="onMenuTabChanged($event)"
+      (searchPerformed)="onSearchPerformed($event)"
+      (notificationsOpened)="onNotificationsOpened()"
+      (dataExported)="onDataExported()"
+      (dataImported)="onDataImported()"
+      (helpOpened)="onHelpOpened()"
+      (settingsOpened)="onSettingsOpened()">
+    </app-topnav>
+    
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb-wrapper">
+      <app-breadcrumb [breadcrumbStyle]="currentBreadcrumbStyle"></app-breadcrumb>
+    </div>
+    
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+    
+    <app-footer></app-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

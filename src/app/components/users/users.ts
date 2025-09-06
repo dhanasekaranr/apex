@@ -7,7 +7,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import {
   MAT_DIALOG_DATA,
-  MatDialog,
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
@@ -19,6 +18,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DialogService } from '../../services/dialog.service';
 
 export interface User {
   id: number;
@@ -99,7 +99,7 @@ export class Users implements OnInit {
     'Configuration',
   ];
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialogService: DialogService) {}
 
   // Sample data
   users: User[] = [
@@ -400,15 +400,16 @@ export class Users implements OnInit {
   }
 
   addUser() {
-    const dialogRef = this.dialog.open(AddUserDialogComponent, {
+    const dialogRef = this.dialogService.open(AddUserDialogComponent, {
       width: '600px',
+      maxWidth: '90vw',
       data: {
         roles: this.roles,
         allAvailableScreens: this.allAvailableScreens,
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
         // Add the new user to the data source
         const newUser: User = {
@@ -503,15 +504,17 @@ export interface AddUserDialogData {
     MatIconModule,
   ],
   template: `
-    <div class="compact-dialog">
-      <h2 mat-dialog-title>
-        <mat-icon>person_add</mat-icon>
-        Add New User
-      </h2>
+    <div class="material3-dialog">
+      <div class="dialog-header">
+        <h2 mat-dialog-title>
+          <mat-icon>person_add</mat-icon>
+          Add New User
+        </h2>
+      </div>
 
       <mat-dialog-content class="dialog-content">
         <div class="form-container">
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" class="form-field">
             <mat-label>User Name</mat-label>
             <input
               matInput
@@ -522,7 +525,7 @@ export interface AddUserDialogData {
             <mat-icon matSuffix>person</mat-icon>
           </mat-form-field>
 
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" class="form-field">
             <mat-label>User Code</mat-label>
             <input
               matInput
@@ -533,7 +536,7 @@ export interface AddUserDialogData {
             <mat-icon matSuffix>badge</mat-icon>
           </mat-form-field>
 
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" class="form-field">
             <mat-label>User Role</mat-label>
             <mat-select [(value)]="userRole" required>
               <mat-option *ngFor="let role of data.roles" [value]="role">
@@ -543,7 +546,7 @@ export interface AddUserDialogData {
             <mat-icon matSuffix>work</mat-icon>
           </mat-form-field>
 
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" class="form-field">
             <mat-label>Available Screens</mat-label>
             <mat-select [(value)]="screenAccess" multiple required>
               <mat-option
@@ -559,7 +562,7 @@ export interface AddUserDialogData {
       </mat-dialog-content>
 
       <mat-dialog-actions class="dialog-actions">
-        <button mat-button (click)="onCancel()">
+        <button mat-button (click)="onCancel()" class="cancel-button">
           <mat-icon>close</mat-icon>
           Cancel
         </button>
@@ -568,6 +571,7 @@ export interface AddUserDialogData {
           color="primary"
           (click)="onSave()"
           [disabled]="!isFormValid()"
+          class="save-button"
         >
           <mat-icon>save</mat-icon>
           Add User
@@ -577,49 +581,163 @@ export interface AddUserDialogData {
   `,
   styles: [
     `
-      .compact-dialog {
-        width: 400px;
-        max-width: 90vw;
-      }
-
-      .dialog-content {
-        padding: 0 !important;
-        margin: 0;
-        overflow: visible;
-      }
-
-      .form-container {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        padding: 0;
-      }
-
-      mat-form-field {
+      /* Material 3 Dialog Styling */
+      .material3-dialog {
         width: 100%;
-        margin: 0;
+        max-width: 500px;
+        background: var(--md-sys-color-surface);
+        border-radius: var(--md-sys-shape-corner-extra-large);
+        box-shadow: var(--md-sys-elevation-level3);
+        overflow: hidden;
+      }
+
+      .dialog-header {
+        padding: 24px 24px 0 24px;
+        background: var(--md-sys-color-surface);
+        border-bottom: 1px solid var(--md-sys-color-outline-variant);
       }
 
       h2[mat-dialog-title] {
         display: flex;
         align-items: center;
-        gap: 8px;
-        margin: 0 0 20px 0;
-        color: var(--primary-color);
-        font-size: 18px;
+        gap: 12px;
+        margin: 0 0 16px 0;
+        color: var(--md-sys-color-on-surface);
+        font-family: var(--md-sys-typescale-headline-small-font-family-name);
+        font-size: var(--md-sys-typescale-headline-small-font-size);
+        font-weight: var(--md-sys-typescale-headline-small-font-weight);
+        line-height: var(--md-sys-typescale-headline-small-line-height);
         padding: 0;
       }
 
-      .dialog-actions {
-        padding: 16px 0 0 0 !important;
-        margin: 0;
-        gap: 8px;
-        justify-content: flex-end;
+      h2[mat-dialog-title] mat-icon {
+        color: var(--md-sys-color-primary);
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
       }
 
-      .dialog-actions button {
+      .dialog-content {
+        padding: 24px !important;
+        margin: 0;
+        overflow: visible;
+        background: var(--md-sys-color-surface);
+      }
+
+      .form-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 0;
+      }
+
+      .form-field {
+        width: 100%;
+        margin: 0;
+      }
+
+      .form-field .mat-mdc-form-field-outline {
+        color: var(--md-sys-color-outline);
+      }
+
+      .form-field.mat-focused .mat-mdc-form-field-outline-thick {
+        color: var(--md-sys-color-primary);
+      }
+
+      .form-field .mat-mdc-form-field-label {
+        color: var(--md-sys-color-on-surface-variant);
+      }
+
+      .form-field.mat-focused .mat-mdc-form-field-label {
+        color: var(--md-sys-color-primary);
+      }
+
+      .form-field .mat-mdc-input-element {
+        color: var(--md-sys-color-on-surface);
+        font-family: var(--md-sys-typescale-body-large-font-family-name);
+        font-size: var(--md-sys-typescale-body-large-font-size);
+      }
+
+      .form-field .mat-icon {
+        color: var(--md-sys-color-on-surface-variant);
+      }
+
+      .dialog-actions {
+        padding: 16px 24px 24px 24px !important;
+        margin: 0;
+        gap: 12px;
+        justify-content: flex-end;
+        background: var(--md-sys-color-surface);
+        border-top: 1px solid var(--md-sys-color-outline-variant);
+      }
+
+      .cancel-button {
         min-width: 80px;
-        height: 36px;
+        height: 40px;
+        color: var(--md-sys-color-primary);
+        border: 1px solid var(--md-sys-color-outline);
+        border-radius: var(--md-sys-shape-corner-full);
+        font-family: var(--md-sys-typescale-label-large-font-family-name);
+        font-size: var(--md-sys-typescale-label-large-font-size);
+        font-weight: var(--md-sys-typescale-label-large-font-weight);
+      }
+
+      .cancel-button:hover {
+        background: var(--md-sys-color-primary-container);
+        color: var(--md-sys-color-on-primary-container);
+      }
+
+      .save-button {
+        min-width: 80px;
+        height: 40px;
+        background: var(--md-sys-color-primary);
+        color: var(--md-sys-color-on-primary);
+        border-radius: var(--md-sys-shape-corner-full);
+        font-family: var(--md-sys-typescale-label-large-font-family-name);
+        font-size: var(--md-sys-typescale-label-large-font-size);
+        font-weight: var(--md-sys-typescale-label-large-font-weight);
+        box-shadow: var(--md-sys-elevation-level1);
+      }
+
+      .save-button:hover:not([disabled]) {
+        background: var(--md-sys-color-primary-container);
+        color: var(--md-sys-color-on-primary-container);
+        box-shadow: var(--md-sys-elevation-level2);
+      }
+
+      .save-button:disabled {
+        background: var(--md-sys-color-on-surface);
+        color: var(--md-sys-color-surface);
+        opacity: 0.38;
+        box-shadow: none;
+      }
+
+      .save-button mat-icon,
+      .cancel-button mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        margin-right: 8px;
+      }
+
+      /* Global dialog backdrop styling */
+      :host ::ng-deep .dialog-backdrop {
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(2px);
+      }
+
+      :host ::ng-deep .custom-dialog-container {
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+        border-radius: var(--md-sys-shape-corner-extra-large);
+      }
+
+      :host ::ng-deep .custom-dialog-container .mat-mdc-dialog-container {
+        background: var(--md-sys-color-surface);
+        border-radius: var(--md-sys-shape-corner-extra-large);
+        box-shadow: var(--md-sys-elevation-level3);
+        padding: 0;
       }
     `,
   ],

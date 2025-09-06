@@ -1,0 +1,269 @@
+// Material 3 Elevation System
+// Complete Material Design 3 elevation and shadow implementation
+
+// Material 3 Elevation Tokens
+:root {
+  // Elevation Level 0 (No elevation)
+  --md-sys-elevation-level0: none;
+  
+  // Elevation Level 1 (Subtle elevation)
+  --md-sys-elevation-level1: 
+    0px 1px 2px 0px color-mix(in srgb, var(--md-sys-color-shadow) 30%, transparent),
+    0px 1px 3px 1px color-mix(in srgb, var(--md-sys-color-shadow) 15%, transparent);
+  
+  // Elevation Level 2 (Low elevation)
+  --md-sys-elevation-level2:
+    0px 1px 2px 0px color-mix(in srgb, var(--md-sys-color-shadow) 30%, transparent),
+    0px 2px 6px 2px color-mix(in srgb, var(--md-sys-color-shadow) 15%, transparent);
+  
+  // Elevation Level 3 (Medium elevation)
+  --md-sys-elevation-level3:
+    0px 1px 3px 0px color-mix(in srgb, var(--md-sys-color-shadow) 30%, transparent),
+    0px 4px 8px 3px color-mix(in srgb, var(--md-sys-color-shadow) 15%, transparent);
+  
+  // Elevation Level 4 (High elevation)
+  --md-sys-elevation-level4:
+    0px 2px 3px 0px color-mix(in srgb, var(--md-sys-color-shadow) 30%, transparent),
+    0px 6px 10px 4px color-mix(in srgb, var(--md-sys-color-shadow) 15%, transparent);
+  
+  // Elevation Level 5 (Highest elevation)
+  --md-sys-elevation-level5:
+    0px 4px 4px 0px color-mix(in srgb, var(--md-sys-color-shadow) 30%, transparent),
+    0px 8px 12px 6px color-mix(in srgb, var(--md-sys-color-shadow) 15%, transparent);
+}
+
+// Material 3 Surface Tint Overlay
+@mixin surface-tint-overlay($elevation-level) {
+  @if $elevation-level == 1 {
+    background-color: color-mix(in srgb, var(--md-sys-color-primary) 5%, var(--md-sys-color-surface));
+  } @else if $elevation-level == 2 {
+    background-color: color-mix(in srgb, var(--md-sys-color-primary) 8%, var(--md-sys-color-surface));
+  } @else if $elevation-level == 3 {
+    background-color: color-mix(in srgb, var(--md-sys-color-primary) 11%, var(--md-sys-color-surface));
+  } @else if $elevation-level == 4 {
+    background-color: color-mix(in srgb, var(--md-sys-color-primary) 12%, var(--md-sys-color-surface));
+  } @else if $elevation-level == 5 {
+    background-color: color-mix(in srgb, var(--md-sys-color-primary) 14%, var(--md-sys-color-surface));
+  }
+}
+
+// Material 3 Elevation Classes
+.md-elevation-0 {
+  box-shadow: var(--md-sys-elevation-level0);
+}
+
+.md-elevation-1 {
+  box-shadow: var(--md-sys-elevation-level1);
+  @include surface-tint-overlay(1);
+}
+
+.md-elevation-2 {
+  box-shadow: var(--md-sys-elevation-level2);
+  @include surface-tint-overlay(2);
+}
+
+.md-elevation-3 {
+  box-shadow: var(--md-sys-elevation-level3);
+  @include surface-tint-overlay(3);
+}
+
+.md-elevation-4 {
+  box-shadow: var(--md-sys-elevation-level4);
+  @include surface-tint-overlay(4);
+}
+
+.md-elevation-5 {
+  box-shadow: var(--md-sys-elevation-level5);
+  @include surface-tint-overlay(5);
+}
+
+// Material 3 State Layer System
+.md-state-layer {
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: currentColor;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+  
+  &:hover::before {
+    opacity: 0.08;
+  }
+  
+  &:focus::before {
+    opacity: 0.12;
+  }
+  
+  &:active::before {
+    opacity: 0.16;
+  }
+  
+  &.md-state-layer-primary {
+    &::before {
+      background: var(--md-sys-color-primary);
+    }
+  }
+  
+  &.md-state-layer-secondary {
+    &::before {
+      background: var(--md-sys-color-secondary);
+    }
+  }
+  
+  &.md-state-layer-tertiary {
+    &::before {
+      background: var(--md-sys-color-tertiary);
+    }
+  }
+  
+  &.md-state-layer-error {
+    &::before {
+      background: var(--md-sys-color-error);
+    }
+  }
+  
+  &.md-state-layer-on-surface {
+    &::before {
+      background: var(--md-sys-color-on-surface);
+    }
+  }
+}
+
+// Material 3 Surface Colors
+.md-surface {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+}
+
+.md-surface-dim {
+  background-color: var(--md-sys-color-surface-dim);
+  color: var(--md-sys-color-on-surface);
+}
+
+.md-surface-bright {
+  background-color: var(--md-sys-color-surface-bright);
+  color: var(--md-sys-color-on-surface);
+}
+
+.md-surface-container-lowest {
+  background-color: var(--md-sys-color-surface-container-lowest);
+  color: var(--md-sys-color-on-surface);
+}
+
+.md-surface-container-low {
+  background-color: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-on-surface);
+}
+
+.md-surface-container {
+  background-color: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
+}
+
+.md-surface-container-high {
+  background-color: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+}
+
+.md-surface-container-highest {
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
+}
+
+// Material 3 Shape System
+:root {
+  // Corner radius tokens
+  --md-sys-shape-corner-none: 0px;
+  --md-sys-shape-corner-extra-small: 4px;
+  --md-sys-shape-corner-small: 8px;
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-shape-corner-large: 16px;
+  --md-sys-shape-corner-extra-large: 28px;
+  --md-sys-shape-corner-full: 9999px;
+}
+
+// Shape classes
+.md-shape-none {
+  border-radius: var(--md-sys-shape-corner-none);
+}
+
+.md-shape-extra-small {
+  border-radius: var(--md-sys-shape-corner-extra-small);
+}
+
+.md-shape-small {
+  border-radius: var(--md-sys-shape-corner-small);
+}
+
+.md-shape-medium {
+  border-radius: var(--md-sys-shape-corner-medium);
+}
+
+.md-shape-large {
+  border-radius: var(--md-sys-shape-corner-large);
+}
+
+.md-shape-extra-large {
+  border-radius: var(--md-sys-shape-corner-extra-large);
+}
+
+.md-shape-full {
+  border-radius: var(--md-sys-shape-corner-full);
+}
+
+// Material 3 Motion System
+:root {
+  // Duration tokens
+  --md-sys-motion-duration-short1: 50ms;
+  --md-sys-motion-duration-short2: 100ms;
+  --md-sys-motion-duration-short3: 150ms;
+  --md-sys-motion-duration-short4: 200ms;
+  --md-sys-motion-duration-medium1: 250ms;
+  --md-sys-motion-duration-medium2: 300ms;
+  --md-sys-motion-duration-medium3: 350ms;
+  --md-sys-motion-duration-medium4: 400ms;
+  --md-sys-motion-duration-long1: 450ms;
+  --md-sys-motion-duration-long2: 500ms;
+  --md-sys-motion-duration-long3: 550ms;
+  --md-sys-motion-duration-long4: 600ms;
+  
+  // Easing tokens
+  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --md-sys-motion-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+}
+
+// Motion classes
+.md-motion-standard {
+  transition-timing-function: var(--md-sys-motion-easing-standard);
+  transition-duration: var(--md-sys-motion-duration-medium2);
+}
+
+.md-motion-emphasized {
+  transition-timing-function: var(--md-sys-motion-easing-emphasized);
+  transition-duration: var(--md-sys-motion-duration-medium4);
+}
+
+.md-motion-short {
+  transition-duration: var(--md-sys-motion-duration-short2);
+}
+
+.md-motion-medium {
+  transition-duration: var(--md-sys-motion-duration-medium2);
+}
+
+.md-motion-long {
+  transition-duration: var(--md-sys-motion-duration-long2);
+}

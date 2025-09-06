@@ -158,7 +158,8 @@ export class BookingComponent implements OnInit {
         id: 'account',
         label: 'Account Information',
         icon: 'account_circle',
-        iconTooltip: 'Manage customer account details and personal information - Required for booking',
+        iconTooltip:
+          'Manage customer account details and personal information - Required for booking',
         component: AccountInformationTabComponent,
         enabled: true,
         showPerTabActions: false,
@@ -167,7 +168,8 @@ export class BookingComponent implements OnInit {
         id: 'billing',
         label: 'Billing Information',
         icon: 'payment',
-        iconTooltip: 'Configure payment methods and billing address - Loads when you click',
+        iconTooltip:
+          'Configure payment methods and billing address - Loads when you click',
         component: BillingInformationTabComponent,
         enabled: true,
         showPerTabActions: false,
@@ -177,7 +179,8 @@ export class BookingComponent implements OnInit {
         id: 'collateral',
         label: 'Collateral Information',
         icon: 'directions_car',
-        iconTooltip: 'Vehicle details and collateral information for the loan - Required for booking',
+        iconTooltip:
+          'Vehicle details and collateral information for the loan - Required for booking',
         component: CollateralInformationTabComponent,
         enabled: true,
         showPerTabActions: false,
@@ -186,7 +189,8 @@ export class BookingComponent implements OnInit {
         id: 'summary',
         label: 'Summary',
         icon: 'summarize',
-        iconTooltip: 'Review all entered information before finalizing - Requires valid data in other tabs',
+        iconTooltip:
+          'Review all entered information before finalizing - Requires valid data in other tabs',
         component: SummaryTabComponent,
         enabled: true,
         showPerTabActions: false,
@@ -197,7 +201,8 @@ export class BookingComponent implements OnInit {
         id: 'reports',
         label: 'Reports & Analytics',
         icon: 'analytics',
-        iconTooltip: 'Advanced reporting and analytics dashboard - Coming soon in future release',
+        iconTooltip:
+          'Advanced reporting and analytics dashboard - Coming soon in future release',
         component: null, // No component needed for disabled tab
         enabled: false,
         showPerTabActions: false,
@@ -242,10 +247,16 @@ export class BookingComponent implements OnInit {
       };
 
       // Get data from each tab component
+      console.log('Tab states:', this.tabGroup.states());
       this.tabGroup.states().forEach((state: any, index: number) => {
-        if (state.loaded && state.component) {
+        console.log(`Tab ${index}:`, {
+          loaded: state.loaded,
+          hasComponent: !!state.cmp,
+        });
+        if (state.loaded && state.cmp) {
           const tabId = this.tabConfigs[index].id;
-          const data = (state.component as any).getData();
+          const data = (state.cmp as any).getData();
+          console.log(`Data from ${tabId}:`, data);
 
           switch (tabId) {
             case 'account':
@@ -267,13 +278,21 @@ export class BookingComponent implements OnInit {
         }
       });
 
+      console.log('Final booking data:', bookingData);
+
       // Validate that we have all required data
-      if (
-        !bookingData.accountInformation ||
-        !bookingData.billingInformation ||
-        !bookingData.collateralInformation
-      ) {
-        throw new Error('Missing required booking information');
+      const missingData = [];
+      if (!bookingData.accountInformation)
+        missingData.push('Account Information');
+      if (!bookingData.billingInformation)
+        missingData.push('Billing Information');
+      if (!bookingData.collateralInformation)
+        missingData.push('Collateral Information');
+
+      if (missingData.length > 0) {
+        throw new Error(
+          `Missing required booking information: ${missingData.join(', ')}`
+        );
       }
 
       // Save all data via service

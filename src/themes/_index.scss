@@ -1,4 +1,4 @@
-// Main Theme Index
+// Main Theme Index - Material 3 Compliant
 // Import all variables
 @use 'variables/colors' as *;
 @use 'variables/dimensions' as *;
@@ -13,7 +13,14 @@
 @use 'mixins/tables' as tables;
 @use 'mixins/tabs' as tabs;
 
-// Import Material 3 component overrides
+// Import Material 3 Core System
+@use 'material3-theme';
+// @use 'material3-typography'; // Temporarily disabled due to function compatibility issues
+@use 'material3-components';
+@use 'material3-elevation';
+// @use 'material3-utilities'; // Temporarily disabled due to @extend compatibility issues
+
+// Import Material 3 component overrides (legacy support)
 @use 'material/material3-overrides';
 
 // Import utility classes

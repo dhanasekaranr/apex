@@ -40,7 +40,7 @@ import {
 })
 export class App implements OnInit {
   protected title = 'Apex Dashboard';
-  currentBreadcrumbStyle: BreadcrumbStyle = 'ultra-dark';
+  currentBreadcrumbStyle: BreadcrumbStyle = 'arrow-flow';
 
   isHandset$: Observable<boolean>;
   activeMenuTab = 'dashboard';

@@ -21,7 +21,8 @@ export type BreadcrumbStyle =
   | 'ultra-dark'
   | 'elegant'
   | 'compact'
-  | 'bold';
+  | 'bold'
+  | 'arrow-flow';
 
 @Component({
   selector: 'app-breadcrumb',

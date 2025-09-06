@@ -1,0 +1,569 @@
+// Material 3 Component Styles
+// Complete Material Design 3 component implementation
+
+@use '@angular/material' as mat;
+
+// Import Material 3 theme and typography
+@use 'material3-theme';
+// @use 'material3-typography'; // Temporarily disabled due to function compatibility issues
+
+// Material 3 Button Components
+.mat-mdc-button,
+.mat-mdc-outlined-button,
+.mat-mdc-raised-button,
+.mat-mdc-unelevated-button {
+  // Apply Material 3 typography
+  font-family: var(--md-sys-typescale-label-large-font);
+  font-size: var(--md-sys-typescale-label-large-size);
+  font-weight: var(--md-sys-typescale-label-large-weight);
+  line-height: var(--md-sys-typescale-label-large-line-height);
+  letter-spacing: var(--md-sys-typescale-label-large-tracking);
+  
+  // Material 3 spacing and sizing
+  height: 40px;
+  padding: 0 24px;
+  border-radius: 20px;
+  
+  // State layer support
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: currentColor;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+  
+  &:hover::before {
+    opacity: 0.08;
+  }
+  
+  &:focus::before {
+    opacity: 0.12;
+  }
+  
+  &:active::before {
+    opacity: 0.16;
+  }
+}
+
+// Material 3 Filled Button
+.mat-mdc-raised-button,
+.mat-mdc-unelevated-button {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  
+  &:disabled {
+    background-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+    color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+  }
+}
+
+// Material 3 Outlined Button
+.mat-mdc-outlined-button {
+  border: 1px solid var(--md-sys-color-outline);
+  color: var(--md-sys-color-primary);
+  background-color: transparent;
+  
+  &:disabled {
+    border-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+    color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+  }
+}
+
+// Material 3 Text Button
+.mat-mdc-button {
+  color: var(--md-sys-color-primary);
+  background-color: transparent;
+  
+  &:disabled {
+    color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+  }
+}
+
+// Material 3 FAB
+.mat-mdc-fab,
+.mat-mdc-mini-fab {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  
+  &.mat-primary {
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+  }
+  
+  &.mat-secondary {
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+  }
+  
+  &.mat-tertiary {
+    background-color: var(--md-sys-color-tertiary-container);
+    color: var(--md-sys-color-on-tertiary-container);
+  }
+}
+
+// Material 3 Form Fields
+.mat-mdc-form-field {
+  // Material 3 typography for labels
+  .mat-mdc-floating-label {
+    font-family: var(--md-sys-typescale-body-large-font);
+    font-size: var(--md-sys-typescale-body-large-size);
+    font-weight: var(--md-sys-typescale-body-large-weight);
+    line-height: var(--md-sys-typescale-body-large-line-height);
+    letter-spacing: var(--md-sys-typescale-body-large-tracking);
+    color: var(--md-sys-color-on-surface-variant);
+  }
+  
+  // Material 3 input styling
+  .mat-mdc-input-element {
+    font-family: var(--md-sys-typescale-body-large-font);
+    font-size: var(--md-sys-typescale-body-large-size);
+    font-weight: var(--md-sys-typescale-body-large-weight);
+    line-height: var(--md-sys-typescale-body-large-line-height);
+    letter-spacing: var(--md-sys-typescale-body-large-tracking);
+    color: var(--md-sys-color-on-surface);
+  }
+  
+  // Outlined appearance
+  &.mat-mdc-form-field-appearance-outline {
+    .mat-mdc-form-field-outline {
+      color: var(--md-sys-color-outline);
+    }
+    
+    &.mat-focused .mat-mdc-form-field-outline {
+      color: var(--md-sys-color-primary);
+    }
+    
+    &.mat-form-field-invalid .mat-mdc-form-field-outline {
+      color: var(--md-sys-color-error);
+    }
+  }
+  
+  // Filled appearance
+  &.mat-mdc-form-field-appearance-fill {
+    .mat-mdc-text-field-wrapper {
+      background-color: var(--md-sys-color-surface-container-highest);
+      border-radius: 4px 4px 0 0;
+    }
+    
+    .mat-mdc-form-field-underline::before {
+      border-bottom-color: var(--md-sys-color-on-surface-variant);
+    }
+    
+    &.mat-focused .mat-mdc-form-field-underline::after {
+      border-bottom-color: var(--md-sys-color-primary);
+    }
+    
+    &.mat-form-field-invalid .mat-mdc-form-field-underline::after {
+      border-bottom-color: var(--md-sys-color-error);
+    }
+  }
+}
+
+// Material 3 Cards
+.mat-mdc-card {
+  background-color: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-on-surface);
+  border-radius: 12px;
+  box-shadow: 
+    0px 1px 2px 0px color-mix(in srgb, var(--md-sys-color-shadow) 30%, transparent),
+    0px 1px 3px 1px color-mix(in srgb, var(--md-sys-color-shadow) 15%, transparent);
+  
+  .mat-mdc-card-title {
+    font-family: var(--md-sys-typescale-headline-small-font);
+    font-size: var(--md-sys-typescale-headline-small-size);
+    font-weight: var(--md-sys-typescale-headline-small-weight);
+    line-height: var(--md-sys-typescale-headline-small-line-height);
+    letter-spacing: var(--md-sys-typescale-headline-small-tracking);
+    color: var(--md-sys-color-on-surface);
+  }
+  
+  .mat-mdc-card-subtitle {
+    font-family: var(--md-sys-typescale-title-medium-font);
+    font-size: var(--md-sys-typescale-title-medium-size);
+    font-weight: var(--md-sys-typescale-title-medium-weight);
+    line-height: var(--md-sys-typescale-title-medium-line-height);
+    letter-spacing: var(--md-sys-typescale-title-medium-tracking);
+    color: var(--md-sys-color-on-surface-variant);
+  }
+  
+  .mat-mdc-card-content {
+    font-family: var(--md-sys-typescale-body-medium-font);
+    font-size: var(--md-sys-typescale-body-medium-size);
+    font-weight: var(--md-sys-typescale-body-medium-weight);
+    line-height: var(--md-sys-typescale-body-medium-line-height);
+    letter-spacing: var(--md-sys-typescale-body-medium-tracking);
+    color: var(--md-sys-color-on-surface);
+  }
+}
+
+// Material 3 Tabs
+.mat-mdc-tab-group {
+  .mat-mdc-tab-header {
+    background-color: var(--md-sys-color-surface);
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  }
+  
+  .mat-mdc-tab {
+    font-family: var(--md-sys-typescale-title-small-font);
+    font-size: var(--md-sys-typescale-title-small-size);
+    font-weight: var(--md-sys-typescale-title-small-weight);
+    line-height: var(--md-sys-typescale-title-small-line-height);
+    letter-spacing: var(--md-sys-typescale-title-small-tracking);
+    color: var(--md-sys-color-on-surface-variant);
+    
+    &.mdc-tab--active {
+      color: var(--md-sys-color-primary);
+    }
+    
+    .mdc-tab__text-label {
+      color: inherit;
+    }
+  }
+  
+  .mat-mdc-tab-body-wrapper {
+    background-color: var(--md-sys-color-surface);
+  }
+  
+  .mdc-tab-indicator__content--underline {
+    background-color: var(--md-sys-color-primary);
+    height: 3px;
+    border-radius: 3px 3px 0 0;
+  }
+}
+
+// Material 3 Toolbar
+.mat-toolbar {
+  background-color: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
+  
+  &.mat-primary {
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+  }
+  
+  .mat-toolbar-single-row {
+    height: 64px;
+    font-family: var(--md-sys-typescale-title-large-font);
+    font-size: var(--md-sys-typescale-title-large-size);
+    font-weight: var(--md-sys-typescale-title-large-weight);
+    line-height: var(--md-sys-typescale-title-large-line-height);
+    letter-spacing: var(--md-sys-typescale-title-large-tracking);
+  }
+}
+
+// Material 3 Sidenav
+.mat-drawer-container {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+}
+
+.mat-drawer {
+  background-color: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-on-surface);
+  border-right: 1px solid var(--md-sys-color-outline-variant);
+}
+
+// Material 3 Lists
+.mat-mdc-list {
+  .mat-mdc-list-item {
+    font-family: var(--md-sys-typescale-body-large-font);
+    font-size: var(--md-sys-typescale-body-large-size);
+    font-weight: var(--md-sys-typescale-body-large-weight);
+    line-height: var(--md-sys-typescale-body-large-line-height);
+    letter-spacing: var(--md-sys-typescale-body-large-tracking);
+    color: var(--md-sys-color-on-surface);
+    
+    .mat-mdc-list-item-title {
+      font-family: var(--md-sys-typescale-body-large-font);
+      font-size: var(--md-sys-typescale-body-large-size);
+      font-weight: var(--md-sys-typescale-body-large-weight);
+      line-height: var(--md-sys-typescale-body-large-line-height);
+      letter-spacing: var(--md-sys-typescale-body-large-tracking);
+    }
+    
+    .mat-mdc-list-item-line {
+      font-family: var(--md-sys-typescale-body-medium-font);
+      font-size: var(--md-sys-typescale-body-medium-size);
+      font-weight: var(--md-sys-typescale-body-medium-weight);
+      line-height: var(--md-sys-typescale-body-medium-line-height);
+      letter-spacing: var(--md-sys-typescale-body-medium-tracking);
+      color: var(--md-sys-color-on-surface-variant);
+    }
+  }
+}
+
+// Material 3 Menu
+.mat-mdc-menu-panel {
+  background-color: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
+  border-radius: 4px;
+  box-shadow: 
+    0px 1px 2px 0px color-mix(in srgb, var(--md-sys-color-shadow) 30%, transparent),
+    0px 2px 6px 2px color-mix(in srgb, var(--md-sys-color-shadow) 15%, transparent);
+  
+  .mat-mdc-menu-item {
+    font-family: var(--md-sys-typescale-body-large-font);
+    font-size: var(--md-sys-typescale-body-large-size);
+    font-weight: var(--md-sys-typescale-body-large-weight);
+    line-height: var(--md-sys-typescale-body-large-line-height);
+    letter-spacing: var(--md-sys-typescale-body-large-tracking);
+    color: var(--md-sys-color-on-surface);
+    
+    &:hover {
+      background-color: color-mix(in srgb, var(--md-sys-color-on-surface) 8%, transparent);
+    }
+    
+    &:focus {
+      background-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+    }
+  }
+}
+
+// Material 3 Dialog
+.mat-mdc-dialog-container {
+  .mdc-dialog__surface {
+    background-color: var(--md-sys-color-surface-container-high);
+    color: var(--md-sys-color-on-surface);
+    border-radius: 28px;
+    box-shadow: 
+      0px 1px 2px 0px color-mix(in srgb, var(--md-sys-color-shadow) 30%, transparent),
+      0px 2px 6px 2px color-mix(in srgb, var(--md-sys-color-shadow) 15%, transparent);
+  }
+  
+  .mat-mdc-dialog-title {
+    font-family: var(--md-sys-typescale-headline-small-font);
+    font-size: var(--md-sys-typescale-headline-small-size);
+    font-weight: var(--md-sys-typescale-headline-small-weight);
+    line-height: var(--md-sys-typescale-headline-small-line-height);
+    letter-spacing: var(--md-sys-typescale-headline-small-tracking);
+    color: var(--md-sys-color-on-surface);
+  }
+  
+  .mat-mdc-dialog-content {
+    font-family: var(--md-sys-typescale-body-medium-font);
+    font-size: var(--md-sys-typescale-body-medium-size);
+    font-weight: var(--md-sys-typescale-body-medium-weight);
+    line-height: var(--md-sys-typescale-body-medium-line-height);
+    letter-spacing: var(--md-sys-typescale-body-medium-tracking);
+    color: var(--md-sys-color-on-surface-variant);
+  }
+}
+
+// Material 3 Snackbar
+.mat-mdc-snack-bar-container {
+  .mdc-snackbar__surface {
+    background-color: var(--md-sys-color-inverse-surface);
+    color: var(--md-sys-color-inverse-on-surface);
+    border-radius: 4px;
+    
+    .mat-mdc-snack-bar-label {
+      font-family: var(--md-sys-typescale-body-medium-font);
+      font-size: var(--md-sys-typescale-body-medium-size);
+      font-weight: var(--md-sys-typescale-body-medium-weight);
+      line-height: var(--md-sys-typescale-body-medium-line-height);
+      letter-spacing: var(--md-sys-typescale-body-medium-tracking);
+    }
+    
+    .mat-mdc-snack-bar-action {
+      color: var(--md-sys-color-inverse-primary);
+      font-family: var(--md-sys-typescale-label-large-font);
+      font-size: var(--md-sys-typescale-label-large-size);
+      font-weight: var(--md-sys-typescale-label-large-weight);
+      line-height: var(--md-sys-typescale-label-large-line-height);
+      letter-spacing: var(--md-sys-typescale-label-large-tracking);
+    }
+  }
+}
+
+// Material 3 Table
+.mat-mdc-table {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  
+  .mat-mdc-header-row {
+    background-color: var(--md-sys-color-surface-container);
+    
+    .mat-mdc-header-cell {
+      font-family: var(--md-sys-typescale-title-small-font);
+      font-size: var(--md-sys-typescale-title-small-size);
+      font-weight: var(--md-sys-typescale-title-small-weight);
+      line-height: var(--md-sys-typescale-title-small-line-height);
+      letter-spacing: var(--md-sys-typescale-title-small-tracking);
+      color: var(--md-sys-color-on-surface-variant);
+    }
+  }
+  
+  .mat-mdc-row {
+    &:hover {
+      background-color: color-mix(in srgb, var(--md-sys-color-on-surface) 8%, transparent);
+    }
+    
+    .mat-mdc-cell {
+      font-family: var(--md-sys-typescale-body-medium-font);
+      font-size: var(--md-sys-typescale-body-medium-size);
+      font-weight: var(--md-sys-typescale-body-medium-weight);
+      line-height: var(--md-sys-typescale-body-medium-line-height);
+      letter-spacing: var(--md-sys-typescale-body-medium-tracking);
+      color: var(--md-sys-color-on-surface);
+    }
+  }
+}
+
+// Material 3 Checkbox
+.mat-mdc-checkbox {
+  .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate) ~ .mdc-checkbox__background {
+    border-color: var(--md-sys-color-on-surface-variant);
+  }
+  
+  .mdc-checkbox__native-control:enabled:checked ~ .mdc-checkbox__background,
+  .mdc-checkbox__native-control:enabled:indeterminate ~ .mdc-checkbox__background {
+    background-color: var(--md-sys-color-primary);
+    border-color: var(--md-sys-color-primary);
+  }
+  
+  .mdc-checkbox__checkmark {
+    color: var(--md-sys-color-on-primary);
+  }
+  
+  .mdc-checkbox__mixedmark {
+    border-color: var(--md-sys-color-on-primary);
+  }
+}
+
+// Material 3 Radio
+.mat-mdc-radio-button {
+  .mdc-radio__native-control:enabled:not(:checked) + .mdc-radio__background .mdc-radio__outer-circle {
+    border-color: var(--md-sys-color-on-surface-variant);
+  }
+  
+  .mdc-radio__native-control:enabled:checked + .mdc-radio__background .mdc-radio__outer-circle {
+    border-color: var(--md-sys-color-primary);
+  }
+  
+  .mdc-radio__native-control:enabled:checked + .mdc-radio__background .mdc-radio__inner-circle {
+    border-color: var(--md-sys-color-primary);
+  }
+}
+
+// Material 3 Switch
+.mat-mdc-slide-toggle {
+  .mdc-switch:not(.mdc-switch--checked) .mdc-switch__track {
+    background-color: var(--md-sys-color-surface-container-highest);
+    border-color: var(--md-sys-color-outline);
+  }
+  
+  .mdc-switch:not(.mdc-switch--checked) .mdc-switch__handle::after {
+    background-color: var(--md-sys-color-outline);
+  }
+  
+  .mdc-switch.mdc-switch--checked .mdc-switch__track {
+    background-color: var(--md-sys-color-primary);
+    border-color: var(--md-sys-color-primary);
+  }
+  
+  .mdc-switch.mdc-switch--checked .mdc-switch__handle::after {
+    background-color: var(--md-sys-color-on-primary);
+  }
+}
+
+// Material 3 Dialog Components
+.mat-mdc-dialog-container {
+  background: var(--md-sys-color-surface);
+  border-radius: var(--md-sys-shape-corner-extra-large);
+  box-shadow: var(--md-sys-elevation-level3);
+  color: var(--md-sys-color-on-surface);
+  padding: 0;
+  overflow: hidden;
+}
+
+// Dialog backdrop with Material 3 styling
+.cdk-overlay-backdrop {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+}
+
+.dialog-backdrop {
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(2px);
+}
+
+.custom-dialog-container {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: var(--md-sys-shape-corner-extra-large) !important;
+}
+
+.custom-dialog-container .mat-mdc-dialog-container {
+  background: var(--md-sys-color-surface) !important;
+  border-radius: var(--md-sys-shape-corner-extra-large) !important;
+  box-shadow: var(--md-sys-elevation-level3) !important;
+  padding: 0 !important;
+}
+
+// Dialog title styling
+.mat-mdc-dialog-title {
+  color: var(--md-sys-color-on-surface);
+  font-family: var(--md-sys-typescale-headline-small-font);
+  font-size: var(--md-sys-typescale-headline-small-size);
+  font-weight: var(--md-sys-typescale-headline-small-weight);
+  line-height: var(--md-sys-typescale-headline-small-line-height);
+  letter-spacing: var(--md-sys-typescale-headline-small-tracking);
+  margin: 0 0 16px 0;
+  padding: 24px 24px 0 24px;
+}
+
+// Dialog content styling
+.mat-mdc-dialog-content {
+  background: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  padding: 0 24px 16px 24px;
+  margin: 0;
+}
+
+// Dialog actions styling
+.mat-mdc-dialog-actions {
+  background: var(--md-sys-color-surface);
+  padding: 16px 24px 24px 24px;
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+// Dialog form field styling
+.mat-mdc-dialog-container .mat-mdc-form-field {
+  .mat-mdc-form-field-outline {
+    color: var(--md-sys-color-outline);
+  }
+  
+  &.mat-focused .mat-mdc-form-field-outline-thick {
+    color: var(--md-sys-color-primary);
+  }
+  
+  .mat-mdc-form-field-label {
+    color: var(--md-sys-color-on-surface-variant);
+  }
+  
+  &.mat-focused .mat-mdc-form-field-label {
+    color: var(--md-sys-color-primary);
+  }
+  
+  .mat-mdc-input-element {
+    color: var(--md-sys-color-on-surface);
+    font-family: var(--md-sys-typescale-body-large-font);
+    font-size: var(--md-sys-typescale-body-large-size);
+  }
+  
+  .mat-icon {
+    color: var(--md-sys-color-on-surface-variant);
+  }
+}

@@ -1,0 +1,335 @@
+// Material 3 Typography System
+// Complete implementation of Material Design 3 typography scale
+
+@use '@angular/material' as mat;
+
+// Material 3 Typography Scale
+$material3-typography: mat.define-typography-config(
+  // Display styles - Large, expressive text
+  $headline-1: mat.define-typography-level(
+    $font-family: 'Roboto, sans-serif',
+    $font-weight: 400,
+    $font-size: 57px,
+    $line-height: 64px,
+    $letter-spacing: -0.25px
+  ), // Display Large
+  
+  $headline-2: mat.define-typography-level(
+    $font-family: 'Roboto, sans-serif', 
+    $font-weight: 400,
+    $font-size: 45px,
+    $line-height: 52px,
+    $letter-spacing: 0px
+  ), // Display Medium
+  
+  $headline-3: mat.define-typography-level(
+    $font-family: 'Roboto, sans-serif',
+    $font-weight: 400, 
+    $font-size: 36px,
+    $line-height: 44px,
+    $letter-spacing: 0px
+  ), // Display Small
+  
+  // Headlines - High emphasis text
+  $headline-4: mat.define-typography-level(
+    $font-family: 'Roboto, sans-serif',
+    $font-weight: 400,
+    $font-size: 32px,
+    $line-height: 40px,
+    $letter-spacing: 0px
+  ), // Headline Large
+  
+  $headline-5: mat.define-typography-level(
+    $font-family: 'Roboto, sans-serif',
+    $font-weight: 400,
+    $font-size: 28px,
+    $line-height: 36px,
+    $letter-spacing: 0px
+  ), // Headline Medium
+  
+  $headline-6: mat.define-typography-level(
+    $font-family: 'Roboto, sans-serif',
+    $font-weight: 400,
+    $font-size: 24px,
+    $line-height: 32px,
+    $letter-spacing: 0px
+  ), // Headline Small
+  
+  // Titles - Medium emphasis text
+  $subtitle-1: mat.define-typography-level(
+    $font-family: 'Roboto, sans-serif',
+    $font-weight: 400,
+    $font-size: 22px,
+    $line-height: 28px,
+    $letter-spacing: 0px
+  ), // Title Large
+  
+  $subtitle-2: mat.define-typography-level(
+    $font-family: 'Roboto, sans-serif',
+    $font-weight: 500,
+    $font-size: 16px,
+    $line-height: 24px,
+    $letter-spacing: 0.15px
+  ), // Title Medium
+  
+  // Body text - Regular reading text
+  $body-1: mat.define-typography-level(
+    $font-family: 'Roboto, sans-serif',
+    $font-weight: 400,
+    $font-size: 16px,
+    $line-height: 24px,
+    $letter-spacing: 0.5px
+  ), // Body Large
+  
+  $body-2: mat.define-typography-level(
+    $font-family: 'Roboto, sans-serif', 
+    $font-weight: 400,
+    $font-size: 14px,
+    $line-height: 20px,
+    $letter-spacing: 0.25px
+  ), // Body Medium
+  
+  // Labels and small text
+  $caption: mat.define-typography-level(
+    $font-family: 'Roboto, sans-serif',
+    $font-weight: 500,
+    $font-size: 11px,
+    $line-height: 16px,
+    $letter-spacing: 0.5px
+  ), // Label Small
+  
+  $button: mat.define-typography-level(
+    $font-family: 'Roboto, sans-serif',
+    $font-weight: 500,
+    $font-size: 14px,
+    $line-height: 20px,
+    $letter-spacing: 0.1px
+  ), // Label Large (for buttons)
+  
+  $overline: mat.define-typography-level(
+    $font-family: 'Roboto, sans-serif',
+    $font-weight: 500,
+    $font-size: 12px,
+    $line-height: 16px,
+    $letter-spacing: 0.5px
+  ) // Label Medium
+);
+
+// CSS Custom Properties for Material 3 Typography
+:root {
+  // Display styles
+  --md-sys-typescale-display-large-font: 'Roboto';
+  --md-sys-typescale-display-large-size: 57px;
+  --md-sys-typescale-display-large-line-height: 64px;
+  --md-sys-typescale-display-large-weight: 400;
+  --md-sys-typescale-display-large-tracking: -0.25px;
+  
+  --md-sys-typescale-display-medium-font: 'Roboto';
+  --md-sys-typescale-display-medium-size: 45px;
+  --md-sys-typescale-display-medium-line-height: 52px;
+  --md-sys-typescale-display-medium-weight: 400;
+  --md-sys-typescale-display-medium-tracking: 0px;
+  
+  --md-sys-typescale-display-small-font: 'Roboto';
+  --md-sys-typescale-display-small-size: 36px;
+  --md-sys-typescale-display-small-line-height: 44px;
+  --md-sys-typescale-display-small-weight: 400;
+  --md-sys-typescale-display-small-tracking: 0px;
+  
+  // Headline styles
+  --md-sys-typescale-headline-large-font: 'Roboto';
+  --md-sys-typescale-headline-large-size: 32px;
+  --md-sys-typescale-headline-large-line-height: 40px;
+  --md-sys-typescale-headline-large-weight: 400;
+  --md-sys-typescale-headline-large-tracking: 0px;
+  
+  --md-sys-typescale-headline-medium-font: 'Roboto';
+  --md-sys-typescale-headline-medium-size: 28px;
+  --md-sys-typescale-headline-medium-line-height: 36px;
+  --md-sys-typescale-headline-medium-weight: 400;
+  --md-sys-typescale-headline-medium-tracking: 0px;
+  
+  --md-sys-typescale-headline-small-font: 'Roboto';
+  --md-sys-typescale-headline-small-size: 24px;
+  --md-sys-typescale-headline-small-line-height: 32px;
+  --md-sys-typescale-headline-small-weight: 400;
+  --md-sys-typescale-headline-small-tracking: 0px;
+  
+  // Title styles
+  --md-sys-typescale-title-large-font: 'Roboto';
+  --md-sys-typescale-title-large-size: 22px;
+  --md-sys-typescale-title-large-line-height: 28px;
+  --md-sys-typescale-title-large-weight: 400;
+  --md-sys-typescale-title-large-tracking: 0px;
+  
+  --md-sys-typescale-title-medium-font: 'Roboto';
+  --md-sys-typescale-title-medium-size: 16px;
+  --md-sys-typescale-title-medium-line-height: 24px;
+  --md-sys-typescale-title-medium-weight: 500;
+  --md-sys-typescale-title-medium-tracking: 0.15px;
+  
+  --md-sys-typescale-title-small-font: 'Roboto';
+  --md-sys-typescale-title-small-size: 14px;
+  --md-sys-typescale-title-small-line-height: 20px;
+  --md-sys-typescale-title-small-weight: 500;
+  --md-sys-typescale-title-small-tracking: 0.1px;
+  
+  // Body styles
+  --md-sys-typescale-body-large-font: 'Roboto';
+  --md-sys-typescale-body-large-size: 16px;
+  --md-sys-typescale-body-large-line-height: 24px;
+  --md-sys-typescale-body-large-weight: 400;
+  --md-sys-typescale-body-large-tracking: 0.5px;
+  
+  --md-sys-typescale-body-medium-font: 'Roboto';
+  --md-sys-typescale-body-medium-size: 14px;
+  --md-sys-typescale-body-medium-line-height: 20px;
+  --md-sys-typescale-body-medium-weight: 400;
+  --md-sys-typescale-body-medium-tracking: 0.25px;
+  
+  --md-sys-typescale-body-small-font: 'Roboto';
+  --md-sys-typescale-body-small-size: 12px;
+  --md-sys-typescale-body-small-line-height: 16px;
+  --md-sys-typescale-body-small-weight: 400;
+  --md-sys-typescale-body-small-tracking: 0.4px;
+  
+  // Label styles
+  --md-sys-typescale-label-large-font: 'Roboto';
+  --md-sys-typescale-label-large-size: 14px;
+  --md-sys-typescale-label-large-line-height: 20px;
+  --md-sys-typescale-label-large-weight: 500;
+  --md-sys-typescale-label-large-tracking: 0.1px;
+  
+  --md-sys-typescale-label-medium-font: 'Roboto';
+  --md-sys-typescale-label-medium-size: 12px;
+  --md-sys-typescale-label-medium-line-height: 16px;
+  --md-sys-typescale-label-medium-weight: 500;
+  --md-sys-typescale-label-medium-tracking: 0.5px;
+  
+  --md-sys-typescale-label-small-font: 'Roboto';
+  --md-sys-typescale-label-small-size: 11px;
+  --md-sys-typescale-label-small-line-height: 16px;
+  --md-sys-typescale-label-small-weight: 500;
+  --md-sys-typescale-label-small-tracking: 0.5px;
+}
+
+// Material 3 Typography Classes
+.md-typescale-display-large {
+  font-family: var(--md-sys-typescale-display-large-font);
+  font-size: var(--md-sys-typescale-display-large-size);
+  line-height: var(--md-sys-typescale-display-large-line-height);
+  font-weight: var(--md-sys-typescale-display-large-weight);
+  letter-spacing: var(--md-sys-typescale-display-large-tracking);
+}
+
+.md-typescale-display-medium {
+  font-family: var(--md-sys-typescale-display-medium-font);
+  font-size: var(--md-sys-typescale-display-medium-size);
+  line-height: var(--md-sys-typescale-display-medium-line-height);
+  font-weight: var(--md-sys-typescale-display-medium-weight);
+  letter-spacing: var(--md-sys-typescale-display-medium-tracking);
+}
+
+.md-typescale-display-small {
+  font-family: var(--md-sys-typescale-display-small-font);
+  font-size: var(--md-sys-typescale-display-small-size);
+  line-height: var(--md-sys-typescale-display-small-line-height);
+  font-weight: var(--md-sys-typescale-display-small-weight);
+  letter-spacing: var(--md-sys-typescale-display-small-tracking);
+}
+
+.md-typescale-headline-large {
+  font-family: var(--md-sys-typescale-headline-large-font);
+  font-size: var(--md-sys-typescale-headline-large-size);
+  line-height: var(--md-sys-typescale-headline-large-line-height);
+  font-weight: var(--md-sys-typescale-headline-large-weight);
+  letter-spacing: var(--md-sys-typescale-headline-large-tracking);
+}
+
+.md-typescale-headline-medium {
+  font-family: var(--md-sys-typescale-headline-medium-font);
+  font-size: var(--md-sys-typescale-headline-medium-size);
+  line-height: var(--md-sys-typescale-headline-medium-line-height);
+  font-weight: var(--md-sys-typescale-headline-medium-weight);
+  letter-spacing: var(--md-sys-typescale-headline-medium-tracking);
+}
+
+.md-typescale-headline-small {
+  font-family: var(--md-sys-typescale-headline-small-font);
+  font-size: var(--md-sys-typescale-headline-small-size);
+  line-height: var(--md-sys-typescale-headline-small-line-height);
+  font-weight: var(--md-sys-typescale-headline-small-weight);
+  letter-spacing: var(--md-sys-typescale-headline-small-tracking);
+}
+
+.md-typescale-title-large {
+  font-family: var(--md-sys-typescale-title-large-font);
+  font-size: var(--md-sys-typescale-title-large-size);
+  line-height: var(--md-sys-typescale-title-large-line-height);
+  font-weight: var(--md-sys-typescale-title-large-weight);
+  letter-spacing: var(--md-sys-typescale-title-large-tracking);
+}
+
+.md-typescale-title-medium {
+  font-family: var(--md-sys-typescale-title-medium-font);
+  font-size: var(--md-sys-typescale-title-medium-size);
+  line-height: var(--md-sys-typescale-title-medium-line-height);
+  font-weight: var(--md-sys-typescale-title-medium-weight);
+  letter-spacing: var(--md-sys-typescale-title-medium-tracking);
+}
+
+.md-typescale-title-small {
+  font-family: var(--md-sys-typescale-title-small-font);
+  font-size: var(--md-sys-typescale-title-small-size);
+  line-height: var(--md-sys-typescale-title-small-line-height);
+  font-weight: var(--md-sys-typescale-title-small-weight);
+  letter-spacing: var(--md-sys-typescale-title-small-tracking);
+}
+
+.md-typescale-body-large {
+  font-family: var(--md-sys-typescale-body-large-font);
+  font-size: var(--md-sys-typescale-body-large-size);
+  line-height: var(--md-sys-typescale-body-large-line-height);
+  font-weight: var(--md-sys-typescale-body-large-weight);
+  letter-spacing: var(--md-sys-typescale-body-large-tracking);
+}
+
+.md-typescale-body-medium {
+  font-family: var(--md-sys-typescale-body-medium-font);
+  font-size: var(--md-sys-typescale-body-medium-size);
+  line-height: var(--md-sys-typescale-body-medium-line-height);
+  font-weight: var(--md-sys-typescale-body-medium-weight);
+  letter-spacing: var(--md-sys-typescale-body-medium-tracking);
+}
+
+.md-typescale-body-small {
+  font-family: var(--md-sys-typescale-body-small-font);
+  font-size: var(--md-sys-typescale-body-small-size);
+  line-height: var(--md-sys-typescale-body-small-line-height);
+  font-weight: var(--md-sys-typescale-body-small-weight);
+  letter-spacing: var(--md-sys-typescale-body-small-tracking);
+}
+
+.md-typescale-label-large {
+  font-family: var(--md-sys-typescale-label-large-font);
+  font-size: var(--md-sys-typescale-label-large-size);
+  line-height: var(--md-sys-typescale-label-large-line-height);
+  font-weight: var(--md-sys-typescale-label-large-weight);
+  letter-spacing: var(--md-sys-typescale-label-large-tracking);
+}
+
+.md-typescale-label-medium {
+  font-family: var(--md-sys-typescale-label-medium-font);
+  font-size: var(--md-sys-typescale-label-medium-size);
+  line-height: var(--md-sys-typescale-label-medium-line-height);
+  font-weight: var(--md-sys-typescale-label-medium-weight);
+  letter-spacing: var(--md-sys-typescale-label-medium-tracking);
+}
+
+.md-typescale-label-small {
+  font-family: var(--md-sys-typescale-label-small-font);
+  font-size: var(--md-sys-typescale-label-small-size);
+  line-height: var(--md-sys-typescale-label-small-line-height);
+  font-weight: var(--md-sys-typescale-label-small-weight);
+  letter-spacing: var(--md-sys-typescale-label-small-tracking);
+}

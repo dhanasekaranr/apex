@@ -1,6 +1,12 @@
 /* Global Styles - Angular 20 with Material 3 */
 
-// Import the main theme FIRST (includes all variables and overrides)
+// Import Material 3 theme system FIRST
+@use 'themes/material3-theme';
+// @use 'themes/material3-typography'; // Temporarily disabled due to function compatibility issues
+@use 'themes/material3-components';
+@use 'themes/material3-elevation';
+
+// Import the main theme (includes all variables and legacy overrides)
 @use 'themes/index' as *;
 
 @import "@fontsource/material-icons/index.css";
@@ -147,3 +153,118 @@ body {
     background: #ffffff !important;
   }
 }
+
+// Specific dialog backdrop fix - only for dialogs, not menus
+body.dialog-open {
+  overflow: hidden !important;
+}
+
+// Only target dialog backdrops, not menu overlays
+.custom-dialog-backdrop {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  backdrop-filter: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+// Force dialog backdrops only - exclude menu overlays
+.cdk-overlay-backdrop.custom-dialog-backdrop,
+.cdk-overlay-backdrop.cdk-overlay-dark-backdrop:not(.cdk-overlay-backdrop-menu),
+.mat-overlay-backdrop:not(.cdk-overlay-backdrop-menu) {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  backdrop-filter: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+// Only target showing dialog backdrops
+.cdk-overlay-backdrop-showing.custom-dialog-backdrop {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  opacity: 1 !important;
+}
+
+// Clean dialog panel styling
+.custom-dialog-panel {
+  z-index: 1001 !important;
+}
+
+// Ensure dialog content is above backdrop - but don't affect menu overlays
+.cdk-overlay-pane[aria-modal="true"] {
+  z-index: 1000 !important;
+}
+
+/* Material Dialog Container Overrides - CLEAN VERSION */
+.mat-mdc-dialog-container {
+  background: var(--md-sys-color-surface, #ffffff) !important;
+  border-radius: 28px !important;
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+  color: var(--md-sys-color-on-surface, #1d1b20) !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  position: relative !important;
+  z-index: 1001 !important;
+}
+
+/* Custom dialog container class override - CLEAN VERSION */
+.custom-dialog-container .mat-mdc-dialog-container {
+  background: var(--md-sys-color-surface, #ffffff) !important;
+  border-radius: 28px !important;
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+  padding: 0 !important;
+}
+
+/* Dialog surface specific styling */
+.mat-mdc-dialog-surface {
+  background: var(--md-sys-color-surface, #ffffff) !important;
+  border-radius: 28px !important;
+  overflow: hidden !important;
+}
+
+/* Ensure dialog content areas have proper background */
+.mat-mdc-dialog-title,
+.mat-mdc-dialog-content,
+.mat-mdc-dialog-actions {
+  background: var(--md-sys-color-surface, #ffffff) !important;
+  color: var(--md-sys-color-on-surface, #1d1b20) !important;
+}
+
+/* Override any transparent backgrounds in dialog */
+.mat-mdc-dialog-container *,
+.mat-mdc-dialog-surface * {
+  background-color: inherit !important;
+}
+
+/* SIMPLE DIALOG SHADOW FIX - Only fix the double shadow issue */
+.material3-dialog {
+  background: var(--md-sys-color-surface, #ffffff) !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  box-shadow: none !important; /* Remove shadow from inner content */
+  border: none !important;
+  outline: none !important;
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 24px !important;
+}
+
+/* Apply shadow only to the dialog container - not inner content */
+.single-dialog-container .mat-mdc-dialog-container,
+.mat-mdc-dialog-container {
+  background: var(--md-sys-color-surface, #ffffff) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.24) !important;
+  color: var(--md-sys-color-on-surface, #1d1b20) !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  position: relative !important;
+  z-index: 1001 !important;
+}
+
+

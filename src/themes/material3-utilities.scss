@@ -1,0 +1,386 @@
+// Material 3 Utility Classes
+// Complete set of utility classes following Material Design 3 guidelines
+
+// Material 3 Color Utilities
+.text-primary {
+  color: var(--md-sys-color-primary) !important;
+}
+
+.text-secondary {
+  color: var(--md-sys-color-secondary) !important;
+}
+
+.text-tertiary {
+  color: var(--md-sys-color-tertiary) !important;
+}
+
+.text-error {
+  color: var(--md-sys-color-error) !important;
+}
+
+.text-on-surface {
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+.text-on-surface-variant {
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+.bg-primary {
+  background-color: var(--md-sys-color-primary) !important;
+  color: var(--md-sys-color-on-primary) !important;
+}
+
+.bg-primary-container {
+  background-color: var(--md-sys-color-primary-container) !important;
+  color: var(--md-sys-color-on-primary-container) !important;
+}
+
+.bg-secondary {
+  background-color: var(--md-sys-color-secondary) !important;
+  color: var(--md-sys-color-on-secondary) !important;
+}
+
+.bg-secondary-container {
+  background-color: var(--md-sys-color-secondary-container) !important;
+  color: var(--md-sys-color-on-secondary-container) !important;
+}
+
+.bg-tertiary {
+  background-color: var(--md-sys-color-tertiary) !important;
+  color: var(--md-sys-color-on-tertiary) !important;
+}
+
+.bg-tertiary-container {
+  background-color: var(--md-sys-color-tertiary-container) !important;
+  color: var(--md-sys-color-on-tertiary-container) !important;
+}
+
+.bg-error {
+  background-color: var(--md-sys-color-error) !important;
+  color: var(--md-sys-color-on-error) !important;
+}
+
+.bg-error-container {
+  background-color: var(--md-sys-color-error-container) !important;
+  color: var(--md-sys-color-on-error-container) !important;
+}
+
+.bg-surface {
+  background-color: var(--md-sys-color-surface) !important;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+.bg-surface-container {
+  background-color: var(--md-sys-color-surface-container) !important;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+.bg-surface-container-low {
+  background-color: var(--md-sys-color-surface-container-low) !important;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+.bg-surface-container-high {
+  background-color: var(--md-sys-color-surface-container-high) !important;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+.bg-surface-container-highest {
+  background-color: var(--md-sys-color-surface-container-highest) !important;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+// Material 3 Typography Utilities - Temporarily disabled due to function compatibility issues
+/*
+.display-large {
+  @extend .md-typescale-display-large;
+}
+
+.display-medium {
+  @extend .md-typescale-display-medium;
+}
+
+.display-small {
+  @extend .md-typescale-display-small;
+}
+
+.headline-large {
+  @extend .md-typescale-headline-large;
+}
+
+.headline-medium {
+  @extend .md-typescale-headline-medium;
+}
+
+.headline-small {
+  @extend .md-typescale-headline-small;
+}
+
+.title-large {
+  @extend .md-typescale-title-large;
+}
+
+.title-medium {
+  @extend .md-typescale-title-medium;
+}
+
+.title-small {
+  @extend .md-typescale-title-small;
+}
+
+.body-large {
+  @extend .md-typescale-body-large;
+}
+
+.body-medium {
+  @extend .md-typescale-body-medium;
+}
+
+.body-small {
+  @extend .md-typescale-body-small;
+}
+
+.label-large {
+  @extend .md-typescale-label-large;
+}
+
+.label-medium {
+  @extend .md-typescale-label-medium;
+}
+
+.label-small {
+  @extend .md-typescale-label-small;
+}
+*/
+
+// Material 3 Elevation Utilities
+.elevation-0 {
+  @extend .md-elevation-0;
+}
+
+.elevation-1 {
+  @extend .md-elevation-1;
+}
+
+.elevation-2 {
+  @extend .md-elevation-2;
+}
+
+.elevation-3 {
+  @extend .md-elevation-3;
+}
+
+.elevation-4 {
+  @extend .md-elevation-4;
+}
+
+.elevation-5 {
+  @extend .md-elevation-5;
+}
+
+// Material 3 Shape Utilities
+.shape-none {
+  @extend .md-shape-none;
+}
+
+.shape-extra-small {
+  @extend .md-shape-extra-small;
+}
+
+.shape-small {
+  @extend .md-shape-small;
+}
+
+.shape-medium {
+  @extend .md-shape-medium;
+}
+
+.shape-large {
+  @extend .md-shape-large;
+}
+
+.shape-extra-large {
+  @extend .md-shape-extra-large;
+}
+
+.shape-full {
+  @extend .md-shape-full;
+}
+
+// Material 3 State Layer Utilities
+.state-layer {
+  @extend .md-state-layer;
+}
+
+.state-layer-primary {
+  @extend .md-state-layer-primary;
+}
+
+.state-layer-secondary {
+  @extend .md-state-layer-secondary;
+}
+
+.state-layer-tertiary {
+  @extend .md-state-layer-tertiary;
+}
+
+.state-layer-error {
+  @extend .md-state-layer-error;
+}
+
+.state-layer-on-surface {
+  @extend .md-state-layer-on-surface;
+}
+
+// Material 3 Motion Utilities
+.motion-standard {
+  @extend .md-motion-standard;
+}
+
+.motion-emphasized {
+  @extend .md-motion-emphasized;
+}
+
+.motion-short {
+  @extend .md-motion-short;
+}
+
+.motion-medium {
+  @extend .md-motion-medium;
+}
+
+.motion-long {
+  @extend .md-motion-long;
+}
+
+// Material 3 Layout Utilities
+.container-padding {
+  padding: 16px;
+  
+  @media (min-width: 600px) {
+    padding: 24px;
+  }
+  
+  @media (min-width: 1240px) {
+    padding: 32px;
+  }
+}
+
+.content-spacing {
+  gap: 16px;
+  
+  @media (min-width: 600px) {
+    gap: 24px;
+  }
+}
+
+.grid-spacing {
+  gap: 8px;
+  
+  @media (min-width: 600px) {
+    gap: 16px;
+  }
+}
+
+// Material 3 Interactive States
+.interactive {
+  cursor: pointer;
+  user-select: none;
+  transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Material 3 Focus Indicators
+.focus-indicator {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  transition: outline-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+  
+  &:focus-visible {
+    outline-color: var(--md-sys-color-primary);
+  }
+}
+
+// Material 3 Disabled States
+.disabled {
+  opacity: 0.38;
+  pointer-events: none;
+  user-select: none;
+}
+
+// Material 3 Loading States
+.loading {
+  position: relative;
+  pointer-events: none;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid var(--md-sys-color-primary);
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Material 3 Responsive Utilities
+.hide-mobile {
+  @media (max-width: 599px) {
+    display: none !important;
+  }
+}
+
+.hide-tablet {
+  @media (min-width: 600px) and (max-width: 1239px) {
+    display: none !important;
+  }
+}
+
+.hide-desktop {
+  @media (min-width: 1240px) {
+    display: none !important;
+  }
+}
+
+.show-mobile {
+  display: none !important;
+  
+  @media (max-width: 599px) {
+    display: block !important;
+  }
+}
+
+.show-tablet {
+  display: none !important;
+  
+  @media (min-width: 600px) and (max-width: 1239px) {
+    display: block !important;
+  }
+}
+
+.show-desktop {
+  display: none !important;
+  
+  @media (min-width: 1240px) {
+    display: block !important;
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "/api/*": "/$1",
+  "/users": "/users",
+  "/users/:id": "/users/:id", 
+  "/lookupItems": "/lookupItems",
+  "/lookupItems/:id": "/lookupItems/:id",
+  "/lookup-management": "/lookupItems",
+  "/user-management": "/users"
+}

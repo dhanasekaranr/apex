@@ -42,9 +42,9 @@
       <button mat-icon-button 
               [matMenuTriggerFor]="notificationsMenu" 
               aria-label="Notifications"
-              [class.has-notifications]="hasUnreadNotifications">
+              [class.has-notifications]="hasUnreadNotifications()">
         <mat-icon>notifications</mat-icon>
-        <span class="notification-badge" *ngIf="unreadCount > 0">{{ unreadCount }}</span>
+        <span class="notification-badge" *ngIf="unreadCount() > 0">{{ unreadCount() }}</span>
       </button>
       
       <!-- System Admin Dropdown -->
@@ -163,9 +163,9 @@
     
     <mat-divider></mat-divider>
     
-    <div class="notification-list" *ngIf="notifications.length > 0; else noNotifications">
+    <div class="notification-list" *ngIf="recentNotifications().length > 0; else noNotifications">
       <div class="notification-item" 
-           *ngFor="let notification of notifications" 
+           *ngFor="let notification of recentNotifications()" 
            [class.unread]="!notification.read"
            (click)="markAsRead(notification)">
         <div class="notification-icon">
@@ -176,7 +176,7 @@
         <div class="notification-content">
           <div class="notification-title">{{ notification.title }}</div>
           <div class="notification-message">{{ notification.message }}</div>
-          <div class="notification-time">{{ notification.time | date:'short' }}</div>
+          <div class="notification-time">{{ notification.timestamp | date:'short' }}</div>
         </div>
       </div>
     </div>

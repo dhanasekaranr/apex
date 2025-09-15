@@ -1,0 +1,1941 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "userCode": "ADM001",
+      "userName": "Watson Joyce",
+      "userRole": "Admin",
+      "screenAccess": [
+        "Dashboard",
+        "Users",
+        "Orders",
+        "Reports",
+        "Settings"
+      ],
+      "dualMode": true,
+      "debugMode": "Y",
+      "lastLogin": "2024-12-28",
+      "status": "Active"
+    },
+    {
+      "id": 2,
+      "userCode": "MGR002",
+      "userName": "Sarah Manager",
+      "userRole": "Manager",
+      "screenAccess": [
+        "Dashboard",
+        "Orders",
+        "Reports",
+        "Analytics"
+      ],
+      "dualMode": false,
+      "debugMode": "N",
+      "lastLogin": "2024-12-27",
+      "status": "Active"
+    },
+    {
+      "id": 3,
+      "userCode": "USR003",
+      "userName": "Mike User",
+      "userRole": "User",
+      "screenAccess": [
+        "Dashboard",
+        "Orders"
+      ],
+      "dualMode": false,
+      "debugMode": "N",
+      "lastLogin": "2024-12-26",
+      "status": "Active"
+    },
+    {
+      "id": 4,
+      "userCode": "DEV004",
+      "userName": "Emma Developer",
+      "userRole": "Developer",
+      "screenAccess": [
+        "Dashboard",
+        "Users",
+        "Orders",
+        "Reports",
+        "Settings",
+        "Debug"
+      ],
+      "dualMode": true,
+      "debugMode": "Y",
+      "lastLogin": "2024-12-29",
+      "status": "Active"
+    },
+    {
+      "id": 5,
+      "userCode": "ANL005",
+      "userName": "David Analyst",
+      "userRole": "Analyst",
+      "screenAccess": [
+        "Dashboard",
+        "Reports",
+        "Analytics"
+      ],
+      "dualMode": false,
+      "debugMode": "N",
+      "lastLogin": "2024-12-25",
+      "status": "Inactive"
+    },
+    {
+      "id": 6,
+      "userCode": "SUP006",
+      "userName": "Lisa Support",
+      "userRole": "Support",
+      "screenAccess": [
+        "Dashboard",
+        "Orders",
+        "Users"
+      ],
+      "dualMode": false,
+      "debugMode": "Y",
+      "lastLogin": "2024-12-24",
+      "status": "Active"
+    },
+    {
+      "id": 7,
+      "userCode": "USR007",
+      "userName": "Tom Wilson",
+      "userRole": "User",
+      "screenAccess": [
+        "Dashboard"
+      ],
+      "dualMode": false,
+      "debugMode": "N",
+      "lastLogin": "2024-12-20",
+      "status": "Suspended"
+    },
+    {
+      "id": 8,
+      "userCode": "MGR008",
+      "userName": "Alice Johnson",
+      "userRole": "Manager",
+      "screenAccess": [
+        "Dashboard",
+        "Orders",
+        "Reports",
+        "Users"
+      ],
+      "dualMode": true,
+      "debugMode": "N",
+      "lastLogin": "2024-12-28",
+      "status": "Active"
+    },
+    {
+      "id": 9,
+      "userCode": "DEV009",
+      "userName": "Robert Chen",
+      "userRole": "Developer",
+      "screenAccess": [
+        "Dashboard",
+        "Orders",
+        "Settings",
+        "Analytics"
+      ],
+      "dualMode": false,
+      "debugMode": "Y",
+      "lastLogin": "2024-12-29",
+      "status": "Active"
+    },
+    {
+      "id": 10,
+      "userCode": "USR010",
+      "userName": "Maria Rodriguez",
+      "userRole": "User",
+      "screenAccess": [
+        "Dashboard",
+        "Orders"
+      ],
+      "dualMode": false,
+      "debugMode": "N",
+      "lastLogin": "2024-12-23",
+      "status": "Active"
+    }
+  ],
+  "lookupItems": [
+    {
+      "id": "loan-status",
+      "name": "Loan Status",
+      "description": "Status values for loan applications",
+      "category": "Loans",
+      "values": [
+        {
+          "key": "DISBURSED",
+          "value": "Disbursed",
+          "description": "Loan amount disbursed",
+          "isActive": true
+        },
+        {
+          "key": "",
+          "value": "",
+          "description": "",
+          "isActive": true
+        },
+        {
+          "key": "",
+          "value": "",
+          "description": "",
+          "isActive": true
+        },
+        {
+          "key": "",
+          "value": "",
+          "description": "",
+          "isActive": true
+        },
+        {
+          "key": "",
+          "value": "",
+          "description": "",
+          "isActive": true
+        },
+        {
+          "key": "",
+          "value": "",
+          "description": "",
+          "isActive": true
+        }
+      ]
+    },
+    {
+      "id": "loan-substatus",
+      "name": "Loan Sub-Status",
+      "description": "Detailed status values for loan processing",
+      "category": "Loans",
+      "values": [
+        {
+          "key": "DOC_PENDING",
+          "value": "Documents Pending",
+          "description": "Waiting for required documents",
+          "isActive": true
+        },
+        {
+          "key": "VERIFICATION",
+          "value": "Under Verification",
+          "description": "Documents under verification",
+          "isActive": true
+        },
+        {
+          "key": "CREDIT_CHECK",
+          "value": "Credit Check",
+          "description": "Credit score verification in progress",
+          "isActive": true
+        },
+        {
+          "key": "FINAL_APPROVAL",
+          "value": "Final Approval",
+          "description": "Pending final approval",
+          "isActive": true
+        }
+      ]
+    },
+    {
+      "id": "product-type",
+      "name": "Product Type",
+      "description": "Types of loan products available",
+      "category": "Products",
+      "values": [
+        {
+          "key": "HOME_LOAN",
+          "value": "Home Loan",
+          "description": "Residential property loans",
+          "isActive": true
+        },
+        {
+          "key": "PERSONAL_LOAN",
+          "value": "Personal Loan",
+          "description": "Personal finance loans",
+          "isActive": true
+        },
+        {
+          "key": "AUTO_LOAN",
+          "value": "Auto Loan",
+          "description": "Vehicle financing loans",
+          "isActive": true
+        },
+        {
+          "key": "BUSINESS_LOAN",
+          "value": "Business Loan",
+          "description": "Commercial lending products",
+          "isActive": true
+        },
+        {
+          "key": "EDUCATION_LOAN",
+          "value": "Education Loan",
+          "description": "Educational financing",
+          "isActive": true
+        }
+      ]
+    },
+    {
+      "id": "modules",
+      "name": "System Modules",
+      "description": "Available system modules and features",
+      "category": "System",
+      "values": [
+        {
+          "key": "USER_MGMT",
+          "value": "User Management",
+          "description": "User administration module",
+          "isActive": true
+        },
+        {
+          "key": "LOAN_PROC",
+          "value": "Loan Processing",
+          "description": "Core loan processing functionality",
+          "isActive": true
+        },
+        {
+          "key": "REPORTING",
+          "value": "Reports & Analytics",
+          "description": "Business intelligence and reporting",
+          "isActive": true
+        },
+        {
+          "key": "DOCUMENT_MGMT",
+          "value": "Document Management",
+          "description": "Document storage and management",
+          "isActive": true
+        },
+        {
+          "key": "COMPLIANCE",
+          "value": "Compliance & Audit",
+          "description": "Regulatory compliance tools",
+          "isActive": true
+        }
+      ]
+    }
+  ],
+  "generalSettings": [
+    {
+      "id": "general",
+      "applicationName": "Apex Financial Management",
+      "version": "2.1.4",
+      "environment": "Production",
+      "defaultLanguage": "en-US",
+      "defaultCurrency": "USD",
+      "dateFormat": "MM/dd/yyyy",
+      "timeFormat": "12-hour",
+      "timezone": "America/New_York",
+      "companyName": "Apex Financial Services",
+      "companyLogo": "/assets/images/company-logo.png",
+      "supportEmail": "support@apexfinancial.com",
+      "supportPhone": "+1-800-555-0123",
+      "maxFileUploadSize": 10485760,
+      "allowedFileTypes": [
+        ".pdf",
+        ".doc",
+        ".docx",
+        ".jpg",
+        ".png"
+      ],
+      "maintenanceMode": false,
+      "maintenanceMessage": "System maintenance in progress. Please try again later.",
+      "lastUpdated": "2025-09-13T10:30:00Z",
+      "updatedBy": "system"
+    }
+  ],
+  "userPreferences": [
+    {
+      "id": "preferences",
+      "theme": "light",
+      "primaryColor": "blue",
+      "accentColor": "orange",
+      "fontSize": "medium",
+      "compactMode": false,
+      "showAnimations": true,
+      "autoSave": true,
+      "autoSaveInterval": 300000,
+      "notifications": {
+        "email": true,
+        "browser": true,
+        "sound": false,
+        "desktop": true
+      },
+      "dashboard": {
+        "showWelcome": true,
+        "defaultView": "summary",
+        "refreshInterval": 30000,
+        "showQuickActions": true,
+        "compactCards": false
+      },
+      "tables": {
+        "defaultPageSize": 25,
+        "showDensity": "comfortable",
+        "stickyHeader": true,
+        "showColumnResize": true
+      },
+      "accessibility": {
+        "highContrast": false,
+        "reducedMotion": false,
+        "screenReader": false,
+        "keyboardNavigation": true
+      },
+      "lastUpdated": "2025-09-13T09:15:00Z",
+      "updatedBy": "current-user"
+    }
+  ],
+  "securitySettings": [
+    {
+      "id": "security",
+      "passwordPolicy": {
+        "minLength": 8,
+        "requireUppercase": true,
+        "requireLowercase": true,
+        "requireNumbers": true,
+        "requireSpecialChars": true,
+        "maxAge": 90,
+        "preventReuse": 5,
+        "lockoutThreshold": 5,
+        "lockoutDuration": 1800000
+      },
+      "sessionManagement": {
+        "timeoutWarning": 300000,
+        "sessionTimeout": 3600000,
+        "maxConcurrentSessions": 3,
+        "requireReauth": false,
+        "rememberMe": true,
+        "rememberMeDuration": 2592000000
+      },
+      "twoFactorAuth": {
+        "enabled": true,
+        "methods": [
+          "sms",
+          "email",
+          "authenticator"
+        ],
+        "defaultMethod": "email",
+        "backupCodes": true,
+        "required": false
+      },
+      "apiSecurity": {
+        "rateLimiting": true,
+        "maxRequestsPerMinute": 100,
+        "corsEnabled": true,
+        "allowedOrigins": [
+          "https://apex.company.com",
+          "http://localhost:4200"
+        ],
+        "encryptionEnabled": true,
+        "auditLogging": true
+      },
+      "dataProtection": {
+        "dataRetentionPeriod": 2555,
+        "automaticBackup": true,
+        "backupFrequency": "daily",
+        "encryptData": true,
+        "anonymizeData": false
+      },
+      "lastUpdated": "2025-09-13T08:45:00Z",
+      "updatedBy": "admin"
+    }
+  ],
+  "systemInformation": [
+    {
+      "id": "system",
+      "server": {
+        "hostname": "apex-prod-01",
+        "ipAddress": "10.0.1.100",
+        "port": 3000,
+        "protocol": "HTTPS",
+        "uptime": 1234567890,
+        "lastRestart": "2025-09-10T02:00:00Z"
+      },
+      "database": {
+        "type": "PostgreSQL",
+        "version": "14.9",
+        "host": "db-cluster-01",
+        "port": 5432,
+        "name": "apex_financial_db",
+        "connectionPool": 20,
+        "status": "healthy"
+      },
+      "performance": {
+        "cpuUsage": 45.2,
+        "memoryUsage": 68.7,
+        "diskUsage": 32.1,
+        "networkLatency": 12.3,
+        "avgResponseTime": 156.7,
+        "requestsPerSecond": 47.8
+      },
+      "monitoring": {
+        "healthCheckUrl": "/api/health",
+        "statusPageUrl": "https://status.apexfinancial.com",
+        "logLevel": "INFO",
+        "metricsEnabled": true,
+        "alertingEnabled": true
+      },
+      "integrations": {
+        "paymentGateway": {
+          "provider": "Stripe",
+          "status": "connected",
+          "lastSync": "2025-09-13T10:25:00Z"
+        },
+        "emailService": {
+          "provider": "SendGrid",
+          "status": "connected",
+          "lastSync": "2025-09-13T10:28:00Z"
+        },
+        "smsService": {
+          "provider": "Twilio",
+          "status": "connected",
+          "lastSync": "2025-09-13T10:22:00Z"
+        }
+      },
+      "lastUpdated": "2025-09-13T10:30:00Z"
+    }
+  ],
+  "navigation": [
+    {
+      "id": "main-navigation",
+      "version": "1.0.0",
+      "lastUpdated": "2025-09-13T00:00:00.000Z",
+      "config": {
+        "menuSections": [
+          {
+            "id": "health",
+            "label": "Health Check",
+            "order": 1,
+            "breadcrumbLabel": "Health Check",
+            "breadcrumbIcon": "health_and_safety",
+            "items": [
+              {
+                "id": "health",
+                "label": "Health Check",
+                "icon": "health_and_safety",
+                "routerLink": "/dashboard",
+                "action": "navigate",
+                "breadcrumbLabel": "Health Check",
+                "breadcrumbIcon": "health_and_safety"
+              }
+            ]
+          },
+          {
+            "id": "resources",
+            "label": "Resources",
+            "order": 2,
+            "breadcrumbLabel": "Resources",
+            "breadcrumbIcon": "people",
+            "items": [
+              {
+                "id": "resources-main",
+                "label": "Resources",
+                "icon": "people",
+                "breadcrumbLabel": "Resources",
+                "breadcrumbIcon": "people",
+                "children": [
+                  {
+                    "id": "all-resources",
+                    "label": "All Resources",
+                    "icon": "list",
+                    "routerLink": "/users",
+                    "action": "navigate",
+                    "breadcrumbLabel": "Users",
+                    "breadcrumbIcon": "people"
+                  },
+                  {
+                    "id": "resource-management",
+                    "label": "Resource Management",
+                    "icon": "manage_accounts",
+                    "breadcrumbLabel": "Resource Management",
+                    "breadcrumbIcon": "manage_accounts",
+                    "children": [
+                      {
+                        "id": "create-resource",
+                        "label": "Create Resource",
+                        "icon": "person_add",
+                        "action": "createUser",
+                        "breadcrumbLabel": "Create Resource",
+                        "breadcrumbIcon": "person_add"
+                      },
+                      {
+                        "id": "import-resources",
+                        "label": "Import Resources",
+                        "icon": "upload",
+                        "action": "importUsers",
+                        "breadcrumbLabel": "Import Resources",
+                        "breadcrumbIcon": "upload"
+                      },
+                      {
+                        "id": "export-resources",
+                        "label": "Export Resources",
+                        "icon": "download",
+                        "action": "exportUsers",
+                        "breadcrumbLabel": "Export Resources",
+                        "breadcrumbIcon": "download"
+                      },
+                      {
+                        "id": "resource-templates",
+                        "label": "Resource Templates",
+                        "icon": "description",
+                        "action": "userTemplates",
+                        "dividerAfter": true,
+                        "breadcrumbLabel": "Resource Templates",
+                        "breadcrumbIcon": "description"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "resource-roles",
+                    "label": "Roles & Permissions",
+                    "icon": "security",
+                    "breadcrumbLabel": "Roles & Permissions",
+                    "breadcrumbIcon": "security",
+                    "children": [
+                      {
+                        "id": "manage-roles",
+                        "label": "Manage Roles",
+                        "icon": "admin_panel_settings",
+                        "action": "manageRoles",
+                        "breadcrumbLabel": "Manage Roles",
+                        "breadcrumbIcon": "admin_panel_settings"
+                      },
+                      {
+                        "id": "permission-matrix",
+                        "label": "Permission Matrix",
+                        "icon": "grid_on",
+                        "action": "permissionMatrix",
+                        "breadcrumbLabel": "Permission Matrix",
+                        "breadcrumbIcon": "grid_on"
+                      },
+                      {
+                        "id": "role-templates",
+                        "label": "Role Templates",
+                        "icon": "copy",
+                        "action": "roleTemplates",
+                        "breadcrumbLabel": "Role Templates",
+                        "breadcrumbIcon": "copy"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "bulk-operations",
+                    "label": "Bulk Operations",
+                    "icon": "group_work",
+                    "action": "bulkResourceOperations",
+                    "dividerAfter": true,
+                    "breadcrumbLabel": "Bulk Operations",
+                    "breadcrumbIcon": "group_work"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "queue",
+            "label": "Messaging",
+            "order": 3,
+            "breadcrumbLabel": "Messaging",
+            "breadcrumbIcon": "message",
+            "items": [
+              {
+                "id": "queue-main",
+                "label": "Messaging",
+                "icon": "message",
+                "breadcrumbLabel": "Messaging",
+                "breadcrumbIcon": "message",
+                "children": [
+                  {
+                    "id": "all-orders",
+                    "label": "All Messages",
+                    "icon": "mail",
+                    "routerLink": "/orders",
+                    "action": "navigate",
+                    "breadcrumbLabel": "Orders",
+                    "breadcrumbIcon": "shopping_cart"
+                  },
+                  {
+                    "id": "order-status",
+                    "label": "Message Status",
+                    "icon": "mark_email_read",
+                    "breadcrumbLabel": "Message Status",
+                    "breadcrumbIcon": "mark_email_read",
+                    "children": [
+                      {
+                        "id": "pending-orders",
+                        "label": "Pending Messages",
+                        "icon": "schedule_send",
+                        "action": "pendingOrders",
+                        "breadcrumbLabel": "Pending Messages",
+                        "breadcrumbIcon": "schedule_send"
+                      },
+                      {
+                        "id": "processing-orders",
+                        "label": "Processing Messages",
+                        "icon": "hourglass_empty",
+                        "action": "processingOrders",
+                        "breadcrumbLabel": "Processing Messages",
+                        "breadcrumbIcon": "hourglass_empty"
+                      },
+                      {
+                        "id": "shipped-orders",
+                        "label": "Sent Messages",
+                        "icon": "send",
+                        "action": "shippedOrders",
+                        "breadcrumbLabel": "Sent Messages",
+                        "breadcrumbIcon": "send"
+                      },
+                      {
+                        "id": "delivered-orders",
+                        "label": "Delivered Messages",
+                        "icon": "mark_email_read",
+                        "action": "deliveredOrders",
+                        "breadcrumbLabel": "Delivered Messages",
+                        "breadcrumbIcon": "mark_email_read"
+                      },
+                      {
+                        "id": "cancelled-orders",
+                        "label": "Failed Messages",
+                        "icon": "error",
+                        "action": "cancelledOrders",
+                        "breadcrumbLabel": "Failed Messages",
+                        "breadcrumbIcon": "error"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "order-reports",
+                    "label": "Message Reports",
+                    "icon": "analytics",
+                    "breadcrumbLabel": "Message Reports",
+                    "breadcrumbIcon": "analytics",
+                    "children": [
+                      {
+                        "id": "sales-report",
+                        "label": "Message Volume Report",
+                        "icon": "bar_chart",
+                        "action": "salesReport",
+                        "breadcrumbLabel": "Message Volume Report",
+                        "breadcrumbIcon": "bar_chart"
+                      },
+                      {
+                        "id": "order-analytics",
+                        "label": "Message Analytics",
+                        "icon": "analytics",
+                        "action": "orderAnalytics",
+                        "breadcrumbLabel": "Message Analytics",
+                        "breadcrumbIcon": "analytics"
+                      },
+                      {
+                        "id": "customer-report",
+                        "label": "Recipients Report",
+                        "icon": "people",
+                        "action": "customerReport",
+                        "breadcrumbLabel": "Recipients Report",
+                        "breadcrumbIcon": "people"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "create-order",
+                    "label": "Compose Message",
+                    "icon": "edit",
+                    "action": "createOrder",
+                    "dividerAfter": true,
+                    "breadcrumbLabel": "Compose Message",
+                    "breadcrumbIcon": "edit"
+                  },
+                  {
+                    "id": "order-settings",
+                    "label": "Message Settings",
+                    "icon": "settings",
+                    "action": "orderSettings",
+                    "breadcrumbLabel": "Message Settings",
+                    "breadcrumbIcon": "settings"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "documents",
+            "label": "Documents",
+            "order": 4,
+            "breadcrumbLabel": "Documents",
+            "breadcrumbIcon": "description",
+            "items": [
+              {
+                "id": "documents-main",
+                "label": "Documents",
+                "icon": "description",
+                "breadcrumbLabel": "Documents",
+                "breadcrumbIcon": "description",
+                "children": [
+                  {
+                    "id": "financial-reports",
+                    "label": "Financial Reports",
+                    "icon": "account_balance",
+                    "breadcrumbLabel": "Financial Reports",
+                    "breadcrumbIcon": "account_balance",
+                    "children": [
+                      {
+                        "id": "profit-loss",
+                        "label": "Profit & Loss",
+                        "icon": "trending_up",
+                        "action": "profitLossReport",
+                        "breadcrumbLabel": "Profit & Loss",
+                        "breadcrumbIcon": "trending_up"
+                      },
+                      {
+                        "id": "balance-sheet",
+                        "label": "Balance Sheet",
+                        "icon": "account_balance_wallet",
+                        "action": "balanceSheetReport",
+                        "breadcrumbLabel": "Balance Sheet",
+                        "breadcrumbIcon": "account_balance_wallet"
+                      },
+                      {
+                        "id": "cash-flow",
+                        "label": "Cash Flow",
+                        "icon": "water_drop",
+                        "action": "cashFlowReport",
+                        "breadcrumbLabel": "Cash Flow",
+                        "breadcrumbIcon": "water_drop"
+                      },
+                      {
+                        "id": "revenue-report",
+                        "label": "Revenue Report",
+                        "icon": "attach_money",
+                        "action": "revenueReport",
+                        "breadcrumbLabel": "Revenue Report",
+                        "breadcrumbIcon": "attach_money"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "operational-reports",
+                    "label": "Operational Reports",
+                    "icon": "business",
+                    "breadcrumbLabel": "Operational Reports",
+                    "breadcrumbIcon": "business",
+                    "children": [
+                      {
+                        "id": "inventory-report",
+                        "label": "Inventory Report",
+                        "icon": "inventory",
+                        "action": "inventoryReport",
+                        "breadcrumbLabel": "Inventory Report",
+                        "breadcrumbIcon": "inventory"
+                      },
+                      {
+                        "id": "performance-report",
+                        "label": "Performance Report",
+                        "icon": "speed",
+                        "action": "performanceReport",
+                        "breadcrumbLabel": "Performance Report",
+                        "breadcrumbIcon": "speed"
+                      },
+                      {
+                        "id": "productivity-report",
+                        "label": "Productivity Report",
+                        "icon": "work",
+                        "action": "productivityReport",
+                        "breadcrumbLabel": "Productivity Report",
+                        "breadcrumbIcon": "work"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "custom-reports",
+                    "label": "Custom Reports",
+                    "icon": "tune",
+                    "breadcrumbLabel": "Custom Reports",
+                    "breadcrumbIcon": "tune",
+                    "children": [
+                      {
+                        "id": "create-custom-report",
+                        "label": "Create Custom Report",
+                        "icon": "add",
+                        "action": "createCustomReport",
+                        "breadcrumbLabel": "Create Custom Report",
+                        "breadcrumbIcon": "add"
+                      },
+                      {
+                        "id": "saved-reports",
+                        "label": "Saved Reports",
+                        "icon": "bookmark",
+                        "action": "savedReports",
+                        "breadcrumbLabel": "Saved Reports",
+                        "breadcrumbIcon": "bookmark"
+                      },
+                      {
+                        "id": "report-templates",
+                        "label": "Report Templates",
+                        "icon": "description",
+                        "action": "reportTemplates",
+                        "breadcrumbLabel": "Report Templates",
+                        "breadcrumbIcon": "description"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "report-builder",
+                    "label": "Report Builder",
+                    "icon": "build",
+                    "action": "reportBuilder",
+                    "dividerAfter": true,
+                    "breadcrumbLabel": "Report Builder",
+                    "breadcrumbIcon": "build"
+                  },
+                  {
+                    "id": "scheduled-reports",
+                    "label": "Scheduled Reports",
+                    "icon": "schedule",
+                    "action": "scheduledReports",
+                    "breadcrumbLabel": "Scheduled Reports",
+                    "breadcrumbIcon": "schedule"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "settings",
+            "label": "Settings",
+            "order": 5,
+            "breadcrumbLabel": "Settings",
+            "breadcrumbIcon": "settings",
+            "items": [
+              {
+                "id": "settings-main",
+                "label": "Settings",
+                "icon": "settings",
+                "routerLink": "/settings",
+                "action": "navigate",
+                "breadcrumbLabel": "Settings",
+                "breadcrumbIcon": "settings",
+                "children": [
+                  {
+                    "id": "system-settings",
+                    "label": "System Settings",
+                    "icon": "settings_system_daydream",
+                    "breadcrumbLabel": "System Settings",
+                    "breadcrumbIcon": "settings_system_daydream",
+                    "children": [
+                      {
+                        "id": "general-settings",
+                        "label": "General Settings",
+                        "icon": "tune",
+                        "action": "generalSettings",
+                        "breadcrumbLabel": "General",
+                        "breadcrumbIcon": "tune"
+                      },
+                      {
+                        "id": "email-settings",
+                        "label": "Email Settings",
+                        "icon": "email",
+                        "action": "emailSettings",
+                        "breadcrumbLabel": "Email Settings",
+                        "breadcrumbIcon": "email"
+                      },
+                      {
+                        "id": "notification-settings",
+                        "label": "Notification Settings",
+                        "icon": "notifications",
+                        "action": "notificationSettings",
+                        "breadcrumbLabel": "Notification Settings",
+                        "breadcrumbIcon": "notifications"
+                      },
+                      {
+                        "id": "integration-settings",
+                        "label": "Integration Settings",
+                        "icon": "integration_instructions",
+                        "action": "integrationSettings",
+                        "breadcrumbLabel": "Integration Settings",
+                        "breadcrumbIcon": "integration_instructions"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "user-preferences",
+                    "label": "User Preferences",
+                    "icon": "person_pin",
+                    "breadcrumbLabel": "User Preferences",
+                    "breadcrumbIcon": "person_pin",
+                    "children": [
+                      {
+                        "id": "profile-settings",
+                        "label": "Profile Settings",
+                        "icon": "account_circle",
+                        "action": "profileSettings",
+                        "breadcrumbLabel": "Preferences",
+                        "breadcrumbIcon": "person_pin"
+                      },
+                      {
+                        "id": "theme-settings",
+                        "label": "Theme Settings",
+                        "icon": "palette",
+                        "action": "themeSettings",
+                        "breadcrumbLabel": "Theme Settings",
+                        "breadcrumbIcon": "palette"
+                      },
+                      {
+                        "id": "language-settings",
+                        "label": "Language Settings",
+                        "icon": "language",
+                        "action": "languageSettings",
+                        "breadcrumbLabel": "Language Settings",
+                        "breadcrumbIcon": "language"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "security-settings",
+                    "label": "Security Settings",
+                    "icon": "security",
+                    "breadcrumbLabel": "Security Settings",
+                    "breadcrumbIcon": "security",
+                    "children": [
+                      {
+                        "id": "password-policy",
+                        "label": "Password Policy",
+                        "icon": "lock",
+                        "action": "passwordPolicy",
+                        "breadcrumbLabel": "Password Policy",
+                        "breadcrumbIcon": "lock"
+                      },
+                      {
+                        "id": "two-factor-auth",
+                        "label": "Two-Factor Auth",
+                        "icon": "verified_user",
+                        "action": "twoFactorAuth",
+                        "breadcrumbLabel": "Two-Factor Auth",
+                        "breadcrumbIcon": "verified_user"
+                      },
+                      {
+                        "id": "session-settings",
+                        "label": "Session Settings",
+                        "icon": "schedule",
+                        "action": "sessionSettings",
+                        "breadcrumbLabel": "Session Settings",
+                        "breadcrumbIcon": "schedule"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "backup-restore",
+                    "label": "Backup & Restore",
+                    "icon": "backup",
+                    "action": "backupRestore",
+                    "dividerAfter": true,
+                    "breadcrumbLabel": "Backup & Restore",
+                    "breadcrumbIcon": "backup"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "audit",
+            "label": "Audit Log",
+            "order": 6,
+            "breadcrumbLabel": "Audit Log",
+            "breadcrumbIcon": "history",
+            "items": [
+              {
+                "id": "audit",
+                "label": "Audit Log",
+                "icon": "history",
+                "routerLink": "/audit",
+                "action": "navigate",
+                "breadcrumbLabel": "Audit Log",
+                "breadcrumbIcon": "history"
+              }
+            ]
+          },
+          {
+            "id": "documentation",
+            "label": "Documentation",
+            "order": 7,
+            "breadcrumbLabel": "Documentation",
+            "breadcrumbIcon": "help_center",
+            "items": [
+              {
+                "id": "documentation-main",
+                "label": "Documentation",
+                "icon": "help_center",
+                "routerLink": "/documentation",
+                "action": "navigate",
+                "breadcrumbLabel": "Documentation",
+                "breadcrumbIcon": "help_center"
+              }
+            ]
+          },
+          {
+            "id": "lookup-management",
+            "label": "Lookup Management",
+            "order": 8,
+            "breadcrumbLabel": "Lookup Management",
+            "breadcrumbIcon": "manage_search",
+            "items": [
+              {
+                "id": "lookup-management-main",
+                "label": "Lookup Management",
+                "icon": "manage_search",
+                "routerLink": "/lookup-management",
+                "action": "navigate",
+                "breadcrumbLabel": "Lookup Management",
+                "breadcrumbIcon": "manage_search"
+              }
+            ]
+          }
+        ],
+        "actionButtons": [
+          {
+            "id": "search",
+            "icon": "search",
+            "tooltip": "Search",
+            "action": "performSearch",
+            "order": 1
+          },
+          {
+            "id": "export",
+            "icon": "download",
+            "tooltip": "Export Data",
+            "action": "exportData",
+            "order": 2
+          },
+          {
+            "id": "import",
+            "icon": "upload",
+            "tooltip": "Import Data",
+            "action": "importData",
+            "order": 3
+          },
+          {
+            "id": "more",
+            "icon": "more_vert",
+            "tooltip": "More Options",
+            "action": "openMoreMenu",
+            "order": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "sidenav-configuration",
+      "version": "1.0.0",
+      "lastUpdated": "2025-09-13T00:00:00.000Z",
+      "config": {
+        "sidenavSections": [
+          {
+            "id": "main-navigation",
+            "label": "Main Navigation",
+            "order": 1,
+            "items": [
+              {
+                "id": "dashboard",
+                "label": "Dashboard",
+                "icon": "dashboard",
+                "routerLink": "/dashboard",
+                "action": "navigate",
+                "type": "item"
+              },
+              {
+                "id": "access-management",
+                "label": "Access Management",
+                "icon": "security",
+                "type": "expandable",
+                "expanded": false,
+                "disabled": true,
+                "disabledReason": "App management is currently under maintenance",
+                "children": [
+                  {
+                    "id": "user-access",
+                    "label": "User Access",
+                    "icon": "person",
+                    "routerLink": "/access/users",
+                    "action": "navigate",
+                    "type": "item"
+                  },
+                  {
+                    "id": "db-access",
+                    "label": "Database Access",
+                    "icon": "storage",
+                    "routerLink": "/access/database",
+                    "action": "navigate",
+                    "type": "item"
+                  },
+                  {
+                    "id": "confluence-access",
+                    "label": "Confluence Access",
+                    "icon": "article",
+                    "routerLink": "/access/confluence",
+                    "action": "navigate",
+                    "type": "item"
+                  },
+                  {
+                    "id": "ad-group-access",
+                    "label": "AD Group Access",
+                    "icon": "group",
+                    "routerLink": "/access/ad-groups",
+                    "action": "navigate",
+                    "type": "item"
+                  }
+                ]
+              },
+              {
+                "id": "angular-pilot",
+                "label": "Angular Pilot Enablement",
+                "icon": "rocket_launch",
+                "routerLink": "/users",
+                "action": "navigate",
+                "type": "item"
+              },
+              {
+                "id": "lookup-management",
+                "label": "Lookup Management",
+                "icon": "manage_search",
+                "routerLink": "/lookup-management",
+                "action": "navigate",
+                "type": "item"
+              },
+              {
+                "id": "configuration-settings",
+                "label": "Configuration Settings",
+                "icon": "settings",
+                "type": "expandable",
+                "expanded": false,
+                "children": [
+                  {
+                    "id": "application-settings",
+                    "label": "Application Settings",
+                    "icon": "settings_applications",
+                    "routerLink": "/settings/general",
+                    "action": "navigate",
+                    "type": "item"
+                  }
+                ]
+              },
+              {
+                "id": "log-viewer",
+                "label": "Log Viewer",
+                "icon": "description",
+                "type": "expandable",
+                "expanded": false,
+                "disabled": true,
+                "disabledReason": "App management is currently under maintenance",
+                "children": [
+                  {
+                    "id": "splunk-logs",
+                    "label": "Splunk",
+                    "icon": "insights",
+                    "routerLink": "/logs/splunk",
+                    "action": "navigate",
+                    "type": "item"
+                  },
+                  {
+                    "id": "iaas-logs",
+                    "label": "IAAS Log",
+                    "icon": "cloud",
+                    "routerLink": "/logs/iaas",
+                    "action": "navigate",
+                    "type": "item"
+                  }
+                ]
+              },
+              {
+                "id": "monitors",
+                "label": "Monitors",
+                "icon": "monitor_heart",
+                "type": "expandable",
+                "expanded": false,
+                "disabled": true,
+                "disabledReason": "App management is currently under maintenance",
+                "children": [
+                  {
+                    "id": "application-health",
+                    "label": "Application Health",
+                    "icon": "health_and_safety",
+                    "routerLink": "/monitors/health",
+                    "action": "navigate",
+                    "type": "item"
+                  }
+                ]
+              },
+              {
+                "id": "legacy-settings",
+                "label": "Settings",
+                "icon": "settings",
+                "type": "expandable",
+                "expanded": false,
+                "disabled": true,
+                "disabledReason": "App management is currently under maintenance",
+                "children": [
+                  {
+                    "id": "general-settings",
+                    "label": "General Settings",
+                    "icon": "tune",
+                    "routerLink": "/settings/general",
+                    "action": "navigate",
+                    "type": "item"
+                  },
+                  {
+                    "id": "user-preferences",
+                    "label": "User Preferences",
+                    "icon": "account_circle",
+                    "routerLink": "/settings/preferences",
+                    "action": "navigate",
+                    "type": "item"
+                  },
+                  {
+                    "id": "advanced-settings",
+                    "label": "Advanced Settings",
+                    "icon": "settings_applications",
+                    "routerLink": "/settings/advanced",
+                    "action": "navigate",
+                    "disabled": true,
+                    "disabledReason": "Requires administrator privileges",
+                    "type": "item"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "footer-navigation",
+            "label": "Footer Navigation",
+            "order": 2,
+            "items": [
+              {
+                "id": "help-support",
+                "label": "Help & Support",
+                "icon": "help",
+                "type": "expandable",
+                "expanded": false,
+                "children": [
+                  {
+                    "id": "documentation",
+                    "label": "Documentation",
+                    "icon": "description",
+                    "routerLink": "/documentation",
+                    "action": "navigate",
+                    "type": "item"
+                  },
+                  {
+                    "id": "contact-support",
+                    "label": "Contact Support",
+                    "icon": "support_agent",
+                    "routerLink": "/support",
+                    "action": "navigate",
+                    "type": "item"
+                  },
+                  {
+                    "id": "report-issue",
+                    "label": "Report Issue",
+                    "icon": "bug_report",
+                    "routerLink": "/report-issue",
+                    "action": "navigate",
+                    "type": "item"
+                  }
+                ]
+              },
+              {
+                "id": "logout",
+                "label": "Logout",
+                "icon": "logout",
+                "routerLink": "/logout",
+                "action": "navigate",
+                "type": "item"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "breadcrumb": [
+    {
+      "id": "breadcrumb-config",
+      "version": "1.0.0",
+      "lastUpdated": "2025-09-13T00:00:00.000Z",
+      "routeMappings": {
+        "dashboard": {
+          "label": "Dashboard",
+          "icon": "dashboard",
+          "isHome": true,
+          "order": 0
+        },
+        "analytics": {
+          "label": "Analytics",
+          "icon": "analytics",
+          "parentRoute": "dashboard",
+          "order": 1
+        },
+        "users": {
+          "label": "Users",
+          "icon": "people",
+          "parentRoute": "dashboard",
+          "order": 1
+        },
+        "products": {
+          "label": "Products",
+          "icon": "inventory",
+          "parentRoute": "dashboard",
+          "order": 1
+        },
+        "orders": {
+          "label": "Orders",
+          "icon": "shopping_cart",
+          "parentRoute": "dashboard",
+          "order": 1
+        },
+        "reports": {
+          "label": "Reports",
+          "icon": "assessment",
+          "parentRoute": "dashboard",
+          "order": 1
+        },
+        "lookup-management": {
+          "label": "Lookup Management",
+          "icon": "manage_search",
+          "parentRoute": "dashboard",
+          "order": 1
+        },
+        "settings": {
+          "label": "Settings",
+          "icon": "settings",
+          "parentRoute": "dashboard",
+          "order": 1
+        },
+        "general": {
+          "label": "General",
+          "icon": "tune",
+          "parentRoute": "settings",
+          "order": 2
+        },
+        "preferences": {
+          "label": "Preferences",
+          "icon": "person_pin",
+          "parentRoute": "settings",
+          "order": 2
+        },
+        "security": {
+          "label": "Security",
+          "icon": "security",
+          "parentRoute": "settings",
+          "order": 2
+        },
+        "documentation": {
+          "label": "Documentation",
+          "icon": "help_center",
+          "parentRoute": "dashboard",
+          "order": 1
+        },
+        "help": {
+          "label": "Help & Support",
+          "icon": "help",
+          "parentRoute": "dashboard",
+          "order": 1
+        },
+        "audit": {
+          "label": "Audit Log",
+          "icon": "history",
+          "parentRoute": "dashboard",
+          "order": 1
+        }
+      },
+      "styles": [
+        {
+          "id": "default",
+          "label": "Default - Material Design 3",
+          "description": "Clean Material Design 3 style with proper spacing and typography",
+          "isDefault": true
+        },
+        {
+          "id": "minimal",
+          "label": "Minimal - Clean & Subtle",
+          "description": "Minimal design with subtle styling and clean lines"
+        },
+        {
+          "id": "pill",
+          "label": "Pill - Modern Rounded",
+          "description": "Modern pill-shaped breadcrumbs with rounded corners"
+        },
+        {
+          "id": "card",
+          "label": "Card - Elevated Cards",
+          "description": "Card-based breadcrumbs with elevation and shadows"
+        },
+        {
+          "id": "underline",
+          "label": "Underline - Animated",
+          "description": "Underline style with smooth animations and hover effects"
+        },
+        {
+          "id": "subtle",
+          "label": "Subtle - Light Theme",
+          "description": "Very subtle styling for light backgrounds"
+        },
+        {
+          "id": "ultra-dark",
+          "label": "Ultra Dark - High Contrast",
+          "description": "High contrast dark theme with bold styling"
+        },
+        {
+          "id": "elegant",
+          "label": "Elegant - Serif Typography",
+          "description": "Elegant design with serif fonts and sophisticated styling"
+        },
+        {
+          "id": "compact",
+          "label": "Compact - Space Efficient",
+          "description": "Compact design for space-constrained layouts"
+        },
+        {
+          "id": "bold",
+          "label": "Bold - High Contrast",
+          "description": "Bold and prominent styling with high contrast"
+        },
+        {
+          "id": "arrow-flow",
+          "label": "Arrow Flow - Directional",
+          "description": "Directional design with arrow separators and flow indicators"
+        }
+      ]
+    }
+  ],
+  "notifications": [
+    {
+      "id": "notifications-data",
+      "version": "1.0.0",
+      "lastUpdated": "2025-09-13T00:00:00.000Z",
+      "notifications": [
+        {
+          "id": "1",
+          "title": "System Update",
+          "message": "System maintenance scheduled for tonight at 2 AM",
+          "type": "warning",
+          "timestamp": "2025-09-13T14:50:00.000Z",
+          "read": false,
+          "priority": "high",
+          "category": "system",
+          "actionUrl": "/system/maintenance",
+          "actionLabel": "View Details",
+          "userId": null,
+          "metadata": {
+            "scheduledTime": "2025-09-13T02:00:00.000Z",
+            "estimatedDuration": "2 hours",
+            "affectedServices": [
+              "API",
+              "Database",
+              "Web Interface"
+            ]
+          }
+        },
+        {
+          "id": "2",
+          "title": "New User Registration",
+          "message": "John Doe has registered as a new user",
+          "type": "info",
+          "timestamp": "2025-09-13T14:20:00.000Z",
+          "read": false,
+          "priority": "medium",
+          "category": "user",
+          "actionUrl": "/users/john-doe",
+          "actionLabel": "View Profile",
+          "userId": "user-123",
+          "metadata": {
+            "userName": "John Doe",
+            "userEmail": "john.doe@example.com",
+            "registrationMethod": "web"
+          }
+        },
+        {
+          "id": "3",
+          "title": "Database Backup Complete",
+          "message": "Daily backup completed successfully",
+          "type": "success",
+          "timestamp": "2025-09-13T12:50:00.000Z",
+          "read": false,
+          "priority": "low",
+          "category": "system",
+          "actionUrl": "/system/backups",
+          "actionLabel": "View Backups",
+          "userId": null,
+          "metadata": {
+            "backupSize": "2.4 GB",
+            "backupLocation": "/backup/daily/2025-09-13",
+            "backupType": "full"
+          }
+        },
+        {
+          "id": "4",
+          "title": "High CPU Usage",
+          "message": "Server CPU usage is above 85%",
+          "type": "error",
+          "timestamp": "2025-09-13T11:50:00.000Z",
+          "read": false,
+          "priority": "high",
+          "category": "performance",
+          "actionUrl": "/system/performance",
+          "actionLabel": "Check Performance",
+          "userId": null,
+          "metadata": {
+            "currentUsage": "87%",
+            "threshold": "85%",
+            "duration": "15 minutes",
+            "affectedProcesses": [
+              "web-server",
+              "database"
+            ]
+          }
+        },
+        {
+          "id": "5",
+          "title": "Report Generated",
+          "message": "Monthly sales report is ready for download",
+          "type": "info",
+          "timestamp": "2025-09-13T09:50:00.000Z",
+          "read": false,
+          "priority": "medium",
+          "category": "report",
+          "actionUrl": "/reports/monthly-sales",
+          "actionLabel": "Download Report",
+          "userId": null,
+          "metadata": {
+            "reportType": "monthly-sales",
+            "reportPeriod": "August 2025",
+            "fileSize": "1.2 MB",
+            "format": "PDF"
+          }
+        },
+        {
+          "id": "6",
+          "title": "Security Alert",
+          "message": "Multiple failed login attempts detected",
+          "type": "error",
+          "timestamp": "2025-09-13T08:30:00.000Z",
+          "read": true,
+          "priority": "high",
+          "category": "security",
+          "actionUrl": "/security/alerts",
+          "actionLabel": "View Security",
+          "userId": null,
+          "metadata": {
+            "attemptCount": 5,
+            "sourceIP": "192.168.1.100",
+            "targetAccount": "admin@company.com",
+            "timeWindow": "5 minutes"
+          }
+        },
+        {
+          "id": "7",
+          "title": "Data Export Complete",
+          "message": "User data export has been completed",
+          "type": "success",
+          "timestamp": "2025-09-13T07:15:00.000Z",
+          "read": true,
+          "priority": "low",
+          "category": "data",
+          "actionUrl": "/data/exports",
+          "actionLabel": "Download Export",
+          "userId": "user-456",
+          "metadata": {
+            "exportType": "user-data",
+            "recordCount": 1250,
+            "fileFormat": "CSV",
+            "requestedBy": "admin@company.com"
+          }
+        },
+        {
+          "id": "8",
+          "title": "License Renewal Reminder",
+          "message": "Software license expires in 30 days",
+          "type": "warning",
+          "timestamp": "2025-09-13T06:00:00.000Z",
+          "read": false,
+          "priority": "medium",
+          "category": "license",
+          "actionUrl": "/system/licenses",
+          "actionLabel": "Renew License",
+          "userId": null,
+          "metadata": {
+            "licenseType": "Enterprise",
+            "expirationDate": "2025-10-13T00:00:00.000Z",
+            "daysRemaining": 30,
+            "renewalCost": "$2,999"
+          }
+        }
+      ],
+      "notificationSettings": {
+        "enabled": true,
+        "emailNotifications": true,
+        "browserNotifications": true,
+        "soundNotifications": false,
+        "desktopNotifications": true,
+        "sound": false,
+        "autoMarkAsRead": false,
+        "showTimestamps": true,
+        "notificationRetentionDays": 30,
+        "maxNotificationsDisplay": 10,
+        "autoMarkReadAfterDays": 7,
+        "priorityFilters": {
+          "urgent": true,
+          "high": true,
+          "medium": true,
+          "low": false
+        },
+        "categoryFilters": {
+          "system": true,
+          "user": true,
+          "security": true,
+          "performance": true,
+          "report": true,
+          "license": true,
+          "data": true
+        }
+      },
+      "notificationCategories": [
+        {
+          "id": "system",
+          "label": "System Notifications",
+          "icon": "computer",
+          "color": "primary",
+          "description": "System maintenance, updates, and status",
+          "enabled": true
+        },
+        {
+          "id": "user",
+          "label": "User Activity",
+          "icon": "people",
+          "color": "success",
+          "description": "User registrations, profile changes, and activity",
+          "enabled": true
+        },
+        {
+          "id": "security",
+          "label": "Security Alerts",
+          "icon": "security",
+          "color": "error",
+          "description": "Security incidents, failed logins, and threats",
+          "enabled": true
+        },
+        {
+          "id": "performance",
+          "label": "Performance Alerts",
+          "icon": "speed",
+          "color": "warning",
+          "description": "System performance, resource usage, and optimization",
+          "enabled": true
+        },
+        {
+          "id": "report",
+          "label": "Reports",
+          "icon": "assessment",
+          "color": "info",
+          "description": "Generated reports, analytics, and data exports",
+          "enabled": true
+        },
+        {
+          "id": "license",
+          "label": "License & Billing",
+          "icon": "receipt",
+          "color": "accent",
+          "description": "License renewals, billing, and subscription updates",
+          "enabled": true
+        },
+        {
+          "id": "data",
+          "label": "Data Operations",
+          "icon": "storage",
+          "color": "primary",
+          "description": "Data imports, exports, and processing operations",
+          "enabled": true
+        }
+      ],
+      "notificationTypes": [
+        {
+          "id": "info",
+          "label": "Information",
+          "icon": "info",
+          "color": "info",
+          "description": "General information and updates"
+        },
+        {
+          "id": "success",
+          "label": "Success",
+          "icon": "check_circle",
+          "color": "success",
+          "description": "Successful operations and completions"
+        },
+        {
+          "id": "warning",
+          "label": "Warning",
+          "icon": "warning",
+          "color": "warning",
+          "description": "Warnings and important notices"
+        },
+        {
+          "id": "error",
+          "label": "Error",
+          "icon": "error",
+          "color": "error",
+          "description": "Errors and critical issues"
+        }
+      ]
+    }
+  ],
+  "individual-notifications": [
+    {
+      "id": "1",
+      "title": "System Update",
+      "message": "System maintenance scheduled for tonight at 2 AM",
+      "type": "warning",
+      "timestamp": "2025-09-13T14:50:00.000Z",
+      "read": false,
+      "priority": "high",
+      "category": "system",
+      "actionUrl": "/system/maintenance",
+      "actionLabel": "View Details",
+      "userId": null,
+      "metadata": {
+        "scheduledTime": "2025-09-13T02:00:00.000Z",
+        "estimatedDuration": "2 hours",
+        "affectedServices": [
+          "API",
+          "Database",
+          "Web Interface"
+        ]
+      }
+    },
+    {
+      "id": "2",
+      "title": "New User Registration",
+      "message": "John Doe has registered as a new user",
+      "type": "info",
+      "timestamp": "2025-09-13T14:20:00.000Z",
+      "read": false,
+      "priority": "medium",
+      "category": "user",
+      "actionUrl": "/users/john-doe",
+      "actionLabel": "View Profile",
+      "userId": "user-123",
+      "metadata": {
+        "userName": "John Doe",
+        "userEmail": "john.doe@example.com",
+        "registrationMethod": "web"
+      }
+    },
+    {
+      "id": "3",
+      "title": "Database Backup Complete",
+      "message": "Daily backup completed successfully",
+      "type": "success",
+      "timestamp": "2025-09-13T12:50:00.000Z",
+      "read": false,
+      "priority": "low",
+      "category": "system",
+      "actionUrl": "/system/backups",
+      "actionLabel": "View Backups",
+      "userId": null,
+      "metadata": {
+        "backupSize": "2.4 GB",
+        "backupLocation": "/backup/daily/2025-09-13",
+        "backupType": "full"
+      }
+    },
+    {
+      "id": "4",
+      "title": "High CPU Usage",
+      "message": "Server CPU usage is above 85%",
+      "type": "error",
+      "timestamp": "2025-09-13T11:50:00.000Z",
+      "read": false,
+      "priority": "high",
+      "category": "performance",
+      "actionUrl": "/system/performance",
+      "actionLabel": "Check Performance",
+      "userId": null,
+      "metadata": {
+        "currentUsage": "87%",
+        "threshold": "85%",
+        "duration": "15 minutes",
+        "affectedProcesses": [
+          "web-server",
+          "database"
+        ]
+      }
+    },
+    {
+      "id": "5",
+      "title": "Report Generated",
+      "message": "Monthly sales report is ready for download",
+      "type": "info",
+      "timestamp": "2025-09-13T09:50:00.000Z",
+      "read": false,
+      "priority": "medium",
+      "category": "report",
+      "actionUrl": "/reports/monthly-sales",
+      "actionLabel": "Download Report",
+      "userId": null,
+      "metadata": {
+        "reportType": "monthly-sales",
+        "reportPeriod": "August 2025",
+        "fileSize": "1.2 MB",
+        "format": "PDF"
+      }
+    },
+    {
+      "id": "6",
+      "title": "Security Alert",
+      "message": "Multiple failed login attempts detected",
+      "type": "error",
+      "timestamp": "2025-09-13T08:30:00.000Z",
+      "read": true,
+      "priority": "high",
+      "category": "security",
+      "actionUrl": "/security/alerts",
+      "actionLabel": "View Security",
+      "userId": null,
+      "metadata": {
+        "attemptCount": 5,
+        "sourceIP": "192.168.1.100",
+        "targetAccount": "admin@company.com",
+        "timeWindow": "5 minutes"
+      }
+    },
+    {
+      "id": "7",
+      "title": "Data Export Complete",
+      "message": "User data export has been completed",
+      "type": "success",
+      "timestamp": "2025-09-13T07:15:00.000Z",
+      "read": true,
+      "priority": "low",
+      "category": "data",
+      "actionUrl": "/data/exports",
+      "actionLabel": "Download Export",
+      "userId": "user-456",
+      "metadata": {
+        "exportType": "user-data",
+        "recordCount": 1250,
+        "fileFormat": "CSV",
+        "requestedBy": "admin@company.com"
+      }
+    },
+    {
+      "id": "8",
+      "title": "License Renewal Reminder",
+      "message": "Software license expires in 30 days",
+      "type": "warning",
+      "timestamp": "2025-09-13T06:00:00.000Z",
+      "read": false,
+      "priority": "medium",
+      "category": "license",
+      "actionUrl": "/system/licenses",
+      "actionLabel": "Renew License",
+      "userId": null,
+      "metadata": {
+        "licenseType": "Enterprise",
+        "expirationDate": "2025-10-13T00:00:00.000Z",
+        "daysRemaining": 30,
+        "renewalCost": "$2,999"
+      }
+    }
+  ],
+  "notification-settings": {}
+}

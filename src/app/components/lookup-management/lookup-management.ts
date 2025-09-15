@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -10,21 +11,16 @@ import { MatListModule } from '@angular/material/list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
-export interface LookupItem {
-  id: string;
-  name: string;
-  description: string;
-  category: string;
-  values: LookupValue[];
-}
-
-export interface LookupValue {
-  key: string;
-  value: string;
-  description?: string;
-  isActive: boolean;
-}
+import { Store } from '@ngrx/store';
+import {
+  LookupItem,
+  LookupItemsActions,
+  LookupValue,
+  selectLookupItems,
+  selectLookupItemsError,
+  selectLookupItemsLoading,
+  selectSelectedLookupItem,
+} from '../../store/lookup-items';
 
 @Component({
   selector: 'app-lookup-management',
@@ -44,12 +40,10 @@ export interface LookupValue {
     MatSnackBarModule,
   ],
   templateUrl: './lookup-management.html',
-  styleUrls: ['./lookup-management.scss'],
+  styleUrl: './lookup-management.scss',
 })
 export class LookupManagement implements OnInit {
-  lookups: LookupItem[] = [];
   filteredLookups: LookupItem[] = [];
-  selectedLookup: LookupItem | null = null;
   searchTerm: string = '';
   displayedColumns: string[] = [
     'key',
@@ -59,13 +53,53 @@ export class LookupManagement implements OnInit {
     'actions',
   ];
 
+  private store = inject(Store);
+
+  // NgRx Store Selectors
+  lookupItems$ = this.store.select(selectLookupItems);
+  loading$ = this.store.select(selectLookupItemsLoading);
+  error$ = this.store.select(selectLookupItemsError);
+  selectedLookup$ = this.store.select(selectSelectedLookupItem);
+
+  // Convert to signals for template use
+  lookupItems = toSignal(this.lookupItems$, { initialValue: [] });
+  loading = toSignal(this.loading$, { initialValue: false });
+  error = toSignal(this.error$, { initialValue: null });
+  selectedLookup = toSignal(this.selectedLookup$, { initialValue: null });
+
   ngOnInit() {
-    this.initializeLookups();
-    this.filteredLookups = [...this.lookups];
+    console.log('🚀 Lookup management component initializing');
+
+    // Subscribe to lookup items and update filtered list
+    this.lookupItems$.subscribe((lookups) => {
+      console.log('📊 Lookup items state updated:', lookups.length, 'items');
+      this.filteredLookups = [...lookups];
+
+      // Only load data if store is empty
+      if (lookups.length === 0) {
+        console.log('📥 Store is empty, dispatching loadLookupItems action');
+        this.store.dispatch(LookupItemsActions.loadLookupItems());
+      } else {
+        console.log('✅ Using cached data from store');
+      }
+    });
+
+    // Subscribe to loading and error states
+    this.loading$.subscribe((loading) => {
+      console.log('🔄 Lookup loading state changed:', loading);
+    });
+
+    this.error$.subscribe((error) => {
+      if (error) {
+        console.log('❌ Lookup error state updated:', error);
+      }
+    });
   }
 
   private initializeLookups() {
-    this.lookups = [
+    // This method is no longer needed - data comes from NgRx store
+    // Remove this entire method
+    /*this.lookups = [
       {
         id: 'loan-status',
         name: 'Loan Status',
@@ -282,16 +316,17 @@ export class LookupManagement implements OnInit {
           },
         ],
       },
-    ];
+    ];*/
   }
 
   onSearchChange() {
+    const allLookups = this.lookupItems();
     if (!this.searchTerm.trim()) {
-      this.filteredLookups = [...this.lookups];
+      this.filteredLookups = [...allLookups];
     } else {
       const term = this.searchTerm.toLowerCase();
-      this.filteredLookups = this.lookups.filter(
-        (lookup) =>
+      this.filteredLookups = allLookups.filter(
+        (lookup: LookupItem) =>
           lookup.name.toLowerCase().includes(term) ||
           lookup.description.toLowerCase().includes(term) ||
           lookup.category.toLowerCase().includes(term)
@@ -300,38 +335,70 @@ export class LookupManagement implements OnInit {
   }
 
   selectLookup(lookup: LookupItem) {
-    this.selectedLookup = lookup;
+    this.store.dispatch(LookupItemsActions.selectLookupItem({ item: lookup }));
   }
 
   addNewValue() {
-    if (this.selectedLookup) {
+    const selectedItem = this.selectedLookup();
+    if (selectedItem) {
       const newValue: LookupValue = {
         key: '',
         value: '',
         description: '',
         isActive: true,
       };
-      this.selectedLookup.values.push(newValue);
+      const updatedItem = {
+        ...selectedItem,
+        values: [...selectedItem.values, newValue],
+      };
+      this.store.dispatch(
+        LookupItemsActions.updateLookupItem({ item: updatedItem })
+      );
     }
   }
 
   removeValue(index: number) {
-    if (
-      this.selectedLookup &&
-      index >= 0 &&
-      index < this.selectedLookup.values.length
-    ) {
-      this.selectedLookup.values.splice(index, 1);
+    const selectedItem = this.selectedLookup();
+    if (selectedItem && index >= 0 && index < selectedItem.values.length) {
+      const updatedValues = [...selectedItem.values];
+      updatedValues.splice(index, 1);
+      const updatedItem = {
+        ...selectedItem,
+        values: updatedValues,
+      };
+      this.store.dispatch(
+        LookupItemsActions.updateLookupItem({ item: updatedItem })
+      );
     }
   }
 
   toggleValueStatus(value: LookupValue) {
-    value.isActive = !value.isActive;
+    const selectedItem = this.selectedLookup();
+    if (selectedItem) {
+      const updatedValues = selectedItem.values.map((v) =>
+        v === value ? { ...v, isActive: !v.isActive } : v
+      );
+      const updatedItem = {
+        ...selectedItem,
+        values: updatedValues,
+      };
+      this.store.dispatch(
+        LookupItemsActions.updateLookupItem({ item: updatedItem })
+      );
+    }
   }
 
   saveLookup() {
-    // In a real application, this would save to a backend service
-    console.log('Saving lookup:', this.selectedLookup);
-    // Show success message or handle errors
+    const selectedItem = this.selectedLookup();
+    if (selectedItem) {
+      this.store.dispatch(
+        LookupItemsActions.updateLookupItem({ item: selectedItem })
+      );
+      console.log('Saving lookup:', selectedItem);
+    }
+  }
+
+  clearError() {
+    this.store.dispatch(LookupItemsActions.clearError());
   }
 }

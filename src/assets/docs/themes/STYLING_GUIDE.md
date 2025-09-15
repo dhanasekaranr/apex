@@ -554,7 +554,7 @@ For data-heavy components that need to maximize space for displaying information
 --header-height: 64px;           // Main header toolbar height
 --footer-height: 40px;           // Reduced footer height with matching header background
 --sidenav-width: 250px;          // Sidebar navigation width
---sidenav-header-height: 105px;  // Sidenav header height to match top header area
+--sidenav-header-height: 97px;  // Sidenav header height to match top header area
 --container-padding: 12px;  // Reduced from 16px for better visual balance
 --form-field-gap: 12px;
 --card-padding: 20px;

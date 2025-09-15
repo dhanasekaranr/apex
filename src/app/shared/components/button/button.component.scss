@@ -1,8 +1,0 @@
-@use '../../../../themes/mixins/layout' as layout;
-
-.app-btn {
-  @include layout.button-compact();
-  &.primary { @include layout.button-primary(); }
-  &.accent { background: var(--accent-color); color: var(--white); }
-  &.warn { background: var(--error-color); color: var(--white); }
-}

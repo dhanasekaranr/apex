@@ -1,0 +1,160 @@
+{
+  "generalSettings": {
+    "id": "general",
+    "applicationName": "Apex Financial Management",
+    "version": "2.1.4",
+    "environment": "Production",
+    "defaultLanguage": "en-US",
+    "defaultCurrency": "USD",
+    "dateFormat": "MM/dd/yyyy",
+    "timeFormat": "12-hour",
+    "timezone": "America/New_York",
+    "companyName": "Apex Financial Services",
+    "companyLogo": "/assets/images/company-logo.png",
+    "supportEmail": "support@apexfinancial.com",
+    "supportPhone": "+1-800-555-0123",
+    "maxFileUploadSize": 10485760,
+    "allowedFileTypes": [".pdf", ".doc", ".docx", ".jpg", ".png"],
+    "maintenanceMode": false,
+    "maintenanceMessage": "System maintenance in progress. Please try again later.",
+    "lastUpdated": "2025-09-13T10:30:00Z",
+    "updatedBy": "system"
+  },
+  "userPreferences": {
+    "id": "preferences", 
+    "theme": "light",
+    "primaryColor": "blue",
+    "accentColor": "orange",
+    "fontSize": "medium",
+    "compactMode": false,
+    "showAnimations": true,
+    "autoSave": true,
+    "autoSaveInterval": 300000,
+    "notifications": {
+      "email": true,
+      "browser": true,
+      "sound": false,
+      "desktop": true
+    },
+    "dashboard": {
+      "showWelcome": true,
+      "defaultView": "summary",
+      "refreshInterval": 30000,
+      "showQuickActions": true,
+      "compactCards": false
+    },
+    "tables": {
+      "defaultPageSize": 25,
+      "showDensity": "comfortable",
+      "stickyHeader": true,
+      "showColumnResize": true
+    },
+    "accessibility": {
+      "highContrast": false,
+      "reducedMotion": false,
+      "screenReader": false,
+      "keyboardNavigation": true
+    },
+    "lastUpdated": "2025-09-13T09:15:00Z",
+    "updatedBy": "current-user"
+  },
+  "securitySettings": {
+    "id": "security",
+    "passwordPolicy": {
+      "minLength": 8,
+      "requireUppercase": true,
+      "requireLowercase": true,
+      "requireNumbers": true,
+      "requireSpecialChars": true,
+      "maxAge": 90,
+      "preventReuse": 5,
+      "lockoutThreshold": 5,
+      "lockoutDuration": 1800000
+    },
+    "sessionManagement": {
+      "timeoutWarning": 300000,
+      "sessionTimeout": 3600000,
+      "maxConcurrentSessions": 3,
+      "requireReauth": false,
+      "rememberMe": true,
+      "rememberMeDuration": 2592000000
+    },
+    "twoFactorAuth": {
+      "enabled": true,
+      "methods": ["sms", "email", "authenticator"],
+      "defaultMethod": "email",
+      "backupCodes": true,
+      "required": false
+    },
+    "apiSecurity": {
+      "rateLimiting": true,
+      "maxRequestsPerMinute": 100,
+      "corsEnabled": true,
+      "allowedOrigins": ["https://apex.company.com", "http://localhost:4200"],
+      "encryptionEnabled": true,
+      "auditLogging": true
+    },
+    "dataProtection": {
+      "dataRetentionPeriod": 2555,
+      "automaticBackup": true,
+      "backupFrequency": "daily",
+      "encryptData": true,
+      "anonymizeData": false
+    },
+    "lastUpdated": "2025-09-13T08:45:00Z",
+    "updatedBy": "admin"
+  },
+  "systemInformation": {
+    "id": "system",
+    "server": {
+      "hostname": "apex-prod-01",
+      "ipAddress": "10.0.1.100",
+      "port": 3000,
+      "protocol": "HTTPS",
+      "uptime": 1234567890,
+      "lastRestart": "2025-09-10T02:00:00Z"
+    },
+    "database": {
+      "type": "PostgreSQL",
+      "version": "14.9",
+      "host": "db-cluster-01",
+      "port": 5432,
+      "name": "apex_financial_db",
+      "connectionPool": 20,
+      "status": "healthy"
+    },
+    "performance": {
+      "cpuUsage": 45.2,
+      "memoryUsage": 68.7,
+      "diskUsage": 32.1,
+      "networkLatency": 12.3,
+      "avgResponseTime": 156.7,
+      "requestsPerSecond": 47.8
+    },
+    "monitoring": {
+      "healthCheckUrl": "/api/health",
+      "statusPageUrl": "https://status.apexfinancial.com",
+      "logLevel": "INFO",
+      "metricsEnabled": true,
+      "alertingEnabled": true
+    },
+    "integrations": {
+      "paymentGateway": {
+        "provider": "Stripe",
+        "status": "connected",
+        "lastSync": "2025-09-13T10:25:00Z"
+      },
+      "emailService": {
+        "provider": "SendGrid", 
+        "status": "connected",
+        "lastSync": "2025-09-13T10:28:00Z"
+      },
+      "smsService": {
+        "provider": "Twilio",
+        "status": "connected",
+        "lastSync": "2025-09-13T10:22:00Z"
+      }
+    },
+    "lastUpdated": "2025-09-13T10:30:00Z"
+  }
+}

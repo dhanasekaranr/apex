@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  inject,
+  signal,
+} from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -9,12 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterModule } from '@angular/router';
-import { Observable } from 'rxjs';
-import {
-  ActionButton,
-  MenuItem,
-  TopNavConfig,
-} from '../../shared/interfaces/menu.interface';
+import { ActionButton, MenuItem } from '../../shared/interfaces/menu.interface';
 import { MenuService } from '../../shared/services/menu.service';
 
 @Component({
@@ -36,11 +39,20 @@ import { MenuService } from '../../shared/services/menu.service';
   styleUrl: './topnav.scss',
 })
 export class TopnavComponent implements OnInit {
-  searchText: string = '';
+  // Inject services using modern inject() function
+  private menuService = inject(MenuService);
+  private router = inject(Router);
 
-  // Observable properties
-  topNavConfig$: Observable<TopNavConfig>;
-  activeMenuTab$: Observable<string>;
+  // Signal properties for reactive state management
+  searchText = signal<string>('');
+
+  // Convert observables to signals for better performance and reactivity
+  topNavConfig = toSignal(this.menuService.topNavConfig$, {
+    initialValue: null,
+  });
+  activeMenuTab = toSignal(this.menuService.activeMenuTab$, {
+    initialValue: '',
+  });
 
   // Event emitters for parent component communication
   @Output() menuTabChanged = new EventEmitter<string>();
@@ -50,11 +62,6 @@ export class TopnavComponent implements OnInit {
   @Output() dataImported = new EventEmitter<void>();
   @Output() helpOpened = new EventEmitter<void>();
   @Output() settingsOpened = new EventEmitter<void>();
-
-  constructor(private menuService: MenuService, private router: Router) {
-    this.topNavConfig$ = this.menuService.topNavConfig$;
-    this.activeMenuTab$ = this.menuService.activeMenuTab$;
-  }
 
   ngOnInit(): void {
     // Initialize component
@@ -109,12 +116,12 @@ export class TopnavComponent implements OnInit {
         this.openSettings();
         break;
       default:
-        console.log(`Action not implemented: ${action}`);
+      // TODO: Implement action handler for: ${action}
     }
   }
 
   performSearch(): void {
-    this.searchPerformed.emit(this.searchText);
+    this.searchPerformed.emit(this.searchText());
   }
 
   openNotifications(): void {

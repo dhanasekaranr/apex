@@ -247,47 +247,8 @@ $icon-size-xs: 14px;
   .form-grid {
     @include forms.form-grid();
   }
-  .shipping-grid {
-    @include forms.form-grid();
-    .shipping-address { grid-column: 1 / -1; }
-    .shipping-details { @include forms.form-grid(120px); }
-  }
   mat-form-field {
     @include forms.form-field-compact();
-  }
-  .total-display {
-    @include layout.flex-center();
-    min-height: 50px;
-    grid-column: 1 / -1;
-    .total-card {
-      background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
-      color: var(--white);
-      padding: var(--spacing-md) var(--spacing-lg);
-      border-radius: var(--border-radius-sm);
-      text-align: center;
-      box-shadow: var(--shadow-sm);
-      min-width: 120px;
-      h4 {
-        margin: 0 0 var(--spacing-xs) 0;
-        font-size: var(--font-size-xs);
-        font-weight: var(--font-weight-medium);
-        opacity: 0.9;
-      }
-      .total-amount {
-        font-size: var(--font-size-xl);
-        font-weight: var(--font-weight-semibold);
-      }
-    }
-  }
-}
-
-// CARDS ACTIONS
-.form-actions {
-  @include cards.card-actions();
-  button {
-    @include layout.button-compact();
-    &[color="primary"] { @include layout.button-primary(); }
-    &[mat-stroked-button] { @include layout.button-secondary(); }
   }
 }
 
@@ -368,24 +329,6 @@ mat-form-field.ng-invalid.ng-touched {
     
     &:hover {
       background: var(--accent-light);
-    }
-    
-    mat-icon {
-      margin-right: var(--spacing-xs);
-      font-size: var(--icon-size-sm);
-      width: var(--icon-size-sm);
-      height: var(--icon-size-sm);
-    }
-  }
-  
-  .action-button-warning {
-    background: var(--warning-color);
-    color: var(--white);
-    min-width: 140px;
-    height: 40px;
-    
-    &:hover {
-      background: var(--warning-light);
     }
     
     mat-icon {

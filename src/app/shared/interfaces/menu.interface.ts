@@ -10,6 +10,10 @@ export interface MenuItem {
   dividerAfter?: boolean;
   permission?: string;
   isActive?: boolean;
+  type?: 'item' | 'expandable' | 'divider';
+  expanded?: boolean;
+  disabled?: boolean;
+  disabledReason?: string;
   badge?: {
     text: string;
     color: 'primary' | 'accent' | 'warn';
@@ -27,6 +31,18 @@ export interface MenuSection {
 export interface TopNavConfig {
   menuSections: MenuSection[];
   actionButtons: ActionButton[];
+}
+
+export interface SidenavSection {
+  id: string;
+  label: string;
+  items: MenuItem[];
+  order: number;
+  permission?: string;
+}
+
+export interface SidenavConfig {
+  sidenavSections: SidenavSection[];
 }
 
 export interface ActionButton {

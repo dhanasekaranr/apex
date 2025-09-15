@@ -1,0 +1,151 @@
+[
+  {
+    "id": "breadcrumb-config",
+    "version": "1.0.0",
+    "lastUpdated": "2025-09-13T00:00:00.000Z",
+    "routeMappings": {
+      "dashboard": {
+        "label": "Dashboard",
+        "icon": "dashboard",
+        "isHome": true,
+        "order": 0
+      },
+      "analytics": {
+        "label": "Analytics",
+        "icon": "analytics",
+        "parentRoute": "dashboard",
+        "order": 1
+      },
+      "users": {
+        "label": "Users",
+        "icon": "people",
+        "parentRoute": "dashboard",
+        "order": 1
+      },
+      "products": {
+        "label": "Products",
+        "icon": "inventory",
+        "parentRoute": "dashboard",
+        "order": 1
+      },
+      "orders": {
+        "label": "Orders",
+        "icon": "shopping_cart",
+        "parentRoute": "dashboard",
+        "order": 1
+      },
+      "reports": {
+        "label": "Reports",
+        "icon": "assessment",
+        "parentRoute": "dashboard",
+        "order": 1
+      },
+      "lookup-management": {
+        "label": "Lookup Management",
+        "icon": "manage_search",
+        "parentRoute": "dashboard",
+        "order": 1
+      },
+      "settings": {
+        "label": "Settings",
+        "icon": "settings",
+        "parentRoute": "dashboard",
+        "order": 1
+      },
+      "general": {
+        "label": "General",
+        "icon": "tune",
+        "parentRoute": "settings",
+        "order": 2
+      },
+      "preferences": {
+        "label": "Preferences",
+        "icon": "person_pin",
+        "parentRoute": "settings",
+        "order": 2
+      },
+      "security": {
+        "label": "Security",
+        "icon": "security",
+        "parentRoute": "settings",
+        "order": 2
+      },
+      "documentation": {
+        "label": "Documentation",
+        "icon": "help_center",
+        "parentRoute": "dashboard",
+        "order": 1
+      },
+      "help": {
+        "label": "Help & Support",
+        "icon": "help",
+        "parentRoute": "dashboard",
+        "order": 1
+      },
+      "audit": {
+        "label": "Audit Log",
+        "icon": "history",
+        "parentRoute": "dashboard",
+        "order": 1
+      }
+    },
+    "styles": [
+      {
+        "id": "default",
+        "label": "Default - Material Design 3",
+        "description": "Clean Material Design 3 style with proper spacing and typography",
+        "isDefault": true
+      },
+      {
+        "id": "minimal",
+        "label": "Minimal - Clean & Subtle",
+        "description": "Minimal design with subtle styling and clean lines"
+      },
+      {
+        "id": "pill",
+        "label": "Pill - Modern Rounded",
+        "description": "Modern pill-shaped breadcrumbs with rounded corners"
+      },
+      {
+        "id": "card",
+        "label": "Card - Elevated Cards",
+        "description": "Card-based breadcrumbs with elevation and shadows"
+      },
+      {
+        "id": "underline",
+        "label": "Underline - Animated",
+        "description": "Underline style with smooth animations and hover effects"
+      },
+      {
+        "id": "subtle",
+        "label": "Subtle - Light Theme",
+        "description": "Very subtle styling for light backgrounds"
+      },
+      {
+        "id": "ultra-dark",
+        "label": "Ultra Dark - High Contrast",
+        "description": "High contrast dark theme with bold styling"
+      },
+      {
+        "id": "elegant",
+        "label": "Elegant - Serif Typography",
+        "description": "Elegant design with serif fonts and sophisticated styling"
+      },
+      {
+        "id": "compact",
+        "label": "Compact - Space Efficient",
+        "description": "Compact design for space-constrained layouts"
+      },
+      {
+        "id": "bold",
+        "label": "Bold - High Contrast",
+        "description": "Bold and prominent styling with high contrast"
+      },
+      {
+        "id": "arrow-flow",
+        "label": "Arrow Flow - Directional",
+        "description": "Directional design with arrow separators and flow indicators"
+      }
+    ]
+  }
+]

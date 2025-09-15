@@ -1,9 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter, map, mergeMap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { filter, map } from 'rxjs/operators';
+import {
+  NavigationActions,
+  NavigationSelectors,
+} from '../../../store/navigation';
 
 export interface BreadcrumbItem {
   label: string;
@@ -33,95 +46,117 @@ export type BreadcrumbStyle =
 })
 export class BreadcrumbComponent implements OnInit {
   @Input() breadcrumbStyle: BreadcrumbStyle = 'ultra-dark';
-  breadcrumbs: BreadcrumbItem[] = [];
 
-  // Route mappings for better breadcrumb labels
-  private routeLabels: { [key: string]: { label: string; icon?: string } } = {
-    dashboard: { label: 'Dashboard', icon: 'dashboard' },
-    analytics: { label: 'Analytics', icon: 'analytics' },
-    users: { label: 'Users', icon: 'people' },
-    products: { label: 'Products', icon: 'inventory' },
-    orders: { label: 'Orders', icon: 'shopping_cart' },
-    reports: { label: 'Reports', icon: 'assessment' },
-    'lookup-management': { label: 'Lookup Management', icon: 'manage_search' },
-    settings: { label: 'Settings', icon: 'settings' },
-    general: { label: 'General', icon: 'tune' },
-    preferences: { label: 'Preferences', icon: 'person_pin' },
-    documentation: { label: 'Documentation', icon: 'help_center' },
-    help: { label: 'Help & Support', icon: 'help' },
-  };
+  private router = inject(Router);
+  private activatedRoute = inject(ActivatedRoute);
+  private store = inject(Store);
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+  // Angular 20 Signals for reactive state
+  private _currentUrl = signal('');
+
+  // Convert NgRx selectors to signals
+  public breadcrumbs = toSignal(
+    this.store.select(NavigationSelectors.selectCurrentBreadcrumbs),
+    { initialValue: [] }
+  );
+
+  public routeMappings = toSignal(
+    this.store.select(NavigationSelectors.selectBreadcrumbRouteMappings),
+    { initialValue: {} }
+  );
+
+  public breadcrumbStyles = toSignal(
+    this.store.select(NavigationSelectors.selectBreadcrumbStyles),
+    { initialValue: [] }
+  );
+
+  public isLoading = toSignal(
+    this.store.select(NavigationSelectors.selectBreadcrumbLoading),
+    { initialValue: false }
+  );
+
+  // Computed signals
+  public currentUrl = computed(() => this._currentUrl());
+  public hasBreadcrumbs = computed(() => this.breadcrumbs().length > 0);
+
+  constructor() {}
 
   ngOnInit(): void {
+    console.log('🔄 BreadcrumbComponent: Initializing');
+
+    // Initialize breadcrumb data if not loaded
+    this.initializeBreadcrumbData();
+
     // Subscribe to router events to update breadcrumbs
     this.router.events
       .pipe(
         filter((event) => event instanceof NavigationEnd),
-        map(() => this.activatedRoute),
-        map((route) => {
-          while (route.firstChild) {
-            route = route.firstChild;
-          }
-          return route;
-        }),
-        mergeMap((route) => route.url)
+        map(() => this.router.url)
       )
-      .subscribe(() => {
-        this.buildBreadcrumbs();
+      .subscribe((url) => {
+        console.log('🧭 BreadcrumbComponent: Route changed to:', url);
+        this._currentUrl.set(url);
+        this.buildBreadcrumbsFromRoute(url);
       });
 
     // Build initial breadcrumbs
-    this.buildBreadcrumbs();
+    const currentUrl = this.router.url;
+    this._currentUrl.set(currentUrl);
+    this.buildBreadcrumbsFromRoute(currentUrl);
   }
 
-  private buildBreadcrumbs(): void {
-    const url = this.router.url;
-    const urlSegments = url.split('/').filter((segment) => segment);
+  private initializeBreadcrumbData(): void {
+    // MenuService already loads all navigation data including breadcrumb config
+    // BreadcrumbComponent just needs to wait for the data to be available
+    console.log(
+      '� BreadcrumbComponent: Waiting for navigation data from MenuService'
+    );
 
-    this.breadcrumbs = [];
-
-    // Always add Home/Dashboard as first breadcrumb
-    this.breadcrumbs.push({
-      label: 'Dashboard',
-      url: '/dashboard',
-      icon: 'dashboard',
-    });
-
-    // Build breadcrumbs from URL segments
-    let currentUrl = '';
-    urlSegments.forEach((segment, index) => {
-      currentUrl += `/${segment}`;
-
-      // Skip if this is the dashboard route (already added)
-      if (segment === 'dashboard') {
-        return;
-      }
-
-      const routeConfig = this.routeLabels[segment];
-      const isLast = index === urlSegments.length - 1;
-
-      this.breadcrumbs.push({
-        label: routeConfig?.label || this.formatSegment(segment),
-        url: currentUrl,
-        icon: routeConfig?.icon,
-      });
-    });
+    // No need to dispatch any loading actions - MenuService handles this
+    // The component will reactively update when data becomes available through signals
   }
 
-  private formatSegment(segment: string): string {
-    // Convert kebab-case to Title Case
-    return segment
-      .split('-')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+  private buildBreadcrumbsFromRoute(url: string): void {
+    console.log('🔄 BreadcrumbComponent: Building breadcrumbs for:', url);
+    this.store.dispatch(NavigationActions.buildBreadcrumbsFromRoute({ url }));
   }
 
+  /**
+   * Navigate to a specific URL
+   */
   navigateTo(url: string): void {
+    console.log('🧭 BreadcrumbComponent: Navigating to:', url);
     this.router.navigate([url]);
   }
 
+  /**
+   * Check if the given URL is the current route
+   */
   isCurrentRoute(url: string): boolean {
     return this.router.url === url;
+  }
+
+  /**
+   * Update the breadcrumb style
+   */
+  setBreadcrumbStyle(style: BreadcrumbStyle): void {
+    console.log('🎨 BreadcrumbComponent: Setting breadcrumb style:', style);
+    this.breadcrumbStyle = style;
+    this.store.dispatch(NavigationActions.setBreadcrumbStyle({ style }));
+  }
+
+  /**
+   * Get available breadcrumb styles
+   */
+  getAvailableStyles() {
+    return this.breadcrumbStyles();
+  }
+
+  /**
+   * Refresh breadcrumb data
+   */
+  refreshBreadcrumbData(): void {
+    console.log('🔄 BreadcrumbComponent: Refreshing breadcrumb data');
+    this.store.dispatch(NavigationActions.loadBreadcrumbConfig());
   }
 }

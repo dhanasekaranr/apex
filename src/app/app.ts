@@ -1,6 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { AsyncPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {
@@ -9,7 +9,6 @@ import {
   RouterModule,
   RouterOutlet,
 } from '@angular/router';
-import { Observable } from 'rxjs';
 import { filter, map, shareReplay } from 'rxjs/operators';
 
 import { Footer } from './components/footer/footer';
@@ -23,12 +22,12 @@ import {
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [
     RouterOutlet,
     RouterModule,
     MatSidenavModule,
     MatToolbarModule,
-    AsyncPipe,
     Header,
     Footer,
     Sidenav,
@@ -39,21 +38,22 @@ import {
   styleUrl: './app.scss',
 })
 export class App implements OnInit {
-  protected title = 'Apex Dashboard';
-  currentBreadcrumbStyle: BreadcrumbStyle = 'arrow-flow';
+  private readonly breakpointObserver = inject(BreakpointObserver);
+  private readonly router = inject(Router);
 
-  isHandset$: Observable<boolean>;
-  activeMenuTab = 'dashboard';
+  // Angular 20 signals for reactive state
+  protected readonly title = signal('Apex Dashboard');
+  readonly currentBreadcrumbStyle = signal<BreadcrumbStyle>('arrow-flow');
+  readonly activeMenuTab = signal('dashboard');
 
-  constructor(
-    private breakpointObserver: BreakpointObserver,
-    private router: Router
-  ) {
-    this.isHandset$ = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+  // Convert observable to signal for responsiveness
+  readonly isHandset = toSignal(
+    this.breakpointObserver.observe(Breakpoints.Handset).pipe(
       map((result) => result.matches),
       shareReplay()
-    );
-  }
+    ),
+    { initialValue: false }
+  );
 
   ngOnInit() {
     // Listen to route changes to update active menu tab
@@ -61,49 +61,42 @@ export class App implements OnInit {
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         const route = event.urlAfterRedirects.split('/')[1] || 'dashboard';
-        this.activeMenuTab = route;
+        this.activeMenuTab.set(route);
       });
 
     // Set initial active tab based on current route
     const currentRoute = this.router.url.split('/')[1] || 'dashboard';
-    this.activeMenuTab = currentRoute;
+    this.activeMenuTab.set(currentRoute);
   }
 
   // Event handlers for topnav component
   onMenuTabChanged(tab: string): void {
-    this.activeMenuTab = tab;
-    console.log('Active menu tab set to:', tab);
+    this.activeMenuTab.set(tab);
   }
 
   onSearchPerformed(searchText: string): void {
     if (searchText.trim()) {
-      console.log('Performing search for:', searchText);
-      // Implementation would perform the search
+      // TODO: Implement search functionality
     }
   }
 
   onNotificationsOpened(): void {
-    console.log('Opening notifications...');
-    // Implementation would open notifications panel
+    // TODO: Implement notification panel opening
   }
 
   onDataExported(): void {
-    console.log('Exporting data...');
-    // Implementation would export data from the current view
+    // TODO: Implement data export functionality
   }
 
   onDataImported(): void {
-    console.log('Importing data...');
-    // Implementation would open a file upload dialog
+    // TODO: Implement file upload dialog for data import
   }
 
   onHelpOpened(): void {
-    console.log('Opening help...');
-    // Implementation would open help documentation
+    // TODO: Implement help documentation opening
   }
 
   onSettingsOpened(): void {
-    console.log('Opening settings...');
-    // Implementation would navigate to settings page
+    // TODO: Navigate to settings page
   }
 }

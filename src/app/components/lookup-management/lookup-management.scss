@@ -10,7 +10,151 @@
 
 // This pattern can be reused in other components by using the same class names
 
-// Component-specific overrides only (if any needed)
-// .lookup-management-specific {
-//   // Custom overrides specific to this component instance
-// }
+// Component-specific overrides - Compact table styling
+.data-table-container {
+  .mat-mdc-table {
+    // Very compact row heights
+    .mat-mdc-row {
+      height: 28px !important; // Even more compact
+      min-height: 28px !important;
+    }
+    
+    .mat-mdc-header-row {
+      height: 32px !important; // More compact header
+      min-height: 32px !important;
+    }
+    
+    // Very compact cell padding for all cells
+    .mat-mdc-cell,
+    .mat-mdc-header-cell {
+      padding: 2px 6px !important; // Very tight padding
+      font-size: 12px !important; // Smaller font
+      line-height: 1.1 !important; // Very tight line height
+      vertical-align: middle !important;
+    }
+    
+    // Extra compact for icon/action columns
+    .mat-column-isActive,
+    .mat-column-actions {
+      .mat-mdc-cell,
+      .mat-mdc-header-cell {
+        padding: 1px 4px !important; // Minimal padding for icon columns
+        text-align: center !important;
+        width: 50px !important; // Fixed narrow width
+        max-width: 50px !important;
+      }
+    }
+    
+    // Compact form fields within table cells
+    .table-input {
+      margin: 0 !important; // Remove any margin
+      
+      .mat-mdc-form-field-wrapper {
+        padding: 0 !important;
+      }
+      
+      .mat-mdc-form-field-flex {
+        padding: 0 !important;
+        align-items: center !important;
+      }
+      
+      .mat-mdc-form-field-subscript-wrapper {
+        display: none !important; // Hide hint/error text to save space
+      }
+      
+      .mat-mdc-form-field-infix {
+        min-height: 20px !important; // Very compact input height
+        padding: 0 !important; // No padding
+        border: none !important;
+      }
+      
+      .mat-mdc-form-field-outline {
+        .mat-mdc-form-field-outline-start,
+        .mat-mdc-form-field-outline-notch,
+        .mat-mdc-form-field-outline-end {
+          border-width: 1px !important; // Thinner border
+        }
+      }
+      
+      input {
+        padding: 2px 4px !important; // Very compact input padding
+        font-size: 11px !important; // Smaller font for inputs
+        line-height: 1.2 !important;
+        height: 18px !important; // Fixed compact height
+      }
+    }
+    
+    // Very compact action buttons
+    .mat-mdc-icon-button {
+      width: 24px !important; // Very small action buttons
+      height: 24px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      
+      .mat-mdc-button-touch-target {
+        width: 24px !important;
+        height: 24px !important;
+      }
+      
+      .mat-icon {
+        font-size: 14px !important; // Very small icons
+        width: 14px !important;
+        height: 14px !important;
+        line-height: 14px !important;
+      }
+    }
+    
+    // Remove any extra spacing from the table structure
+    .mat-mdc-row,
+    .mat-mdc-header-row {
+      .mat-mdc-cell,
+      .mat-mdc-header-cell {
+        &:first-child {
+          padding-left: 8px !important;
+        }
+        
+        &:last-child {
+          padding-right: 8px !important;
+        }
+      }
+    }
+  }
+}
+
+// Loading and Error States
+.page-header {
+  .header-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+
+    .loading-icon {
+      animation: spin 1s linear infinite;
+      margin-top: 4px;
+    }
+  }
+}
+
+.error-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--mat-sys-error-container);
+  color: var(--mat-sys-on-error-container);
+  border-radius: 8px;
+  margin-bottom: 16px;
+
+  mat-icon {
+    color: var(--mat-sys-error);
+  }
+
+  span {
+    flex: 1;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

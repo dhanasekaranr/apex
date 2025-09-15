@@ -1,8 +1,6 @@
 import { Routes } from '@angular/router';
-import { BookingComponent } from './components/booking/booking.component';
 import { Dashboard } from './components/dashboard/dashboard';
 import { LookupManagement } from './components/lookup-management/lookup-management';
-import { Orders } from './components/orders/orders';
 import { Users } from './components/users/users';
 import { DocumentationViewerComponent } from './pages/documentation/documentation-viewer.component';
 import { Settings } from './pages/settings/settings';
@@ -15,29 +13,9 @@ export const routes: Routes = [
     data: { breadcrumb: 'Dashboard', icon: 'dashboard' },
   },
   {
-    path: 'analytics',
-    component: Dashboard,
-    data: { breadcrumb: 'Analytics', icon: 'analytics' },
-  },
-  {
     path: 'users',
     component: Users,
     data: { breadcrumb: 'Users', icon: 'people' },
-  },
-  {
-    path: 'products',
-    component: Dashboard,
-    data: { breadcrumb: 'Products', icon: 'inventory' },
-  },
-  {
-    path: 'orders',
-    component: Orders,
-    data: { breadcrumb: 'Orders', icon: 'shopping_cart' },
-  },
-  {
-    path: 'booking',
-    component: BookingComponent,
-    data: { breadcrumb: 'Booking', icon: 'book_online' },
   },
   {
     path: 'reports',

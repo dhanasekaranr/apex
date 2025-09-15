@@ -3,19 +3,21 @@
   
   <!-- Stats Cards -->
   <div class="stats-grid">
-    <mat-card *ngFor="let stat of stats" class="stat-card widget-card">
-      <mat-card-content>
-        <div class="stat-content">
-          <div class="stat-icon" [style.background-color]="stat.color">
-            <mat-icon>{{ stat.icon }}</mat-icon>
+    @for (stat of stats(); track stat.title) {
+      <mat-card class="stat-card widget-card" (click)="onStatClick(stat)">
+        <mat-card-content>
+          <div class="stat-content">
+            <div class="stat-icon" [style.background-color]="stat.color">
+              <mat-icon>{{ stat.icon }}</mat-icon>
+            </div>
+            <div class="stat-info">
+              <h3 class="stat-value">{{ stat.value }}</h3>
+              <p class="stat-title">{{ stat.title }}</p>
+            </div>
           </div>
-          <div class="stat-info">
-            <h3 class="stat-value">{{ stat.value }}</h3>
-            <p class="stat-title">{{ stat.title }}</p>
-          </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
+        </mat-card-content>
+      </mat-card>
+    }
   </div>
   
   <!-- Content Grid -->
@@ -40,17 +42,19 @@
       </mat-card-header>
       <mat-card-content>
         <div class="activity-list">
-          <div *ngFor="let activity of recentActivities" class="activity-item">
-            <mat-icon 
-              class="activity-icon" 
-              [ngClass]="'activity-icon-' + activity.type">
-              {{ activity.icon }}
-            </mat-icon>
-            <div class="activity-content">
-              <p class="activity-action">{{ activity.action }}</p>
-              <span class="activity-time">{{ activity.time }}</span>
+          @for (activity of recentActivities(); track activity.action) {
+            <div class="activity-item">
+              <mat-icon 
+                class="activity-icon" 
+                [ngClass]="'activity-icon-' + activity.type">
+                {{ activity.icon }}
+              </mat-icon>
+              <div class="activity-content">
+                <p class="activity-action">{{ activity.action }}</p>
+                <span class="activity-time">{{ activity.time }}</span>
+              </div>
             </div>
-          </div>
+          }
         </div>
       </mat-card-content>
     </mat-card>

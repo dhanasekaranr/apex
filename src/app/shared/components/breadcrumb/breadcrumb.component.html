@@ -4,7 +4,7 @@
   aria-label="Breadcrumb navigation">
   <ol class="breadcrumb-list">
     <li 
-      *ngFor="let breadcrumb of breadcrumbs; let last = last" 
+      *ngFor="let breadcrumb of breadcrumbs(); let last = last" 
       class="breadcrumb-item"
       [class.current]="isCurrentRoute(breadcrumb.url)">
       

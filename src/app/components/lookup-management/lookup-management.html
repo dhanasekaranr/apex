@@ -1,8 +1,24 @@
 <div class="page-container">
   <div class="page-header">
-    <h1 class="page-title">Lookup Management</h1>
-    <p class="page-subtitle">Manage system lookup tables and reference data</p>
+    <div class="header-content">
+      <h1 class="page-title">Lookup Management</h1>
+      <p class="page-subtitle">Manage system lookup tables and reference data</p>
+      @if (loading()) {
+        <mat-icon class="loading-icon">refresh</mat-icon>
+      }
+    </div>
   </div>
+
+  <!-- Error Display -->
+  @if (error(); as errorMsg) {
+    <div class="error-banner">
+      <mat-icon>error</mat-icon>
+      <span>{{ errorMsg }}</span>
+      <button mat-icon-button (click)="clearError()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  }
 
   <div class="two-panel-container">
     <!-- Left Column - Data List Panel -->
@@ -28,7 +44,7 @@
           <mat-nav-list class="data-list">
             <mat-list-item 
               *ngFor="let lookup of filteredLookups"
-              [class.selected]="selectedLookup?.id === lookup.id"
+              [class.selected]="selectedLookup()?.id === lookup.id"
               (click)="selectLookup(lookup)">
               <div matListItemTitle>{{ lookup.name }}</div>
               <div matListItemMeta class="data-category">{{ lookup.category }}</div>
@@ -40,10 +56,10 @@
 
     <!-- Right Column - Data Details Panel -->
     <div class="right-panel data-details-panel">
-      <mat-card class="content-card" *ngIf="selectedLookup">
+      <mat-card class="content-card" *ngIf="selectedLookup() as selectedItem">
         <mat-card-header>
-          <mat-card-title>{{ selectedLookup.name }}</mat-card-title>
-          <mat-card-subtitle>{{ selectedLookup.description }}</mat-card-subtitle>
+          <mat-card-title>{{ selectedItem.name }}</mat-card-title>
+          <mat-card-subtitle>{{ selectedItem.description }}</mat-card-subtitle>
         </mat-card-header>
 
         <mat-card-content>
@@ -51,11 +67,11 @@
           <div class="data-info">
             <div class="info-row">
               <span class="info-label">Category:</span>
-              <span class="info-value">{{ selectedLookup.category }}</span>
+              <span class="info-value">{{ selectedItem.category }}</span>
             </div>
             <div class="info-row">
               <span class="info-label">Total Values:</span>
-              <span class="info-value">{{ selectedLookup.values.length }}</span>
+              <span class="info-value">{{ selectedItem.values.length }}</span>
             </div>
           </div>
 
@@ -73,7 +89,7 @@
 
           <!-- Data Table -->
           <div class="data-table-container">
-            <table mat-table [dataSource]="selectedLookup.values" class="data-table">
+            <table mat-table [dataSource]="selectedItem.values" class="data-table">
               <!-- Key Column -->
               <ng-container matColumnDef="key">
                 <th mat-header-cell *matHeaderCellDef>Key</th>

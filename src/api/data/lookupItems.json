@@ -1,0 +1,148 @@
+[
+  {
+    "id": "loan-status",
+    "name": "Loan Status",
+    "description": "Status values for loan applications",
+    "category": "Loans",
+    "values": [
+      {
+        "key": "PENDING",
+        "value": "Pending Review",
+        "description": "Application submitted, awaiting review",
+        "isActive": true
+      },
+      {
+        "key": "APPROVED",
+        "value": "Approved",
+        "description": "Loan approved for processing",
+        "isActive": true
+      },
+      {
+        "key": "REJECTED",
+        "value": "Rejected",
+        "description": "Application rejected",
+        "isActive": true
+      },
+      {
+        "key": "CANCELLED",
+        "value": "Cancelled",
+        "description": "Application cancelled by applicant",
+        "isActive": true
+      },
+      {
+        "key": "DISBURSED",
+        "value": "Disbursed",
+        "description": "Loan amount disbursed",
+        "isActive": true
+      }
+    ]
+  },
+  {
+    "id": "loan-substatus",
+    "name": "Loan Sub-Status",
+    "description": "Detailed status values for loan processing",
+    "category": "Loans",
+    "values": [
+      {
+        "key": "DOC_PENDING",
+        "value": "Documents Pending",
+        "description": "Waiting for required documents",
+        "isActive": true
+      },
+      {
+        "key": "VERIFICATION",
+        "value": "Under Verification",
+        "description": "Documents under verification",
+        "isActive": true
+      },
+      {
+        "key": "CREDIT_CHECK",
+        "value": "Credit Check",
+        "description": "Credit score verification in progress",
+        "isActive": true
+      },
+      {
+        "key": "FINAL_APPROVAL",
+        "value": "Final Approval",
+        "description": "Pending final approval",
+        "isActive": true
+      }
+    ]
+  },
+  {
+    "id": "product-type",
+    "name": "Product Type",
+    "description": "Types of loan products available",
+    "category": "Products",
+    "values": [
+      {
+        "key": "HOME_LOAN",
+        "value": "Home Loan",
+        "description": "Residential property loans",
+        "isActive": true
+      },
+      {
+        "key": "PERSONAL_LOAN",
+        "value": "Personal Loan",
+        "description": "Personal finance loans",
+        "isActive": true
+      },
+      {
+        "key": "AUTO_LOAN",
+        "value": "Auto Loan",
+        "description": "Vehicle financing loans",
+        "isActive": true
+      },
+      {
+        "key": "BUSINESS_LOAN",
+        "value": "Business Loan",
+        "description": "Commercial lending products",
+        "isActive": true
+      },
+      {
+        "key": "EDUCATION_LOAN",
+        "value": "Education Loan",
+        "description": "Educational financing",
+        "isActive": true
+      }
+    ]
+  },
+  {
+    "id": "modules",
+    "name": "System Modules",
+    "description": "Available system modules and features",
+    "category": "System",
+    "values": [
+      {
+        "key": "USER_MGMT",
+        "value": "User Management",
+        "description": "User administration module",
+        "isActive": true
+      },
+      {
+        "key": "LOAN_PROC",
+        "value": "Loan Processing",
+        "description": "Core loan processing functionality",
+        "isActive": true
+      },
+      {
+        "key": "REPORTING",
+        "value": "Reports & Analytics",
+        "description": "Business intelligence and reporting",
+        "isActive": true
+      },
+      {
+        "key": "DOCUMENT_MGMT",
+        "value": "Document Management",
+        "description": "Document storage and management",
+        "isActive": true
+      },
+      {
+        "key": "COMPLIANCE",
+        "value": "Compliance & Audit",
+        "description": "Regulatory compliance tools",
+        "isActive": true
+      }
+    ]
+  }
+]

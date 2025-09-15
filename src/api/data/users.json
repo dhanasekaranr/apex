@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "userCode": "ADM001",
+    "userName": "Watson Joyce",
+    "userRole": "Admin",
+    "screenAccess": ["Dashboard", "Users", "Orders", "Reports", "Settings"],
+    "dualMode": true,
+    "debugMode": "Y",
+    "lastLogin": "2024-12-28",
+    "status": "Active"
+  },
+  {
+    "id": 2,
+    "userCode": "MGR002",
+    "userName": "Sarah Manager",
+    "userRole": "Manager",
+    "screenAccess": ["Dashboard", "Orders", "Reports", "Analytics"],
+    "dualMode": false,
+    "debugMode": "N",
+    "lastLogin": "2024-12-27",
+    "status": "Active"
+  },
+  {
+    "id": 3,
+    "userCode": "USR003",
+    "userName": "Mike User",
+    "userRole": "User",
+    "screenAccess": ["Dashboard", "Orders"],
+    "dualMode": false,
+    "debugMode": "N",
+    "lastLogin": "2024-12-26",
+    "status": "Active"
+  },
+  {
+    "id": 4,
+    "userCode": "DEV004",
+    "userName": "Emma Developer",
+    "userRole": "Developer",
+    "screenAccess": ["Dashboard", "Users", "Orders", "Reports", "Settings", "Debug"],
+    "dualMode": true,
+    "debugMode": "Y",
+    "lastLogin": "2024-12-29",
+    "status": "Active"
+  },
+  {
+    "id": 5,
+    "userCode": "ANL005",
+    "userName": "David Analyst",
+    "userRole": "Analyst",
+    "screenAccess": ["Dashboard", "Reports", "Analytics"],
+    "dualMode": false,
+    "debugMode": "N",
+    "lastLogin": "2024-12-25",
+    "status": "Inactive"
+  },
+  {
+    "id": 6,
+    "userCode": "SUP006",
+    "userName": "Lisa Support",
+    "userRole": "Support",
+    "screenAccess": ["Dashboard", "Orders", "Users"],
+    "dualMode": false,
+    "debugMode": "Y",
+    "lastLogin": "2024-12-24",
+    "status": "Active"
+  },
+  {
+    "id": 7,
+    "userCode": "USR007",
+    "userName": "Tom Wilson",
+    "userRole": "User",
+    "screenAccess": ["Dashboard"],
+    "dualMode": false,
+    "debugMode": "N",
+    "lastLogin": "2024-12-20",
+    "status": "Suspended"
+  },
+  {
+    "id": 8,
+    "userCode": "MGR008",
+    "userName": "Alice Johnson",
+    "userRole": "Manager",
+    "screenAccess": ["Dashboard", "Orders", "Reports", "Users"],
+    "dualMode": true,
+    "debugMode": "N",
+    "lastLogin": "2024-12-28",
+    "status": "Active"
+  },
+  {
+    "id": 9,
+    "userCode": "DEV009",
+    "userName": "Robert Chen",
+    "userRole": "Developer",
+    "screenAccess": ["Dashboard", "Orders", "Settings", "Analytics"],
+    "dualMode": false,
+    "debugMode": "Y",
+    "lastLogin": "2024-12-29",
+    "status": "Active"
+  },
+  {
+    "id": 10,
+    "userCode": "USR010",
+    "userName": "Maria Rodriguez",
+    "userRole": "User",
+    "screenAccess": ["Dashboard", "Orders"],
+    "dualMode": false,
+    "debugMode": "N",
+    "lastLogin": "2024-12-23",
+    "status": "Active"
+  }
+]

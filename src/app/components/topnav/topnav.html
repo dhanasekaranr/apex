@@ -2,7 +2,7 @@
 <div class="horizontal-menu-bar">
   <nav class="menu-nav">
     <!-- Generate menu items dynamically from configuration -->
-    <ng-container *ngIf="topNavConfig$ | async as config">
+    <ng-container *ngIf="topNavConfig() as config">
       <div 
         *ngFor="let section of config.menuSections" 
         class="menu-item-container">
@@ -12,7 +12,7 @@
           <button 
             *ngIf="!hasChildren(item)"
             mat-button 
-            [class.active]="(activeMenuTab$ | async) === item.id"
+            [class.active]="activeMenuTab() === item.id"
             [routerLink]="item.routerLink"
             (click)="onMenuItemClicked(item)"
             class="menu-item">
@@ -30,7 +30,7 @@
               <!-- Resources Menu -->
               <ng-container *ngSwitchCase="'resources-main'">
                 <button mat-button 
-                        [class.active]="(activeMenuTab$ | async) === 'resources'" 
+                        [class.active]="activeMenuTab() === 'resources'" 
                         [matMenuTriggerFor]="resourcesMenu"
                         class="menu-item dropdown">
                   <mat-icon>{{ item.icon }}</mat-icon>
@@ -96,7 +96,7 @@
               <!-- Messaging Menu -->
               <ng-container *ngSwitchCase="'queue-main'">
                 <button mat-button 
-                        [class.active]="(activeMenuTab$ | async) === 'messaging'" 
+                        [class.active]="activeMenuTab() === 'messaging'" 
                         [matMenuTriggerFor]="messagingMenu"
                         class="menu-item dropdown">
                   <mat-icon>{{ item.icon }}</mat-icon>
@@ -161,7 +161,7 @@
               <!-- Documents Menu -->
               <ng-container *ngSwitchCase="'documents-main'">
                 <button mat-button 
-                        [class.active]="(activeMenuTab$ | async) === 'documents'" 
+                        [class.active]="activeMenuTab() === 'documents'" 
                         [matMenuTriggerFor]="documentsMenu"
                         class="menu-item dropdown">
                   <mat-icon>{{ item.icon }}</mat-icon>
@@ -245,7 +245,7 @@
               <!-- Settings Menu -->
               <ng-container *ngSwitchCase="'settings-main'">
                 <button mat-button 
-                        [class.active]="(activeMenuTab$ | async) === 'settings'" 
+                        [class.active]="activeMenuTab() === 'settings'" 
                         [matMenuTriggerFor]="settingsMenu"
                         class="menu-item dropdown">
                   <mat-icon>{{ item.icon }}</mat-icon>
@@ -329,7 +329,7 @@
               <!-- Other menu items use simplified single level dropdown -->
               <ng-container *ngSwitchDefault>
                 <button mat-button 
-                        [class.active]="(activeMenuTab$ | async) === item.id"
+                        [class.active]="activeMenuTab() === item.id"
                         [matMenuTriggerFor]="defaultMenu"
                         class="menu-item dropdown">
                   <mat-icon>{{ item.icon }}</mat-icon>
@@ -359,11 +359,11 @@
 
   <!-- Dynamic Action Buttons Section -->
   <div class="action-buttons">
-    <ng-container *ngIf="topNavConfig$ | async as config">
+    <ng-container *ngIf="topNavConfig() as config">
       <!-- Search Input Field -->
       <div class="search-container">
         <mat-form-field appearance="outline" class="search-field">
-          <input matInput placeholder="Search..." [(ngModel)]="searchText" (keyup.enter)="performSearch()">
+          <input matInput placeholder="Search..." [ngModel]="searchText()" (ngModelChange)="searchText.set($event)" (keyup.enter)="performSearch()">
         </mat-form-field>
       </div>
       

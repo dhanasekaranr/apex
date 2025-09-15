@@ -7,8 +7,22 @@
         <h1>User Management</h1>
         <p>Manage system users, roles, and permissions</p>
       </div>
+      @if (loading()) {
+        <mat-icon class="loading-icon">refresh</mat-icon>
+      }
     </div>
   </div>
+
+  <!-- Error Display -->
+  @if (error(); as errorMsg) {
+    <div class="error-banner">
+      <mat-icon>error</mat-icon>
+      <span>{{ errorMsg }}</span>
+      <button mat-icon-button (click)="clearError()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  }
 
   <!-- Filters Section -->
   <div class="table-filters">

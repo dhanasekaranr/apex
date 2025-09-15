@@ -1,0 +1,274 @@
+[
+  {
+    "id": "notifications-data",
+    "version": "1.0.0",
+    "lastUpdated": "2025-09-13T00:00:00.000Z",
+    "notifications": [
+      {
+        "id": "1",
+        "title": "System Update",
+        "message": "System maintenance scheduled for tonight at 2 AM",
+        "type": "warning",
+        "timestamp": "2025-09-13T14:50:00.000Z",
+        "read": false,
+        "priority": "high",
+        "category": "system",
+        "actionUrl": "/system/maintenance",
+        "actionLabel": "View Details",
+        "userId": null,
+        "metadata": {
+          "scheduledTime": "2025-09-13T02:00:00.000Z",
+          "estimatedDuration": "2 hours",
+          "affectedServices": ["API", "Database", "Web Interface"]
+        }
+      },
+      {
+        "id": "2",
+        "title": "New User Registration",
+        "message": "John Doe has registered as a new user",
+        "type": "info",
+        "timestamp": "2025-09-13T14:20:00.000Z",
+        "read": false,
+        "priority": "medium",
+        "category": "user",
+        "actionUrl": "/users/john-doe",
+        "actionLabel": "View Profile",
+        "userId": "user-123",
+        "metadata": {
+          "userName": "John Doe",
+          "userEmail": "john.doe@example.com",
+          "registrationMethod": "web"
+        }
+      },
+      {
+        "id": "3",
+        "title": "Database Backup Complete",
+        "message": "Daily backup completed successfully",
+        "type": "success",
+        "timestamp": "2025-09-13T12:50:00.000Z",
+        "read": false,
+        "priority": "low",
+        "category": "system",
+        "actionUrl": "/system/backups",
+        "actionLabel": "View Backups",
+        "userId": null,
+        "metadata": {
+          "backupSize": "2.4 GB",
+          "backupLocation": "/backup/daily/2025-09-13",
+          "backupType": "full"
+        }
+      },
+      {
+        "id": "4",
+        "title": "High CPU Usage",
+        "message": "Server CPU usage is above 85%",
+        "type": "error",
+        "timestamp": "2025-09-13T11:50:00.000Z",
+        "read": false,
+        "priority": "high",
+        "category": "performance",
+        "actionUrl": "/system/performance",
+        "actionLabel": "Check Performance",
+        "userId": null,
+        "metadata": {
+          "currentUsage": "87%",
+          "threshold": "85%",
+          "duration": "15 minutes",
+          "affectedProcesses": ["web-server", "database"]
+        }
+      },
+      {
+        "id": "5",
+        "title": "Report Generated",
+        "message": "Monthly sales report is ready for download",
+        "type": "info",
+        "timestamp": "2025-09-13T09:50:00.000Z",
+        "read": false,
+        "priority": "medium",
+        "category": "report",
+        "actionUrl": "/reports/monthly-sales",
+        "actionLabel": "Download Report",
+        "userId": null,
+        "metadata": {
+          "reportType": "monthly-sales",
+          "reportPeriod": "August 2025",
+          "fileSize": "1.2 MB",
+          "format": "PDF"
+        }
+      },
+      {
+        "id": "6",
+        "title": "Security Alert",
+        "message": "Multiple failed login attempts detected",
+        "type": "error",
+        "timestamp": "2025-09-13T08:30:00.000Z",
+        "read": true,
+        "priority": "high",
+        "category": "security",
+        "actionUrl": "/security/alerts",
+        "actionLabel": "View Security",
+        "userId": null,
+        "metadata": {
+          "attemptCount": 5,
+          "sourceIP": "192.168.1.100",
+          "targetAccount": "admin@company.com",
+          "timeWindow": "5 minutes"
+        }
+      },
+      {
+        "id": "7",
+        "title": "Data Export Complete",
+        "message": "User data export has been completed",
+        "type": "success",
+        "timestamp": "2025-09-13T07:15:00.000Z",
+        "read": true,
+        "priority": "low",
+        "category": "data",
+        "actionUrl": "/data/exports",
+        "actionLabel": "Download Export",
+        "userId": "user-456",
+        "metadata": {
+          "exportType": "user-data",
+          "recordCount": 1250,
+          "fileFormat": "CSV",
+          "requestedBy": "admin@company.com"
+        }
+      },
+      {
+        "id": "8",
+        "title": "License Renewal Reminder",
+        "message": "Software license expires in 30 days",
+        "type": "warning",
+        "timestamp": "2025-09-13T06:00:00.000Z",
+        "read": false,
+        "priority": "medium",
+        "category": "license",
+        "actionUrl": "/system/licenses",
+        "actionLabel": "Renew License",
+        "userId": null,
+        "metadata": {
+          "licenseType": "Enterprise",
+          "expirationDate": "2025-10-13T00:00:00.000Z",
+          "daysRemaining": 30,
+          "renewalCost": "$2,999"
+        }
+      }
+    ],
+    "notificationSettings": {
+      "enabled": true,
+      "emailNotifications": true,
+      "browserNotifications": true,
+      "soundNotifications": false,
+      "desktopNotifications": true,
+      "sound": false,
+      "autoMarkAsRead": false,
+      "showTimestamps": true,
+      "notificationRetentionDays": 30,
+      "maxNotificationsDisplay": 10,
+      "autoMarkReadAfterDays": 7,
+      "priorityFilters": {
+        "urgent": true,
+        "high": true,
+        "medium": true,
+        "low": false
+      },
+      "categoryFilters": {
+        "system": true,
+        "user": true,
+        "security": true,
+        "performance": true,
+        "report": true,
+        "license": true,
+        "data": true
+      }
+    },
+    "notificationCategories": [
+      {
+        "id": "system",
+        "label": "System Notifications",
+        "icon": "computer",
+        "color": "primary",
+        "description": "System maintenance, updates, and status",
+        "enabled": true
+      },
+      {
+        "id": "user",
+        "label": "User Activity",
+        "icon": "people",
+        "color": "success",
+        "description": "User registrations, profile changes, and activity",
+        "enabled": true
+      },
+      {
+        "id": "security",
+        "label": "Security Alerts",
+        "icon": "security",
+        "color": "error",
+        "description": "Security incidents, failed logins, and threats",
+        "enabled": true
+      },
+      {
+        "id": "performance",
+        "label": "Performance Alerts",
+        "icon": "speed",
+        "color": "warning",
+        "description": "System performance, resource usage, and optimization",
+        "enabled": true
+      },
+      {
+        "id": "report",
+        "label": "Reports",
+        "icon": "assessment",
+        "color": "info",
+        "description": "Generated reports, analytics, and data exports",
+        "enabled": true
+      },
+      {
+        "id": "license",
+        "label": "License & Billing",
+        "icon": "receipt",
+        "color": "accent",
+        "description": "License renewals, billing, and subscription updates",
+        "enabled": true
+      },
+      {
+        "id": "data",
+        "label": "Data Operations",
+        "icon": "storage",
+        "color": "primary",
+        "description": "Data imports, exports, and processing operations",
+        "enabled": true
+      }
+    ],
+    "notificationTypes": [
+      {
+        "id": "info",
+        "label": "Information",
+        "icon": "info",
+        "color": "info",
+        "description": "General information and updates"
+      },
+      {
+        "id": "success",
+        "label": "Success",
+        "icon": "check_circle",
+        "color": "success",
+        "description": "Successful operations and completions"
+      },
+      {
+        "id": "warning",
+        "label": "Warning",
+        "icon": "warning",
+        "color": "warning",
+        "description": "Warnings and important notices"
+      },
+      {
+        "id": "error",
+        "label": "Error",
+        "icon": "error",
+        "color": "error",
+        "description": "Errors and critical issues"
+      }
+    ]
+  }
+]

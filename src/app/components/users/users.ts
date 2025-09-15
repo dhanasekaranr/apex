@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -18,22 +19,19 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Store } from '@ngrx/store';
 import { DialogService } from '../../services/dialog.service';
-
-export interface User {
-  id: number;
-  userCode: string;
-  userName: string;
-  userRole: string;
-  screenAccess: string[];
-  dualMode: boolean;
-  debugMode: 'Y' | 'N';
-  lastLogin: Date;
-  status: 'Active' | 'Inactive' | 'Suspended';
-}
+import {
+  User,
+  UsersActions,
+  selectUsers,
+  selectUsersError,
+  selectUsersLoading,
+} from '../../store/users';
 
 @Component({
   selector: 'app-users',
+  standalone: true,
   imports: [
     CommonModule,
     FormsModule,
@@ -99,227 +97,47 @@ export class Users implements OnInit {
     'Configuration',
   ];
 
-  constructor(private dialogService: DialogService) {}
+  private dialogService = inject(DialogService);
+  private store = inject(Store);
 
-  // Sample data
-  users: User[] = [
-    {
-      id: 1,
-      userCode: 'ADM001',
-      userName: 'Watson Joyce',
-      userRole: 'Admin',
-      screenAccess: ['Dashboard', 'Users', 'Orders', 'Reports', 'Settings'],
-      dualMode: true,
-      debugMode: 'Y',
-      lastLogin: new Date('2024-12-28'),
-      status: 'Active',
-    },
-    {
-      id: 2,
-      userCode: 'MGR002',
-      userName: 'Sarah Manager',
-      userRole: 'Manager',
-      screenAccess: ['Dashboard', 'Orders', 'Reports', 'Analytics'],
-      dualMode: false,
-      debugMode: 'N',
-      lastLogin: new Date('2024-12-27'),
-      status: 'Active',
-    },
-    {
-      id: 3,
-      userCode: 'USR003',
-      userName: 'Mike User',
-      userRole: 'User',
-      screenAccess: ['Dashboard', 'Orders'],
-      dualMode: false,
-      debugMode: 'N',
-      lastLogin: new Date('2024-12-26'),
-      status: 'Active',
-    },
-    {
-      id: 4,
-      userCode: 'DEV004',
-      userName: 'Emma Developer',
-      userRole: 'Developer',
-      screenAccess: [
-        'Dashboard',
-        'Users',
-        'Orders',
-        'Reports',
-        'Settings',
-        'Debug',
-      ],
-      dualMode: true,
-      debugMode: 'Y',
-      lastLogin: new Date('2024-12-29'),
-      status: 'Active',
-    },
-    {
-      id: 5,
-      userCode: 'ANL005',
-      userName: 'David Analyst',
-      userRole: 'Analyst',
-      screenAccess: ['Dashboard', 'Reports', 'Analytics'],
-      dualMode: false,
-      debugMode: 'N',
-      lastLogin: new Date('2024-12-25'),
-      status: 'Inactive',
-    },
-    {
-      id: 6,
-      userCode: 'SUP006',
-      userName: 'Lisa Support',
-      userRole: 'Support',
-      screenAccess: ['Dashboard', 'Orders', 'Users'],
-      dualMode: false,
-      debugMode: 'Y',
-      lastLogin: new Date('2024-12-24'),
-      status: 'Active',
-    },
-    {
-      id: 7,
-      userCode: 'USR007',
-      userName: 'Tom Wilson',
-      userRole: 'User',
-      screenAccess: ['Dashboard'],
-      dualMode: false,
-      debugMode: 'N',
-      lastLogin: new Date('2024-12-20'),
-      status: 'Suspended',
-    },
-    {
-      id: 8,
-      userCode: 'MGR008',
-      userName: 'Alice Johnson',
-      userRole: 'Manager',
-      screenAccess: ['Dashboard', 'Orders', 'Reports', 'Users'],
-      dualMode: true,
-      debugMode: 'N',
-      lastLogin: new Date('2024-12-28'),
-      status: 'Active',
-    },
-    {
-      id: 9,
-      userCode: 'DEV009',
-      userName: 'Robert Chen',
-      userRole: 'Developer',
-      screenAccess: ['Dashboard', 'Orders', 'Settings', 'Analytics'],
-      dualMode: false,
-      debugMode: 'Y',
-      lastLogin: new Date('2024-12-29'),
-      status: 'Active',
-    },
-    {
-      id: 10,
-      userCode: 'USR010',
-      userName: 'Maria Rodriguez',
-      userRole: 'User',
-      screenAccess: ['Dashboard', 'Orders'],
-      dualMode: false,
-      debugMode: 'N',
-      lastLogin: new Date('2024-12-23'),
-      status: 'Active',
-    },
-    {
-      id: 11,
-      userCode: 'ANL011',
-      userName: 'James Thompson',
-      userRole: 'Analyst',
-      screenAccess: ['Dashboard', 'Reports', 'Analytics', 'Audit'],
-      dualMode: true,
-      debugMode: 'N',
-      lastLogin: new Date('2024-12-27'),
-      status: 'Active',
-    },
-    {
-      id: 12,
-      userCode: 'SUP012',
-      userName: 'Jennifer White',
-      userRole: 'Support',
-      screenAccess: ['Dashboard', 'Users', 'Support'],
-      dualMode: false,
-      debugMode: 'Y',
-      lastLogin: new Date('2024-12-26'),
-      status: 'Inactive',
-    },
-    {
-      id: 13,
-      userCode: 'ADM013',
-      userName: 'Michael Brown',
-      userRole: 'Admin',
-      screenAccess: [
-        'Dashboard',
-        'Users',
-        'Orders',
-        'Reports',
-        'Settings',
-        'Analytics',
-        'Audit',
-      ],
-      dualMode: true,
-      debugMode: 'Y',
-      lastLogin: new Date('2024-12-30'),
-      status: 'Active',
-    },
-    {
-      id: 14,
-      userCode: 'MGR014',
-      userName: 'Susan Davis',
-      userRole: 'Manager',
-      screenAccess: ['Dashboard', 'Orders', 'Reports', 'Inventory'],
-      dualMode: true,
-      debugMode: 'N',
-      lastLogin: new Date('2024-12-25'),
-      status: 'Active',
-    },
-    {
-      id: 15,
-      userCode: 'DEV015',
-      userName: 'Kevin Lee',
-      userRole: 'Developer',
-      screenAccess: ['Dashboard', 'Users', 'Settings', 'Configuration'],
-      dualMode: false,
-      debugMode: 'Y',
-      lastLogin: new Date('2024-12-22'),
-      status: 'Suspended',
-    },
-    {
-      id: 16,
-      userCode: 'USR016',
-      userName: 'Patricia Garcia',
-      userRole: 'User',
-      screenAccess: ['Dashboard', 'Orders', 'Billing'],
-      dualMode: false,
-      debugMode: 'N',
-      lastLogin: new Date('2024-12-21'),
-      status: 'Active',
-    },
-    {
-      id: 17,
-      userCode: 'ANL017',
-      userName: 'Christopher Miller',
-      userRole: 'Analyst',
-      screenAccess: ['Dashboard', 'Reports', 'Analytics'],
-      dualMode: true,
-      debugMode: 'N',
-      lastLogin: new Date('2024-12-28'),
-      status: 'Active',
-    },
-    {
-      id: 18,
-      userCode: 'SUP018',
-      userName: 'Linda Wilson',
-      userRole: 'Support',
-      screenAccess: ['Dashboard', 'Users', 'Orders', 'Support'],
-      dualMode: false,
-      debugMode: 'N',
-      lastLogin: new Date('2024-12-24'),
-      status: 'Inactive',
-    },
-  ];
+  // NgRx Store Selectors
+  users$ = this.store.select(selectUsers);
+  loading$ = this.store.select(selectUsersLoading);
+  error$ = this.store.select(selectUsersError);
+
+  // Convert to signals for template use
+  users = toSignal(this.users$, { initialValue: [] });
+  loading = toSignal(this.loading$, { initialValue: false });
+  error = toSignal(this.error$, { initialValue: null });
 
   ngOnInit() {
-    this.dataSource.data = this.users;
+    console.log('🚀 Users component initializing');
+
+    // Subscribe to users and update data source
+    this.users$.subscribe((users) => {
+      console.log('📊 Users state updated:', users.length, 'users');
+      this.dataSource.data = users;
+
+      // Only load data if store is empty
+      if (users.length === 0) {
+        console.log('📥 Store is empty, dispatching loadUsers action');
+        this.store.dispatch(UsersActions.loadUsers());
+      } else {
+        console.log('✅ Using cached data from store');
+      }
+    });
+
+    // Subscribe to loading state
+    this.loading$.subscribe((loading) => {
+      console.log('🔄 Loading state changed:', loading);
+    });
+
+    // Subscribe to error state
+    this.error$.subscribe((error) => {
+      if (error) {
+        console.log('❌ Error state updated:', error);
+      }
+    });
   }
 
   ngAfterViewInit() {
@@ -369,34 +187,36 @@ export class Users implements OnInit {
   }
 
   toggleDualMode(user: User) {
-    user.dualMode = !user.dualMode;
-    // Here you would typically call a service to update the user
+    const updatedUser = { ...user, dualMode: !user.dualMode };
+    this.store.dispatch(UsersActions.updateUser({ user: updatedUser }));
     console.log(
-      `Dual mode ${user.dualMode ? 'enabled' : 'disabled'} for user ${
+      `Dual mode ${updatedUser.dualMode ? 'enabled' : 'disabled'} for user ${
         user.userCode
       }`
     );
   }
 
   updateDebugMode(user: User, value: 'Y' | 'N') {
-    user.debugMode = value;
-    // Here you would typically call a service to update the user
+    const updatedUser = { ...user, debugMode: value };
+    this.store.dispatch(UsersActions.updateUser({ user: updatedUser }));
     console.log(`Debug mode set to ${value} for user ${user.userCode}`);
   }
 
   editUser(user: User) {
     console.log('Edit user:', user);
     // Here you would typically open an edit dialog or navigate to edit page
+    // For now, just select the user in the store
+    this.store.dispatch(UsersActions.selectUser({ user }));
   }
 
   deleteUser(user: User) {
     console.log('Delete user:', user);
-    // Here you would typically show a confirmation dialog and then delete
-    const index = this.dataSource.data.indexOf(user);
-    if (index > -1) {
-      this.dataSource.data.splice(index, 1);
-      this.dataSource._updateChangeSubscription();
-    }
+    // Dispatch delete action
+    this.store.dispatch(UsersActions.deleteUser({ id: user.id }));
+  }
+
+  clearError() {
+    this.store.dispatch(UsersActions.clearError());
   }
 
   addUser() {
@@ -411,22 +231,20 @@ export class Users implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-        // Add the new user to the data source
-        const newUser: User = {
-          id: this.users.length + 1,
+        // Dispatch action to add new user
+        const newUser = {
           userCode: result.userCode,
           userName: result.userName,
           userRole: result.userRole,
           screenAccess: result.screenAccess,
           dualMode: false,
-          debugMode: 'N',
-          lastLogin: new Date(),
-          status: 'Active',
+          debugMode: 'N' as const,
+          lastLogin: new Date().toISOString(),
+          status: 'Active' as const,
         };
 
-        this.users.push(newUser);
-        this.dataSource.data = this.users;
-        console.log('New user added:', newUser);
+        this.store.dispatch(UsersActions.addUser({ user: newUser }));
+        console.log('New user dispatch:', newUser);
       }
     });
   }

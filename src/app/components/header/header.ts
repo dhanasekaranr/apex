@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, computed, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,6 +8,16 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Store } from '@ngrx/store';
+import { take } from 'rxjs/operators';
+import {
+  Notification,
+  NotificationsActions,
+  selectAllNotifications,
+  selectHasUnreadNotifications,
+  selectIsNotificationsDataLoaded,
+  selectUnreadCount,
+} from '../../store/notifications';
 
 interface InfoPanel {
   label: string;
@@ -19,15 +30,6 @@ interface MetricPanel {
   color?: 'primary' | 'success' | 'warning' | 'error';
 }
 
-interface Notification {
-  id: string;
-  title: string;
-  message: string;
-  type: 'info' | 'warning' | 'error' | 'success';
-  time: Date;
-  read: boolean;
-}
-
 interface CurrentUser {
   name: string;
   role: string;
@@ -36,6 +38,7 @@ interface CurrentUser {
 
 @Component({
   selector: 'app-header',
+  standalone: true,
   imports: [
     MatToolbarModule,
     MatButtonModule,
@@ -48,9 +51,37 @@ interface CurrentUser {
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
-export class Header {
+export class Header implements OnInit {
   @Input() drawer!: MatSidenav;
   @Input() isHandset!: boolean | null;
+
+  // NgRx Store injection
+  private store = inject(Store);
+
+  // NgRx Signals for reactive state management
+  notifications = toSignal(this.store.select(selectAllNotifications), {
+    initialValue: [],
+  });
+  unreadCount = toSignal(this.store.select(selectUnreadCount), {
+    initialValue: 0,
+  });
+  hasUnreadNotifications = toSignal(
+    this.store.select(selectHasUnreadNotifications),
+    { initialValue: false }
+  );
+  isDataLoaded = toSignal(this.store.select(selectIsNotificationsDataLoaded), {
+    initialValue: false,
+  });
+
+  // Computed signals for enhanced functionality
+  recentNotifications = computed(() =>
+    this.notifications()
+      .slice(0, 5)
+      .sort(
+        (a, b) =>
+          new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+      )
+  );
 
   infoPanels: InfoPanel[] = [
     { label: 'Active Users', value: '24' },
@@ -67,58 +98,25 @@ export class Header {
     { label: 'Default Rate', value: '6.6%', color: 'warning' },
   ];
 
-  // Notifications
-  hasUnreadNotifications = true;
-  unreadCount = 5;
-  notifications: Notification[] = [
-    {
-      id: '1',
-      title: 'System Update',
-      message: 'System maintenance scheduled for tonight at 2 AM',
-      type: 'warning',
-      time: new Date(Date.now() - 10 * 60 * 1000), // 10 minutes ago
-      read: false,
-    },
-    {
-      id: '2',
-      title: 'New User Registration',
-      message: 'John Doe has registered as a new user',
-      type: 'info',
-      time: new Date(Date.now() - 30 * 60 * 1000), // 30 minutes ago
-      read: false,
-    },
-    {
-      id: '3',
-      title: 'Database Backup Complete',
-      message: 'Daily backup completed successfully',
-      type: 'success',
-      time: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
-      read: false,
-    },
-    {
-      id: '4',
-      title: 'High CPU Usage',
-      message: 'Server CPU usage is above 85%',
-      type: 'error',
-      time: new Date(Date.now() - 3 * 60 * 60 * 1000), // 3 hours ago
-      read: false,
-    },
-    {
-      id: '5',
-      title: 'Report Generated',
-      message: 'Monthly sales report is ready for download',
-      type: 'info',
-      time: new Date(Date.now() - 5 * 60 * 60 * 1000), // 5 hours ago
-      read: false,
-    },
-  ];
-
   // Current user info
   currentUser: CurrentUser = {
     name: 'Watson Joyce',
     role: 'Administrator',
     email: 'admin@company.com',
   };
+
+  ngOnInit(): void {
+    // Load notifications data if not already loaded
+    this.store
+      .select(selectIsNotificationsDataLoaded)
+      .pipe(take(1))
+      .subscribe((isLoaded) => {
+        if (!isLoaded) {
+          console.log('🚀 Loading notifications configuration from NgRx store');
+          this.store.dispatch(NotificationsActions.loadNotificationsConfig());
+        }
+      });
+  }
 
   // Quick Tools Methods
   openCalculator() {
@@ -189,19 +187,19 @@ export class Header {
     // Implementation would open webhook configuration
   }
 
-  // Notification Methods
+  // Notification Methods using NgRx actions
   markAllAsRead() {
-    this.notifications.forEach((notification) => (notification.read = true));
-    this.unreadCount = 0;
-    this.hasUnreadNotifications = false;
-    console.log('All notifications marked as read');
+    console.log('🔄 Marking all notifications as read via NgRx');
+    this.store.dispatch(NotificationsActions.markAllNotificationsAsRead());
   }
 
   markAsRead(notification: Notification) {
-    notification.read = true;
-    this.unreadCount = this.notifications.filter((n) => !n.read).length;
-    this.hasUnreadNotifications = this.unreadCount > 0;
-    console.log(`Notification ${notification.id} marked as read`);
+    console.log(`🔄 Marking notification ${notification.id} as read via NgRx`);
+    this.store.dispatch(
+      NotificationsActions.markNotificationAsRead({
+        notificationId: notification.id,
+      })
+    );
   }
 
   viewAllNotifications() {

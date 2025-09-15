@@ -6,3 +6,33 @@
 // Use .page-container, .table-container, .data-form classes from the global theme
 // (Add any users-specific customizations here if needed)
 
+// Loading and Error States
+.loading-icon {
+  animation: spin 1s linear infinite;
+  margin-left: auto;
+}
+
+.error-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--mat-sys-error-container);
+  color: var(--mat-sys-on-error-container);
+  border-radius: 8px;
+  margin-bottom: 16px;
+
+  mat-icon {
+    color: var(--mat-sys-error);
+  }
+
+  span {
+    flex: 1;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+

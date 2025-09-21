@@ -1,6 +1,6 @@
 <!-- Dynamic Horizontal Menu Bar -->
 <div class="horizontal-menu-bar">
-  <nav class="menu-nav">
+  <nav class="menu-nav" role="navigation" aria-label="Main navigation">
     <!-- Generate menu items dynamically from configuration -->
     <ng-container *ngIf="topNavConfig() as config">
       <div 
@@ -15,10 +15,17 @@
             [class.active]="activeMenuTab() === item.id"
             [routerLink]="item.routerLink"
             (click)="onMenuItemClicked(item)"
+            (keydown.enter)="onMenuItemClicked(item)"
+            (keydown.space)="onMenuItemClicked(item)"
+            [attr.aria-label]="item.label"
+            [attr.aria-current]="activeMenuTab() === item.id ? 'page' : null"
             class="menu-item">
-            <mat-icon>{{ item.icon }}</mat-icon>
+            <mat-icon [attr.aria-hidden]="true">{{ item.icon }}</mat-icon>
             {{ item.label }}
-            <span *ngIf="item.badge" class="menu-badge" [ngClass]="'badge-' + item.badge.color">
+            <span *ngIf="item.badge" 
+                  class="menu-badge" 
+                  [ngClass]="'badge-' + item.badge.color"
+                  [attr.aria-label]="'Badge: ' + item.badge.text">
               {{ item.badge.text }}
             </span>
           </button>
@@ -361,10 +368,23 @@
   <div class="action-buttons">
     <ng-container *ngIf="topNavConfig() as config">
       <!-- Search Input Field -->
-      <div class="search-container">
+      <div class="search-container" role="search">
         <mat-form-field appearance="outline" class="search-field">
-          <input matInput placeholder="Search..." [ngModel]="searchText()" (ngModelChange)="searchText.set($event)" (keyup.enter)="performSearch()">
+          <input 
+            matInput 
+            placeholder="Search..." 
+            [ngModel]="searchText()" 
+            (ngModelChange)="searchText.set($event)" 
+            (keyup.enter)="performSearch()"
+            aria-label="Search application content"
+            aria-describedby="search-description"
+            type="search"
+            autocomplete="off">
+          <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
+        <div id="search-description" class="sr-only">
+          Press Enter to search or type to filter results
+        </div>
       </div>
       
       <!-- Generate action buttons dynamically -->
@@ -373,6 +393,7 @@
           *ngIf="button.id !== 'more'"
           mat-icon-button 
           [matTooltip]="button.tooltip" 
+          [aria-label]="button.tooltip"
           (click)="onActionButtonClicked(button)">
           <mat-icon>{{ button.icon }}</mat-icon>
           <span *ngIf="button.badge" class="action-badge" [ngClass]="'badge-' + button.badge.color">
@@ -382,7 +403,10 @@
       </ng-container>
       
       <!-- More menu button -->
-      <button mat-icon-button [matMenuTriggerFor]="moreMenu" matTooltip="More Options">
+      <button mat-icon-button 
+              [matMenuTriggerFor]="moreMenu" 
+              matTooltip="More Options"
+              aria-label="More options menu">
         <mat-icon>more_vert</mat-icon>
       </button>
       

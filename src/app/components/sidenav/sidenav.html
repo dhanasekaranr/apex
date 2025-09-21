@@ -50,11 +50,14 @@
       class="expandable-item">
       
       <!-- Expandable header -->
-      <div 
+      <button 
+        type="button"
         class="nav-item expandable-header"
         (click)="toggleExpanded(item, $event)"
         [attr.aria-expanded]="item.expanded"
-        [class.disabled]="item.disabled">
+        [attr.aria-label]="'Toggle ' + item.label + ' submenu'"
+        [class.disabled]="item.disabled"
+        [disabled]="item.disabled">
         <mat-icon>{{ item.icon }}</mat-icon>
         <span>{{ item.label }}</span>
         <mat-icon class="expand-icon" [class.expanded]="item.expanded">
@@ -67,15 +70,19 @@
           matTooltipPosition="right">
           info
         </mat-icon>
-      </div>
+      </button>
       
       <!-- Submenu items -->
-      <div class="submenu" [class.expanded]="item.expanded">
+      <div class="submenu" 
+           [class.expanded]="item.expanded"
+           [attr.aria-hidden]="!item.expanded">
         <a 
           *ngFor="let subItem of item.children"
           [routerLink]="subItem.disabled ? null : subItem.routerLink"
           [routerLinkActive]="!subItem.disabled ? 'active-link' : ''"
           [class.disabled]="subItem.disabled"
+          [attr.aria-label]="subItem.label"
+          [attr.tabindex]="!item.expanded ? -1 : 0"
           class="nav-item sub-item">
           <mat-icon class="sub-icon">{{ subItem.icon }}</mat-icon>
           <span>{{ subItem.label }}</span>

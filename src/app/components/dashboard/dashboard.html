@@ -1,89 +1,119 @@
-<div class="page-container">
-  <h1 class="dashboard-title">Dashboard Overview</h1>
+<main class="page-container" role="main" aria-labelledby="dashboard-title">
+  <!-- Compact Header -->
+  <header class="dashboard-header">
+    <h1 id="dashboard-title" class="dashboard-title">Management Portal</h1>
+    <button mat-stroked-button 
+            (click)="refreshData()" 
+            class="refresh-btn"
+            aria-label="Refresh dashboard data"
+            title="Refresh dashboard data">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </header>
   
-  <!-- Stats Cards -->
-  <div class="stats-grid">
-    @for (stat of stats(); track stat.title) {
-      <mat-card class="stat-card widget-card" (click)="onStatClick(stat)">
-        <mat-card-content>
-          <div class="stat-content">
-            <div class="stat-icon" [style.background-color]="stat.color">
-              <mat-icon>{{ stat.icon }}</mat-icon>
-            </div>
-            <div class="stat-info">
-              <h3 class="stat-value">{{ stat.value }}</h3>
-              <p class="stat-title">{{ stat.title }}</p>
-            </div>
+  <!-- Compact Metrics Grid -->
+  <section class="metrics-section" aria-labelledby="metrics-title">
+    <h2 id="metrics-title" class="sr-only">Key Metrics</h2>
+    <div class="metrics-grid">
+      @for (stat of stats() || []; track stat.title) {
+        <div 
+          class="stat-item" 
+          role="button"
+          tabindex="0"
+          [attr.aria-label]="'View details for ' + stat.title + ': ' + stat.value"
+          (click)="onStatClick(stat)"
+          (keydown.enter)="onStatClick(stat)"
+          (keydown.space)="onStatClick(stat)">
+          <span class="stat-value" aria-hidden="true">{{ stat.value }}</span>
+          <span class="stat-label" aria-hidden="true">{{ stat.title }}</span>
+        </div>
+      }
+    </div>
+  </section>
+  
+  <!-- Compact Content Sections -->
+  <div class="content-sections">
+    <!-- System Status -->
+    <section class="status-section" aria-labelledby="status-title">
+      <h2 id="status-title">System Status</h2>
+      <div class="status-list">
+        <div class="status-item">
+          <span class="status-dot success"></span>
+          <span>Database</span>
+          <span class="status-value">OK</span>
+        </div>
+        <div class="status-item">
+          <span class="status-dot success"></span>
+          <span>API Services</span>
+          <span class="status-value">OK</span>
+        </div>
+        <div class="status-item">
+          <span class="status-dot warning"></span>
+          <span>Cache</span>
+          <span class="status-value">WARN</span>
+        </div>
+        <div class="status-item">
+          <span class="status-dot success"></span>
+          <span>Security</span>
+          <span class="status-value">OK</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Activity Feed -->
+    <section class="activity-section" aria-labelledby="activity-title">
+      <h2 id="activity-title">Recent Activity</h2>
+      <div class="activity-list">
+        @for (activity of recentActivities() || []; track activity.id) {
+          <div class="activity-item">
+            <span class="activity-time">{{ activity.timestamp | date:'HH:mm' }}</span>
+            <span class="activity-title">{{ activity.title }}</span>
           </div>
-        </mat-card-content>
-      </mat-card>
-    }
-  </div>
-  
-  <!-- Content Grid -->
-  <div class="content-grid">
-    <!-- Chart Placeholder -->
-    <mat-card class="chart-card widget-card">
-      <mat-card-header>
-        <mat-card-title>Sales Analytics</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="chart-placeholder">
-          <mat-icon class="chart-icon">trending_up</mat-icon>
-          <p class="chart-title">Chart would go here</p>
-        </div>
-      </mat-card-content>
-    </mat-card>
-    
-    <!-- Recent Activities -->
-    <mat-card class="activities-card widget-card">
-      <mat-card-header>
-        <mat-card-title>Recent Activities</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="activity-list">
-          @for (activity of recentActivities(); track activity.action) {
-            <div class="activity-item">
-              <mat-icon 
-                class="activity-icon" 
-                [ngClass]="'activity-icon-' + activity.type">
-                {{ activity.icon }}
-              </mat-icon>
-              <div class="activity-content">
-                <p class="activity-action">{{ activity.action }}</p>
-                <span class="activity-time">{{ activity.time }}</span>
-              </div>
-            </div>
-          }
-        </div>
-      </mat-card-content>
-    </mat-card>
+        }
+      </div>
+    </section>
   </div>
   
   <!-- Quick Actions -->
-  <mat-card class="actions-card widget-card">
-    <mat-card-header>
-      <mat-card-title>Quick Actions</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="actions-grid">
-        <button mat-raised-button color="primary">
-          <mat-icon>add</mat-icon>
-          Add User
-        </button>
-        <button mat-raised-button color="accent">
-          <mat-icon>add_shopping_cart</mat-icon>
-          New Order
-        </button>
-        <button mat-raised-button color="warn">
-          <mat-icon>inventory_2</mat-icon>
-          Add Product
-        </button>
-        <button mat-raised-button>
-          <mat-icon>assessment</mat-icon>
-          Generate Report
-        </button>
-      </div>
-    </mat-card-content>
-  </mat-card>
-</div>
+  <section class="actions-section" aria-labelledby="actions-title">
+    <h2 id="actions-title">Quick Actions</h2>
+    <div class="actions-grid" role="group" aria-labelledby="actions-title">
+      <button 
+        mat-stroked-button 
+        (click)="navigateToUsers()"
+        aria-label="Manage users">
+        Users
+      </button>
+      <button 
+        mat-stroked-button 
+        (click)="navigateToLookups()"
+        aria-label="Manage lookup values">
+        Lookups
+      </button>
+      <button 
+        mat-stroked-button 
+        (click)="navigateToPermissions()"
+        aria-label="Manage permissions">
+        Permissions
+      </button>
+      <button 
+        mat-stroked-button 
+        (click)="navigateToReports()"
+        aria-label="View reports">
+        Reports
+      </button>
+      <button 
+        mat-stroked-button 
+        (click)="navigateToBackup()"
+        aria-label="Manage backups">
+        Backup
+      </button>
+      <button 
+        mat-stroked-button 
+        (click)="navigateToSettings()"
+        aria-label="Application settings">
+        Settings
+      </button>
+    </div>
+  </section>
+</main>

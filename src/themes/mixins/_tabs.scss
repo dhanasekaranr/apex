@@ -100,6 +100,105 @@
   }
 }
 
+// Documentation tabs with pagination support
+@mixin tab-group-documentation {
+  .mat-mdc-tab-group {
+    height: 100%;
+    width: 100%;
+    
+    .mat-mdc-tab-header {
+      border-bottom: 1px solid var(--mat-sys-outline-variant);
+      background-color: var(--mat-sys-surface-container-low);
+      overflow: visible;
+      height: auto;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      
+      .mat-mdc-tab-list {
+        display: flex;
+        flex-wrap: nowrap;
+        width: auto;
+        height: 48px;
+        overflow: visible;
+        justify-content: flex-start;
+        align-items: center;
+        min-width: 0;
+        
+        .mat-mdc-tab {
+          min-width: 160px;
+          max-width: 220px;
+          flex-shrink: 0;
+          height: 48px;
+          margin-right: 4px;
+          
+          &:last-child {
+            margin-right: 8px;
+          }
+          
+          .mdc-tab__content .mdc-tab__text-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: clamp(0.75rem, 2vw, 0.875rem);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 6px;
+            
+            .tab-title {
+              overflow: hidden;
+              text-overflow: ellipsis;
+              max-width: 130px;
+            }
+          }
+        }
+      }
+      
+      .mat-mdc-tab-header-pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--mat-sys-surface-container-high);
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        z-index: 100;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        border: 1px solid var(--mat-sys-outline-variant);
+        position: relative;
+        flex-shrink: 0;
+        
+        &.mat-mdc-tab-header-pagination-before {
+          margin-right: 8px;
+        }
+        
+        &.mat-mdc-tab-header-pagination-after {
+          margin-left: 8px;
+        }
+        
+        .mat-mdc-tab-header-pagination-chevron {
+          color: var(--mat-sys-primary);
+          font-size: 16px;
+          width: 16px;
+          height: 16px;
+        }
+        
+        &:hover {
+          background-color: var(--mat-sys-primary-container);
+          
+          .mat-mdc-tab-header-pagination-chevron {
+            color: var(--mat-sys-on-primary-container);
+          }
+        }
+      }
+    }
+  }
+}
+
 // Vertical tabs
 @mixin tab-group-vertical {
   .mat-mdc-tab-group {

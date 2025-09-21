@@ -1,37 +1,26 @@
-// Application Settings Page Styles
-
-// Loading and Error States
+// Optimized settings
 .loading-container {
   text-align: center;
-  padding: var(--spacing-xl);
-  
-  mat-progress-bar {
-    margin-bottom: var(--spacing-md);
-  }
+  padding: 2rem;
   
   p {
     color: var(--mat-sys-on-surface-variant);
-    font-size: var(--font-size-sm);
+    font-size: 0.875rem;
   }
 }
 
 .error-card {
   background: var(--mat-sys-error-container);
   color: var(--mat-sys-on-error-container);
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: 1.25rem;
   
   mat-card-content {
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
-    
-    mat-icon {
-      color: var(--mat-sys-error);
-    }
+    gap: 0.75rem;
   }
 }
 
-// Security Score Card
 .security-score {
   text-align: center;
   
@@ -43,221 +32,60 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto var(--spacing-md) auto;
+    margin: 0 auto 1rem auto;
     
     .score-value {
-      font-size: var(--font-size-xl);
-      font-weight: var(--font-weight-bold);
+      font-size: 1.5rem;
+      font-weight: 700;
       color: var(--mat-sys-on-primary-container);
     }
   }
-  
-  .score-label {
-    .score-good {
-      color: var(--mat-sys-primary);
-      font-weight: var(--font-weight-semibold);
-    }
-    
-    .score-fair {
-      color: var(--mat-sys-tertiary);
-      font-weight: var(--font-weight-semibold);
-    }
-    
-    .score-poor {
-      color: var(--mat-sys-error);
-      font-weight: var(--font-weight-semibold);
-    }
-  }
 }
 
-// Settings Overview Grid
-.overview-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--spacing-lg);
+.settings-section {
+  margin-bottom: 1.25rem;
   
-  .overview-section {
-    h3 {
-      color: var(--mat-sys-primary);
-      margin-bottom: var(--spacing-md);
-      font-size: var(--font-size-md);
-      font-weight: var(--font-weight-semibold);
-      border-bottom: 1px solid var(--mat-sys-outline-variant);
-      padding-bottom: var(--spacing-sm);
-    }
-    
-    p {
-      margin: var(--spacing-xs) 0;
-      font-size: var(--font-size-sm);
-      
-      strong {
-        color: var(--mat-sys-on-surface);
-        font-weight: var(--font-weight-medium);
-      }
-    }
-  }
-}
-
-// Form Sections
-.data-form {
-  h3 {
-    color: var(--mat-sys-primary);
-    margin: var(--spacing-lg) 0 var(--spacing-md) 0;
-    font-size: var(--font-size-md);
-    font-weight: var(--font-weight-semibold);
-    border-bottom: 1px solid var(--mat-sys-outline-variant);
-    padding-bottom: var(--spacing-sm);
-    
-    &:first-child {
-      margin-top: 0;
-    }
-  }
-}
-
-// Checkbox Groups
-.checkbox-group {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-  margin: var(--spacing-lg) 0;
-  
-  mat-slide-toggle {
-    margin: 0;
-  }
-}
-
-// System Information Styles
-.system-info-section {
-  margin-bottom: var(--spacing-xl);
-  
-  h3 {
-    color: var(--mat-sys-primary);
-    margin-bottom: var(--spacing-md);
-    font-size: var(--font-size-md);
-    font-weight: var(--font-weight-semibold);
-    border-bottom: 1px solid var(--mat-sys-outline-variant);
-    padding-bottom: var(--spacing-sm);
-  }
-}
-
-.info-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--spacing-md);
-  
-  .info-item {
+  .section-header {
     display: flex;
     justify-content: space-between;
-    padding: var(--spacing-sm);
-    background: var(--mat-sys-surface-variant);
-    border-radius: var(--border-radius-sm);
-    
-    .info-label {
-      font-weight: var(--font-weight-medium);
-      color: var(--mat-sys-on-surface-variant);
-    }
-    
-    .info-value {
-      font-weight: var(--font-weight-regular);
-      color: var(--mat-sys-on-surface);
-      
-      &.status-connected {
-        color: var(--mat-sys-primary);
-        font-weight: var(--font-weight-semibold);
-      }
-      
-      &.status-disconnected {
-        color: var(--mat-sys-error);
-        font-weight: var(--font-weight-semibold);
-      }
-      
-      &.status-unknown {
-        color: var(--mat-sys-on-surface-variant);
-      }
-    }
-  }
-}
-
-// Performance Metrics
-.performance-metrics {
-  .metric {
-    margin-bottom: var(--spacing-lg);
-    
-    .metric-label {
-      display: block;
-      font-weight: var(--font-weight-medium);
-      margin-bottom: var(--spacing-sm);
-      color: var(--mat-sys-on-surface);
-    }
-    
-    mat-progress-bar {
-      margin-bottom: var(--spacing-xs);
-      height: 8px;
-      border-radius: 4px;
-    }
-    
-    .metric-value {
-      font-size: var(--font-size-sm);
-      color: var(--mat-sys-on-surface-variant);
-      font-weight: var(--font-weight-medium);
-    }
-  }
-}
-
-// Integrations Grid
-.integrations-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--spacing-md);
-  
-  .integration-item {
-    display: flex;
     align-items: center;
-    gap: var(--spacing-md);
-    padding: var(--spacing-md);
-    background: var(--mat-sys-surface-variant);
-    border-radius: var(--border-radius-md);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
     
-    .status-icon-active {
+    h2 {
       color: var(--mat-sys-primary);
-    }
-    
-    .status-icon-inactive {
-      color: var(--mat-sys-error);
-    }
-    
-    .integration-info {
-      display: flex;
-      flex-direction: column;
-      
-      .integration-name {
-        font-weight: var(--font-weight-semibold);
-        color: var(--mat-sys-on-surface);
-      }
-      
-      .integration-status {
-        font-size: var(--font-size-sm);
-        color: var(--mat-sys-on-surface-variant);
-        text-transform: capitalize;
-      }
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 500;
     }
   }
 }
 
-// Refresh Button
-.refresh-button {
-  position: absolute;
-  top: var(--spacing-md);
-  right: var(--spacing-md);
-}
-
-.setting-section {
-  .setting-row {
-    margin-bottom: var(--spacing-md);
+.setting-card {
+  padding: 1.25rem;
+  border-radius: 8px;
+  background: var(--mat-sys-surface);
+  border: 1px solid var(--mat-sys-outline-variant);
+  margin-bottom: 1rem;
+  
+  .setting-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
     
-    mat-form-field {
-      width: 100%;
-      max-width: 400px;
+    .setting-title {
+      color: var(--mat-sys-on-surface);
+      font-size: 1rem;
+      font-weight: 500;
     }
+  }
+  
+  .setting-description {
+    color: var(--mat-sys-on-surface-variant);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
   }
 }

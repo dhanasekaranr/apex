@@ -4,6 +4,19 @@
 // Following Material 3 and modern CSS best practices
 // Using CSS custom properties for consistency and theme switching
 
+// Accessibility utilities
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
 // Display utilities
 .d-flex { display: flex; }
 .d-grid { display: grid; }
@@ -748,4 +761,110 @@
   color: var(--white);
   @include layout.button-compact(var(--button-height-md));
   &:hover { background: var(--warning-light); }
+}
+
+// DOCUMENTATION VIEWER UTILITIES
+.doc-container {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--mat-sys-surface);
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  box-sizing: border-box;
+}
+
+.doc-header {
+  padding: 1.5rem;
+  background-color: var(--mat-sys-surface-container-low);
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  width: 100%;
+  box-sizing: border-box;
+  
+  .header-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0 0 0.5rem 0;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 400;
+    color: var(--mat-sys-on-surface);
+    
+    mat-icon {
+      color: var(--mat-sys-primary);
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      width: clamp(1.5rem, 4vw, 2rem);
+      height: clamp(1.5rem, 4vw, 2rem);
+    }
+  }
+  
+  .header-subtitle {
+    margin: 0;
+    color: var(--mat-sys-on-surface-variant);
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+  }
+  
+  .search-section {
+    width: 100%;
+    margin: 1rem 0 0 0;
+    
+    mat-form-field {
+      width: 100%;
+      max-width: 600px;
+      
+      .mat-mdc-form-field-subscript-wrapper {
+        display: none;
+      }
+    }
+  }
+}
+
+.doc-content {
+  border-radius: 12px;
+  box-shadow: var(--mat-sys-elevation-1);
+  border: 1px solid var(--mat-sys-outline-variant);
+  width: 100%;
+}
+
+.doc-no-results {
+  text-align: center;
+  padding: 2rem 1rem;
+  
+  mat-icon {
+    font-size: clamp(2rem, 6vw, 3rem);
+    width: clamp(2rem, 6vw, 3rem);
+    height: clamp(2rem, 6vw, 3rem);
+    color: var(--mat-sys-on-surface-variant);
+    margin-bottom: 1rem;
+  }
+  
+  h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--mat-sys-on-surface);
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
+  }
+  
+  p {
+    margin: 0 0 1.5rem 0;
+    color: var(--mat-sys-on-surface-variant);
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+  }
+}
+
+.doc-tabs-container {
+  flex: 1;
+  padding: 0 0.5rem 1rem;
+  width: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+  
+  .documentation-tabs {
+    height: 100%;
+    width: 70%;
+    max-width: 900px;
+    min-width: 350px;
+    margin: 0 auto;
+  }
 }

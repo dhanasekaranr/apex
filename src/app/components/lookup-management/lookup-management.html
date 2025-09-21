@@ -14,7 +14,10 @@
     <div class="error-banner">
       <mat-icon>error</mat-icon>
       <span>{{ errorMsg }}</span>
-      <button mat-icon-button (click)="clearError()">
+      <button mat-icon-button 
+              (click)="clearError()"
+              aria-label="Clear error message"
+              title="Clear error message">
         <mat-icon>close</mat-icon>
       </button>
     </div>
@@ -128,7 +131,8 @@
                     mat-icon-button 
                     [color]="value.isActive ? 'primary' : ''"
                     (click)="toggleValueStatus(value)"
-                    [title]="value.isActive ? 'Active' : 'Inactive'">
+                    [title]="value.isActive ? 'Active' : 'Inactive'"
+                    [aria-label]="'Toggle active status for ' + value.name">
                     <mat-icon>{{ value.isActive ? 'check_circle' : 'cancel' }}</mat-icon>
                   </button>
                 </td>
@@ -142,7 +146,8 @@
                     mat-icon-button 
                     color="warn" 
                     (click)="removeValue(i)"
-                    title="Remove this value">
+                    title="Remove this value"
+                    [aria-label]="'Remove value ' + value.name">
                     <mat-icon>delete</mat-icon>
                   </button>
                 </td>
@@ -160,7 +165,7 @@
         <mat-card-content>
           <div class="empty-content">
             <mat-icon class="empty-icon">table_view</mat-icon>
-            <h3>Select a Lookup Table</h3>
+            <h2>Select a Lookup Table</h2>
             <p>Choose a lookup table from the left panel to view and edit its values.</p>
           </div>
         </mat-card-content>

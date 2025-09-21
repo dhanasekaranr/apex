@@ -573,25 +573,8 @@
               "breadcrumbIcon": "help_center"
             }
           ]
-        },
-        {
-          "id": "lookup-management",
-          "label": "Lookup Management",
-          "order": 8,
-          "breadcrumbLabel": "Lookup Management",
-          "breadcrumbIcon": "manage_search",
-          "items": [
-            {
-              "id": "lookup-management-main",
-              "label": "Lookup Management",
-              "icon": "manage_search",
-              "routerLink": "/lookup-management",
-              "action": "navigate",
-              "breadcrumbLabel": "Lookup Management",
-              "breadcrumbIcon": "manage_search"
-            }
-          ]
         }
+
       ],
       "actionButtons": [
         {

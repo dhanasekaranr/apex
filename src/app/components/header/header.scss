@@ -1,6 +1,49 @@
-// Header Component Styles - Minimal
-// All styling has been moved to /themes/material/_material3-overrides.scss
-// for better organization and Material 3 compliance
+// Header Component Styles - Bank of America Theme
+// Component-specific styles for the header with BoA branding
 
-// Component-specific styles only (if any needed)
-// Keep this file minimal - use global theme styling instead
+:host {
+  .mat-toolbar {
+    // Bank of America header styling
+    background: linear-gradient(135deg, 
+      rgba(0, 101, 179, 0.95), 
+      rgba(0, 74, 133, 1)) !important;
+    color: white !important;
+    box-shadow: 0 2px 8px rgba(0, 101, 179, 0.15) !important;
+    border-bottom: 2px solid #E61030 !important; // BoA red accent
+    
+    // Menu buttons styling
+    .mat-mdc-menu-trigger,
+    .mat-mdc-button {
+      color: white !important;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+      }
+      
+      .mat-icon {
+        color: white !important;
+      }
+    }
+    
+    // Notification badge styling
+    .mat-badge-content {
+      background-color: #E61030 !important; // BoA red for notifications
+      color: white !important;
+    }
+  }
+  
+  // Menu panel styling
+  .mat-mdc-menu-panel {
+    .mat-mdc-menu-content {
+      .mat-mdc-menu-item {
+        &:hover {
+          background-color: rgba(0, 101, 179, 0.1) !important; // BoA blue hover
+        }
+        
+        .mat-icon {
+          color: #0065B3 !important; // BoA blue icons
+        }
+      }
+    }
+  }
+}

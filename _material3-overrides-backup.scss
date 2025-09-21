@@ -2287,14 +2287,13 @@ mat-sidenav {
 }
 
 // ============================================
-// SIDENAV COMPONENT STYLES (DUPLICATE - TODO: REMOVE)
+// COMPONENT-SPECIFIC OVERRIDES REMOVED
 // ============================================
-// WARNING: These styles DUPLICATE those in sidenav.scss component file
-// The component-scoped styles in sidenav.scss should take precedence
-// TODO: Clean up this duplication in next refactor
+// Note: Sidenav styles moved to component file for better organization
 
-.sidenav-header {
-  padding: var(--spacing-sm) var(--spacing-sm);
+// Placeholder for future component overrides
+.component-overrides-placeholder {
+  padding: var(--spacing-md) var(--spacing-md);
   background: linear-gradient(135deg, 
     rgba(204, 14, 41, 0.95), 
     rgba(153, 10, 31, 1)) !important; // Accessible BoA red gradient background
@@ -2755,18 +2754,17 @@ mat-sidenav {
 .mat-mdc-outlined-button,
 .mat-mdc-button {
   &.action-button-primary {
-    background: var(--mat-sys-primary) !important;
-    color: var(--mat-sys-on-primary) !important;
+    background: var(--primary-color) !important;
+    color: var(--white) !important;
     border: none !important;
-    font-weight: 500 !important;
+    font-weight: var(--font-weight-medium) !important;
     text-transform: none !important;
     letter-spacing: 0 !important;
     min-width: 140px !important;
     height: 40px !important;
     
     &:hover {
-      background: var(--mat-sys-primary-container) !important;
-      color: var(--mat-sys-on-primary-container) !important;
+      background: var(--primary-light) !important;
     }
     
     mat-icon {

@@ -41,9 +41,16 @@
 // Additional icon sizes
 $icon-size-xs: 14px;
 
-// CSS Custom Properties for Runtime Theme Switching
+// CSS Custom Properties for Runtime Theme Switching - Bank of America Theme
 :root {
-  // Colors
+  // Bank of America Brand Colors
+  --boa-blue: #{$boa-blue};
+  --boa-red: #{$boa-red};
+  --boa-white: #{$boa-white};
+  --boa-light-gray: #{$boa-light-gray};
+  --boa-dark-gray: #{$boa-dark-gray};
+  
+  // Primary Colors (BoA theme)
   --primary-color: #{$primary-color};
   --primary-light: #{$primary-light};
   --primary-dark: #{$primary-dark};

@@ -8,7 +8,9 @@
         <p>Manage system users, roles, and permissions</p>
       </div>
       @if (loading()) {
-        <mat-icon class="loading-icon">refresh</mat-icon>
+        <mat-icon class="loading-icon" 
+                  aria-label="Loading users" 
+                  role="status">refresh</mat-icon>
       }
     </div>
   </div>
@@ -18,81 +20,122 @@
     <div class="error-banner">
       <mat-icon>error</mat-icon>
       <span>{{ errorMsg }}</span>
-      <button mat-icon-button (click)="clearError()">
+      <button mat-icon-button 
+              (click)="clearError()"
+              aria-label="Clear error message"
+              title="Clear error message">
         <mat-icon>close</mat-icon>
       </button>
     </div>
   }
 
   <!-- Filters Section -->
-  <div class="table-filters">
+  <div class="table-filters" role="search" aria-label="User search and filters">
     <div class="filter-row">
-      <mat-form-field appearance="outline" class="filter-field">
-        <mat-label>Search Users</mat-label>
-        <input matInput 
-               [(ngModel)]="filterValue" 
-               (keyup)="applyFilter()" 
-               placeholder="Search by code, name, or role">
-        <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
+      <div class="filter-group">
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Search Users</mat-label>
+          <input matInput 
+                 [(ngModel)]="filterValue" 
+                 (keyup)="applyFilter()" 
+                 placeholder="Search by code, name, or role"
+                 aria-label="Search users by code, name, or role"
+                 aria-describedby="search-help">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <span id="search-help" class="sr-only">Type to filter users by user code, name, or role</span>
+      </div>
 
-      <mat-form-field appearance="outline" class="filter-field">
-        <mat-label>Filter by Role</mat-label>
-        <mat-select [(value)]="roleFilter" (selectionChange)="applyFilter()">
-          <mat-option value="">All Roles</mat-option>
-          <mat-option *ngFor="let role of roles" [value]="role">
-            {{role}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div class="filter-group">
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Filter by Role</mat-label>
+          <mat-select [(value)]="roleFilter" 
+                      (selectionChange)="applyFilter()"
+                      aria-label="Filter users by role"
+                      aria-describedby="role-filter-help">
+            <mat-option value="">All Roles</mat-option>
+            <mat-option *ngFor="let role of roles" [value]="role">
+              {{role}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <span id="role-filter-help" class="sr-only">Select a role to filter the user list</span>
+      </div>
 
-      <mat-form-field appearance="outline" class="filter-field">
-        <mat-label>Filter by Status</mat-label>
-        <mat-select [(value)]="statusFilter" (selectionChange)="applyFilter()">
-          <mat-option value="">All Statuses</mat-option>
-          <mat-option *ngFor="let status of statuses" [value]="status">
-            {{status}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div class="filter-group">
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Filter by Status</mat-label>
+          <mat-select [(value)]="statusFilter" 
+                      (selectionChange)="applyFilter()"
+                      aria-label="Filter users by status"
+                      aria-describedby="status-filter-help">
+            <mat-option value="">All Statuses</mat-option>
+            <mat-option *ngFor="let status of statuses" [value]="status">
+              {{status}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <span id="status-filter-help" class="sr-only">Select a status to filter the user list</span>
+      </div>
 
-      <mat-form-field appearance="outline" class="filter-field">
-        <mat-label>Debug Mode</mat-label>
-        <mat-select [(value)]="debugModeFilter" (selectionChange)="applyFilter()">
-          <mat-option value="">All</mat-option>
-          <mat-option value="Y">Yes</mat-option>
-          <mat-option value="N">No</mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div class="filter-group">
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Debug Mode</mat-label>
+          <mat-select [(value)]="debugModeFilter" 
+                      (selectionChange)="applyFilter()"
+                      aria-label="Filter users by debug mode"
+                      aria-describedby="debug-filter-help">
+            <mat-option value="">All</mat-option>
+            <mat-option value="Y">Yes</mat-option>
+            <mat-option value="N">No</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <span id="debug-filter-help" class="sr-only">Select debug mode status to filter the user list</span>
+      </div>
 
-      <button mat-stroked-button (click)="clearFilters()" class="filter-action-btn">
-        <mat-icon>clear</mat-icon>
+      <button mat-stroked-button 
+              (click)="clearFilters()" 
+              class="filter-action-btn"
+              aria-label="Clear all user filters"
+              title="Clear all applied filters">
+        <mat-icon aria-hidden="true">clear</mat-icon>
         Clear Filters
       </button>
 
-      <button mat-raised-button color="primary" (click)="addUser()" class="filter-action-btn">
-        <mat-icon>person_add</mat-icon>
+      <button mat-raised-button 
+              color="primary" 
+              (click)="addUser()" 
+              class="filter-action-btn"
+              aria-label="Add new user to the system"
+              title="Add new user">
+        <mat-icon aria-hidden="true">person_add</mat-icon>
         Add User
       </button>
     </div>
   </div>
 
   <!-- Table Section -->
-  <div class="table-container">
-        <table mat-table [dataSource]="dataSource" matSort class="data-table">
+  <div class="table-container" role="region" aria-label="Users data table">
+        <table mat-table 
+               [dataSource]="dataSource" 
+               matSort 
+               class="data-table"
+               role="table"
+               aria-label="Users data table"
+               [attr.aria-rowcount]="dataSource.data.length + 1">
           
           <!-- User Code Column -->
           <ng-container matColumnDef="userCode">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>User Code</th>
-            <td mat-cell *matCellDef="let user">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header role="columnheader" scope="col">User Code</th>
+            <td mat-cell *matCellDef="let user" role="gridcell">
               <span class="data-code">{{user.userCode}}</span>
             </td>
           </ng-container>
 
           <!-- User Name Column -->
           <ng-container matColumnDef="userName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>User Name</th>
-            <td mat-cell *matCellDef="let user">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header role="columnheader" scope="col">User Name</th>
+            <td mat-cell *matCellDef="let user" role="gridcell">
               <div class="data-info">
                 <span class="data-name">{{user.userName}}</span>
               </div>
@@ -101,8 +144,8 @@
 
           <!-- User Role Column -->
           <ng-container matColumnDef="userRole">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
-            <td mat-cell *matCellDef="let user">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header role="columnheader" scope="col">Role</th>
+            <td mat-cell *matCellDef="let user" role="gridcell">
               <mat-chip [color]="getRoleColor(user.userRole)" selected>
                 {{user.userRole}}
               </mat-chip>
@@ -111,8 +154,8 @@
 
           <!-- Screen Access Column -->
           <ng-container matColumnDef="screenAccess">
-            <th mat-header-cell *matHeaderCellDef>Screen Access</th>
-            <td mat-cell *matCellDef="let user">
+            <th mat-header-cell *matHeaderCellDef role="columnheader" scope="col">Screen Access</th>
+            <td mat-cell *matCellDef="let user" role="gridcell">
               <div class="screen-access">
                 <mat-chip-set>
                   <mat-chip *ngFor="let screen of user.screenAccess.slice(0, 2)">
@@ -121,7 +164,12 @@
                   <mat-chip *ngIf="user.screenAccess.length > 2" 
                            [matTooltip]="'Click to see all screen access'"
                            (click)="toggleExpandRow(user)"
-                           class="expandable-chip">
+                           (keydown.enter)="toggleExpandRow(user)"
+                           (keydown.space)="toggleExpandRow(user)"
+                           class="expandable-chip"
+                           [attr.aria-label]="'Show ' + (user.screenAccess.length - 2) + ' more screens for ' + user.userName"
+                           tabindex="0"
+                           role="button">
                     +{{user.screenAccess.length - 2}} more
                   </mat-chip>
                 </mat-chip-set>
@@ -131,40 +179,44 @@
 
           <!-- Dual Mode Column -->
           <ng-container matColumnDef="dualMode">
-            <th mat-header-cell *matHeaderCellDef>Dual Mode</th>
-            <td mat-cell *matCellDef="let user">
+            <th mat-header-cell *matHeaderCellDef role="columnheader" scope="col">Dual Mode</th>
+            <td mat-cell *matCellDef="let user" role="gridcell">
               <mat-checkbox 
                 [checked]="user.dualMode" 
                 (change)="toggleDualMode(user)"
-                [color]="'primary'">
+                [color]="'primary'"
+                [ariaLabel]="'Toggle dual mode for ' + user.userName">
+                Dual Mode
               </mat-checkbox>
             </td>
           </ng-container>
 
           <!-- Debug Mode Column -->
           <ng-container matColumnDef="debugMode">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Debug Mode</th>
-            <td mat-cell *matCellDef="let user">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header role="columnheader" scope="col">Debug Mode</th>
+            <td mat-cell *matCellDef="let user" role="gridcell">
               <mat-checkbox 
                 [checked]="user.debugMode === 'Y'" 
                 (change)="updateDebugMode(user, $event.checked ? 'Y' : 'N')"
-                [color]="'accent'">
+                [color]="'accent'"
+                [ariaLabel]="'Toggle debug mode for ' + user.userName">
+                Debug Mode
               </mat-checkbox>
             </td>
           </ng-container>
 
           <!-- Last Login Column -->
           <ng-container matColumnDef="lastLogin">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Login</th>
-            <td mat-cell *matCellDef="let user">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header role="columnheader" scope="col">Last Login</th>
+            <td mat-cell *matCellDef="let user" role="gridcell">
               <span class="last-login">{{user.lastLogin | date:'short'}}</span>
             </td>
           </ng-container>
 
           <!-- Status Column -->
           <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-            <td mat-cell *matCellDef="let user">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header role="columnheader" scope="col">Status</th>
+            <td mat-cell *matCellDef="let user" role="gridcell">
               <mat-chip [color]="getStatusColor(user.status)" selected>
                 {{user.status}}
               </mat-chip>
@@ -173,34 +225,42 @@
 
           <!-- Actions Column -->
           <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef>Actions</th>
-            <td mat-cell *matCellDef="let user">
+            <th mat-header-cell *matHeaderCellDef role="columnheader" scope="col">Actions</th>
+            <td mat-cell *matCellDef="let user" role="gridcell">
               <div class="action-buttons">
                 <button mat-icon-button 
                         (click)="editUser(user)" 
                         matTooltip="Edit User"
+                        [aria-label]="'Edit user ' + user.userName"
+                        [title]="'Edit user ' + user.userName"
                         color="primary">
-                  <mat-icon>edit</mat-icon>
+                  <mat-icon aria-hidden="true">edit</mat-icon>
                 </button>
                 <button mat-icon-button 
                         (click)="deleteUser(user)" 
                         matTooltip="Delete User"
+                        [aria-label]="'Delete user ' + user.userName"
+                        [title]="'Delete user ' + user.userName"
                         color="warn">
-                  <mat-icon>delete</mat-icon>
+                  <mat-icon aria-hidden="true">delete</mat-icon>
                 </button>
               </div>
             </td>
           </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns" role="row"></tr>
           
           <!-- Regular data rows with potential detail rows -->
           <ng-container *matRowDef="let row; columns: displayedColumns; let i = index">
-            <tr mat-row class="data-row" [class.expanded-row]="isExpanded(row)"></tr>
+            <tr mat-row class="data-row" [class.expanded-row]="isExpanded(row)" role="row" [attr.aria-rowindex]="i + 2"></tr>
             
             <!-- Detail row immediately after each main row -->
-            <tr *ngIf="isExpanded(row)" class="detail-row">
-              <td [attr.colspan]="displayedColumns.length" class="detail-cell">
+            <tr *ngIf="isExpanded(row)" 
+                class="detail-row" 
+                role="row" 
+                [id]="'detail-' + row.id"
+                [attr.aria-label]="'Expanded details for ' + row.userName">
+              <td [attr.colspan]="displayedColumns.length" class="detail-cell" role="gridcell">
                 <div class="detail-container">
                   <div class="detail-content">
                     <div class="detail-header">
@@ -208,8 +268,12 @@
                         <mat-icon>person</mat-icon>
                         {{row.userName}} - Detailed Information
                       </h3>
-                      <button mat-icon-button (click)="toggleExpandRow(row)" class="close-detail-btn">
-                        <mat-icon>close</mat-icon>
+                      <button mat-icon-button 
+                              (click)="toggleExpandRow(row)" 
+                              class="close-detail-btn"
+                              [aria-label]="'Close details for ' + row.userName"
+                              [title]="'Close details for ' + row.userName">
+                        <mat-icon aria-hidden="true">close</mat-icon>
                       </button>
                     </div>
                     
@@ -285,12 +349,19 @@
                     </div>
 
                     <div class="detail-actions">
-                      <button mat-raised-button color="primary" (click)="editUser(row)">
-                        <mat-icon>edit</mat-icon>
+                      <button mat-raised-button 
+                              color="primary" 
+                              (click)="editUser(row)"
+                              [aria-label]="'Edit user ' + row.userName"
+                              [title]="'Edit user ' + row.userName">
+                        <mat-icon aria-hidden="true">edit</mat-icon>
                         Edit User
                       </button>
-                      <button mat-stroked-button (click)="toggleExpandRow(row)">
-                        <mat-icon>keyboard_arrow_up</mat-icon>
+                      <button mat-stroked-button 
+                              (click)="toggleExpandRow(row)"
+                              [aria-label]="'Collapse details for ' + row.userName"
+                              [title]="'Collapse details for ' + row.userName">
+                        <mat-icon aria-hidden="true">keyboard_arrow_up</mat-icon>
                         Collapse
                       </button>
                     </div>
@@ -302,8 +373,12 @@
         </table>
 
         <!-- No Data Message -->
-        <div *ngIf="dataSource.filteredData.length === 0" class="no-data">
-          <mat-icon>people_outline</mat-icon>
+        <div *ngIf="dataSource.filteredData.length === 0" 
+             class="no-data"
+             role="status"
+             aria-live="polite"
+             aria-label="No users found">
+          <mat-icon aria-hidden="true">people_outline</mat-icon>
           <p>No users found matching your criteria</p>
         </div>
       </div>
@@ -312,6 +387,7 @@
       <mat-paginator 
         [pageSizeOptions]="[5, 10, 20, 50]" 
         [pageSize]="10"
-        showFirstLastButtons>
+        showFirstLastButtons
+        aria-label="User table pagination controls">
       </mat-paginator>
 </div>

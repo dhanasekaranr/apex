@@ -170,11 +170,11 @@
         </mat-card-header>
         <mat-card-content>
           <div *ngIf="systemInformation$ | async as system">
-            <h3>Server Information</h3>
+            <h2>Server Information</h2>
             <p><strong>Hostname:</strong> {{ system.server.hostname || 'N/A' }}</p>
             <p><strong>Status:</strong> {{ system.database.status || 'N/A' }}</p>
             
-            <h3>Performance</h3>
+            <h2>Performance</h2>
             <p><strong>CPU Usage:</strong> {{ system.performance.cpuUsage || 0 }}%</p>
             <p><strong>Memory Usage:</strong> {{ system.performance.memoryUsage || 0 }}%</p>
           </div>
@@ -185,7 +185,7 @@
       <mat-card class="content-card" *ngIf="!selectedCategory">
         <mat-card-content class="empty-state">
           <mat-icon class="empty-icon">settings</mat-icon>
-          <h3>Select a Settings Category</h3>
+          <h2>Select a Settings Category</h2>
           <p>Choose a category from the left panel to view and configure settings.</p>
         </mat-card-content>
       </mat-card>

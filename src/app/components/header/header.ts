@@ -84,18 +84,18 @@ export class Header implements OnInit {
   );
 
   infoPanels: InfoPanel[] = [
-    { label: 'Active Users', value: '24' },
-    { label: 'Server Load', value: '67%' },
-    { label: 'Memory', value: '4.2GB' },
-    { label: 'Uptime', value: '12d 3h' },
+    { label: 'System Health', value: '98.5%' },
+    { label: 'CPU Usage', value: '68%' },
+    { label: 'Memory Usage', value: '74%' },
+    { label: 'Disk Space', value: '82%' },
   ];
 
-  // Top metrics for dashboard overview
+  // Top metrics for admin dashboard overview
   topMetrics: MetricPanel[] = [
-    { label: 'Approved', value: '$13,261.7K', color: 'success' },
-    { label: 'Defaulted', value: '$881.0K', color: 'error' },
-    { label: 'Approval Rate', value: '60.6%', color: 'primary' },
-    { label: 'Default Rate', value: '6.6%', color: 'warning' },
+    { label: 'Active Users', value: '248', color: 'success' },
+    { label: 'System Modules', value: '12', color: 'primary' },
+    { label: 'Lookup Items', value: '156', color: 'primary' },
+    { label: 'Active Sessions', value: '34', color: 'warning' },
   ];
 
   // Current user info

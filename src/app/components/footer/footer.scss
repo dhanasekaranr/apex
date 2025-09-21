@@ -1,6 +1,107 @@
-// Footer Component Styles - Minimal
-// All styling has been moved to /themes/material/_material3-overrides.scss
-// for better organization and Material 3 compliance
+// Optimized footer
+.footer-toolbar {
+  background: linear-gradient(135deg, var(--mat-sys-primary), var(--mat-sys-primary-container));
+  color: var(--mat-sys-on-primary);
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    
+    .footer-left span {
+      font-size: 0.875rem;
+      color: var(--mat-sys-on-primary);
+    }
+    
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      
+      .mat-mdc-icon-button {
+        color: var(--mat-sys-on-primary);
+        
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+        }
+      }
+    }
+  }
+}
 
-// Component-specific styles only (if any needed)
-// Keep this file minimal - use global theme styling instead
+.system-info-menu ::ng-deep .mat-mdc-menu-panel {
+  min-width: 400px;
+  border-radius: 12px;
+  
+  .system-info-content {
+    background: var(--mat-sys-surface);
+    
+    .system-info-header {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      gap: 12px;
+      background: linear-gradient(135deg, var(--mat-sys-primary), var(--mat-sys-secondary));
+      color: var(--mat-sys-on-primary);
+      
+      h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+      }
+    }
+    
+    .system-info-details {
+      padding: 20px;
+      
+      .info-row {
+        display: grid;
+        grid-template-columns: 140px 1fr;
+        gap: 16px;
+        align-items: center;
+        padding: 8px 0;
+        
+        .info-label {
+          font-size: 11px;
+          font-weight: 600;
+          color: var(--mat-sys-on-surface-variant);
+          text-transform: uppercase;
+          background-color: var(--mat-sys-surface-container);
+          padding: 6px 10px;
+          border-radius: 6px;
+          border-left: 2px solid var(--mat-sys-primary);
+        }
+        
+        .info-value {
+          font-family: 'Roboto Mono', monospace;
+          font-size: 13px;
+          font-weight: 600;
+          color: var(--mat-sys-primary);
+          background-color: var(--mat-sys-primary-container);
+          padding: 6px 12px;
+          border-radius: 6px;
+        }
+      }
+      
+      .copy-row {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid var(--mat-sys-outline-variant);
+        display: flex;
+        justify-content: flex-end;
+        
+        .copy-button {
+          background: linear-gradient(135deg, var(--mat-sys-primary), var(--mat-sys-secondary));
+          color: var(--mat-sys-on-primary);
+          border: none;
+          border-radius: 20px;
+          padding: 8px 16px;
+          font-size: 12px;
+          font-weight: 600;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

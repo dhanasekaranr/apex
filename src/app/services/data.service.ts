@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { DashboardData } from '../store/dashboard/dashboard.state';
 
 export interface User {
   id: number;
@@ -80,5 +81,10 @@ export class DataService {
 
   deleteLookupItem(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/lookupItems/${id}`);
+  }
+
+  // Dashboard operations
+  getDashboardData(): Observable<DashboardData> {
+    return this.http.get<DashboardData>(`${this.apiUrl}/dashboard`);
   }
 }

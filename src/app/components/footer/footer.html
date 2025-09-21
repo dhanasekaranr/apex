@@ -5,15 +5,101 @@
     </div>
     
     <div class="footer-right">
-      <button mat-icon-button aria-label="GitHub">
+      <button 
+        mat-icon-button 
+        aria-label="View GitHub repository and developer resources"
+        matTooltip="GitHub Repository"
+        (click)="openGitHub()">
         <mat-icon>code</mat-icon>
       </button>
-      <button mat-icon-button aria-label="Twitter">
+      <button 
+        mat-icon-button 
+        aria-label="Visit social media and external links"
+        matTooltip="Social Media"
+        (click)="openSocialMedia()">
         <mat-icon>link</mat-icon>
       </button>
-      <button mat-icon-button aria-label="Help">
-        <mat-icon>help</mat-icon>
+      <button 
+        mat-icon-button 
+        aria-label="View system information"
+        matTooltip="System Information"
+        [matMenuTriggerFor]="systemInfoMenu"
+        (click)="showSystemInfo()">
+        <mat-icon>info</mat-icon>
       </button>
+
+      <!-- System Information Menu -->
+      <mat-menu #systemInfoMenu="matMenu" class="system-info-menu">
+        <div class="system-info-content" (click)="$event.stopPropagation()">
+          <div class="system-info-header">
+            <mat-icon>info</mat-icon>
+            <h3>System Information</h3>
+          </div>
+          
+          <mat-divider></mat-divider>
+          
+          <div class="system-info-details">
+            <div class="info-row">
+              <span class="info-label">Application:</span>
+              <span class="info-value">{{ appName() }}</span>
+            </div>
+            
+            <div class="info-row">
+              <span class="info-label">Version:</span>
+              <span class="info-value">{{ version() }}</span>
+            </div>
+            
+            <div class="info-row">
+              <span class="info-label">Build Number:</span>
+              <span class="info-value">{{ buildNumber() }}</span>
+            </div>
+            
+            <div class="info-row">
+              <span class="info-label">Environment:</span>
+              <span class="info-value">{{ environment() }}</span>
+            </div>
+            
+            <mat-divider></mat-divider>
+            
+            <div class="info-row">
+              <span class="info-label">Timezone:</span>
+              <span class="info-value">{{ timezone() }}</span>
+            </div>
+            
+            <div class="info-row">
+              <span class="info-label">Date Format:</span>
+              <span class="info-value">{{ dateFormat() }}</span>
+            </div>
+            
+            <div class="info-row">
+              <span class="info-label">Time Format:</span>
+              <span class="info-value">{{ timeFormat() }}</span>
+            </div>
+            
+            <div class="info-row">
+              <span class="info-label">Current Time:</span>
+              <span class="info-value current-time">{{ currentDateTime() }}</span>
+            </div>
+            
+            <mat-divider></mat-divider>
+            
+            <div class="info-row">
+              <span class="info-label">Screen Resolution:</span>
+              <span class="info-value">{{ screenResolution() }}</span>
+            </div>
+            
+            <div class="copy-row">
+              <button 
+                class="copy-button"
+                (click)="copySystemInfo()"
+                aria-label="Copy system information to clipboard">
+                <mat-icon>content_copy</mat-icon>
+                Copy Info
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-menu>
     </div>
   </div>
 </mat-toolbar>

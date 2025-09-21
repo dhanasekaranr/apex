@@ -156,7 +156,10 @@
   <mat-menu #notificationsMenu="matMenu" class="notifications-menu">
     <div class="notification-header">
       <h3>Notifications</h3>
-      <button mat-icon-button (click)="markAllAsRead()" matTooltip="Mark all as read">
+      <button mat-icon-button 
+              (click)="markAllAsRead()" 
+              matTooltip="Mark all as read"
+              aria-label="Mark all notifications as read">
         <mat-icon>done_all</mat-icon>
       </button>
     </div>

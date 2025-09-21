@@ -1,0 +1,53 @@
+{
+  "stats": {
+    "activeUsers": 248,
+    "systemModules": 12,
+    "lookupItems": 156,
+    "activeSessions": 34
+  },
+  "activities": [
+    {
+      "id": "1",
+      "title": "User Access Review",
+      "description": "Monthly access review completed for Q3",
+      "timestamp": "2025-09-13T14:30:00Z",
+      "type": "security",
+      "user": "Security Team",
+      "status": "completed"
+    },
+    {
+      "id": "2",
+      "title": "System Backup",
+      "description": "Automated system backup running",
+      "timestamp": "2025-09-13T13:15:00Z",
+      "type": "maintenance",
+      "user": "System",
+      "status": "in-progress"
+    },
+    {
+      "id": "3",
+      "title": "New Module Deployment",
+      "description": "Analytics module v2.1.4 deployed",
+      "timestamp": "2025-09-13T12:45:00Z",
+      "type": "deployment",
+      "user": "DevOps Team",
+      "status": "completed"
+    },
+    {
+      "id": "4",
+      "title": "Database Optimization",
+      "description": "Performance tuning completed",
+      "timestamp": "2025-09-13T11:20:00Z",
+      "type": "maintenance",
+      "user": "DBA Team",
+      "status": "completed"
+    }
+  ],
+  "systemHealth": {
+    "cpuUsage": 68,
+    "memoryUsage": 74,
+    "diskSpace": 82,
+    "networkLatency": 12,
+    "uptime": "15 days, 8 hours"
+  }
+}

@@ -60,6 +60,19 @@ export class Sidenav implements OnInit {
       event.stopPropagation();
     }
 
+    // Don't allow expansion if the item is disabled
+    if (item.disabled) {
+      return;
+    }
+
+    // Handle keyboard events for accessibility
+    if (event instanceof KeyboardEvent) {
+      const key = event.key;
+      if (key !== 'Enter' && key !== ' ') {
+        return; // Only respond to Enter and Space keys
+      }
+    }
+
     // Dispatch action to toggle menu item expansion
     this.store.dispatch(
       NavigationActions.toggleSidenavMenuItem({

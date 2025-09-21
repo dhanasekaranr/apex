@@ -76,7 +76,7 @@ Base URL: `http://localhost:3001`
 1. **For new data types:** Create a new `.json` file in `/src/api/data/`
 2. **Update build script:** Add the new data to `build-db.js`
 3. **Rebuild database:** Run `npm run build:api`
-4. **Update DataService:** Add new service methods in Angular
+4. **Update NgRx Effects:** Add new HTTP calls in Angular effects
 
 ## CORS Configuration
 
@@ -97,4 +97,4 @@ The `routes.json` file provides URL mappings for API endpoints, allowing for:
 1. Modify data in individual JSON files (`/src/api/data/`)
 2. Run build script to update combined database
 3. JSON Server automatically detects changes and updates endpoints
-4. Angular components fetch updated data via DataService
+4. Angular components fetch updated data via NgRx Effects

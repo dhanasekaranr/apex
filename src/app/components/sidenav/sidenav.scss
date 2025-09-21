@@ -100,6 +100,10 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
+    padding: 8px 12px !important; // Consistent padding for all nav items
+    display: flex !important;
+    align-items: center !important;
+    min-height: 44px !important; // Consistent minimum touch target
     
     &:hover {
       background: rgba(0, 101, 179, 0.08) !important; // Subtle BoA blue hover
@@ -196,13 +200,15 @@
       font: inherit;
       box-sizing: border-box !important;
       overflow: hidden !important;
+      margin: 2px 8px !important; // Same margin as regular nav items
+      border-radius: 8px !important; // Same border radius as regular nav items
+      font-size: 16px !important; // Same font size as regular nav items
+      line-height: 1.5 !important; // Same line height as regular nav items
       
       &:hover:not(.disabled):not(:disabled) {
-        background: rgba(0, 101, 179, 0.06) !important; // Subtle professional hover
-        border-radius: 6px !important;
-        margin: 2px 8px !important;
+        background: rgba(0, 101, 179, 0.08) !important; // Same hover as regular nav items
         transform: translateX(1px) !important; // Reduced transform to prevent overflow
-        transition: all 0.2s ease !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important; // Same transition as regular nav items
       }
       
       &:focus-visible {

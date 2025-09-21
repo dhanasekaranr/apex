@@ -5,18 +5,22 @@
   </div>
 
   <!-- Loading -->
-  <div *ngIf="loading$ | async" class="loading-container">
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-    <p>Loading settings...</p>
-  </div>
+  @if (loading$ | async) {
+    <div class="loading-container">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      <p>Loading settings...</p>
+    </div>
+  }
 
   <!-- Error -->
-  <mat-card *ngIf="error$ | async as error" class="error-card">
-    <mat-card-content>
-      <mat-icon>error</mat-icon>
-      <span>{{ error }}</span>
-    </mat-card-content>
-  </mat-card>
+  @if (error$ | async; as error) {
+    <mat-card class="error-card">
+      <mat-card-content>
+        <mat-icon>error</mat-icon>
+        <span>{{ error }}</span>
+      </mat-card-content>
+    </mat-card>
+  }
 
   <div class="two-panel-container">
     <!-- Left Panel - Categories -->
@@ -26,24 +30,52 @@
           <mat-card-title>Settings Categories</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <mat-nav-list class="data-list">
-            <mat-list-item (click)="selectCategory('general')" [class.selected]="selectedCategory === 'general'">
-              <div matListItemTitle>General Settings</div>
-              <div matListItemMeta class="data-category">App</div>
-            </mat-list-item>
-            <mat-list-item (click)="selectCategory('preferences')" [class.selected]="selectedCategory === 'preferences'">
-              <div matListItemTitle>User Preferences</div>
-              <div matListItemMeta class="data-category">User</div>
-            </mat-list-item>
-            <mat-list-item (click)="selectCategory('security')" [class.selected]="selectedCategory === 'security'">
-              <div matListItemTitle>Security Settings</div>
-              <div matListItemMeta class="data-category">Security</div>
-            </mat-list-item>
-            <mat-list-item (click)="selectCategory('system')" [class.selected]="selectedCategory === 'system'">
-              <div matListItemTitle>System Information</div>
-              <div matListItemMeta class="data-category">Info</div>
-            </mat-list-item>
-          </mat-nav-list>
+          <nav class="data-list" role="navigation" aria-label="Settings categories">
+            <button 
+              mat-button 
+              (click)="selectCategory('general')" 
+              [class.selected]="selectedCategory === 'general'"
+              [attr.aria-pressed]="selectedCategory === 'general'"
+              class="category-button">
+              <div class="category-content">
+                <span class="category-title">General Settings</span>
+                <span class="data-category">App</span>
+              </div>
+            </button>
+            <button 
+              mat-button 
+              (click)="selectCategory('preferences')" 
+              [class.selected]="selectedCategory === 'preferences'"
+              [attr.aria-pressed]="selectedCategory === 'preferences'"
+              class="category-button">
+              <div class="category-content">
+                <span class="category-title">User Preferences</span>
+                <span class="data-category">User</span>
+              </div>
+            </button>
+            <button 
+              mat-button 
+              (click)="selectCategory('security')" 
+              [class.selected]="selectedCategory === 'security'"
+              [attr.aria-pressed]="selectedCategory === 'security'"
+              class="category-button">
+              <div class="category-content">
+                <span class="category-title">Security Settings</span>
+                <span class="data-category">Security</span>
+              </div>
+            </button>
+            <button 
+              mat-button 
+              (click)="selectCategory('system')" 
+              [class.selected]="selectedCategory === 'system'"
+              [attr.aria-pressed]="selectedCategory === 'system'"
+              class="category-button">
+              <div class="category-content">
+                <span class="category-title">System Information</span>
+                <span class="data-category">Info</span>
+              </div>
+            </button>
+          </nav>
         </mat-card-content>
       </mat-card>
     </div>
@@ -52,26 +84,29 @@
     <div class="right-panel data-details-panel">
       
       <!-- General Settings -->
-      <mat-card class="content-card" *ngIf="selectedCategory === 'general'">
-        <mat-card-header>
-          <mat-card-title>General Settings</mat-card-title>
-          <mat-card-subtitle>Configure basic application settings</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <form [formGroup]="generalForm" class="data-form">
-            <mat-form-field appearance="outline">
-              <mat-label>Application Name</mat-label>
-              <input matInput formControlName="applicationName">
-            </mat-form-field>
-            
-            <mat-form-field appearance="outline">
-              <mat-label>Default Language</mat-label>
-              <mat-select formControlName="defaultLanguage">
-                <mat-option *ngFor="let lang of languageOptions" [value]="lang.value">
-                  {{ lang.label }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+      @if (selectedCategory === 'general') {
+        <mat-card class="content-card">
+          <mat-card-header>
+            <mat-card-title>General Settings</mat-card-title>
+            <mat-card-subtitle>Configure basic application settings</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <form [formGroup]="generalForm" class="data-form">
+              <mat-form-field appearance="outline">
+                <mat-label>Application Name</mat-label>
+                <input matInput formControlName="applicationName">
+              </mat-form-field>
+              
+              <mat-form-field appearance="outline">
+                <mat-label>Default Language</mat-label>
+                <mat-select formControlName="defaultLanguage">
+                  @for (lang of languageOptions; track lang.value) {
+                    <mat-option [value]="lang.value">
+                      {{ lang.label }}
+                    </mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
             
             <mat-form-field appearance="outline">
               <mat-label>Company Name</mat-label>
@@ -84,58 +119,64 @@
             </mat-form-field>
           </form>
           
-          <div class="action-bar">
-            <button mat-raised-button class="action-button-primary" (click)="saveGeneralSettings()">
-              <mat-icon>save</mat-icon>
-              Save General Settings
-            </button>
-          </div>
-        </mat-card-content>
-      </mat-card>
+            <div class="action-bar">
+              <button mat-raised-button class="action-button-primary" (click)="saveGeneralSettings()">
+                <mat-icon>save</mat-icon>
+                Save General Settings
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      }
 
       <!-- User Preferences -->
-      <mat-card class="content-card" *ngIf="selectedCategory === 'preferences'">
+      @if (selectedCategory === 'preferences') {
+        <mat-card class="content-card">
         <mat-card-header>
           <mat-card-title>User Preferences</mat-card-title>
           <mat-card-subtitle>Customize your experience</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          <form [formGroup]="userPreferencesForm" class="data-form">
-            <mat-form-field appearance="outline">
-              <mat-label>Theme</mat-label>
-              <mat-select formControlName="theme">
-                <mat-option *ngFor="let theme of themeOptions" [value]="theme.value">
-                  {{ theme.label }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+            <form [formGroup]="userPreferencesForm" class="data-form">
+              <mat-form-field appearance="outline">
+                <mat-label>Theme</mat-label>
+                <mat-select formControlName="theme">
+                  @for (theme of themeOptions; track theme.value) {
+                    <mat-option [value]="theme.value">
+                      {{ theme.label }}
+                    </mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Font Size</mat-label>
-              <mat-select formControlName="fontSize">
-                <mat-option value="small">Small</mat-option>
-                <mat-option value="medium">Medium</mat-option>
-                <mat-option value="large">Large</mat-option>
-              </mat-select>
-            </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Font Size</mat-label>
+                <mat-select formControlName="fontSize">
+                  <mat-option value="small">Small</mat-option>
+                  <mat-option value="medium">Medium</mat-option>
+                  <mat-option value="large">Large</mat-option>
+                </mat-select>
+              </mat-form-field>
 
-            <div class="checkbox-group">
-              <mat-slide-toggle formControlName="compactMode">Compact Mode</mat-slide-toggle>
-              <mat-slide-toggle formControlName="autoSave">Auto Save</mat-slide-toggle>
+              <div class="checkbox-group">
+                <mat-slide-toggle formControlName="compactMode">Compact Mode</mat-slide-toggle>
+                <mat-slide-toggle formControlName="autoSave">Auto Save</mat-slide-toggle>
+              </div>
+            </form>
+            
+            <div class="action-bar">
+              <button mat-raised-button class="action-button-primary" (click)="saveUserPreferences()">
+                <mat-icon>save</mat-icon>
+                Save Preferences
+              </button>
             </div>
-          </form>
-          
-          <div class="action-bar">
-            <button mat-raised-button class="action-button-primary" (click)="saveUserPreferences()">
-              <mat-icon>save</mat-icon>
-              Save Preferences
-            </button>
-          </div>
-        </mat-card-content>
-      </mat-card>
+          </mat-card-content>
+        </mat-card>
+      }
 
       <!-- Security Settings -->
-      <mat-card class="content-card" *ngIf="selectedCategory === 'security'">
+      @if (selectedCategory === 'security') {
+        <mat-card class="content-card">
         <mat-card-header>
           <mat-card-title>Security Settings</mat-card-title>
           <mat-card-subtitle>Configure security and authentication</mat-card-subtitle>
@@ -153,42 +194,49 @@
             </div>
           </form>
           
-          <div class="action-bar">
-            <button mat-raised-button class="action-button-primary" (click)="saveSecuritySettings()">
-              <mat-icon>save</mat-icon>
-              Save Security Settings
-            </button>
-          </div>
-        </mat-card-content>
-      </mat-card>
+            <div class="action-bar">
+              <button mat-raised-button class="action-button-primary" (click)="saveSecuritySettings()">
+                <mat-icon>save</mat-icon>
+                Save Security Settings
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      }
 
       <!-- System Information -->
-      <mat-card class="content-card" *ngIf="selectedCategory === 'system'">
+      @if (selectedCategory === 'system') {
+        <mat-card class="content-card">
         <mat-card-header>
           <mat-card-title>System Information</mat-card-title>
           <mat-card-subtitle>View system status and performance</mat-card-subtitle>
         </mat-card-header>
-        <mat-card-content>
-          <div *ngIf="systemInformation$ | async as system">
-            <h2>Server Information</h2>
-            <p><strong>Hostname:</strong> {{ system.server.hostname || 'N/A' }}</p>
-            <p><strong>Status:</strong> {{ system.database.status || 'N/A' }}</p>
-            
-            <h2>Performance</h2>
-            <p><strong>CPU Usage:</strong> {{ system.performance.cpuUsage || 0 }}%</p>
-            <p><strong>Memory Usage:</strong> {{ system.performance.memoryUsage || 0 }}%</p>
-          </div>
-        </mat-card-content>
-      </mat-card>
+          <mat-card-content>
+            @if (systemInformation$ | async; as system) {
+              <div>
+                <h2>Server Information</h2>
+                <p><strong>Hostname:</strong> {{ system.server.hostname || 'N/A' }}</p>
+                <p><strong>Status:</strong> {{ system.database.status || 'N/A' }}</p>
+                
+                <h2>Performance</h2>
+                <p><strong>CPU Usage:</strong> {{ system.performance.cpuUsage || 0 }}%</p>
+                <p><strong>Memory Usage:</strong> {{ system.performance.memoryUsage || 0 }}%</p>
+              </div>
+            }
+          </mat-card-content>
+        </mat-card>
+      }
 
       <!-- Default Message -->
-      <mat-card class="content-card" *ngIf="!selectedCategory">
-        <mat-card-content class="empty-state">
-          <mat-icon class="empty-icon">settings</mat-icon>
-          <h2>Select a Settings Category</h2>
-          <p>Choose a category from the left panel to view and configure settings.</p>
-        </mat-card-content>
-      </mat-card>
+      @if (!selectedCategory) {
+        <mat-card class="content-card">
+          <mat-card-content class="empty-state">
+            <mat-icon class="empty-icon">settings</mat-icon>
+            <h2>Select a Settings Category</h2>
+            <p>Choose a category from the left panel to view and configure settings.</p>
+          </mat-card-content>
+        </mat-card>
+      }
 
     </div>
   </div>

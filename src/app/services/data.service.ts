@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { DashboardData } from '../store/dashboard/dashboard.state';
+// This file contains shared interfaces that are used across the application.
+// The actual HTTP operations are handled by NgRx Effects with direct HttpClient calls.
 
 export interface User {
   id: number;
@@ -28,63 +26,4 @@ export interface LookupItem {
   description: string;
   category: string;
   values: LookupValue[];
-}
-
-@Injectable({
-  providedIn: 'root',
-})
-export class DataService {
-  private readonly apiUrl = 'http://localhost:3001';
-
-  constructor(private http: HttpClient) {}
-
-  // User operations
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/users`);
-  }
-
-  getUser(id: number): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/users/${id}`);
-  }
-
-  createUser(user: Omit<User, 'id'>): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/users`, user);
-  }
-
-  updateUser(id: number, user: Partial<User>): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/users/${id}`, user);
-  }
-
-  deleteUser(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/users/${id}`);
-  }
-
-  // Lookup operations
-  getLookupItems(): Observable<LookupItem[]> {
-    return this.http.get<LookupItem[]>(`${this.apiUrl}/lookupItems`);
-  }
-
-  getLookupItem(id: string): Observable<LookupItem> {
-    return this.http.get<LookupItem>(`${this.apiUrl}/lookupItems/${id}`);
-  }
-
-  updateLookupItem(id: string, lookupItem: LookupItem): Observable<LookupItem> {
-    return this.http.put<LookupItem>(
-      `${this.apiUrl}/lookupItems/${id}`,
-      lookupItem
-    );
-  }
-
-  createLookupItem(lookupItem: Omit<LookupItem, 'id'>): Observable<LookupItem> {
-    return this.http.post<LookupItem>(`${this.apiUrl}/lookupItems`, lookupItem);
-  }
-
-  deleteLookupItem(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/lookupItems/${id}`);
-  }
-
-  // Dashboard operations
-  getDashboardData(): Observable<DashboardData> {
-    return this.http.get<DashboardData>(`${this.apiUrl}/dashboard`);
-  }
 }

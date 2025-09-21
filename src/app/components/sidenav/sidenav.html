@@ -22,155 +22,163 @@
 
 <mat-divider></mat-divider>
 
-<div class="nav-list">
-  <!-- Dynamic navigation items -->
-  <ng-container *ngFor="let item of navItems()">
-    
-    <!-- Regular navigation item -->
-    <a 
-      *ngIf="isRegularItem(item)"
-      [routerLink]="item.disabled ? null : item.routerLink"
-      [routerLinkActive]="item.disabled ? '' : 'active-link'"
-      [class.nav-item]="true"
-      [class.disabled]="item.disabled">
-      <mat-icon>{{ item.icon }}</mat-icon>
-      <span>{{ item.label }}</span>
-      <mat-icon 
-        *ngIf="item.disabled && item.disabledReason" 
-        class="info-icon"
-        [matTooltip]="item.disabledReason"
-        matTooltipPosition="right">
-        info
-      </mat-icon>
-    </a>
-
-    <!-- Expandable navigation item with submenu -->
-    <div 
-      *ngIf="isExpandable(item)" 
-      class="expandable-item">
+  <div class="nav-list">
+    <!-- Dynamic navigation items -->
+    @for (item of navItems(); track item.id || item.label) {
       
-      <!-- Expandable header -->
-      <button 
-        type="button"
-        class="nav-item expandable-header"
-        (click)="toggleExpanded(item, $event)"
-        [attr.aria-expanded]="item.expanded"
-        [attr.aria-label]="'Toggle ' + item.label + ' submenu'"
-        [class.disabled]="item.disabled"
-        [disabled]="item.disabled">
-        <mat-icon>{{ item.icon }}</mat-icon>
-        <span>{{ item.label }}</span>
-        <mat-icon class="expand-icon" [class.expanded]="item.expanded">
-          {{ item.expanded ? 'expand_less' : 'expand_more' }}
-        </mat-icon>
-        <mat-icon 
-          *ngIf="item.disabled && item.disabledReason" 
-          class="info-icon"
-          [matTooltip]="item.disabledReason"
-          matTooltipPosition="right">
-          info
-        </mat-icon>
-      </button>
-      
-      <!-- Submenu items -->
-      <div class="submenu" 
-           [class.expanded]="item.expanded"
-           [attr.aria-hidden]="!item.expanded">
+      <!-- Regular navigation item -->
+      @if (isRegularItem(item)) {
         <a 
-          *ngFor="let subItem of item.children"
-          [routerLink]="subItem.disabled ? null : subItem.routerLink"
-          [routerLinkActive]="!subItem.disabled ? 'active-link' : ''"
-          [class.disabled]="subItem.disabled"
-          [attr.aria-label]="subItem.label"
-          [attr.tabindex]="!item.expanded ? -1 : 0"
-          class="nav-item sub-item">
-          <mat-icon class="sub-icon">{{ subItem.icon }}</mat-icon>
-          <span>{{ subItem.label }}</span>
-          <mat-icon 
-            *ngIf="subItem.disabled && subItem.disabledReason"
-            class="info-icon"
-            [matTooltip]="subItem.disabledReason"
-            matTooltipPosition="right">
-            info
-          </mat-icon>
-        </a>
-      </div>
-    </div>
-    
-  </ng-container>
-</div>
-
-<div class="sidenav-footer">
-  <div>
-    <!-- Dynamic footer items -->
-    <ng-container *ngFor="let footerItem of footerItems()">
-      
-      <!-- Regular footer item -->
-      <a 
-        *ngIf="isRegularItem(footerItem)"
-        [routerLink]="footerItem.disabled ? null : footerItem.routerLink"
-        [class.nav-item]="true"
-        [class.disabled]="footerItem.disabled">
-        <mat-icon>{{ footerItem.icon }}</mat-icon>
-        <span>{{ footerItem.label }}</span>
-        <mat-icon 
-          *ngIf="footerItem.disabled && footerItem.disabledReason" 
-          class="info-icon"
-          [matTooltip]="footerItem.disabledReason"
-          matTooltipPosition="right">
-          info
-        </mat-icon>
-      </a>
-
-      <!-- Expandable footer item with submenu -->
-      <div 
-        *ngIf="isExpandable(footerItem)" 
-        class="expandable-item">
-        
-        <!-- Main expandable item -->
-        <div 
-          class="nav-item expandable-header"
-          [class.expanded]="footerItem.expanded"
-          [class.disabled]="footerItem.disabled"
-          (click)="toggleExpanded(footerItem, $event)">
-          <mat-icon>{{ footerItem.icon }}</mat-icon>
-          <span>{{ footerItem.label }}</span>
-          <mat-icon 
-            *ngIf="footerItem.disabled && footerItem.disabledReason" 
-            class="info-icon"
-            [matTooltip]="footerItem.disabledReason"
-            matTooltipPosition="right">
-            info
-          </mat-icon>
-          <mat-icon class="expand-icon">
-            {{ footerItem.expanded ? 'expand_less' : 'expand_more' }}
-          </mat-icon>
-        </div>
-
-        <!-- Submenu items -->
-        <div 
-          class="submenu" 
-          [class.expanded]="footerItem.expanded">
-          <a 
-            *ngFor="let child of footerItem.children"
-            [routerLink]="child.disabled ? null : child.routerLink"
-            [routerLinkActive]="child.disabled ? '' : 'active-link'"
-            [class.nav-item]="true"
-            [class.submenu-item]="true"
-            [class.disabled]="child.disabled">
-            <mat-icon>{{ child.icon }}</mat-icon>
-            <span>{{ child.label }}</span>
+          [routerLink]="item.disabled ? null : item.routerLink"
+          [routerLinkActive]="item.disabled ? '' : 'active-link'"
+          [class.nav-item]="true"
+          [class.disabled]="item.disabled">
+          <mat-icon>{{ item.icon }}</mat-icon>
+          <span>{{ item.label }}</span>
+          @if (item.disabled && item.disabledReason) {
             <mat-icon 
-              *ngIf="child.disabled && child.disabledReason" 
               class="info-icon"
-              [matTooltip]="child.disabledReason"
+              [matTooltip]="item.disabledReason"
               matTooltipPosition="right">
               info
             </mat-icon>
-          </a>
-        </div>
-      </div>
+          }
+        </a>
+      }
 
-    </ng-container>
-  </div>
+      <!-- Expandable navigation item with submenu -->
+      @if (isExpandable(item)) {
+        <div class="expandable-item">
+      
+          <!-- Expandable header -->
+          <button 
+            type="button"
+            class="nav-item expandable-header"
+            (click)="toggleExpanded(item, $event)"
+            [attr.aria-expanded]="item.expanded"
+            [attr.aria-label]="'Toggle ' + item.label + ' submenu'"
+            [class.disabled]="item.disabled"
+            [disabled]="item.disabled">
+            <mat-icon>{{ item.icon }}</mat-icon>
+            <span>{{ item.label }}</span>
+            <mat-icon class="expand-icon" [class.expanded]="item.expanded">
+              {{ item.expanded ? 'expand_less' : 'expand_more' }}
+            </mat-icon>
+            @if (item.disabled && item.disabledReason) {
+              <mat-icon 
+                class="info-icon"
+                [matTooltip]="item.disabledReason"
+                matTooltipPosition="right">
+                info
+              </mat-icon>
+            }
+          </button>
+          
+          <!-- Submenu items -->
+          <div class="submenu" 
+               [class.expanded]="item.expanded"
+               [attr.aria-hidden]="!item.expanded">
+            @for (subItem of item.children; track subItem.id || subItem.label) {
+              <a 
+                [routerLink]="subItem.disabled ? null : subItem.routerLink"
+                [routerLinkActive]="!subItem.disabled ? 'active-link' : ''"
+                [class.disabled]="subItem.disabled"
+                [attr.aria-label]="subItem.label"
+                [attr.tabindex]="!item.expanded ? -1 : 0"
+                class="nav-item sub-item">
+                <mat-icon class="sub-icon">{{ subItem.icon }}</mat-icon>
+                <span>{{ subItem.label }}</span>
+                @if (subItem.disabled && subItem.disabledReason) {
+                  <mat-icon 
+                    class="info-icon"
+                    [matTooltip]="subItem.disabledReason"
+                    matTooltipPosition="right">
+                    info
+                  </mat-icon>
+                }
+              </a>
+            }
+          </div>
+        </div>
+      }
+    }
+</div>
+
+<div class="sidenav-footer">
+    <div>
+      <!-- Dynamic footer items -->
+      @for (footerItem of footerItems(); track footerItem.id || footerItem.label) {
+        
+        <!-- Regular footer item -->
+        @if (isRegularItem(footerItem)) {
+          <a 
+            [routerLink]="footerItem.disabled ? null : footerItem.routerLink"
+            [class.nav-item]="true"
+            [class.disabled]="footerItem.disabled">
+            <mat-icon>{{ footerItem.icon }}</mat-icon>
+            <span>{{ footerItem.label }}</span>
+            @if (footerItem.disabled && footerItem.disabledReason) {
+              <mat-icon 
+                class="info-icon"
+                [matTooltip]="footerItem.disabledReason"
+                matTooltipPosition="right">
+                info
+              </mat-icon>
+            }
+          </a>
+        }
+
+        <!-- Expandable footer item with submenu -->
+        @if (isExpandable(footerItem)) {
+          <div class="expandable-item">
+        
+            <!-- Main expandable item -->
+            <div 
+              class="nav-item expandable-header"
+              [class.expanded]="footerItem.expanded"
+              [class.disabled]="footerItem.disabled"
+              (click)="toggleExpanded(footerItem, $event)">
+              <mat-icon>{{ footerItem.icon }}</mat-icon>
+              <span>{{ footerItem.label }}</span>
+              @if (footerItem.disabled && footerItem.disabledReason) {
+                <mat-icon 
+                  class="info-icon"
+                  [matTooltip]="footerItem.disabledReason"
+                  matTooltipPosition="right">
+                  info
+                </mat-icon>
+              }
+              <mat-icon class="expand-icon">
+                {{ footerItem.expanded ? 'expand_less' : 'expand_more' }}
+              </mat-icon>
+            </div>
+
+            <!-- Submenu items -->
+            <div 
+              class="submenu" 
+              [class.expanded]="footerItem.expanded">
+              @for (child of footerItem.children; track child.id || child.label) {
+                <a 
+                  [routerLink]="child.disabled ? null : child.routerLink"
+                  [routerLinkActive]="child.disabled ? '' : 'active-link'"
+                  [class.nav-item]="true"
+                  [class.submenu-item]="true"
+                  [class.disabled]="child.disabled">
+                  <mat-icon>{{ child.icon }}</mat-icon>
+                  <span>{{ child.label }}</span>
+                  @if (child.disabled && child.disabledReason) {
+                    <mat-icon 
+                      class="info-icon"
+                      [matTooltip]="child.disabledReason"
+                      matTooltipPosition="right">
+                      info
+                    </mat-icon>
+                  }
+                </a>
+              }
+            </div>
+          </div>
+        }
+      }
+    </div>
 </div>

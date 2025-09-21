@@ -14,7 +14,7 @@
 @use 'mixins/tabs' as tabs;
 
 // Import Material 3 Core System
-@use 'material3-theme';
+// @use 'material3-theme'; // Empty file - disabled
 // @use 'material3-typography'; // Temporarily disabled due to function compatibility issues
 @use 'material3-components';
 @use 'material3-elevation';
@@ -28,9 +28,6 @@
 
 // Import theme variants
 @use 'variants/theme-variants';
-
-// Import all components
-@use 'components/orders';
 
 // Forward variables for external use
 @forward 'variables/colors';

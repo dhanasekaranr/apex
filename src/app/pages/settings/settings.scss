@@ -21,6 +21,65 @@
   }
 }
 
+// Modern button-based navigation
+.category-button {
+  width: 100%;
+  display: flex !important;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 12px 16px;
+  margin: 4px 0;
+  border-radius: 8px;
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: all 0.2s ease-in-out;
+  
+  .category-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+    .category-title {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--mat-sys-on-surface);
+      margin-bottom: 2px;
+    }
+    
+    .data-category {
+      font-size: 0.75rem;
+      color: var(--mat-sys-on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+  
+  &:hover {
+    background: var(--mat-sys-surface-container-highest);
+    border-color: var(--mat-sys-outline-variant);
+  }
+  
+  &.selected {
+    background: var(--mat-sys-primary-container);
+    border-color: var(--mat-sys-primary);
+    
+    .category-title {
+      color: var(--mat-sys-on-primary-container);
+      font-weight: 600;
+    }
+    
+    .data-category {
+      color: var(--mat-sys-on-primary-container);
+    }
+  }
+  
+  &:focus {
+    outline: 2px solid var(--mat-sys-primary);
+    outline-offset: 2px;
+  }
+}
+
 .security-score {
   text-align: center;
   

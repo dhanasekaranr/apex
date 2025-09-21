@@ -86,7 +86,6 @@ export class Users implements OnInit {
   allAvailableScreens = [
     'Dashboard',
     'Users',
-    'Orders',
     'Reports',
     'Settings',
     'Analytics',
@@ -229,24 +228,26 @@ export class Users implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        // Dispatch action to add new user
-        const newUser = {
-          userCode: result.userCode,
-          userName: result.userName,
-          userRole: result.userRole,
-          screenAccess: result.screenAccess,
-          dualMode: false,
-          debugMode: 'N' as const,
-          lastLogin: new Date().toISOString(),
-          status: 'Active' as const,
-        };
+    dialogRef
+      .afterClosed()
+      .subscribe((result: AddUserDialogResult | undefined) => {
+        if (result) {
+          // Dispatch action to add new user
+          const newUser = {
+            userCode: result.userCode,
+            userName: result.userName,
+            userRole: result.userRole,
+            screenAccess: result.screenAccess,
+            dualMode: false,
+            debugMode: 'N' as const,
+            lastLogin: new Date().toISOString(),
+            status: 'Active' as const,
+          };
 
-        this.store.dispatch(UsersActions.addUser({ user: newUser }));
-        console.log('New user dispatch:', newUser);
-      }
-    });
+          this.store.dispatch(UsersActions.addUser({ user: newUser }));
+          console.log('New user dispatch:', newUser);
+        }
+      });
   }
 
   getStatusColor(status: string): string {
@@ -308,6 +309,14 @@ export interface AddUserDialogData {
   allAvailableScreens: string[];
 }
 
+// Dialog Result Interface
+export interface AddUserDialogResult {
+  userCode: string;
+  userName: string;
+  userRole: string;
+  screenAccess: string[];
+}
+
 // Add User Dialog Component
 @Component({
   selector: 'add-user-dialog',
@@ -357,9 +366,11 @@ export interface AddUserDialogData {
           <mat-form-field appearance="outline" class="form-field">
             <mat-label>User Role</mat-label>
             <mat-select [(value)]="userRole" required>
-              <mat-option *ngFor="let role of data.roles" [value]="role">
+              @for (role of data.roles; track role) {
+              <mat-option [value]="role">
                 {{ role }}
               </mat-option>
+              }
             </mat-select>
             <mat-icon matSuffix>work</mat-icon>
           </mat-form-field>
@@ -367,12 +378,11 @@ export interface AddUserDialogData {
           <mat-form-field appearance="outline" class="form-field">
             <mat-label>Available Screens</mat-label>
             <mat-select [(value)]="screenAccess" multiple required>
-              <mat-option
-                *ngFor="let screen of data.allAvailableScreens"
-                [value]="screen"
-              >
+              @for (screen of data.allAvailableScreens; track screen) {
+              <mat-option [value]="screen">
                 {{ screen }}
               </mat-option>
+              }
             </mat-select>
             <mat-icon matSuffix>apps</mat-icon>
           </mat-form-field>

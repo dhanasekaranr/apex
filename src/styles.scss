@@ -1,7 +1,7 @@
 /* Global Styles - Angular 20 with Material 3 */
 
 // Import Material 3 theme system FIRST
-@use 'themes/material3-theme';
+// @use 'themes/material3-theme'; // Empty file - disabled
 // @use 'themes/material3-typography'; // Temporarily disabled due to function compatibility issues
 @use 'themes/material3-components';
 @use 'themes/material3-elevation';

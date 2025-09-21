@@ -1,4 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
+import { MenuItem } from '../../shared/interfaces/menu.interface';
 import { NavigationActions } from './navigation.actions';
 import { initialNavigationState } from './navigation.state';
 
@@ -252,7 +253,7 @@ export const navigationReducer = createReducer(
   on(NavigationActions.toggleSidenavMenuItem, (state, { itemId }) => {
     if (!state.sidenavConfig) return state;
 
-    const updateMenuItems = (items: any[]): any[] => {
+    const updateMenuItems = (items: MenuItem[]): MenuItem[] => {
       return items.map((item) => {
         if (item.id === itemId && item.type === 'expandable') {
           return { ...item, expanded: !item.expanded };
@@ -288,7 +289,7 @@ export const navigationReducer = createReducer(
     (state, { itemId, expanded }) => {
       if (!state.sidenavConfig) return state;
 
-      const updateMenuItems = (items: any[]): any[] => {
+      const updateMenuItems = (items: MenuItem[]): MenuItem[] => {
         return items.map((item) => {
           if (item.id === itemId && item.type === 'expandable') {
             return { ...item, expanded };

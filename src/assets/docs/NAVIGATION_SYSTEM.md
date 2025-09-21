@@ -143,10 +143,9 @@ interface MenuItem {
 
 1. **Health Check** - System monitoring and status
 2. **Resources** - User and resource management
-3. **Messaging** - Communication and message handling
-4. **Documents** - Reports and document management
-5. **Settings** - System and user preferences
-6. **Audit Log** - Activity logging and tracking
+3. **Documents** - Reports and document management
+4. **Settings** - System and user preferences
+5. **Audit Log** - Activity logging and tracking
 
 ### Action Buttons
 ```typescript

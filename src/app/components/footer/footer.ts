@@ -59,31 +59,6 @@ export class Footer {
   }
 
   /**
-   * Open GitHub repository or developer resources
-   */
-  openGitHub(): void {
-    // Option 1: Open your actual GitHub repository
-    window.open('https://github.com/dhanasekaranr/apex', '_blank');
-
-    // Option 2: Show developer documentation (uncomment if preferred)
-    // this.router.navigate(['/documentation/developer']);
-  }
-
-  /**
-   * Open social media or external links
-   */
-  openSocialMedia(): void {
-    // Option 1: Open Twitter/X profile
-    window.open('https://twitter.com/your_handle', '_blank');
-
-    // Option 2: Open company website (uncomment if preferred)
-    // window.open('https://your-company.com', '_blank');
-
-    // Option 3: Show social media menu (uncomment if preferred)
-    // this.showSocialMenu();
-  }
-
-  /**
    * Show system information popover
    * Displays build number, timezone, date format, and other system details
    */

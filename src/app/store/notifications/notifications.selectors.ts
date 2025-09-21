@@ -385,7 +385,7 @@ export const selectNotificationTags = createSelector(
   (notifications: Notification[]) => {
     const tags = new Set<string>();
     notifications.forEach((n) => {
-      if (n.metadata?.['tags']) {
+      if (n.metadata?.['tags'] && Array.isArray(n.metadata['tags'])) {
         (n.metadata['tags'] as string[]).forEach((tag: string) =>
           tags.add(tag)
         );

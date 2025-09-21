@@ -11,7 +11,7 @@ export interface Notification {
   actionUrl?: string;
   actionLabel?: string;
   userId?: string | null;
-  metadata?: { [key: string]: any };
+  metadata?: { [key: string]: string | number | boolean | null };
 }
 
 export interface NotificationCategory {
@@ -91,7 +91,7 @@ export interface NotificationFilter {
 export interface NotificationMetadata {
   source?: string;
   tags?: string[];
-  [key: string]: any;
+  [key: string]: string | number | boolean | string[] | null | undefined;
 }
 
 export interface NotificationSortOptions {

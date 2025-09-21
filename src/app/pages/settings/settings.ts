@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  computed,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -12,8 +19,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Store } from '@ngrx/store';
-import { combineLatest } from 'rxjs';
-import { map, take } from 'rxjs/operators';
 import { BreadcrumbStyle } from '../../shared/components/breadcrumb/breadcrumb.component';
 import {
   GeneralSettings,
@@ -53,44 +58,67 @@ export class Settings implements OnInit {
   userPreferencesForm: FormGroup;
   securityForm: FormGroup;
 
-  // Observable data from store
-  loading$ = this.store.select(SettingsSelectors.selectSettingsLoading);
-  error$ = this.store.select(SettingsSelectors.selectSettingsError);
-  allSettingsLoaded$ = this.store.select(
+  // Signal-based store data
+  readonly loading = this.store.selectSignal(
+    SettingsSelectors.selectSettingsLoading
+  );
+  readonly error = this.store.selectSignal(
+    SettingsSelectors.selectSettingsError
+  );
+  readonly allSettingsLoaded = this.store.selectSignal(
     SettingsSelectors.selectAllSettingsLoaded
   );
 
-  generalSettings$ = this.store.select(SettingsSelectors.selectGeneralSettings);
-  userPreferences$ = this.store.select(SettingsSelectors.selectUserPreferences);
-  securitySettings$ = this.store.select(
+  readonly generalSettings = this.store.selectSignal(
+    SettingsSelectors.selectGeneralSettings
+  );
+  readonly userPreferences = this.store.selectSignal(
+    SettingsSelectors.selectUserPreferences
+  );
+  readonly securitySettings = this.store.selectSignal(
     SettingsSelectors.selectSecuritySettings
   );
+  readonly systemInformation = this.store.selectSignal(
+    SettingsSelectors.selectSystemInformation
+  );
+
+  readonly settingsOverview = this.store.selectSignal(
+    SettingsSelectors.selectSettingsOverview
+  );
+  readonly securityScore = this.store.selectSignal(
+    SettingsSelectors.selectSecurityScore
+  );
+
+  // Observable data from store (for backward compatibility)
+  loading$ = this.store.select(SettingsSelectors.selectSettingsLoading);
+  error$ = this.store.select(SettingsSelectors.selectSettingsError);
   systemInformation$ = this.store.select(
     SettingsSelectors.selectSystemInformation
   );
 
-  settingsOverview$ = this.store.select(
-    SettingsSelectors.selectSettingsOverview
-  );
-  securityScore$ = this.store.select(SettingsSelectors.selectSecurityScore);
+  // Computed signals for derived state
+  readonly settingsData = computed(() => ({
+    general: this.generalSettings(),
+    user: this.userPreferences(),
+    security: this.securitySettings(),
+    system: this.systemInformation(),
+    loading: this.loading(),
+    hasData: !!(
+      this.generalSettings() &&
+      this.userPreferences() &&
+      this.securitySettings() &&
+      this.systemInformation()
+    ),
+  }));
 
-  // Combined loading state for UI
-  settingsData$ = combineLatest([
-    this.generalSettings$,
-    this.userPreferences$,
-    this.securitySettings$,
-    this.systemInformation$,
-    this.loading$,
-  ]).pipe(
-    map(([general, user, security, system, loading]) => ({
-      general,
-      user,
-      security,
-      system,
-      loading,
-      hasData: !!(general && user && security && system),
-    }))
-  );
+  // State management signals
+  readonly selectedCategorySignal = signal<string>('general');
+
+  // Computed signal for category validation
+  readonly isCategoryValid = computed(() => {
+    const category = this.selectedCategorySignal();
+    return ['general', 'preferences', 'security', 'system'].includes(category);
+  });
 
   // Breadcrumb style demo properties
   selectedBreadcrumbStyle: BreadcrumbStyle = 'default';
@@ -220,23 +248,31 @@ export class Settings implements OnInit {
   ngOnInit() {
     console.log('🔄 Settings component initializing');
 
-    // Check if settings are already loaded before dispatching load action
-    this.allSettingsLoaded$.pipe(take(1)).subscribe((allLoaded) => {
-      if (!allLoaded) {
-        console.log('📡 Settings not in store, loading from API');
-        this.store.dispatch(SettingsActions.loadAllSettings());
-      } else {
-        console.log('✅ Settings already in store, using cached data');
-      }
-    });
+    // Effect to check if settings need to be loaded
+    effect(
+      () => {
+        const allLoaded = this.allSettingsLoaded();
+        if (!allLoaded) {
+          console.log('📡 Settings not in store, loading from API');
+          this.store.dispatch(SettingsActions.loadAllSettings());
+        } else {
+          console.log('✅ Settings already in store, using cached data');
+        }
+      },
+      { allowSignalWrites: true }
+    );
 
-    // Subscribe to settings data and populate forms
-    this.settingsData$.subscribe(({ general, user, security, hasData }) => {
-      if (hasData) {
-        console.log('✅ Settings data loaded, populating forms');
-        this.populateForms(general!, user!, security!);
-      }
-    });
+    // Effect to populate forms when settings data is loaded
+    effect(
+      () => {
+        const data = this.settingsData();
+        if (data.hasData) {
+          console.log('✅ Settings data loaded, populating forms');
+          this.populateForms(data.general!, data.user!, data.security!);
+        }
+      },
+      { allowSignalWrites: true }
+    );
   }
 
   selectCategory(category: string) {
@@ -252,140 +288,122 @@ export class Settings implements OnInit {
   saveGeneralSettings() {
     if (this.generalForm.valid) {
       const formValue = this.generalForm.value;
+      const currentSettings = this.generalSettings();
 
-      this.generalSettings$
-        .pipe(
-          map((settings) => (settings ? { ...settings, ...formValue } : null))
-        )
-        .subscribe((updatedSettings) => {
-          if (updatedSettings) {
-            console.log('💾 Saving general settings');
-            this.store.dispatch(
-              SettingsActions.updateGeneralSettings({
-                generalSettings: updatedSettings,
-              })
-            );
-          }
-        });
+      if (currentSettings) {
+        const updatedSettings = { ...currentSettings, ...formValue };
+        console.log('💾 Saving general settings');
+        this.store.dispatch(
+          SettingsActions.updateGeneralSettings({
+            generalSettings: updatedSettings,
+          })
+        );
+      }
     }
   }
 
   saveUserPreferences() {
     if (this.userPreferencesForm.valid) {
       const formValue = this.userPreferencesForm.value;
+      const currentPreferences = this.userPreferences();
 
-      this.userPreferences$
-        .pipe(
-          map((preferences) =>
-            preferences
-              ? {
-                  ...preferences,
-                  theme: formValue.theme,
-                  primaryColor: formValue.primaryColor,
-                  accentColor: formValue.accentColor,
-                  fontSize: formValue.fontSize,
-                  compactMode: formValue.compactMode,
-                  showAnimations: formValue.showAnimations,
-                  autoSave: formValue.autoSave,
-                  autoSaveInterval: formValue.autoSaveInterval,
-                  notifications: {
-                    email: formValue.emailNotifications,
-                    browser: formValue.browserNotifications,
-                    sound: formValue.soundNotifications,
-                    desktop: formValue.desktopNotifications,
-                  },
-                  dashboard: {
-                    showWelcome: formValue.showWelcome,
-                    defaultView: formValue.defaultView,
-                    refreshInterval: formValue.refreshInterval,
-                    showQuickActions: formValue.showQuickActions,
-                    compactCards: formValue.compactCards,
-                  },
-                  tables: {
-                    defaultPageSize: formValue.defaultPageSize,
-                    showDensity: formValue.showDensity,
-                    stickyHeader: formValue.stickyHeader,
-                    showColumnResize: formValue.showColumnResize,
-                  },
-                  accessibility: {
-                    highContrast: formValue.highContrast,
-                    reducedMotion: formValue.reducedMotion,
-                    screenReader: formValue.screenReader,
-                    keyboardNavigation: formValue.keyboardNavigation,
-                  },
-                }
-              : null
-          )
-        )
-        .subscribe((updatedPreferences) => {
-          if (updatedPreferences) {
-            console.log('💾 Saving user preferences');
-            this.store.dispatch(
-              SettingsActions.updateUserPreferences({
-                userPreferences: updatedPreferences,
-              })
-            );
-          }
-        });
+      if (currentPreferences) {
+        const updatedPreferences = {
+          ...currentPreferences,
+          theme: formValue.theme,
+          primaryColor: formValue.primaryColor,
+          accentColor: formValue.accentColor,
+          fontSize: formValue.fontSize,
+          compactMode: formValue.compactMode,
+          showAnimations: formValue.showAnimations,
+          autoSave: formValue.autoSave,
+          autoSaveInterval: formValue.autoSaveInterval,
+          notifications: {
+            email: formValue.emailNotifications,
+            browser: formValue.browserNotifications,
+            sound: formValue.soundNotifications,
+            desktop: formValue.desktopNotifications,
+          },
+          dashboard: {
+            showWelcome: formValue.showWelcome,
+            defaultView: formValue.defaultView,
+            refreshInterval: formValue.refreshInterval,
+            showQuickActions: formValue.showQuickActions,
+            compactCards: formValue.compactCards,
+          },
+          tables: {
+            defaultPageSize: formValue.defaultPageSize,
+            showDensity: formValue.showDensity,
+            stickyHeader: formValue.stickyHeader,
+            showColumnResize: formValue.showColumnResize,
+          },
+          accessibility: {
+            highContrast: formValue.highContrast,
+            reducedMotion: formValue.reducedMotion,
+            screenReader: formValue.screenReader,
+            keyboardNavigation: formValue.keyboardNavigation,
+          },
+        };
+
+        console.log('💾 Saving user preferences');
+        this.store.dispatch(
+          SettingsActions.updateUserPreferences({
+            userPreferences: updatedPreferences,
+          })
+        );
+      }
     }
   }
 
   saveSecuritySettings() {
     if (this.securityForm.valid) {
       const formValue = this.securityForm.value;
+      const currentSettings = this.securitySettings();
 
-      this.securitySettings$
-        .pipe(
-          map((settings) =>
-            settings
-              ? {
-                  ...settings,
-                  passwordPolicy: {
-                    minLength: formValue.passwordMinLength,
-                    requireUppercase: formValue.requireUppercase,
-                    requireLowercase: formValue.requireLowercase,
-                    requireNumbers: formValue.requireNumbers,
-                    requireSpecialChars: formValue.requireSpecialChars,
-                    maxAge: formValue.passwordMaxAge,
-                    preventReuse: formValue.preventPasswordReuse,
-                    lockoutThreshold: formValue.lockoutThreshold,
-                    lockoutDuration: formValue.lockoutDuration,
-                  },
-                  twoFactorAuth: {
-                    ...settings.twoFactorAuth,
-                    enabled: formValue.twoFactorEnabled,
-                    required: formValue.twoFactorRequired,
-                  },
-                  sessionManagement: {
-                    timeoutWarning: formValue.sessionTimeoutWarning,
-                    sessionTimeout: formValue.sessionTimeout,
-                    maxConcurrentSessions: formValue.maxConcurrentSessions,
-                    requireReauth: formValue.requireReauth,
-                    rememberMe: formValue.rememberMe,
-                    rememberMeDuration: formValue.rememberMeDuration,
-                  },
-                  apiSecurity: {
-                    ...settings.apiSecurity,
-                    rateLimiting: formValue.rateLimiting,
-                    maxRequestsPerMinute: formValue.maxRequestsPerMinute,
-                    corsEnabled: formValue.corsEnabled,
-                    encryptionEnabled: formValue.encryptionEnabled,
-                    auditLogging: formValue.auditLogging,
-                  },
-                }
-              : null
-          )
-        )
-        .subscribe((updatedSettings) => {
-          if (updatedSettings) {
-            console.log('💾 Saving security settings');
-            this.store.dispatch(
-              SettingsActions.updateSecuritySettings({
-                securitySettings: updatedSettings,
-              })
-            );
-          }
-        });
+      if (currentSettings) {
+        const updatedSettings = {
+          ...currentSettings,
+          passwordPolicy: {
+            minLength: formValue.passwordMinLength,
+            requireUppercase: formValue.requireUppercase,
+            requireLowercase: formValue.requireLowercase,
+            requireNumbers: formValue.requireNumbers,
+            requireSpecialChars: formValue.requireSpecialChars,
+            maxAge: formValue.passwordMaxAge,
+            preventReuse: formValue.preventPasswordReuse,
+            lockoutThreshold: formValue.lockoutThreshold,
+            lockoutDuration: formValue.lockoutDuration,
+          },
+          twoFactorAuth: {
+            ...currentSettings.twoFactorAuth,
+            enabled: formValue.twoFactorEnabled,
+            required: formValue.twoFactorRequired,
+          },
+          sessionManagement: {
+            timeoutWarning: formValue.sessionTimeoutWarning,
+            sessionTimeout: formValue.sessionTimeout,
+            maxConcurrentSessions: formValue.maxConcurrentSessions,
+            requireReauth: formValue.requireReauth,
+            rememberMe: formValue.rememberMe,
+            rememberMeDuration: formValue.rememberMeDuration,
+          },
+          apiSecurity: {
+            ...currentSettings.apiSecurity,
+            rateLimiting: formValue.rateLimiting,
+            maxRequestsPerMinute: formValue.maxRequestsPerMinute,
+            corsEnabled: formValue.corsEnabled,
+            encryptionEnabled: formValue.encryptionEnabled,
+            auditLogging: formValue.auditLogging,
+          },
+        };
+
+        console.log('💾 Saving security settings');
+        this.store.dispatch(
+          SettingsActions.updateSecuritySettings({
+            securitySettings: updatedSettings,
+          })
+        );
+      }
     }
   }
 

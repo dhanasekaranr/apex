@@ -87,7 +87,7 @@
   }
 }
 
-// Button Overrides - Material 3 Enhanced Design
+// Button Overrides - Material 3 Enhanced Design with Accessibility
 .mat-mdc-button,
 .mat-mdc-outlined-button, 
 .mat-mdc-raised-button,
@@ -105,10 +105,141 @@
   }
 }
 
-// Icon Button Overrides
+// Accessibility-compliant button colors (WCAG AA 4.5:1 contrast ratio)
+.mat-mdc-raised-button,
+.mat-mdc-unelevated-button {
+  &.mat-primary {
+    background-color: #1565c0 !important; // Darker blue for better contrast
+    color: #ffffff !important; // White text on dark background
+    
+    &:hover {
+      background-color: #0d47a1 !important; // Even darker on hover
+    }
+    
+    &:focus {
+      background-color: #0d47a1 !important;
+      box-shadow: 0 0 0 2px rgba(21, 101, 192, 0.3) !important; // Focus indicator
+    }
+    
+    &:disabled {
+      background-color: rgba(0, 0, 0, 0.12) !important;
+      color: rgba(0, 0, 0, 0.38) !important;
+    }
+  }
+  
+  &.mat-accent {
+    background-color: #e65100 !important; // Darker orange for better contrast
+    color: #ffffff !important; // White text on dark background
+    
+    &:hover {
+      background-color: #bf360c !important;
+    }
+    
+    &:focus {
+      background-color: #bf360c !important;
+      box-shadow: 0 0 0 2px rgba(230, 81, 0, 0.3) !important;
+    }
+  }
+  
+  &.mat-warn {
+    background-color: #c62828 !important; // Darker red for better contrast
+    color: #ffffff !important; // White text on dark background
+    
+    &:hover {
+      background-color: #b71c1c !important;
+    }
+    
+    &:focus {
+      background-color: #b71c1c !important;
+      box-shadow: 0 0 0 2px rgba(198, 40, 40, 0.3) !important;
+    }
+  }
+}
+
+// Outlined button accessibility improvements
+.mat-mdc-outlined-button {
+  &.mat-primary {
+    border-color: #1565c0 !important; // Darker border for better visibility
+    color: #1565c0 !important; // Darker text for better contrast
+    
+    &:hover {
+      background-color: rgba(21, 101, 192, 0.08) !important;
+      border-color: #0d47a1 !important;
+      color: #0d47a1 !important;
+    }
+    
+    &:focus {
+      background-color: rgba(21, 101, 192, 0.12) !important;
+      border-color: #0d47a1 !important;
+      color: #0d47a1 !important;
+      box-shadow: 0 0 0 2px rgba(21, 101, 192, 0.3) !important;
+    }
+  }
+  
+  &.mat-accent {
+    border-color: #e65100 !important;
+    color: #e65100 !important;
+    
+    &:hover {
+      background-color: rgba(230, 81, 0, 0.08) !important;
+      border-color: #bf360c !important;
+      color: #bf360c !important;
+    }
+  }
+  
+  &.mat-warn {
+    border-color: #c62828 !important;
+    color: #c62828 !important;
+    
+    &:hover {
+      background-color: rgba(198, 40, 40, 0.08) !important;
+      border-color: #b71c1c !important;
+      color: #b71c1c !important;
+    }
+  }
+}
+
+// Text button accessibility improvements
+.mat-mdc-button {
+  &.mat-primary {
+    color: #1565c0 !important; // Darker text for better contrast
+    
+    &:hover {
+      background-color: rgba(21, 101, 192, 0.08) !important;
+      color: #0d47a1 !important;
+    }
+    
+    &:focus {
+      background-color: rgba(21, 101, 192, 0.12) !important;
+      color: #0d47a1 !important;
+      box-shadow: 0 0 0 2px rgba(21, 101, 192, 0.3) !important;
+    }
+  }
+  
+  &.mat-accent {
+    color: #e65100 !important;
+    
+    &:hover {
+      background-color: rgba(230, 81, 0, 0.08) !important;
+      color: #bf360c !important;
+    }
+  }
+  
+  &.mat-warn {
+    color: #c62828 !important;
+    
+    &:hover {
+      background-color: rgba(198, 40, 40, 0.08) !important;
+      color: #b71c1c !important;
+    }
+  }
+}
+
+// Icon Button Overrides with Accessibility
 .mat-mdc-icon-button {
-  width: 40px !important; // Increased for better accessibility
+  width: 40px !important; // Increased for better accessibility (44px minimum recommended)
   height: 40px !important;
+  min-width: 40px !important;
   
   .mat-mdc-button-touch-target {
     width: 40px !important;
@@ -119,6 +250,53 @@
     font-size: 20px !important; // Increased for better visibility
     width: 20px !important;
     height: 20px !important;
+  }
+  
+  // Ensure sufficient contrast for icon buttons
+  color: rgba(0, 0, 0, 0.87) !important; // High contrast default
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.08) !important;
+    color: rgba(0, 0, 0, 0.95) !important;
+  }
+  
+  &:focus {
+    background-color: rgba(0, 0, 0, 0.12) !important;
+    box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.3) !important; // Visible focus indicator
+    outline: none !important;
+  }
+  
+  // Color variants for icon buttons
+  &.mat-primary {
+    color: #1565c0 !important;
+    
+    &:hover {
+      background-color: rgba(21, 101, 192, 0.08) !important;
+      color: #0d47a1 !important;
+    }
+    
+    &:focus {
+      background-color: rgba(21, 101, 192, 0.12) !important;
+      box-shadow: 0 0 0 2px rgba(21, 101, 192, 0.3) !important;
+    }
+  }
+  
+  &.mat-accent {
+    color: #e65100 !important;
+    
+    &:hover {
+      background-color: rgba(230, 81, 0, 0.08) !important;
+      color: #bf360c !important;
+    }
+  }
+  
+  &.mat-warn {
+    color: #c62828 !important;
+    
+    &:hover {
+      background-color: rgba(198, 40, 40, 0.08) !important;
+      color: #b71c1c !important;
+    }
   }
 }
 

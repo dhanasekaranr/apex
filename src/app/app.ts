@@ -11,14 +11,14 @@ import {
 } from '@angular/router';
 import { filter, map, shareReplay } from 'rxjs/operators';
 
-import { Footer } from './components/footer/footer';
-import { Header } from './components/header/header';
-import { Sidenav } from './components/sidenav/sidenav';
-import { TopnavComponent } from './components/topnav/topnav';
+import { Footer } from './core/layout/footer/footer';
+import { Header } from './core/layout/header/header';
+import { Sidenav } from './core/layout/sidenav/sidenav';
+import { TopnavComponent } from './core/layout/topnav/topnav';
 import {
   BreadcrumbComponent,
   BreadcrumbStyle,
-} from './shared/components/breadcrumb/breadcrumb.component';
+} from './shared/ui/breadcrumb/breadcrumb.component';
 
 @Component({
   selector: 'app-root',

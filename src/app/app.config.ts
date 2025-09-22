@@ -4,19 +4,17 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { storeProviders } from './store/store.config';
+import { coreProviders } from './core/core.providers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
-    provideAnimationsAsync(),
     provideHttpClient(),
-    ...storeProviders,
+    ...coreProviders,
   ],
 };

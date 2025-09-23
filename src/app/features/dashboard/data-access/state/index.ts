@@ -1,6 +1,2 @@
-// Export all dashboard store entities
-export * from './dashboard.actions';
-export * from './dashboard.effects';
-export * from './dashboard.reducer';
-export * from './dashboard.selectors';
+// Export dashboard state entities
 export * from './dashboard.state';

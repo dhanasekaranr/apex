@@ -1,15 +1,7 @@
 // Navigation Store Barrel Exports
-export * from './navigation.actions';
-export * from './navigation.effects';
-export * from './navigation.reducer';
-export * from './navigation.selectors';
 export * from './navigation.state';
 
-// Re-export with namespaces for cleaner imports
-export { NavigationActions } from './navigation.actions';
-export { NavigationEffects } from './navigation.effects';
-export { navigationReducer } from './navigation.reducer';
-export * as NavigationSelectors from './navigation.selectors';
+// Type exports for external consumers
 export type {
   ActionButton,
   BreadcrumbConfig,

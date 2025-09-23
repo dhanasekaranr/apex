@@ -18,15 +18,13 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { Store } from '@ngrx/store';
 import { BreadcrumbStyle } from '../../../shared/ui/breadcrumb/breadcrumb.component';
-import { SettingsActions } from '../data-access/state/settings.actions';
-import * as SettingsSelectors from '../data-access/state/settings.selectors';
 import {
   GeneralSettings,
   SecuritySettings,
   UserPreferences,
 } from '../data-access/state/settings.state';
+import { SettingsStore } from '../data-access/state/settings.store';
 
 @Component({
   selector: 'app-settings',
@@ -48,7 +46,7 @@ import {
   styleUrl: './settings.scss',
 })
 export class Settings implements OnInit {
-  private store = inject(Store);
+  private settingsStore = inject(SettingsStore);
   private fb = inject(FormBuilder);
 
   selectedCategory: string = 'general';
@@ -59,42 +57,17 @@ export class Settings implements OnInit {
   securityForm: FormGroup;
 
   // Signal-based store data
-  readonly loading = this.store.selectSignal(
-    SettingsSelectors.selectSettingsLoading
-  );
-  readonly error = this.store.selectSignal(
-    SettingsSelectors.selectSettingsError
-  );
-  readonly allSettingsLoaded = this.store.selectSignal(
-    SettingsSelectors.selectAllSettingsLoaded
-  );
+  readonly loading = this.settingsStore.loading;
+  readonly error = this.settingsStore.error;
+  readonly allSettingsLoaded = this.settingsStore.allSettingsLoaded;
 
-  readonly generalSettings = this.store.selectSignal(
-    SettingsSelectors.selectGeneralSettings
-  );
-  readonly userPreferences = this.store.selectSignal(
-    SettingsSelectors.selectUserPreferences
-  );
-  readonly securitySettings = this.store.selectSignal(
-    SettingsSelectors.selectSecuritySettings
-  );
-  readonly systemInformation = this.store.selectSignal(
-    SettingsSelectors.selectSystemInformation
-  );
+  readonly generalSettings = this.settingsStore.generalSettings;
+  readonly userPreferences = this.settingsStore.userPreferences;
+  readonly securitySettings = this.settingsStore.securitySettings;
+  readonly systemInformation = this.settingsStore.systemInformation;
 
-  readonly settingsOverview = this.store.selectSignal(
-    SettingsSelectors.selectSettingsOverview
-  );
-  readonly securityScore = this.store.selectSignal(
-    SettingsSelectors.selectSecurityScore
-  );
-
-  // Observable data from store (for backward compatibility)
-  loading$ = this.store.select(SettingsSelectors.selectSettingsLoading);
-  error$ = this.store.select(SettingsSelectors.selectSettingsError);
-  systemInformation$ = this.store.select(
-    SettingsSelectors.selectSystemInformation
-  );
+  readonly settingsOverview = this.settingsStore.settingsOverview;
+  readonly securityScore = this.settingsStore.securityScore;
 
   // Computed signals for derived state
   readonly settingsData = computed(() => ({
@@ -118,6 +91,25 @@ export class Settings implements OnInit {
   readonly isCategoryValid = computed(() => {
     const category = this.selectedCategorySignal();
     return ['general', 'preferences', 'security', 'system'].includes(category);
+  });
+
+  // Effects (must be class field initializers to run in injection context)
+  private loadSettingsEffect = effect(() => {
+    const allLoaded = this.allSettingsLoaded();
+    if (!allLoaded) {
+      console.log('📡 Settings not in store, loading from API');
+      this.settingsStore.loadSettings();
+    } else {
+      console.log('✅ Settings already in store, using cached data');
+    }
+  });
+
+  private populateFormsEffect = effect(() => {
+    const data = this.settingsData();
+    if (data.hasData) {
+      console.log('✅ Settings data loaded, populating forms');
+      this.populateForms(data.general!, data.user!, data.security!);
+    }
   });
 
   // Breadcrumb style demo properties
@@ -247,32 +239,7 @@ export class Settings implements OnInit {
 
   ngOnInit() {
     console.log('🔄 Settings component initializing');
-
-    // Effect to check if settings need to be loaded
-    effect(
-      () => {
-        const allLoaded = this.allSettingsLoaded();
-        if (!allLoaded) {
-          console.log('📡 Settings not in store, loading from API');
-          this.store.dispatch(SettingsActions.loadAllSettings());
-        } else {
-          console.log('✅ Settings already in store, using cached data');
-        }
-      },
-      { allowSignalWrites: true }
-    );
-
-    // Effect to populate forms when settings data is loaded
-    effect(
-      () => {
-        const data = this.settingsData();
-        if (data.hasData) {
-          console.log('✅ Settings data loaded, populating forms');
-          this.populateForms(data.general!, data.user!, data.security!);
-        }
-      },
-      { allowSignalWrites: true }
-    );
+    // Effects are now handled as class field initializers to run in injection context
   }
 
   selectCategory(category: string) {
@@ -282,7 +249,8 @@ export class Settings implements OnInit {
 
   refreshSystemInformation() {
     console.log('🔄 Refreshing system information');
-    this.store.dispatch(SettingsActions.refreshSystemInformation());
+    // System information is read-only, just reload all settings
+    this.settingsStore.loadSettings();
   }
 
   saveGeneralSettings() {
@@ -293,11 +261,7 @@ export class Settings implements OnInit {
       if (currentSettings) {
         const updatedSettings = { ...currentSettings, ...formValue };
         console.log('💾 Saving general settings');
-        this.store.dispatch(
-          SettingsActions.updateGeneralSettings({
-            generalSettings: updatedSettings,
-          })
-        );
+        this.settingsStore.updateGeneralSettings(updatedSettings);
       }
     }
   }
@@ -346,11 +310,7 @@ export class Settings implements OnInit {
         };
 
         console.log('💾 Saving user preferences');
-        this.store.dispatch(
-          SettingsActions.updateUserPreferences({
-            userPreferences: updatedPreferences,
-          })
-        );
+        this.settingsStore.updateUserPreferences(updatedPreferences);
       }
     }
   }
@@ -398,11 +358,7 @@ export class Settings implements OnInit {
         };
 
         console.log('💾 Saving security settings');
-        this.store.dispatch(
-          SettingsActions.updateSecuritySettings({
-            securitySettings: updatedSettings,
-          })
-        );
+        this.settingsStore.updateSecuritySettings(updatedSettings);
       }
     }
   }

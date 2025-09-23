@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  Inject,
-  OnInit,
-  ViewChild,
-  effect,
-  inject,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, effect, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -580,10 +573,10 @@ export class AddUserDialogComponent {
   userRole = '';
   screenAccess: string[] = [];
 
-  constructor(
-    public dialogRef: MatDialogRef<AddUserDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: AddUserDialogData
-  ) {}
+  public readonly dialogRef = inject(MatDialogRef<AddUserDialogComponent>);
+  public readonly data = inject(MAT_DIALOG_DATA) as AddUserDialogData;
+
+  constructor() {}
 
   onCancel(): void {
     this.dialogRef.close();

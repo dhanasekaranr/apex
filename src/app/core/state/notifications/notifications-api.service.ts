@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { EnvironmentService } from '../../services/environment.service';
 import {
   Notification,
   NotificationConfiguration,
@@ -13,18 +14,22 @@ import {
 })
 export class NotificationsApiService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3001';
+  private environmentService = inject(EnvironmentService);
 
   // Load all notifications configuration
   loadNotificationsConfig(): Observable<NotificationConfiguration> {
     return this.http
-      .get<NotificationConfiguration[]>(`${this.apiUrl}/notifications`)
+      .get<NotificationConfiguration[]>(
+        this.environmentService.buildApiUrl('/notifications')
+      )
       .pipe(map((response) => response[0])); // Get first configuration
   }
 
   // Load notifications
   loadNotifications(): Observable<Notification[]> {
-    return this.http.get<Notification[]>(`${this.apiUrl}/notifications`);
+    return this.http.get<Notification[]>(
+      this.environmentService.buildApiUrl('/notifications')
+    );
   }
 
   // Create notification
@@ -37,7 +42,7 @@ export class NotificationsApiService {
       timestamp: new Date().toISOString(),
     };
     return this.http.post<Notification>(
-      `${this.apiUrl}/notifications`,
+      this.environmentService.buildApiUrl('/notifications'),
       newNotification
     );
   }
@@ -45,7 +50,7 @@ export class NotificationsApiService {
   // Update notification
   updateNotification(notification: Notification): Observable<Notification> {
     return this.http.put<Notification>(
-      `${this.apiUrl}/notifications/${notification.id}`,
+      this.environmentService.buildApiUrl(`/notifications/${notification.id}`),
       notification
     );
   }
@@ -53,7 +58,7 @@ export class NotificationsApiService {
   // Mark notification as read
   markNotificationAsRead(notificationId: string): Observable<Notification> {
     return this.http.patch<Notification>(
-      `${this.apiUrl}/notifications/${notificationId}`,
+      this.environmentService.buildApiUrl(`/notifications/${notificationId}`),
       { read: true }
     );
   }
@@ -61,7 +66,7 @@ export class NotificationsApiService {
   // Mark all notifications as read
   markAllNotificationsAsRead(): Observable<Notification[]> {
     return this.http.patch<Notification[]>(
-      `${this.apiUrl}/notifications/mark-all-read`,
+      this.environmentService.buildApiUrl('/notifications/mark-all-read'),
       {}
     );
   }
@@ -69,18 +74,22 @@ export class NotificationsApiService {
   // Delete notification
   deleteNotification(notificationId: string): Observable<void> {
     return this.http.delete<void>(
-      `${this.apiUrl}/notifications/${notificationId}`
+      this.environmentService.buildApiUrl(`/notifications/${notificationId}`)
     );
   }
 
   // Delete all read notifications
   deleteAllReadNotifications(): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/notifications/read`);
+    return this.http.delete<void>(
+      this.environmentService.buildApiUrl('/notifications/read')
+    );
   }
 
   // Clear all notifications
   clearAllNotifications(): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/notifications`);
+    return this.http.delete<void>(
+      this.environmentService.buildApiUrl('/notifications')
+    );
   }
 
   // Update notification settings
@@ -88,7 +97,7 @@ export class NotificationsApiService {
     settings: NotificationSettings
   ): Observable<NotificationSettings> {
     return this.http.put<NotificationSettings>(
-      `${this.apiUrl}/settings/notifications`,
+      this.environmentService.buildApiUrl('/settings/notifications'),
       settings
     );
   }
@@ -96,22 +105,25 @@ export class NotificationsApiService {
   // Load notification settings
   loadNotificationSettings(): Observable<NotificationSettings> {
     return this.http.get<NotificationSettings>(
-      `${this.apiUrl}/settings/notifications`
+      this.environmentService.buildApiUrl('/settings/notifications')
     );
   }
 
   // Bulk operations
   bulkMarkAsRead(notificationIds: string[]): Observable<Notification[]> {
     return this.http.patch<Notification[]>(
-      `${this.apiUrl}/notifications/bulk-read`,
+      this.environmentService.buildApiUrl('/notifications/bulk-read'),
       { ids: notificationIds }
     );
   }
 
   bulkDelete(notificationIds: string[]): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/notifications/bulk-delete`, {
-      ids: notificationIds,
-    });
+    return this.http.post<void>(
+      this.environmentService.buildApiUrl('/notifications/bulk-delete'),
+      {
+        ids: notificationIds,
+      }
+    );
   }
 
   // Refresh notifications (same as load but for cache busting)

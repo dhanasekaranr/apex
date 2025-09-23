@@ -4,7 +4,19 @@
 
 This document tracks major changes, improvements, and provides migration guidance for the Apex Dashboard.
 
-## Latest Version: v2.0.0 (Production Ready)
+## Latest Version: v2.1.0 (September 2025)
+
+### 🎯 Recent Updates
+
+#### ✅ NgRx Signal Store Implementation & Refactoring (Sept 2025)
+- **Modern State Management**: Complete migration to NgRx Signal Stores for all features
+- **60% Code Reduction**: BaseApiService and shared utilities eliminated boilerplate code
+- **Effect Injection Fix**: Resolved Angular effect() injection context errors 
+- **Settings API Fix**: Fixed 404 errors by correcting API endpoint mappings
+- **Documentation Cleanup**: Reorganized and updated all markdown documentation files
+- **JSON Server Integration**: Proper API mocking with individual settings endpoints
+
+## Previous Version: v2.0.0 (Production Ready)
 
 ### 🎯 Major Achievements
 

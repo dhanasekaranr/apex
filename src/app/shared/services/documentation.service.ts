@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -24,13 +24,13 @@ export interface DocumentationCategory {
   providedIn: 'root',
 })
 export class DocumentationService {
+  private readonly http = inject(HttpClient);
+
   private documentationSubject = new BehaviorSubject<DocumentationCategory[]>(
     this.getDocumentationStructure()
   );
   public documentation$: Observable<DocumentationCategory[]> =
     this.documentationSubject.asObservable();
-
-  constructor(private http: HttpClient) {}
 
   /**
    * Get all documentation categories and items

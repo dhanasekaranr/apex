@@ -7,6 +7,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -45,11 +46,11 @@ export class MarkdownRendererComponent implements OnInit, OnDestroy {
   isLoading = false;
   private destroy$ = new Subject<void>();
 
-  constructor(
-    private documentationService: DocumentationService,
-    private sanitizer: DomSanitizer,
-    private cdr: ChangeDetectorRef
-  ) {
+  private readonly documentationService = inject(DocumentationService);
+  private readonly sanitizer = inject(DomSanitizer);
+  private readonly cdr = inject(ChangeDetectorRef);
+
+  constructor() {
     // Configure marked options
     marked.setOptions({
       breaks: true,

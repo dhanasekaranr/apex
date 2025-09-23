@@ -6,6 +6,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -62,12 +63,12 @@ export class DocumentationViewerComponent
   private destroy$ = new Subject<void>();
   private resizeObserver?: ResizeObserver;
 
-  constructor(
-    private documentationService: DocumentationService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private cdr: ChangeDetectorRef
-  ) {}
+  private readonly documentationService = inject(DocumentationService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly cdr = inject(ChangeDetectorRef);
+
+  constructor() {}
 
   ngOnInit(): void {
     this.loadDocumentation();

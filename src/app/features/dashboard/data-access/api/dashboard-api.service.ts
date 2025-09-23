@@ -1,23 +1,19 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { BaseApiService } from '../../../../shared/services/base-api.service';
 import { DashboardData } from '../state/dashboard.state';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DashboardApiService {
-  private readonly http = inject(HttpClient);
-  private readonly baseUrl = 'http://localhost:3001';
+export class DashboardApiService extends BaseApiService {
+  protected readonly endpoint = '/dashboard';
 
   getDashboardData(): Observable<DashboardData> {
-    return this.http.get<DashboardData>(`${this.baseUrl}/dashboard`);
+    return this.get<DashboardData>();
   }
 
   refreshDashboard(): Observable<DashboardData> {
-    return this.http.post<DashboardData>(
-      `${this.baseUrl}/dashboard/refresh`,
-      {}
-    );
+    return this.post<DashboardData>({}, '/refresh');
   }
 }

@@ -16,11 +16,35 @@ cd apex
 # Install dependencies
 npm install
 
-# Start development server
+# Start JSON Server API (in one terminal)
+npm run json-server
+
+# Start development server (in another terminal)
 ng serve
 
 # Open in browser
 http://localhost:4200
+```
+
+### API Server Setup
+
+The application includes a JSON server for API mocking:
+
+```bash
+# Start JSON server on port 3001
+npm run json-server
+
+# Available endpoints:
+# http://localhost:3001/dashboard
+# http://localhost:3001/users
+# http://localhost:3001/lookupItems
+# http://localhost:3001/generalSettings
+# http://localhost:3001/userPreferences
+# http://localhost:3001/securitySettings
+# http://localhost:3001/systemInformation
+# http://localhost:3001/navigation
+# http://localhost:3001/breadcrumb
+# http://localhost:3001/notifications
 ```
 
 ## Project Configuration

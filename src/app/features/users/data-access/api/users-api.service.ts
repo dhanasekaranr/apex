@@ -1,32 +1,31 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { BaseApiService } from '../../../../shared/services/base-api.service';
 import { User } from '../state/users.state';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UsersApiService {
-  private readonly http = inject(HttpClient);
-  private readonly baseUrl = 'http://localhost:3001';
+export class UsersApiService extends BaseApiService {
+  protected readonly endpoint = '/users';
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseUrl}/users`);
+    return this.get<User[]>();
   }
 
   getUser(id: number): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}/users/${id}`);
+    return this.get<User>(`/${id}`);
   }
 
   addUser(user: User): Observable<User> {
-    return this.http.post<User>(`${this.baseUrl}/users`, user);
+    return this.post<User>(user);
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.put<User>(`${this.baseUrl}/users/${user.id}`, user);
+    return this.put<User>(user, `/${user.id}`);
   }
 
   deleteUser(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/users/${id}`);
+    return this.delete<void>(`/${id}`);
   }
 }

@@ -5,7 +5,7 @@
   </div>
 
   <!-- Loading -->
-  @if (loading$ | async) {
+  @if (loading()) {
     <div class="loading-container">
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       <p>Loading settings...</p>
@@ -13,7 +13,7 @@
   }
 
   <!-- Error -->
-  @if (error$ | async; as error) {
+  @if (error(); as error) {
     <mat-card class="error-card">
       <mat-card-content>
         <mat-icon>error</mat-icon>
@@ -212,7 +212,7 @@
           <mat-card-subtitle>View system status and performance</mat-card-subtitle>
         </mat-card-header>
           <mat-card-content>
-            @if (systemInformation$ | async; as system) {
+            @if (systemInformation(); as system) {
               <div>
                 <h2>Server Information</h2>
                 <p><strong>Hostname:</strong> {{ system.server.hostname || 'N/A' }}</p>

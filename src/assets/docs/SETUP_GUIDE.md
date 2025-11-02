@@ -1,122 +1,366 @@
-# Setup & Configuration Guide
+# Setup & Configuration Guide# Setup Guide# Setup & Configuration Guide
+
+
 
 ## Installation & Setup
 
-### Prerequisites
-- Node.js (version 18 or higher)
-- npm or yarn package manager
-- Angular CLI 20
 
-### Initial Setup
-```bash
+
+### Prerequisites## Installation## Installation & Setup
+
+- Node.js (version 18 or higher)
+
+- npm or yarn package manager
+
+
+
+### Initial Setup### Prerequisites### Prerequisites
+
+
+
+```bash- Node.js 18+- Node.js (version 18 or higher)
+
 # Clone the repository
-git clone <repository-url>
+
+git clone <repository-url>- npm- npm or yarn package manager
+
 cd apex
 
-# Install dependencies
-npm install
+- Angular CLI 20
 
-# Start JSON Server API (in one terminal)
+# Install dependencies
+
+npm install### Steps
+
+
+
+# Start JSON Server API (in one terminal)```bash### Initial Setup
+
 npm run json-server
+
+# Install dependencies```bash
 
 # Start development server (in another terminal)
-ng serve
 
-# Open in browser
+ng servenpm install# Clone the repository
+
+
+
+# Open in browsergit clone <repository-url>
+
 http://localhost:4200
-```
 
-### API Server Setup
+```# Start development (API + Angular)cd apex
 
-The application includes a JSON server for API mocking:
+
+
+## Configurationnpm run dev
+
+
+
+### Environment Setup# Install dependencies
+
+No environment files needed for development. The app uses json-server for API simulation.
+
+# Or start separately:npm install
+
+### API Server
+
+The JSON server runs on `http://localhost:3001` and provides:npm run json-server  # API on port 3001
+
+- `/users` - User management endpoints
+
+- `/lookup-items` - Master datang serve             # Angular on port 4200# Start JSON Server API (in one terminal)
+
+- `/navigation` - Menu configuration
+
+- `/settings` - App settings```npm run json-server
+
+- `/dashboard` - Dashboard data
+
+- `/notifications` - User notifications
+
+
+
+## Development## Configuration# Start development server (in another terminal)
+
+
+
+### Running the Applicationng serve
+
+
+
+**Start both servers together:**### Environment Files
 
 ```bash
-# Start JSON server on port 3001
-npm run json-server
 
-# Available endpoints:
-# http://localhost:3001/dashboard
-# http://localhost:3001/users
-# http://localhost:3001/lookupItems
-# http://localhost:3001/generalSettings
-# http://localhost:3001/userPreferences
-# http://localhost:3001/securitySettings
-# http://localhost:3001/systemInformation
-# http://localhost:3001/navigation
-# http://localhost:3001/breadcrumb
-# http://localhost:3001/notifications
+npm run dev```typescript# Open in browser
+
 ```
 
-## Project Configuration
+// src/environments/environment.tshttp://localhost:4200
 
-### Dependencies Overview
-```json
-{
-  "dependencies": {
-    "@angular/animations": "^20.0.6",
-    "@angular/cdk": "^20.0.5",
-    "@angular/common": "^20.0.0",
-    "@angular/core": "^20.0.0",
-    "@angular/material": "^20.0.5",
-    "@fontsource/material-icons": "^5.2.5",
-    "@fontsource/roboto": "^5.2.6",
-    "rxjs": "~7.8.0"
-  }
-}
+**Or start individually:**
+
+```bashexport const environment = {```
+
+# Terminal 1: API Server
+
+npm run json-server  production: false,
+
+
+
+# Terminal 2: Angular Dev Server  apiUrl: 'http://localhost:3001'### API Server Setup
+
+ng serve
+
+```};
+
+
+
+### Building for Production```The application includes a JSON server for API mocking:
+
+```bash
+
+npm run build
+
 ```
 
-### Font Configuration
+Output will be in `dist/apex/browser/`### API Endpoints```bash
 
-#### NPM-Based Fonts (No Internet Required)
-The application uses npm packages for fonts instead of CDN links, eliminating proxy/internet connectivity issues.
 
-```scss
-// In styles.scss
-@import '@fontsource/roboto/300.css';  // Light
-@import '@fontsource/roboto/400.css';  // Regular
-@import '@fontsource/roboto/500.css';  // Medium
-@import '@fontsource/roboto/700.css';  // Bold
 
-// Material Icons (all variants)
-@import '@fontsource/material-icons/index.css';
+### Running TestsMock API available at `http://localhost:3001`:# Start JSON server on port 3001
+
+```bash
+
+# Unit tests- `/dashboard` - Dashboard datanpm run json-server
+
+npm test
+
+- `/users` - User management
+
+# End-to-end tests
+
+npm run e2e- `/settings` - Application settings# Available endpoints:
+
+
+
+# Code linting- `/navigation` - Menu configuration# http://localhost:3001/dashboard
+
+npm run lint
+
+```- `/notifications` - User notifications# http://localhost:3001/users
+
+
+
+## Project Structure# http://localhost:3001/lookupItems
+
+
+
+```## Development# http://localhost:3001/generalSettings
+
+apex/
+
+├── src/# http://localhost:3001/userPreferences
+
+│   ├── app/
+
+│   │   ├── components/     # Feature components### Project Structure# http://localhost:3001/securitySettings
+
+│   │   ├── store/          # NgRx Signal Stores
+
+│   │   ├── services/       # Business services```# http://localhost:3001/systemInformation
+
+│   │   └── shared/         # Shared utilities
+
+│   ├── themes/             # Material 3 themingsrc/# http://localhost:3001/navigation
+
+│   └── assets/             # Static files
+
+├── api/├── app/# http://localhost:3001/breadcrumb
+
+│   ├── db.json             # Mock database
+
+│   └── routes.json         # API routes│   ├── core/          # Core services, layout# http://localhost:3001/notifications
+
+└── cypress/                # E2E tests
+
+```│   ├── features/      # Feature modules```
+
+
+
+## Common Issues│   └── shared/        # Shared utilities
+
+
+
+### Port Already in Use├── themes/            # SCSS theming## Project Configuration
+
+If port 4200 or 3001 is occupied:
+
+```bash└── assets/            # Static files
+
+# Kill process on Windows
+
+netstat -ano | findstr :4200```### Dependencies Overview
+
+taskkill /PID <pid> /F
+
+``````json
+
+
+
+### Module Not Found### Adding a New Feature{
+
+```bash
+
+# Clear node_modules and reinstall  "dependencies": {
+
+rm -rf node_modules package-lock.json
+
+npm install1. Create feature folder:    "@angular/animations": "^20.0.6",
+
+```
+
+```bash    "@angular/cdk": "^20.0.5",
+
+### Build Errors
+
+```bashsrc/app/features/my-feature/    "@angular/common": "^20.0.0",
+
+# Clear cache
+
+npm run clean├── data-access/     # State store    "@angular/core": "^20.0.0",
+
+npm install
+
+```├── ui/              # Components    "@angular/material": "^20.0.5",
+
+
+
+## Next Steps└── api/             # API service    "@fontsource/material-icons": "^5.2.5",
+
+
+
+- Review **NAVIGATION_SYSTEM.md** for menu configuration```    "@fontsource/roboto": "^5.2.6",
+
+- Check **STYLING_SYSTEM.md** for theming guidelines
+
+- Explore the codebase in `/src/app/`    "rxjs": "~7.8.0"
+
+
+2. Create signal store:  }
+
+```typescript}
+
+export const MyFeatureStore = signalStore(```
+
+  { providedIn: 'root' },
+
+  withState(initialState),### Font Configuration
+
+  withMethods(...)
+
+);#### NPM-Based Fonts (No Internet Required)
+
+```The application uses npm packages for fonts instead of CDN links, eliminating proxy/internet connectivity issues.
+
+
+
+3. Create component:```scss
+
+```typescript// In styles.scss
+
+@Component({@import '@fontsource/roboto/300.css';  // Light
+
+  selector: 'app-my-feature',@import '@fontsource/roboto/400.css';  // Regular
+
+  standalone: true,@import '@fontsource/roboto/500.css';  // Medium
+
+  template: '...'@import '@fontsource/roboto/700.css';  // Bold
+
+})
+
+export class MyFeatureComponent {}// Material Icons (all variants)
+
+```@import '@fontsource/material-icons/index.css';
+
 @import '@fontsource/material-icons-outlined/index.css';
-@import '@fontsource/material-icons-round/index.css';
-@import '@fontsource/material-icons-sharp/index.css';
-```
 
-#### Benefits
+## Testing@import '@fontsource/material-icons-round/index.css';
+
+@import '@fontsource/material-icons-sharp/index.css';
+
+```bash```
+
+# Unit tests
+
+npm test#### Benefits
+
 - ✅ **No CDN dependency** - Works offline
-- ✅ **Proxy-friendly** - No external requests
-- ✅ **Version control** - Consistent font versions
+
+# E2E tests- ✅ **Proxy-friendly** - No external requests
+
+npm run cypress:open- ✅ **Version control** - Consistent font versions
+
 - ✅ **Performance** - Local font loading
 
-## Theme Configuration
+# Build production
 
-### Material 3 Setup
-```typescript
-// In app.config.ts
-import { provideAnimations } from '@angular/platform-browser/animations';
+npm run build## Theme Configuration
 
-export const appConfig: ApplicationConfig = {
-  providers: [
-    provideAnimations(),
-    // Other providers...
-  ]
-};
 ```
 
-### Theme Variables
-Key CSS custom properties configured in the theme system:
+### Material 3 Setup
 
-```scss
-// Color system
+## Troubleshooting```typescript
+
+// In app.config.ts
+
+### Common Issuesimport { provideAnimations } from '@angular/platform-browser/animations';
+
+
+
+**Port already in use:**export const appConfig: ApplicationConfig = {
+
+```bash  providers: [
+
+# Kill process on port    provideAnimations(),
+
+npx kill-port 4200    // Other providers...
+
+npx kill-port 3001  ]
+
+```};
+
+```
+
+**Dependencies error:**
+
+```bash### Theme Variables
+
+# Clean installKey CSS custom properties configured in the theme system:
+
+rm -rf node_modules package-lock.json
+
+npm install```scss
+
+```// Color system
+
 --primary-color: #6750a4;
---secondary-color: #625b71;
---surface-color: #fffbfe;
---background-color: #fffbfe;
 
-// Typography
---font-family-primary: 'Roboto', sans-serif;
+**Build errors:**--secondary-color: #625b71;
+
+```bash--surface-color: #fffbfe;
+
+# Clear Angular cache--background-color: #fffbfe;
+
+rm -rf .angular dist
+
+ng serve// Typography
+
+```--font-family-primary: 'Roboto', sans-serif;
+
 --font-size-base: 14px;
 --line-height-base: 1.5;
 

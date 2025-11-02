@@ -12,9 +12,9 @@ import {
 import { filter, map, shareReplay } from 'rxjs/operators';
 
 import { Footer } from './core/layout/footer/footer';
-import { Header } from './core/layout/header/header';
 import { Sidenav } from './core/layout/sidenav/sidenav';
 import { TopnavComponent } from './core/layout/topnav/topnav';
+import { SidenavService } from './shared/services/sidenav.service';
 import {
   BreadcrumbComponent,
   BreadcrumbStyle,
@@ -28,7 +28,7 @@ import {
     RouterModule,
     MatSidenavModule,
     MatToolbarModule,
-    Header,
+    //Header,
     Footer,
     Sidenav,
     TopnavComponent,
@@ -40,11 +40,15 @@ import {
 export class App implements OnInit {
   private readonly breakpointObserver = inject(BreakpointObserver);
   private readonly router = inject(Router);
+  private readonly sidenavService = inject(SidenavService);
 
   // Angular 20 signals for reactive state
   protected readonly title = signal('Apex Dashboard');
   readonly currentBreadcrumbStyle = signal<BreadcrumbStyle>('arrow-flow');
   readonly activeMenuTab = signal('dashboard');
+
+  // Sidenav collapsed state
+  readonly sidenavCollapsed = this.sidenavService.isCollapsed;
 
   // Convert observable to signal for responsiveness
   readonly isHandset = toSignal(

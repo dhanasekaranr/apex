@@ -62,8 +62,6 @@ export class BreadcrumbComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log('🔄 BreadcrumbComponent: Initializing');
-
     // Initialize breadcrumb data if not loaded
     this.initializeBreadcrumbData();
 
@@ -74,30 +72,26 @@ export class BreadcrumbComponent implements OnInit {
         map(() => this.router.url)
       )
       .subscribe((url) => {
-        console.log('🧭 BreadcrumbComponent: Route changed to:', url);
         this._currentUrl.set(url);
-        this.buildBreadcrumbsFromRoute(url);
+        // Wait a bit for data to be loaded before building breadcrumbs
+        setTimeout(() => this.buildBreadcrumbsFromRoute(url), 100);
       });
 
-    // Build initial breadcrumbs
+    // Build initial breadcrumbs after a short delay to ensure data is loaded
     const currentUrl = this.router.url;
     this._currentUrl.set(currentUrl);
-    this.buildBreadcrumbsFromRoute(currentUrl);
+    setTimeout(() => {
+      this.buildBreadcrumbsFromRoute(currentUrl);
+    }, 200);
   }
 
   private initializeBreadcrumbData(): void {
     // MenuService already loads all navigation data including breadcrumb config
-    // BreadcrumbComponent just needs to wait for the data to be available
-    console.log(
-      '� BreadcrumbComponent: Waiting for navigation data from MenuService'
-    );
-
-    // No need to dispatch any loading actions - MenuService handles this
+    // via loadAllNavigationData() - no need to load separately
     // The component will reactively update when data becomes available through signals
   }
 
   private buildBreadcrumbsFromRoute(url: string): void {
-    console.log('🔄 BreadcrumbComponent: Building breadcrumbs for:', url);
     this.navigationStore.buildBreadcrumbsFromRoute(url);
   }
 
@@ -105,7 +99,6 @@ export class BreadcrumbComponent implements OnInit {
    * Navigate to a specific URL
    */
   navigateTo(url: string): void {
-    console.log('🧭 BreadcrumbComponent: Navigating to:', url);
     this.router.navigate([url]);
   }
 
@@ -120,7 +113,6 @@ export class BreadcrumbComponent implements OnInit {
    * Update the breadcrumb style
    */
   setBreadcrumbStyle(style: BreadcrumbStyle): void {
-    console.log('🎨 BreadcrumbComponent: Setting breadcrumb style:', style);
     this.breadcrumbStyle = style;
     this.navigationStore.setBreadcrumbStyle(style);
   }
@@ -136,7 +128,6 @@ export class BreadcrumbComponent implements OnInit {
    * Refresh breadcrumb data
    */
   refreshBreadcrumbData(): void {
-    console.log('🔄 BreadcrumbComponent: Refreshing breadcrumb data');
     this.navigationStore.loadBreadcrumbConfig();
   }
 }

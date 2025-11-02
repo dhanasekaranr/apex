@@ -240,16 +240,30 @@
   width: 40px !important; // Increased for better accessibility (44px minimum recommended)
   height: 40px !important;
   min-width: 40px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
   
   .mat-mdc-button-touch-target {
     width: 40px !important;
     height: 40px !important;
   }
   
+  .mat-mdc-button-persistent-ripple,
+  .mat-mdc-button-ripple {
+    border-radius: 50% !important;
+  }
+  
   .mat-icon {
     font-size: 20px !important; // Increased for better visibility
     width: 20px !important;
     height: 20px !important;
+    line-height: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
   
   // Ensure sufficient contrast for icon buttons
@@ -633,55 +647,56 @@
   }
 }
 
-// Footer/Toolbar Overrides - Bank of America Theme (Matching Header)
+// Footer/Toolbar Overrides - White Theme
 .footer-toolbar,
 .mat-toolbar.footer-toolbar,
 app-footer .mat-toolbar.footer-toolbar {
-  background: linear-gradient(135deg, 
-    rgba(0, 64, 128, 0.95), 
-    rgba(0, 51, 102, 1)) !important; // Match header's BoA blue gradient
-  backdrop-filter: blur(10px) !important; // Professional backdrop filter
-  border-top: 2px solid #CC0E29 !important; // BoA red accent border (matching header)
+  background: white !important;
+  backdrop-filter: none !important;
+  border: 0 !important;
   min-height: 40px !important; // Compact footer height
   height: 40px !important; // Force exact height
   max-height: 40px !important; // Prevent expansion
-  color: #ffffff !important; // White text on blue background (matching header)
+  color: rgba(0, 0, 0, 0.87) !important; // Black text on white background
   flex-shrink: 0 !important; // Prevent the footer from shrinking
-  box-shadow: 0 -2px 8px rgba(0, 64, 128, 0.15) !important; // BoA blue shadow above
+  box-shadow: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
   
   .footer-content {
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
     width: 100% !important;
-    padding: 0 var(--spacing-md) !important; // Reduced padding to match topnav
+    padding: 0 var(--spacing-md) !important;
     height: 100% !important;
   }
   
   .footer-left {
-    font-size: var(--font-size-sm) !important; // Use theme font size
-    color: #ffffff !important; // White text on blue background
+    font-size: var(--font-size-sm) !important;
+    color: rgba(0, 0, 0, 0.87) !important; // Black text on white background
     font-weight: var(--font-weight-normal) !important;
-    opacity: 0.9 !important; // Slight transparency for hierarchy
+    opacity: 1 !important;
   }
   
   .footer-right {
     display: flex !important;
-    gap: var(--spacing-sm) !important; // Use theme spacing
+    gap: var(--spacing-sm) !important;
     align-items: center !important;
     
     .mat-mdc-button,
     .mat-mdc-icon-button {
-      color: #ffffff !important; // White buttons on blue background
+      color: rgba(0, 0, 0, 0.87) !important; // Black buttons on white background
       
       &:hover {
-        color: #ffffff !important;
-        background-color: rgba(255, 255, 255, 0.1) !important; // White hover effect
+        color: rgba(0, 0, 0, 0.87) !important;
+        background-color: rgba(0, 0, 0, 0.04) !important; // Gray hover effect
       }
       
       &:focus {
-        background-color: rgba(255, 255, 255, 0.15) !important; // White focus effect
-        outline: 2px solid rgba(255, 255, 255, 0.5) !important; // Accessible focus outline
+        background-color: rgba(0, 0, 0, 0.08) !important; // Gray focus effect
+        outline: 2px solid rgba(0, 0, 0, 0.5) !important; // Accessible focus outline
       }
     }
   }
@@ -708,11 +723,12 @@ app-footer .mat-toolbar.footer-toolbar {
   }
 }
 
-// Header/Toolbar Overrides - Material 3 Design
-
+// Note: Header component has been removed and replaced with topnav
+// Keeping header styles commented for reference if needed later
+/*
 .header-container {
   width: 100% !important;
-  flex-shrink: 0 !important; // Prevent the header from shrinking
+  flex-shrink: 0 !important;
 }
 
 .header-toolbar,
@@ -720,27 +736,28 @@ app-footer .mat-toolbar.footer-toolbar {
   position: sticky !important;
   top: 0 !important;
   z-index: 1000 !important;
-  box-shadow: 0 2px 8px rgba(0, 101, 179, 0.15) !important; // BoA blue shadow
+  box-shadow: none !important;
   display: flex !important;
   align-items: center !important;
   min-height: 64px !important;
   padding: 0 var(--spacing-lg) !important;
-  background: linear-gradient(135deg, 
-    rgba(0, 64, 128, 0.95), 
-    rgba(0, 51, 102, 1)) !important; // Accessible BoA blue gradient
+  background: white !important;
   backdrop-filter: blur(10px) !important;
-  color: #ffffff !important; // White text on blue background (21:1 contrast)
-  border-bottom: 2px solid #CC0E29 !important; // Accessible BoA red accent border
+  color: rgba(0, 0, 0, 0.87) !important; // Black text on white background
+  border-bottom: 1px solid white !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
   
   .sidenav-toggle {
     margin-right: var(--spacing-md) !important;
     
     mat-icon {
-      color: #ffffff !important; // White icon on blue background
+      color: rgba(0, 0, 0, 0.87) !important; // Black icon
     }
     
     &:hover {
-      background-color: rgba(255, 255, 255, 0.1) !important; // White hover effect
+      background-color: rgba(0, 0, 0, 0.08) !important; // Gray hover effect
     }
   }
   
@@ -748,7 +765,7 @@ app-footer .mat-toolbar.footer-toolbar {
     font-size: var(--font-size-xl) !important;
     font-weight: var(--font-weight-semibold) !important;
     margin-right: var(--spacing-lg) !important;
-    color: #ffffff !important; // White title text
+    color: rgba(0, 0, 0, 0.87) !important; // Black title text
   }
   
   .spacer {
@@ -780,7 +797,7 @@ app-footer .mat-toolbar.footer-toolbar {
     .metric-label {
       font-size: var(--font-size-xs) !important;
       font-weight: var(--font-weight-normal) !important;
-      color: rgba(255, 255, 255, 0.8) !important; // Light white for labels on blue bg
+      color: rgba(0, 0, 0, 0.6) !important; // Gray for labels
       text-transform: uppercase !important;
       letter-spacing: 0.5px !important;
       margin-bottom: var(--spacing-xs) !important;
@@ -791,12 +808,12 @@ app-footer .mat-toolbar.footer-toolbar {
       font-size: var(--font-size-sm) !important;
       font-weight: var(--font-weight-bold) !important;
       line-height: 1 !important;
-      color: #ffffff !important; // White text for values
+      color: rgba(0, 0, 0, 0.87) !important; // Black text for values
     }
     
-    // Color variants for metrics (adjusted for dark header)
+    // Color variants for metrics
     &.metric-primary .metric-value {
-      color: #ffffff !important; // White on blue header
+      color: rgba(0, 0, 0, 0.87) !important; // Black text
     }
     
     &.metric-success .metric-value {
@@ -939,6 +956,7 @@ app-footer .mat-toolbar.footer-toolbar {
     }
   }
 }
+*/
 
 // User Profile Menu - Material 3
 .user-profile-menu {
@@ -2000,15 +2018,42 @@ app-orders {
 // Sidenav Container
 mat-sidenav-container {
   height: 100vh !important;
+  width: 100% !important;
 }
 
 mat-sidenav {
-  width: 240px !important;
+  width: 260px !important;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  overflow: visible !important;
+  flex-shrink: 0 !important; // Prevent sidenav from shrinking
+  
+  &.collapsed {
+    width: 72px !important;
+  }
   
   // Ensure sidenav content uses full height
   app-sidenav {
     height: 100% !important;
     display: block !important;
+    overflow: hidden !important;
+    
+    // White sidenav styling
+    mat-sidenav {
+      background-color: #ffffff !important;
+      border-right: none !important;
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
+      position: relative !important;
+    }
+    
+    // Make the divider after sidenav header invisible
+    mat-divider {
+      opacity: 0 !important;
+      height: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+      background: transparent !important;
+    }
   }
 }
 
@@ -2017,15 +2062,79 @@ mat-sidenav-content {
   flex-direction: column !important;
   height: 100vh !important;
   overflow: hidden !important;
+  flex: 1 1 auto !important; // Allow content to grow and take remaining space
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  margin-left: 260px !important; // Default margin for expanded sidenav
+  
+  // When sidenav is collapsed, reduce margin to give content more space
+  &.sidenav-collapsed {
+    margin-left: 72px !important;
+  }
+  
+  // All direct children should be full width and respond to container
+  > * {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
   
   // Header stays at top
   app-header {
     flex-shrink: 0 !important;
   }
   
+  // Top navigation
+  app-topnav {
+    flex-shrink: 0 !important;
+    width: 100% !important;
+    display: block !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  // Footer
+  app-footer {
+    flex-shrink: 0 !important;
+    border-top: 0 !important;
+    background-color: white !important;
+    width: 100% !important;
+    display: block !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    
+    .footer-toolbar {
+      width: 100% !important;
+    }
+  }
+  
+  // Breadcrumb component
+  app-breadcrumb {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  // Breadcrumb wrapper
+  .breadcrumb-wrapper {
+    flex-shrink: 0 !important;
+    width: 100% !important;
+    padding: 12px 24px !important;
+    background-color: transparent !important;
+    border: none !important;
+    display: block !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    
+    @media (max-width: 768px) {
+      padding: 8px 16px !important;
+    }
+  }
+  
   // Horizontal menu bar stays below header
   .horizontal-menu-bar {
     flex-shrink: 0 !important;
+    width: 100% !important;
   }
   
   // Main content area can scroll
@@ -2037,20 +2146,26 @@ mat-sidenav-content {
     min-height: 0 !important; // Important for flex child to respect overflow
     max-height: 100% !important;
     width: 100% !important; // Ensure full width usage
+    box-sizing: border-box !important;
     
     // Ensure all child components respect the container height and width
     > * {
       max-width: 100% !important;
       width: 100% !important;
+      box-sizing: border-box !important;
     }
   }
   
   // Footer stays at bottom
   app-footer {
     flex-shrink: 0 !important;
-    border-top: 1px solid var(--border-light) !important;
+    border-top: 0 !important;
     background-color: white !important;
     width: 100% !important; // Ensure footer uses full width
+    
+    .footer-toolbar {
+      width: 100% !important;
+    }
   }
 }
 
@@ -2065,18 +2180,22 @@ mat-sidenav-content {
 // Horizontal Menu Bar Navigation - Enhanced Material 3 Design with Responsive Search
 .horizontal-menu-bar {
   display: flex !important;
-  justify-content: space-between !important;
+  justify-content: flex-start !important; // Changed from space-between to flex-start for left alignment
   align-items: center !important;
   background-color: white !important;
-  border-bottom: 1px solid var(--border-light) !important;
+  border: 0 !important;
   padding: 0 var(--spacing-md) !important;
   min-height: 56px !important;
-  box-shadow: var(--shadow-sm) !important;
+  box-shadow: none !important;
   position: sticky !important;
   top: 64px !important;
   z-index: 100 !important;
   flex-shrink: 0 !important;
   overflow: hidden !important; // Prevent content overflow on small screens
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  gap: 8px !important; // Add gap between flex children
 
   .menu-nav {
     display: flex !important;
@@ -2089,53 +2208,70 @@ mat-sidenav-content {
 
       .menu-item {
         min-width: auto !important;
-        padding: 8px 16px !important; // More compact padding for tighter layout
-        height: 36px !important; // Slightly reduced height for better proportion
-        border-radius: 18px !important; // Adjusted to match new height
-        font-size: 14px !important; // Consistent readable size
+        padding: 8px 16px !important;
+        height: 36px !important;
+        border-radius: 0 !important;
+        font-size: 14px !important;
         font-weight: var(--font-weight-medium) !important;
-        color: var(--text-secondary) !important;
+        color: rgba(0, 0, 0, 0.6) !important;
         transition: all 0.3s ease !important;
         display: flex !important;
         align-items: center !important;
-        gap: 4px !important; // Reduced from var(--spacing-sm) for tighter spacing
+        gap: 4px !important;
         cursor: pointer !important;
-        text-transform: none !important; // Ensure text is not uppercased
+        text-transform: none !important;
+        border: none !important;
+        box-shadow: none !important;
 
         mat-icon {
-          font-size: 18px !important; // Slightly reduced for better proportion
+          font-size: 18px !important;
           height: 18px !important;
           width: 18px !important;
+          color: #004080 !important;
         }
 
         &.dropdown {
           .dropdown-arrow {
-            margin-left: 2px !important; // Reduced from var(--spacing-xs) for tighter spacing
-            font-size: 16px !important; // Slightly smaller for better proportion
+            margin-left: 2px !important;
+            font-size: 16px !important;
             transition: transform 0.2s ease !important;
+            color: #004080 !important;
           }
           
           &[aria-expanded="true"] {
-            background-color: var(--background-secondary) !important; // Light background instead of primary-light
-            color: var(--primary-color) !important;
-            border: 1px solid var(--primary-light) !important; // Add subtle border for active state
+            background-color: rgba(0, 0, 0, 0.08) !important;
+            color: rgba(0, 0, 0, 0.87) !important;
+            box-shadow: inset 3px 0 0 0 #004080 !important;
             
             .dropdown-arrow {
               transform: rotate(180deg) !important;
+              color: #004080 !important;
+            }
+            
+            mat-icon {
+              color: #004080 !important;
             }
           }
         }
 
         &:hover {
-          background-color: var(--background-secondary) !important;
-          color: var(--text-primary) !important;
+          background-color: rgba(0, 0, 0, 0.04) !important;
+          color: rgba(0, 0, 0, 0.87) !important;
+          
+          mat-icon {
+            color: #004080 !important;
+          }
         }
 
         &.active {
-          background-color: var(--background-secondary) !important; // Light background instead of primary-light
-          color: var(--primary-color) !important;
+          background-color: rgba(0, 0, 0, 0.08) !important;
+          color: rgba(0, 0, 0, 0.87) !important;
           font-weight: var(--font-weight-semibold) !important;
-          border: 1px solid var(--primary-light) !important; // Add subtle border for active state
+          box-shadow: inset 3px 0 0 0 #004080 !important;
+          
+          mat-icon {
+            color: #004080 !important;
+          }
         }
 
         // Override Material button default backgrounds to prevent double backgrounds
@@ -2174,6 +2310,7 @@ mat-sidenav-content {
     gap: 8px !important;
     flex-shrink: 0 !important; // Prevent action buttons from shrinking
     min-width: fit-content !important; // Maintain minimum size for functionality
+    margin-left: auto !important; // Push to the right side
 
     .mat-mdc-icon-button {
       width: 36px !important;
@@ -2182,6 +2319,13 @@ mat-sidenav-content {
       
       .mat-icon {
         font-size: 20px !important;
+        color: #004080 !important;
+      }
+      
+      &:hover {
+        .mat-icon {
+          color: #004080 !important;
+        }
       }
     }
   }
@@ -2193,38 +2337,58 @@ mat-sidenav-content {
     min-width: 200px !important;
     max-width: 300px !important;
     box-shadow: var(--shadow-lg) !important;
-    border-radius: var(--border-radius-lg) !important;
-    border: 1px solid var(--border-light) !important;
+    border-radius: var(--border-radius-md) !important;
+    border: 1px solid rgba(0, 0, 0, 0.12) !important;
   }
 
   .mat-mdc-menu-item {
-    padding: var(--spacing-md) var(--spacing-lg) !important; // Increased padding
+    padding: 8px 16px !important;
     height: auto !important;
-    min-height: 48px !important; // Increased min-height for better touch targets
+    min-height: 40px !important;
+    border-radius: var(--border-radius-sm) !important;
+    margin: 2px 4px !important;
+    transition: all 0.2s ease !important;
+    border-left: 3px solid transparent !important;
     
     .mat-icon {
-      margin-right: var(--spacing-md) !important; // Increased margin
-      color: var(--text-secondary) !important;
-      font-size: 20px !important; // Increased icon size
-      width: 20px !important;
-      height: 20px !important;
+      margin-right: 8px !important;
+      color: rgba(0, 0, 0, 0.6) !important;
+      font-size: 18px !important;
+      width: 18px !important;
+      height: 18px !important;
     }
     
     span {
-      font-size: var(--font-size-md) !important; // Increased from sm to md
+      font-size: 14px !important;
       font-weight: var(--font-weight-medium) !important;
-      color: var(--text-primary) !important; // Ensure good contrast
+      color: rgba(0, 0, 0, 0.87) !important;
     }
     
     &:hover {
-      background-color: var(--primary-light) !important;
+      background-color: rgba(0, 0, 0, 0.04) !important;
+      border-left: 3px solid transparent !important;
       
       .mat-icon {
-        color: var(--primary-color) !important;
+        color: rgba(0, 0, 0, 0.87) !important;
       }
       
       span {
-        color: var(--primary-color) !important;
+        color: rgba(0, 0, 0, 0.87) !important;
+      }
+    }
+    
+    &.active,
+    &[aria-current="page"] {
+      background-color: rgba(0, 0, 0, 0.08) !important;
+      border-left: 3px solid rgba(0, 0, 0, 0.54) !important;
+      
+      .mat-icon {
+        color: rgba(0, 0, 0, 0.87) !important;
+      }
+      
+      span {
+        color: rgba(0, 0, 0, 0.87) !important;
+        font-weight: var(--font-weight-semibold) !important;
       }
     }
   }
@@ -2234,9 +2398,10 @@ mat-sidenav-content {
 .cdk-overlay-pane {
   .mat-mdc-menu-panel {
     transform-origin: top left !important;
-    max-height: 600px !important;
+    max-height: none !important;
     max-width: 480px !important;
-    overflow-y: auto !important;
+    overflow-y: visible !important;
+    overflow-x: hidden !important;
   }
 }
 
@@ -2254,9 +2419,17 @@ mat-sidenav-content {
 
 // Global Material Toolbar Overrides
 .mat-toolbar {
+  border: 0 !important;
+  box-shadow: none !important;
+  
   &.mat-primary {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important;
   }
+}
+
+.mat-toolbar-row {
+  border: 0 !important;
+  box-shadow: none !important;
 }
 
 // Responsive Navigation
@@ -2348,13 +2521,15 @@ mat-sidenav {
 
 // Search Container Styles - Responsive Design (Specific to Topnav)
 .horizontal-menu-bar .search-container {
-  margin-right: 12px !important;
+  margin-right: 16px !important; // Space between search and nav
+  margin-left: 0 !important; // No left margin since it's first
   display: flex !important;
   align-items: center !important;
   flex-shrink: 1 !important;
-  flex-grow: 1 !important; // Allow growth to use available space
-  min-width: 160px !important;
-  max-width: 400px !important; // Increased max width for better space utilization
+  flex-grow: 0 !important; // Don't grow, fixed width
+  min-width: 200px !important; // Wider minimum for better usability on left
+  max-width: 300px !important; // Controlled max width
+  order: -1 !important; // Ensure it appears first in flex order
   
   .search-field {
     width: 100% !important;
@@ -2514,42 +2689,51 @@ mat-sidenav {
   .profile-section {
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm); // Increased gap for better spacing
+    gap: 8px; // Reduced gap
     margin-top: auto; // Push to bottom of header
+    padding: 8px 12px; // Reduced padding
     
     .profile-avatar {
-      width: 44px; // Slightly larger avatar
-      height: 44px;
+      width: 32px; // Smaller avatar
+      height: 32px;
       border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.15) !important; // Semi-transparent white on red
+      background-color: rgba(0, 0, 0, 0.1) !important;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 2px solid rgba(255, 255, 255, 0.3) !important; // White border on red background
+      border: 1px solid rgba(0, 0, 0, 0.2) !important;
+      flex-shrink: 0;
       
       .avatar-icon {
-        font-size: var(--icon-size-lg);
-        width: var(--icon-size-lg);
-        height: var(--icon-size-lg);
-        color: #ffffff !important; // White icon on red background
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        color: rgba(0, 0, 0, 0.87) !important;
       }
     }
     
     .profile-info {
       flex: 1;
+      min-width: 0; // Allow text truncation
       
       .profile-name {
-        font-size: var(--font-size-lg); // Larger name text
-        font-weight: var(--font-weight-bold); // Bolder name
-        margin-bottom: 3px; // More space between name and role
-        color: #ffffff !important; // White text on red background
+        font-size: 13px; // Smaller name text
+        font-weight: 500;
+        margin-bottom: 2px;
+        color: rgba(0, 0, 0, 0.87) !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       
       .profile-role {
-        font-size: var(--font-size-sm); // Slightly larger role text
-        opacity: 0.9; // Better visibility on red background
-        color: rgba(255, 255, 255, 0.85) !important; // Light white on red background
-        font-weight: var(--font-weight-medium);
+        font-size: 11px; // Smaller role text
+        opacity: 0.8;
+        color: rgba(0, 0, 0, 0.6) !important;
+        font-weight: 400;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   }
@@ -2565,7 +2749,7 @@ mat-sidenav {
   display: flex;
   align-items: center;
   padding: 4px var(--spacing-sm);
-  margin: 0 var(--spacing-xs) 1px 0;
+  margin: 0 var(--spacing-xs) 1px var(--spacing-xs);
   color: inherit;
   text-decoration: none;
   cursor: pointer;
@@ -2603,18 +2787,18 @@ mat-sidenav {
   }
   
   &:hover {
-    background-color: rgba(0, 101, 179, 0.06); // BoA blue hover
+    background-color: rgba(0, 0, 0, 0.04); // Gray hover
     border-radius: var(--border-radius-md);
   }
   
   &.active-link {
-    background-color: rgba(0, 101, 179, 0.12); // BoA blue active
-    color: var(--primary-color); // BoA blue text
+    background-color: rgba(0, 0, 0, 0.08); // Gray active
+    color: rgba(0, 0, 0, 0.87); // Black text
     border-radius: var(--border-radius-md);
-    border-left: 3px solid var(--primary-color); // BoA blue accent border
+    border-left: 3px solid rgba(0, 0, 0, 0.54); // Gray accent border
     
     mat-icon {
-      color: var(--primary-color); // BoA blue icons
+      color: rgba(0, 0, 0, 0.87); // Black icons
     }
   }
   
@@ -2661,7 +2845,7 @@ mat-sidenav {
 // Submenu Styles - Bank of America Theme
 .submenu {
   margin-left: var(--spacing-md);
-  border-left: 2px solid rgba(0, 101, 179, 0.2); // BoA blue submenu border
+  border-left: 2px solid rgba(0, 0, 0, 0.12); // Gray submenu border
   padding-left: var(--spacing-xs);
   margin-top: var(--spacing-xs);
   margin-bottom: var(--spacing-xs);
@@ -2701,15 +2885,15 @@ mat-sidenav {
     }
     
     &:hover {
-      background-color: rgba(0, 101, 179, 0.06); // BoA blue hover
+      background-color: rgba(0, 0, 0, 0.04); // Gray hover
     }
     
     &.active-link {
-      background-color: rgba(0, 101, 179, 0.12); // BoA blue active
-      color: var(--primary-color); // BoA blue text
+      background-color: rgba(0, 0, 0, 0.08); // Gray active
+      color: rgba(0, 0, 0, 0.87); // Black text
       
       .sub-icon {
-        color: var(--primary-color); // BoA blue icon
+        color: rgba(0, 0, 0, 0.87); // Black icon
       }
     }
     
@@ -2753,7 +2937,7 @@ mat-sidenav {
 
 // Sidenav Footer Styles
 .sidenav-footer {
-  border-top: 1px solid var(--border-light);
+  border-top: 0px solid var(--border-light);
   padding: var(--spacing-xs) 0;
 }
 
@@ -2835,7 +3019,7 @@ mat-sidenav {
     }
     
     &:hover {
-      background-color: rgba(0, 101, 179, 0.06) !important; // BoA blue hover
+      background-color: rgba(0, 0, 0, 0.04) !important; // Gray hover
     }
     
     // Ensure the entire header is clickable
@@ -3026,34 +3210,75 @@ mat-sidenav {
 // Global breadcrumb component styles for consistent navigation
 
 .breadcrumb-container {
-  width: 100%;
-  margin-bottom: var(--spacing-2xs); // Even smaller margin for minimal prominence
-  opacity: 0.7; // More subtle overall appearance
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  display: block !important;
   
   .breadcrumb-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--spacing-2xs); // Reduced gap
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
   }
   
   .breadcrumb-item {
-    display: flex;
-    align-items: center;
+    display: flex !important;
+    align-items: center !important;
     
     &.current {
       .breadcrumb-current {
-        color: var(--mat-sys-on-surface) !important; // Normal text color
-        background: transparent !important; // No background
-        font-weight: 600 !important; // Semibold for visibility
-        font-size: 14px !important; // Readable size
-        padding: 4px 12px !important; // Adequate padding
-        border-radius: 6px !important; // Rounded corners
+        color: rgba(0, 0, 0, 0.87) !important;
+        background: transparent !important;
+        font-weight: 500 !important;
+        font-size: 13px !important;
+        padding: 0 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 6px !important;
       }
     }
+  }
+  
+  .breadcrumb-link {
+    color: rgba(0, 0, 0, 0.5) !important;
+    text-decoration: none !important;
+    font-size: 13px !important;
+    padding: 0 !important;
+    transition: color 0.2s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    background: transparent !important;
+    border: none !important;
+    
+    &:hover {
+      color: rgba(0, 0, 0, 0.87) !important;
+      background: transparent !important;
+    }
+  }
+  
+  .breadcrumb-separator {
+    color: rgba(0, 0, 0, 0.3) !important;
+    font-size: 16px !important;
+    margin: 0 2px !important;
+    display: inline-flex !important;
+  }
+  
+  .breadcrumb-icon {
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+    margin-right: 4px !important;
+  }
+  
+  .breadcrumb-label {
+    display: inline !important;
+    visibility: visible !important;
   }
   
 
@@ -3143,7 +3368,7 @@ mat-sidenav {
     background: none;
     
     &:hover {
-      color: #0065B3; // BoA blue on hover
+      color: rgba(0, 0, 0, 0.87); // Black on hover
       background: none;
       transform: none;
       box-shadow: none;
@@ -3152,7 +3377,7 @@ mat-sidenav {
   }
   
   .breadcrumb-current {
-    color: #0065B3; // BoA blue for current item
+    color: rgba(0, 0, 0, 0.87); // Black for current item
     font-weight: var(--font-weight-medium);
   }
   

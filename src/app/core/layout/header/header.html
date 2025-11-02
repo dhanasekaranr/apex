@@ -1,31 +1,36 @@
 <div class="header-container">
   <!-- Main Toolbar -->
   <mat-toolbar class="header-toolbar">
-    <button
-      type="button"
-      aria-label="Toggle sidenav"
-      mat-icon-button
-      (click)="drawer.toggle()"
-      *ngIf="isHandset">
-      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-    </button>
+    @if (isHandset) {
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+    }
     
     <span class="spacer"></span>
     
     <!-- Metrics Section (moved from dashboard-info-row) -->
     <div class="metrics-section">
-      <div class="metric-item" *ngFor="let metric of topMetrics" [class]="'metric-' + metric.color">
-        <span class="metric-label">{{ metric.label }}</span>
-        <span class="metric-value">{{ metric.value }}</span>
-      </div>
+      @for (metric of topMetrics; track metric.label) {
+        <div class="metric-item" [class]="'metric-' + metric.color">
+          <span class="metric-label">{{ metric.label }}</span>
+          <span class="metric-value">{{ metric.value }}</span>
+        </div>
+      }
     </div>
     
     <!-- Info Panels Section -->
     <div class="info-panels">
-      <div class="info-panel" *ngFor="let panel of infoPanels">
-        <div class="panel-label">{{ panel.label }}</div>
-        <div class="panel-value">{{ panel.value }}</div>
-      </div>
+      @for (panel of infoPanels; track panel.label) {
+        <div class="info-panel">
+          <div class="panel-label">{{ panel.label }}</div>
+          <div class="panel-value">{{ panel.value }}</div>
+        </div>
+      }
     </div>
     
     <span class="spacer-small"></span>
@@ -44,7 +49,9 @@
               aria-label="Notifications"
               [class.has-notifications]="hasUnreadNotifications()">
         <mat-icon>notifications</mat-icon>
-        <span class="notification-badge" *ngIf="unreadCount() > 0">{{ unreadCount() }}</span>
+        @if (unreadCount() > 0) {
+          <span class="notification-badge">{{ unreadCount() }}</span>
+        }
       </button>
       
       <!-- System Admin Dropdown -->
@@ -166,30 +173,31 @@
     
     <mat-divider></mat-divider>
     
-    <div class="notification-list" *ngIf="recentNotifications().length > 0; else noNotifications">
-      <div class="notification-item" 
-           *ngFor="let notification of recentNotifications()" 
-           [class.unread]="!notification.read"
-           (click)="markAsRead(notification)">
-        <div class="notification-icon">
-          <mat-icon [color]="getNotificationColor(notification.type)">
-            {{ getNotificationIcon(notification.type) }}
-          </mat-icon>
-        </div>
-        <div class="notification-content">
-          <div class="notification-title">{{ notification.title }}</div>
-          <div class="notification-message">{{ notification.message }}</div>
-          <div class="notification-time">{{ notification.timestamp | date:'short' }}</div>
-        </div>
+    @if (recentNotifications().length > 0) {
+      <div class="notification-list">
+        @for (notification of recentNotifications(); track notification.id) {
+          <div class="notification-item" 
+               [class.unread]="!notification.read"
+               (click)="markAsRead(notification)">
+            <div class="notification-icon">
+              <mat-icon [color]="getNotificationColor(notification.type)">
+                {{ getNotificationIcon(notification.type) }}
+              </mat-icon>
+            </div>
+            <div class="notification-content">
+              <div class="notification-title">{{ notification.title }}</div>
+              <div class="notification-message">{{ notification.message }}</div>
+              <div class="notification-time">{{ notification.timestamp | date:'short' }}</div>
+            </div>
+          </div>
+        }
       </div>
-    </div>
-    
-    <ng-template #noNotifications>
+    } @else {
       <div class="no-notifications">
         <mat-icon>notifications_off</mat-icon>
         <span>No new notifications</span>
       </div>
-    </ng-template>
+    }
     
     <mat-divider></mat-divider>
     

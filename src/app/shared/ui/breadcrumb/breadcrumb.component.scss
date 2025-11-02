@@ -1,3 +1,5 @@
+// Breadcrumb Component Styles
+// Component :host styles are in /themes/material/_material3-overrides.scss
 // Professional breadcrumb navigation
 .breadcrumb-container {
   padding: 8px 0;
@@ -7,6 +9,43 @@
   box-shadow: none;
   border: none;
   border-bottom: 1px solid var(--mat-sys-outline-variant);
+  width: 100%;
+  box-sizing: border-box;
+  
+  // Remove all Material button hover backgrounds
+  ::ng-deep {
+    .mat-mdc-button,
+    .mat-mdc-raised-button,
+    .mat-mdc-outlined-button {
+      &:hover {
+        background: transparent !important;
+        
+        .mat-mdc-button-persistent-ripple,
+        .mat-mdc-button-ripple,
+        .mat-mdc-button-touch-target {
+          background: transparent !important;
+          background-color: transparent !important;
+        }
+      }
+      
+      .mat-mdc-button-persistent-ripple,
+      .mat-mdc-button-ripple,
+      .mat-mdc-button-touch-target {
+        background: transparent !important;
+        background-color: transparent !important;
+        
+        &::before,
+        &::after {
+          background: transparent !important;
+          background-color: transparent !important;
+        }
+      }
+      
+      .mdc-button__ripple {
+        display: none !important;
+      }
+    }
+  }
 }
 
 .breadcrumb-list {
@@ -33,20 +72,29 @@
   display: flex;
   align-items: center;
   padding: 6px 12px;
-  border-radius: 6px;
-  background: transparent;
+  border-radius: 0;
+  background: transparent !important;
   color: var(--mat-sys-primary);
   font-weight: 500;
   font-size: 0.875rem;
-  transition: all 0.2s ease;
+  transition: color 0.2s ease;
   text-decoration: none;
-  border: 1px solid transparent;
+  border: none;
   min-height: 36px;
+  cursor: pointer;
   
+  // No hover effect - breadcrumbs should not have any hover backgrounds or highlights
   &:hover {
-    background: var(--mat-sys-primary-container);
-    color: var(--mat-sys-on-primary-container);
-    border-color: var(--mat-sys-primary);
+    color: var(--mat-sys-primary);
+    text-decoration: none;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  
+  &:focus {
+    background: transparent !important;
+    outline: none;
   }
   
   .breadcrumb-icon {

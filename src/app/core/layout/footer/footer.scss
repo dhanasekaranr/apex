@@ -1,38 +1,31 @@
-// Optimized footer
-.footer-toolbar {
-  background: linear-gradient(135deg, var(--mat-sys-primary), var(--mat-sys-primary-container));
-  color: var(--mat-sys-on-primary);
-  
-  .footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    
-    .footer-left span {
-      font-size: 0.875rem;
-      color: var(--mat-sys-on-primary);
-    }
-    
-    .footer-right {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      
-      .mat-mdc-icon-button {
-        color: var(--mat-sys-on-primary);
-        
-        &:hover {
-          background: rgba(255, 255, 255, 0.1);
-        }
-      }
-    }
-  }
+// Footer Component Styles - Minimal
+// Most footer styles have been moved to /themes/material/_material3-overrides.scss
+
+// Notification badge styling
+.notification-badge {
+  position: absolute !important;
+  top: 6px !important;
+  right: 6px !important;
+  background: #d32f2f !important;
+  color: white !important;
+  border-radius: 50% !important;
+  min-width: 16px !important;
+  height: 16px !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 2px solid white !important;
+  z-index: 10 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
 }
 
 .system-info-menu ::ng-deep .mat-mdc-menu-panel {
-  min-width: 400px;
-  border-radius: 12px;
+  min-width: 420px;
+  max-width: 480px;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   
   .system-info-content {
     background: var(--mat-sys-surface);
@@ -40,47 +33,54 @@
     .system-info-header {
       display: flex;
       align-items: center;
-      padding: 20px;
+      padding: 16px 20px;
       gap: 12px;
-      background: linear-gradient(135deg, var(--mat-sys-primary), var(--mat-sys-secondary));
-      color: var(--mat-sys-on-primary);
+      background: white;
+      color: rgba(0, 0, 0, 0.87);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
       
       h3 {
         margin: 0;
-        font-size: 18px;
-        font-weight: 600;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
       }
     }
     
     .system-info-details {
-      padding: 20px;
+      padding: 16px 20px 20px;
       
       .info-row {
-        display: grid;
-        grid-template-columns: 140px 1fr;
-        gap: 16px;
-        align-items: center;
-        padding: 8px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--mat-sys-outline-variant);
+        
+        &:last-of-type {
+          border-bottom: none;
+        }
         
         .info-label {
-          font-size: 11px;
-          font-weight: 600;
+          font-size: 10px;
+          font-weight: 500;
           color: var(--mat-sys-on-surface-variant);
           text-transform: uppercase;
-          background-color: var(--mat-sys-surface-container);
-          padding: 6px 10px;
-          border-radius: 6px;
-          border-left: 2px solid var(--mat-sys-primary);
+          letter-spacing: 0.8px;
+          margin-bottom: 2px;
         }
         
         .info-value {
           font-family: 'Roboto Mono', monospace;
           font-size: 13px;
-          font-weight: 600;
-          color: var(--mat-sys-primary);
-          background-color: var(--mat-sys-primary-container);
-          padding: 6px 12px;
+          font-weight: 500;
+          color: rgba(0, 0, 0, 0.87);
+          background-color: rgba(0, 0, 0, 0.04);
+          padding: 8px 12px;
           border-radius: 6px;
+          border-left: 3px solid rgba(0, 0, 0, 0.87);
+          word-break: break-word;
+          line-height: 1.4;
         }
       }
       
@@ -92,14 +92,18 @@
         justify-content: flex-end;
         
         .copy-button {
-          background: linear-gradient(135deg, var(--mat-sys-primary), var(--mat-sys-secondary));
-          color: var(--mat-sys-on-primary);
+          background: rgba(0, 0, 0, 0.87);
+          color: white;
           border: none;
           border-radius: 20px;
           padding: 8px 16px;
           font-size: 12px;
           font-weight: 600;
           cursor: pointer;
+          
+          &:hover {
+            background: rgba(0, 0, 0, 0.7);
+          }
         }
       }
     }

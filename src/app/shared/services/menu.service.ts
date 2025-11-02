@@ -85,7 +85,6 @@ export class MenuService {
    * Add a new menu section
    */
   addMenuSection(section: MenuSection): void {
-    console.log('➕ MenuService: Adding menu section:', section.id);
     this.navigationStore.addMenuSection(section);
   }
 
@@ -93,7 +92,6 @@ export class MenuService {
    * Remove a menu section by ID
    */
   removeMenuSection(sectionId: string): void {
-    console.log('🗑️ MenuService: Removing menu section:', sectionId);
     this.navigationStore.removeMenuSection(sectionId);
   }
 
@@ -101,7 +99,6 @@ export class MenuService {
    * Update a specific menu section
    */
   updateMenuSection(sectionId: string, section: Partial<MenuSection>): void {
-    console.log('✏️ MenuService: Updating menu section:', sectionId);
     this.navigationStore.updateMenuSection(sectionId, section);
   }
 
@@ -109,7 +106,6 @@ export class MenuService {
    * Set the active menu tab
    */
   setActiveMenuTab(tabId: string): void {
-    console.log('🎯 MenuService: Setting active menu tab:', tabId);
     this.navigationStore.setActiveMenuTab(tabId);
   }
 
@@ -124,7 +120,6 @@ export class MenuService {
    * Refresh navigation data from server
    */
   refreshNavigationData(): void {
-    console.log('🔄 MenuService: Refreshing navigation data');
     this.navigationStore.refreshNavigationData();
   }
 
@@ -132,7 +127,6 @@ export class MenuService {
    * Clear navigation cache
    */
   clearCache(): void {
-    console.log('🗑️ MenuService: Clearing navigation cache');
     this.navigationStore.clearNavigationCache();
   }
 }

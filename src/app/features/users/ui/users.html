@@ -162,21 +162,21 @@
             <td mat-cell *matCellDef="let user" role="gridcell">
               <div class="screen-access">
                 <mat-chip-set>
-                  @for (screen of user.screenAccess.slice(0, 2); track screen) {
+                  @for (screen of (user.screenAccess || []).slice(0, 2); track screen) {
                     <mat-chip>
                       {{screen}}
                     </mat-chip>
                   }
-                  @if (user.screenAccess.length > 2) {
+                  @if ((user.screenAccess?.length || 0) > 2) {
                     <mat-chip [matTooltip]="'Click to see all screen access'"
                              (click)="toggleExpandRow(user)"
                            (keydown.enter)="toggleExpandRow(user)"
                            (keydown.space)="toggleExpandRow(user)"
                            class="expandable-chip"
-                           [attr.aria-label]="'Show ' + (user.screenAccess.length - 2) + ' more screens for ' + user.userName"
+                           [attr.aria-label]="'Show ' + ((user.screenAccess?.length || 2) - 2) + ' more screens for ' + user.userName"
                            tabindex="0"
                            role="button">
-                      +{{user.screenAccess.length - 2}} more
+                      +{{(user.screenAccess?.length || 2) - 2}} more
                     </mat-chip>
                   }
                 </mat-chip-set>
@@ -285,10 +285,10 @@
                     </div>
                     
                     <div class="detail-section">
-                      <h4><mat-icon>security</mat-icon> Complete Screen Access ({{row.screenAccess.length}} screens)</h4>
+                      <h4><mat-icon>security</mat-icon> Complete Screen Access ({{row.screenAccess?.length || 0}} screens)</h4>
                       <div class="detail-chips">
                         <mat-chip-set>
-                          @for (screen of row.screenAccess; track screen) {
+                          @for (screen of (row.screenAccess || []); track screen) {
                             <mat-chip [color]="'primary'" selected>
                               {{screen}}
                             </mat-chip>
@@ -350,7 +350,7 @@
                         </div>
                         <div class="detail-item">
                           <span class="detail-label">Total Screen Access:</span>
-                          <span class="detail-value">{{row.screenAccess.length}} screens</span>
+                          <span class="detail-value">{{row.screenAccess?.length || 0}} screens</span>
                         </div>
                       </div>
                     </div>

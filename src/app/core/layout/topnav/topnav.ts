@@ -52,6 +52,13 @@ export class TopnavComponent implements OnInit {
   topNavConfig = this.menuService.topNavConfig;
   activeMenuTab = this.menuService.activeMenuTab;
 
+  // Current user info
+  currentUser = {
+    name: 'Watson Joyce',
+    role: 'Administrator',
+    email: 'admin@company.com',
+  };
+
   // Event emitters for parent component communication
   @Output() menuTabChanged = new EventEmitter<string>();
   @Output() searchPerformed = new EventEmitter<string>();
@@ -70,13 +77,15 @@ export class TopnavComponent implements OnInit {
     this.menuTabChanged.emit(tab);
   }
 
-  onMenuItemClicked(item: MenuItem): void {
+  onMenuItemClicked(item: MenuItem, parentItem?: MenuItem): void {
     if (item.action) {
       this.executeAction(item.action);
     }
     if (item.routerLink) {
       this.router.navigate([item.routerLink]);
-      this.setActiveMenuTab(item.id);
+      // If there's a parent, set parent as active, otherwise set item itself
+      const activeTabId = parentItem ? parentItem.id : item.id;
+      this.setActiveMenuTab(activeTabId);
     }
   }
 
@@ -91,6 +100,42 @@ export class TopnavComponent implements OnInit {
   getChildrenById(parentItem: MenuItem, childId: string): MenuItem[] {
     const child = parentItem.children?.find((c) => c.id === childId);
     return child?.children || [];
+  }
+
+  isParentActive(item: MenuItem): boolean {
+    // Check if the item itself is active
+    if (this.activeMenuTab() === item.id) {
+      return true;
+    }
+
+    // Check if any child is active by checking if current route matches child routes
+    if (item.children && item.children.length > 0) {
+      const currentUrl = this.router.url;
+      return this.checkChildrenActive(item.children, currentUrl);
+    }
+
+    return false;
+  }
+
+  private checkChildrenActive(
+    children: MenuItem[],
+    currentUrl: string
+  ): boolean {
+    for (const child of children) {
+      // Check if child's route matches current URL
+      if (child.routerLink && currentUrl.includes(child.routerLink)) {
+        return true;
+      }
+
+      // Recursively check nested children
+      if (child.children && child.children.length > 0) {
+        if (this.checkChildrenActive(child.children, currentUrl)) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   private executeAction(action: string): void {
@@ -140,5 +185,108 @@ export class TopnavComponent implements OnInit {
 
   openSettings(): void {
     this.settingsOpened.emit();
+  }
+
+  // System Admin Methods
+  manageUsers() {
+    console.log('Opening user management...');
+  }
+
+  manageRoles() {
+    console.log('Opening role management...');
+  }
+
+  activeUsers() {
+    console.log('Viewing active user sessions...');
+  }
+
+  userAudit() {
+    console.log('Opening user audit trail...');
+  }
+
+  generalSettings() {
+    console.log('Opening general settings...');
+  }
+
+  emailSettings() {
+    console.log('Opening email configuration...');
+  }
+
+  databaseSettings() {
+    console.log('Opening database settings...');
+  }
+
+  backupSettings() {
+    console.log('Opening backup configuration...');
+  }
+
+  passwordPolicy() {
+    console.log('Opening password policy settings...');
+  }
+
+  twoFactorAuth() {
+    console.log('Opening two-factor authentication settings...');
+  }
+
+  accessControl() {
+    console.log('Opening access control settings...');
+  }
+
+  securityLogs() {
+    console.log('Opening security logs...');
+  }
+
+  systemHealth() {
+    console.log('Checking system health...');
+  }
+
+  clearCache() {
+    console.log('Clearing cache...');
+  }
+
+  optimizeDatabase() {
+    console.log('Optimizing database...');
+  }
+
+  systemRestart() {
+    console.log('Initiating system restart...');
+  }
+
+  viewSystemLogs() {
+    console.log('Opening system logs...');
+  }
+
+  // User Profile Methods
+  viewProfile() {
+    console.log('Opening user profile...');
+  }
+
+  changePassword() {
+    console.log('Opening change password dialog...');
+  }
+
+  myActivity() {
+    console.log('Viewing my activity...');
+  }
+
+  logout() {
+    console.log('Logging out...');
+  }
+
+  // Preferences Methods
+  themeSettings() {
+    console.log('Opening theme settings...');
+  }
+
+  languageSettings() {
+    console.log('Opening language settings...');
+  }
+
+  notificationSettings() {
+    console.log('Opening notification settings...');
+  }
+
+  privacySettings() {
+    console.log('Opening privacy settings...');
   }
 }

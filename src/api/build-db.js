@@ -21,9 +21,7 @@ const db = {
   systemInformation: [settingsData.systemInformation],
   navigation: navigationData,
   breadcrumb: breadcrumbData,
-  notifications: notificationsData,
-  'individual-notifications': notificationsData[0]?.notifications || [],
-  'notification-settings': notificationsData[0]?.settings || {}
+  notifications: notificationsData
 };
 
 // Write the combined database
@@ -37,5 +35,3 @@ console.log(`📊 Settings: 4 categories (General, Preferences, Security, System
 console.log(`📊 Navigation: ${navigationData.length} configuration(s)`);
 console.log(`📊 Breadcrumb: ${breadcrumbData.length} configuration(s)`);
 console.log(`📊 Notifications: ${notificationsData.length} configuration(s)`);
-console.log(`📊 Individual Notifications: ${notificationsData[0]?.notifications?.length || 0} records`);
-console.log(`📊 Notification Settings: ${Object.keys(notificationsData[0]?.settings || {}).length} settings`);

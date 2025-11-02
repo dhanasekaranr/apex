@@ -22,6 +22,16 @@ export const environment = {
     enableExperimentalFeatures: true,
   },
 
+  // Development Tools Configuration
+  devTools: {
+    enableReduxDevTools: true, // 🎯 Redux DevTools for Signal Stores
+    enableConsoleDebugging: true, // Console logging for stores
+    enablePerformanceTracking: true, // Performance monitoring
+    enableStateExport: true, // Allow state export/import
+    storesToDebug: ['*'], // '*' for all stores, or specific: ['UsersStore', 'SettingsStore']
+    maxHistorySize: 50, // Max actions to keep in DevTools
+  },
+
   // Logging Configuration
   logging: {
     level: 'debug', // 'error', 'warn', 'info', 'debug'

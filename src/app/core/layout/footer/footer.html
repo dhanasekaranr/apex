@@ -5,6 +5,26 @@
     </div>
     
     <div class="footer-right">
+      <!-- Quick Tools Dropdown -->
+      <button mat-icon-button 
+              [matMenuTriggerFor]="quickToolsMenu"
+              matTooltip="Quick Tools"
+              aria-label="Quick Tools">
+        <mat-icon>build</mat-icon>
+      </button>
+      
+      <!-- Notifications Dropdown -->
+      <button mat-icon-button 
+              [matMenuTriggerFor]="notificationsMenu"
+              matTooltip="Notifications"
+              aria-label="Notifications"
+              [class.has-notifications]="hasUnreadNotifications()">
+        <mat-icon>notifications</mat-icon>
+        @if (unreadCount() > 0) {
+          <span class="notification-badge">{{ unreadCount() }}</span>
+        }
+      </button>
+      
       <button 
         mat-icon-button 
         aria-label="View system information"
@@ -85,6 +105,143 @@
             </div>
           </div>
         </div>
+      </mat-menu>
+
+      <!-- Quick Tools Menu -->
+      <mat-menu #quickToolsMenu="matMenu" class="header-dropdown-menu">
+        <button mat-menu-item [matMenuTriggerFor]="dataToolsSubmenu">
+          <mat-icon>database</mat-icon>
+          <span>Data Tools</span>
+          <mat-icon class="submenu-arrow">chevron_right</mat-icon>
+        </button>
+        
+        <button mat-menu-item [matMenuTriggerFor]="reportsSubmenu">
+          <mat-icon>assessment</mat-icon>
+          <span>Quick Reports</span>
+          <mat-icon class="submenu-arrow">chevron_right</mat-icon>
+        </button>
+        
+        <button mat-menu-item (click)="openCalculator()">
+          <mat-icon>calculate</mat-icon>
+          <span>Calculator</span>
+        </button>
+        
+        <button mat-menu-item (click)="openCalendar()">
+          <mat-icon>calendar_today</mat-icon>
+          <span>Calendar</span>
+        </button>
+        
+        <mat-divider></mat-divider>
+        
+        <button mat-menu-item [matMenuTriggerFor]="integrationSubmenu">
+          <mat-icon>integration_instructions</mat-icon>
+          <span>Integrations</span>
+          <mat-icon class="submenu-arrow">chevron_right</mat-icon>
+        </button>
+      </mat-menu>
+
+      <!-- Data Tools Submenu -->
+      <mat-menu #dataToolsSubmenu="matMenu">
+        <button mat-menu-item (click)="exportAllData()">
+          <mat-icon>file_download</mat-icon>
+          <span>Export All Data</span>
+        </button>
+        <button mat-menu-item (click)="importData()">
+          <mat-icon>file_upload</mat-icon>
+          <span>Import Data</span>
+        </button>
+        <button mat-menu-item (click)="backupDatabase()">
+          <mat-icon>backup</mat-icon>
+          <span>Backup Database</span>
+        </button>
+        <button mat-menu-item (click)="dataValidation()">
+          <mat-icon>fact_check</mat-icon>
+          <span>Data Validation</span>
+        </button>
+      </mat-menu>
+
+      <!-- Reports Submenu -->
+      <mat-menu #reportsSubmenu="matMenu">
+        <button mat-menu-item (click)="generateDailyReport()">
+          <mat-icon>today</mat-icon>
+          <span>Daily Summary</span>
+        </button>
+        <button mat-menu-item (click)="generateWeeklyReport()">
+          <mat-icon>date_range</mat-icon>
+          <span>Weekly Report</span>
+        </button>
+        <button mat-menu-item (click)="generateMonthlyReport()">
+          <mat-icon>calendar_month</mat-icon>
+          <span>Monthly Report</span>
+        </button>
+        <button mat-menu-item (click)="customReport()">
+          <mat-icon>tune</mat-icon>
+          <span>Custom Report</span>
+        </button>
+      </mat-menu>
+
+      <!-- Integration Submenu -->
+      <mat-menu #integrationSubmenu="matMenu">
+        <button mat-menu-item (click)="syncWithERP()">
+          <mat-icon>sync</mat-icon>
+          <span>Sync with ERP</span>
+        </button>
+        <button mat-menu-item (click)="connectToAPI()">
+          <mat-icon>api</mat-icon>
+          <span>API Connections</span>
+        </button>
+        <button mat-menu-item (click)="webhookSettings()">
+          <mat-icon>webhook</mat-icon>
+          <span>Webhook Settings</span>
+        </button>
+      </mat-menu>
+
+      <!-- Notifications Menu -->
+      <mat-menu #notificationsMenu="matMenu" class="notifications-menu">
+        <div class="notification-header">
+          <h3>Notifications</h3>
+          <button mat-icon-button 
+                  (click)="markAllAsRead()" 
+                  matTooltip="Mark all as read"
+                  aria-label="Mark all notifications as read">
+            <mat-icon>done_all</mat-icon>
+          </button>
+        </div>
+        
+        <mat-divider></mat-divider>
+        
+        @if (recentNotifications().length > 0) {
+          <div class="notification-list">
+            @for (notification of recentNotifications(); track notification.id) {
+              <div class="notification-item" 
+                   [class.unread]="!notification.read"
+                   (click)="markAsRead(notification)">
+                <div class="notification-icon">
+                  <mat-icon [color]="getNotificationColor(notification.type)">
+                    {{ getNotificationIcon(notification.type) }}
+                  </mat-icon>
+                </div>
+                <div class="notification-content">
+                  <div class="notification-title">{{ notification.title }}</div>
+                  <div class="notification-message">{{ notification.message }}</div>
+                  <div class="notification-time">{{ notification.timestamp | date:'short' }}</div>
+                </div>
+              </div>
+            }
+          </div>
+        } @else {
+          <div class="no-notifications">
+            <mat-icon>notifications_off</mat-icon>
+            <span>No new notifications</span>
+          </div>
+        }
+        
+        <mat-divider></mat-divider>
+        
+        <button mat-menu-item (click)="viewAllNotifications()">
+          <mat-icon>list</mat-icon>
+          <span>View All Notifications</span>
+        </button>
       </mat-menu>
     </div>
   </div>

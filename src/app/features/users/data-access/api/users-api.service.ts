@@ -22,6 +22,12 @@ export class UsersApiService extends BaseApiService {
   }
 
   updateUser(user: User): Observable<User> {
+    // Defensive programming - validate user object
+    if (!user || typeof user.id === 'undefined') {
+      console.error('❌ Invalid user object passed to updateUser API:', user);
+      throw new Error('User object is required and must have a valid id');
+    }
+
     return this.put<User>(user, `/${user.id}`);
   }
 

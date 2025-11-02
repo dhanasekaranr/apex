@@ -544,272 +544,19 @@
         "menuSections": [
           {
             "id": "health",
-            "label": "Health Check",
+            "label": "Health",
             "order": 1,
-            "breadcrumbLabel": "Health Check",
+            "breadcrumbLabel": "Health",
             "breadcrumbIcon": "health_and_safety",
             "items": [
               {
                 "id": "health",
-                "label": "Health Check",
+                "label": "Health",
                 "icon": "health_and_safety",
                 "routerLink": "/dashboard",
                 "action": "navigate",
-                "breadcrumbLabel": "Health Check",
+                "breadcrumbLabel": "Health",
                 "breadcrumbIcon": "health_and_safety"
-              }
-            ]
-          },
-          {
-            "id": "resources",
-            "label": "Resources",
-            "order": 2,
-            "breadcrumbLabel": "Resources",
-            "breadcrumbIcon": "people",
-            "items": [
-              {
-                "id": "resources-main",
-                "label": "Resources",
-                "icon": "people",
-                "breadcrumbLabel": "Resources",
-                "breadcrumbIcon": "people",
-                "children": [
-                  {
-                    "id": "all-resources",
-                    "label": "All Resources",
-                    "icon": "list",
-                    "routerLink": "/users",
-                    "action": "navigate",
-                    "breadcrumbLabel": "Users",
-                    "breadcrumbIcon": "people"
-                  },
-                  {
-                    "id": "resource-management",
-                    "label": "Resource Management",
-                    "icon": "manage_accounts",
-                    "breadcrumbLabel": "Resource Management",
-                    "breadcrumbIcon": "manage_accounts",
-                    "children": [
-                      {
-                        "id": "create-resource",
-                        "label": "Create Resource",
-                        "icon": "person_add",
-                        "action": "createUser",
-                        "breadcrumbLabel": "Create Resource",
-                        "breadcrumbIcon": "person_add"
-                      },
-                      {
-                        "id": "import-resources",
-                        "label": "Import Resources",
-                        "icon": "upload",
-                        "action": "importUsers",
-                        "breadcrumbLabel": "Import Resources",
-                        "breadcrumbIcon": "upload"
-                      },
-                      {
-                        "id": "export-resources",
-                        "label": "Export Resources",
-                        "icon": "download",
-                        "action": "exportUsers",
-                        "breadcrumbLabel": "Export Resources",
-                        "breadcrumbIcon": "download"
-                      },
-                      {
-                        "id": "resource-templates",
-                        "label": "Resource Templates",
-                        "icon": "description",
-                        "action": "userTemplates",
-                        "dividerAfter": true,
-                        "breadcrumbLabel": "Resource Templates",
-                        "breadcrumbIcon": "description"
-                      }
-                    ]
-                  },
-                  {
-                    "id": "resource-roles",
-                    "label": "Roles & Permissions",
-                    "icon": "security",
-                    "breadcrumbLabel": "Roles & Permissions",
-                    "breadcrumbIcon": "security",
-                    "children": [
-                      {
-                        "id": "manage-roles",
-                        "label": "Manage Roles",
-                        "icon": "admin_panel_settings",
-                        "action": "manageRoles",
-                        "breadcrumbLabel": "Manage Roles",
-                        "breadcrumbIcon": "admin_panel_settings"
-                      },
-                      {
-                        "id": "permission-matrix",
-                        "label": "Permission Matrix",
-                        "icon": "grid_on",
-                        "action": "permissionMatrix",
-                        "breadcrumbLabel": "Permission Matrix",
-                        "breadcrumbIcon": "grid_on"
-                      },
-                      {
-                        "id": "role-templates",
-                        "label": "Role Templates",
-                        "icon": "copy",
-                        "action": "roleTemplates",
-                        "breadcrumbLabel": "Role Templates",
-                        "breadcrumbIcon": "copy"
-                      }
-                    ]
-                  },
-                  {
-                    "id": "bulk-operations",
-                    "label": "Bulk Operations",
-                    "icon": "group_work",
-                    "action": "bulkResourceOperations",
-                    "dividerAfter": true,
-                    "breadcrumbLabel": "Bulk Operations",
-                    "breadcrumbIcon": "group_work"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "id": "documents",
-            "label": "Documents",
-            "order": 4,
-            "breadcrumbLabel": "Documents",
-            "breadcrumbIcon": "description",
-            "items": [
-              {
-                "id": "documents-main",
-                "label": "Documents",
-                "icon": "description",
-                "breadcrumbLabel": "Documents",
-                "breadcrumbIcon": "description",
-                "children": [
-                  {
-                    "id": "financial-reports",
-                    "label": "Financial Reports",
-                    "icon": "account_balance",
-                    "breadcrumbLabel": "Financial Reports",
-                    "breadcrumbIcon": "account_balance",
-                    "children": [
-                      {
-                        "id": "profit-loss",
-                        "label": "Profit & Loss",
-                        "icon": "trending_up",
-                        "action": "profitLossReport",
-                        "breadcrumbLabel": "Profit & Loss",
-                        "breadcrumbIcon": "trending_up"
-                      },
-                      {
-                        "id": "balance-sheet",
-                        "label": "Balance Sheet",
-                        "icon": "account_balance_wallet",
-                        "action": "balanceSheetReport",
-                        "breadcrumbLabel": "Balance Sheet",
-                        "breadcrumbIcon": "account_balance_wallet"
-                      },
-                      {
-                        "id": "cash-flow",
-                        "label": "Cash Flow",
-                        "icon": "water_drop",
-                        "action": "cashFlowReport",
-                        "breadcrumbLabel": "Cash Flow",
-                        "breadcrumbIcon": "water_drop"
-                      },
-                      {
-                        "id": "revenue-report",
-                        "label": "Revenue Report",
-                        "icon": "attach_money",
-                        "action": "revenueReport",
-                        "breadcrumbLabel": "Revenue Report",
-                        "breadcrumbIcon": "attach_money"
-                      }
-                    ]
-                  },
-                  {
-                    "id": "operational-reports",
-                    "label": "Operational Reports",
-                    "icon": "business",
-                    "breadcrumbLabel": "Operational Reports",
-                    "breadcrumbIcon": "business",
-                    "children": [
-                      {
-                        "id": "inventory-report",
-                        "label": "Inventory Report",
-                        "icon": "inventory",
-                        "action": "inventoryReport",
-                        "breadcrumbLabel": "Inventory Report",
-                        "breadcrumbIcon": "inventory"
-                      },
-                      {
-                        "id": "performance-report",
-                        "label": "Performance Report",
-                        "icon": "speed",
-                        "action": "performanceReport",
-                        "breadcrumbLabel": "Performance Report",
-                        "breadcrumbIcon": "speed"
-                      },
-                      {
-                        "id": "productivity-report",
-                        "label": "Productivity Report",
-                        "icon": "work",
-                        "action": "productivityReport",
-                        "breadcrumbLabel": "Productivity Report",
-                        "breadcrumbIcon": "work"
-                      }
-                    ]
-                  },
-                  {
-                    "id": "custom-reports",
-                    "label": "Custom Reports",
-                    "icon": "tune",
-                    "breadcrumbLabel": "Custom Reports",
-                    "breadcrumbIcon": "tune",
-                    "children": [
-                      {
-                        "id": "create-custom-report",
-                        "label": "Create Custom Report",
-                        "icon": "add",
-                        "action": "createCustomReport",
-                        "breadcrumbLabel": "Create Custom Report",
-                        "breadcrumbIcon": "add"
-                      },
-                      {
-                        "id": "saved-reports",
-                        "label": "Saved Reports",
-                        "icon": "bookmark",
-                        "action": "savedReports",
-                        "breadcrumbLabel": "Saved Reports",
-                        "breadcrumbIcon": "bookmark"
-                      },
-                      {
-                        "id": "report-templates",
-                        "label": "Report Templates",
-                        "icon": "description",
-                        "action": "reportTemplates",
-                        "breadcrumbLabel": "Report Templates",
-                        "breadcrumbIcon": "description"
-                      }
-                    ]
-                  },
-                  {
-                    "id": "report-builder",
-                    "label": "Report Builder",
-                    "icon": "build",
-                    "action": "reportBuilder",
-                    "dividerAfter": true,
-                    "breadcrumbLabel": "Report Builder",
-                    "breadcrumbIcon": "build"
-                  },
-                  {
-                    "id": "scheduled-reports",
-                    "label": "Scheduled Reports",
-                    "icon": "schedule",
-                    "action": "scheduledReports",
-                    "breadcrumbLabel": "Scheduled Reports",
-                    "breadcrumbIcon": "schedule"
-                  }
-                ]
               }
             ]
           },
@@ -881,6 +628,7 @@
                         "id": "profile-settings",
                         "label": "Profile Settings",
                         "icon": "account_circle",
+                        "routerLink": "/audit",
                         "action": "profileSettings",
                         "breadcrumbLabel": "Preferences",
                         "breadcrumbIcon": "person_pin"
@@ -890,6 +638,7 @@
                         "label": "Theme Settings",
                         "icon": "palette",
                         "action": "themeSettings",
+                        "routerLink": "/audit",
                         "breadcrumbLabel": "Theme Settings",
                         "breadcrumbIcon": "palette"
                       },
@@ -897,6 +646,7 @@
                         "id": "language-settings",
                         "label": "Language Settings",
                         "icon": "language",
+                        "routerLink": "/audit",
                         "action": "languageSettings",
                         "breadcrumbLabel": "Language Settings",
                         "breadcrumbIcon": "language"
@@ -915,6 +665,7 @@
                         "label": "Password Policy",
                         "icon": "lock",
                         "action": "passwordPolicy",
+                        "routerLink": "/audit",
                         "breadcrumbLabel": "Password Policy",
                         "breadcrumbIcon": "lock"
                       },
@@ -923,6 +674,7 @@
                         "label": "Two-Factor Auth",
                         "icon": "verified_user",
                         "action": "twoFactorAuth",
+                        "routerLink": "/audit",
                         "breadcrumbLabel": "Two-Factor Auth",
                         "breadcrumbIcon": "verified_user"
                       },
@@ -931,6 +683,7 @@
                         "label": "Session Settings",
                         "icon": "schedule",
                         "action": "sessionSettings",
+                        "routerLink": "/audit",
                         "breadcrumbLabel": "Session Settings",
                         "breadcrumbIcon": "schedule"
                       }
@@ -942,6 +695,7 @@
                     "icon": "backup",
                     "action": "backupRestore",
                     "dividerAfter": true,
+                    "routerLink": "/audit",
                     "breadcrumbLabel": "Backup & Restore",
                     "breadcrumbIcon": "backup"
                   }
@@ -951,18 +705,18 @@
           },
           {
             "id": "audit",
-            "label": "Audit Log",
+            "label": "Audit",
             "order": 6,
-            "breadcrumbLabel": "Audit Log",
+            "breadcrumbLabel": "Audit",
             "breadcrumbIcon": "history",
             "items": [
               {
                 "id": "audit",
-                "label": "Audit Log",
+                "label": "Audit",
                 "icon": "history",
                 "routerLink": "/audit",
                 "action": "navigate",
-                "breadcrumbLabel": "Audit Log",
+                "breadcrumbLabel": "Audit",
                 "breadcrumbIcon": "history"
               }
             ]
@@ -1081,8 +835,8 @@
                 ]
               },
               {
-                "id": "angular-pilot",
-                "label": "Angular Pilot Enablement",
+                "id": "pilot-enablement",
+                "label": "Pilot Enablement",
                 "icon": "rocket_launch",
                 "routerLink": "/users",
                 "action": "navigate",
@@ -1098,14 +852,14 @@
               },
               {
                 "id": "configuration-settings",
-                "label": "Configuration Settings",
+                "label": "Configuration",
                 "icon": "settings",
                 "type": "expandable",
                 "expanded": false,
                 "children": [
                   {
                     "id": "application-settings",
-                    "label": "Application Settings",
+                    "label": "Application",
                     "icon": "settings_applications",
                     "routerLink": "/settings/general",
                     "action": "navigate",
@@ -1158,43 +912,6 @@
                     "type": "item"
                   }
                 ]
-              },
-              {
-                "id": "legacy-settings",
-                "label": "Settings",
-                "icon": "settings",
-                "type": "expandable",
-                "expanded": false,
-                "disabled": true,
-                "disabledReason": "App management is currently under maintenance",
-                "children": [
-                  {
-                    "id": "general-settings",
-                    "label": "General Settings",
-                    "icon": "tune",
-                    "routerLink": "/settings/general",
-                    "action": "navigate",
-                    "type": "item"
-                  },
-                  {
-                    "id": "user-preferences",
-                    "label": "User Preferences",
-                    "icon": "account_circle",
-                    "routerLink": "/settings/preferences",
-                    "action": "navigate",
-                    "type": "item"
-                  },
-                  {
-                    "id": "advanced-settings",
-                    "label": "Advanced Settings",
-                    "icon": "settings_applications",
-                    "routerLink": "/settings/advanced",
-                    "action": "navigate",
-                    "disabled": true,
-                    "disabledReason": "Requires administrator privileges",
-                    "type": "item"
-                  }
-                ]
               }
             ]
           },
@@ -1203,39 +920,6 @@
             "label": "Footer Navigation",
             "order": 2,
             "items": [
-              {
-                "id": "help-support",
-                "label": "Help & Support",
-                "icon": "help",
-                "type": "expandable",
-                "expanded": false,
-                "children": [
-                  {
-                    "id": "documentation",
-                    "label": "Documentation",
-                    "icon": "description",
-                    "routerLink": "/documentation",
-                    "action": "navigate",
-                    "type": "item"
-                  },
-                  {
-                    "id": "contact-support",
-                    "label": "Contact Support",
-                    "icon": "support_agent",
-                    "routerLink": "/support",
-                    "action": "navigate",
-                    "type": "item"
-                  },
-                  {
-                    "id": "report-issue",
-                    "label": "Report Issue",
-                    "icon": "bug_report",
-                    "routerLink": "/report-issue",
-                    "action": "navigate",
-                    "type": "item"
-                  }
-                ]
-              },
               {
                 "id": "logout",
                 "label": "Logout",
@@ -1328,14 +1012,8 @@
           "parentRoute": "dashboard",
           "order": 1
         },
-        "help": {
-          "label": "Help & Support",
-          "icon": "help",
-          "parentRoute": "dashboard",
-          "order": 1
-        },
         "audit": {
-          "label": "Audit Log",
+          "label": "Audit",
           "icon": "history",
           "parentRoute": "dashboard",
           "order": 1

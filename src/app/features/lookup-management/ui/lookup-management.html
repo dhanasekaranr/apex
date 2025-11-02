@@ -45,13 +45,14 @@
 
           <!-- Data List -->
           <mat-nav-list class="data-list">
-            <mat-list-item 
-              *ngFor="let lookup of filteredLookups"
-              [class.selected]="selectedLookup()?.id === lookup.id"
-              (click)="selectLookup(lookup)">
-              <div matListItemTitle>{{ lookup.name }}</div>
-              <div matListItemMeta class="data-category">{{ lookup.category }}</div>
-            </mat-list-item>
+            @for (lookup of filteredLookups; track lookup.id) {
+              <mat-list-item 
+                [class.selected]="selectedLookup()?.id === lookup.id"
+                (click)="selectLookup(lookup)">
+                <div matListItemTitle>{{ lookup.name }}</div>
+                <div matListItemMeta class="data-category">{{ lookup.category }}</div>
+              </mat-list-item>
+            }
           </mat-nav-list>
         </mat-card-content>
       </mat-card>
@@ -59,7 +60,8 @@
 
     <!-- Right Column - Data Details Panel -->
     <div class="right-panel data-details-panel">
-      <mat-card class="content-card" *ngIf="selectedLookup() as selectedItem">
+      @if (selectedLookup(); as selectedItem) {
+      <mat-card class="content-card">
         <mat-card-header>
           <mat-card-title>{{ selectedItem.name }}</mat-card-title>
           <mat-card-subtitle>{{ selectedItem.description }}</mat-card-subtitle>
@@ -159,9 +161,9 @@
           </div>
         </mat-card-content>
       </mat-card>
-
+      } @else {
       <!-- Empty State -->
-      <mat-card class="content-card empty-state" *ngIf="!selectedLookup">
+      <mat-card class="content-card empty-state">
         <mat-card-content>
           <div class="empty-content">
             <mat-icon class="empty-icon">table_view</mat-icon>
@@ -170,6 +172,7 @@
           </div>
         </mat-card-content>
       </mat-card>
+      }
     </div>
   </div>
 </div>

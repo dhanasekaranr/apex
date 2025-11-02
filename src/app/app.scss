@@ -4,14 +4,3 @@
 
 // Component-specific styles that don't belong in global theme
 // (Add any app-specific customizations here if needed)
-
-// Breadcrumb wrapper styling
-.breadcrumb-wrapper {
-  padding: 0 var(--spacing-md); // Use consistent spacing with topnav
-  background-color: var(--mat-sys-surface);
-  border-bottom: 1px solid var(--mat-sys-outline-variant);
-  
-  @media (max-width: 768px) {
-    padding: 0 var(--spacing-sm); // Slightly smaller on mobile
-  }
-}

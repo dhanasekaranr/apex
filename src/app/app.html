@@ -4,6 +4,7 @@
   <mat-sidenav 
     #drawer 
     class="sidenav" 
+    [class.collapsed]="sidenavCollapsed()"
     fixedInViewport
     [attr.role]="isHandset() ? 'dialog' : 'navigation'"
     [mode]="isHandset() ? 'over' : 'side'"
@@ -11,9 +12,10 @@
     <app-sidenav></app-sidenav>
   </mat-sidenav>
   
-  <mat-sidenav-content>
+  <mat-sidenav-content [class.sidenav-collapsed]="sidenavCollapsed()">
+    <!--
     <app-header [drawer]="drawer" [isHandset]="isHandset()"></app-header>
-    
+    -->
     <!-- Top Navigation Component -->
     <app-topnav 
       (menuTabChanged)="onMenuTabChanged($event)"

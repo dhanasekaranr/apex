@@ -1,28 +1,31 @@
-<div class="sidenav-header">
-  <!-- Apex Section -->
-  <div class="admin-tools-section">
-    <mat-icon class="admin-icon">settings</mat-icon>
-    <span class="admin-text">Apex</span>
-  </div>
-  
-  <!-- Spacer div for better visual separation -->
-  <div class="header-spacer"></div>
+<div class="sidenav-header" [class.collapsed]="isCollapsed()">
+  <!-- Bank of America Logo -->
+  @if (!isCollapsed()) {
+    <div class="bofa-logo-section">
+      <img 
+        src="https://secure.bankofamerica.com/content/images/ContextualSiteGraphics/Logos/en_US/BofA_rgb.png" 
+        alt="Bank of America" 
+        class="bofa-logo">
+    </div>
+  }
   
   <!-- User Profile Section - Watson Joyce -->
-  <div class="profile-section">
+  <div class="profile-section" [class.collapsed]="isCollapsed()">
     <div class="profile-avatar">
       <mat-icon class="avatar-icon">person</mat-icon>
     </div>
-    <div class="profile-info">
-      <div class="profile-name">Watson Joyce</div>
-      <div class="profile-role">Administrator</div>
-    </div>
+    @if (!isCollapsed()) {
+      <div class="profile-info">
+        <div class="profile-name">Watson Joyce</div>
+        <div class="profile-role">Administrator</div>
+      </div>
+    }
   </div>
 </div>
 
 <mat-divider></mat-divider>
 
-  <div class="nav-list">
+<div class="nav-list" [class.collapsed]="isCollapsed()">
     <!-- Dynamic navigation items -->
     @for (item of navItems(); track item.id || item.label) {
       
@@ -32,10 +35,15 @@
           [routerLink]="item.disabled ? null : item.routerLink"
           [routerLinkActive]="item.disabled ? '' : 'active-link'"
           [class.nav-item]="true"
-          [class.disabled]="item.disabled">
+          [class.collapsed]="isCollapsed()"
+          [class.disabled]="item.disabled"
+          [matTooltip]="isCollapsed() ? item.label : ''"
+          matTooltipPosition="right">
           <mat-icon>{{ item.icon }}</mat-icon>
-          <span>{{ item.label }}</span>
-          @if (item.disabled && item.disabledReason) {
+          @if (!isCollapsed()) {
+            <span>{{ item.label }}</span>
+          }
+          @if (item.disabled && item.disabledReason && !isCollapsed()) {
             <mat-icon 
               class="info-icon"
               [matTooltip]="item.disabledReason"
@@ -47,7 +55,7 @@
       }
 
       <!-- Expandable navigation item with submenu -->
-      @if (isExpandable(item)) {
+      @if (isExpandable(item) && !isCollapsed()) {
         <div class="expandable-item">
       
           <!-- Expandable header -->
@@ -181,4 +189,15 @@
         }
       }
     </div>
+  
+  <!-- Toggle Button at Bottom Right -->
+  <button 
+    mat-icon-button 
+    class="collapse-toggle-bottom"
+    (click)="toggleCollapse()"
+    [attr.aria-label]="isCollapsed() ? 'Expand sidebar' : 'Collapse sidebar'"
+    [matTooltip]="isCollapsed() ? 'Expand sidebar' : 'Collapse sidebar'"
+    matTooltipPosition="right">
+    <mat-icon>{{ isCollapsed() ? 'chevron_right' : 'chevron_left' }}</mat-icon>
+  </button>
 </div>

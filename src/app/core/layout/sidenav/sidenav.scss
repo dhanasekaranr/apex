@@ -1,244 +1,262 @@
-// Sidenav Component Styles - Bank of America Theme
-// Component-specific BoA branding for sidenav
+// Sidenav Component Styles
+// Component :host styles are in /themes/material/_material3-overrides.scss
 
-:host {
-  // Enhanced Bank of America styling for sidenav
-  mat-sidenav {
-    background-color: #ffffff !important; // Clean white background
-    border-right: none !important; // Remove default border, we'll add custom ones
-    overflow-x: hidden !important; // Prevent horizontal scrollbar
-    overflow-y: auto !important; // Allow vertical scrolling if needed
-    position: relative !important; // For pseudo-element positioning
-    
-    // Create split border - red for top, blue for bottom
-    &::after {
-      content: '' !important;
-      position: absolute !important;
-      top: 0 !important;
-      right: 0 !important;
-      width: 1px !important;
-      height: 100% !important;
-      background: linear-gradient(180deg,
-        rgba(204, 14, 41, 0.8) 0%,
-        rgba(204, 14, 41, 0.8) 50%,
-        rgba(0, 101, 179, 0.1) 50%,
-        rgba(0, 101, 179, 0.1) 100%) !important; // Red top half, blue bottom half
-      pointer-events: none !important;
-    }
-  }
+// Navigation list container
+.nav-list {
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  padding-bottom: 56px !important;
   
-  // Navigation list container
-  .nav-list {
-    overflow-x: hidden !important; // Prevent horizontal scrollbar
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
-  
-  // Sidenav header with red top and white bottom
-  .sidenav-header {
-    background: linear-gradient(180deg, 
-      rgba(204, 14, 41, 0.95) 0%,
-      rgba(153, 10, 31, 1) 50.0%,
-      rgba(0, 101, 179, 1) 49.5%,
-      rgba(0, 101, 179, 1) 51.5%,
-      rgba(255, 255, 255, 1) 50.5%,
-      rgba(255, 255, 255, 1) 100%) !important; // Red top, very thin blue separator, white bottom
-    border: none !important; // Remove all borders from header
-    border-bottom: none !important; // Specifically remove bottom border
-    box-shadow: none !important; // Remove any shadow that might look like a border
-  }
-
-  // Make the divider after sidenav header invisible
-  mat-divider {
-    opacity: 0 !important;
-    height: 0 !important;
-    margin: 0 !important;
-    border: none !important;
-    background: transparent !important;
-  }
-  
-  // Admin tools section enhancement
-  .admin-tools-section {
-    .admin-text {
-      color: #ffffff !important; // White text on red background
-      font-weight: 600 !important;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important; // Subtle shadow for readability
-    }
-    
-    .admin-icon {
-      color: #ffffff !important; // White icon on red background
-    }
-  }
-  
-  // Enhanced profile section
-  .profile-section {
-    .profile-name {
-      color: #333333 !important; // Dark text on white background
-      font-weight: 600 !important;
-    }
-    
-    .profile-role {
-      color: rgba(51, 51, 51, 0.75) !important; // Dark gray on white background
-    }
-    
-    .profile-avatar {
-      background-color: rgba(51, 51, 51, 0.1) !important; // Light gray background
-      border: 2px solid rgba(51, 51, 51, 0.2) !important; // Gray border
+  &.collapsed {
+    .nav-item {
+      justify-content: center !important;
+      padding: 8px !important;
       
-      .avatar-icon {
-        color: #333333 !important; // Dark icon for white background
+      mat-icon {
+        margin-right: 0 !important;
       }
     }
   }
+}
+
+// Sidenav header
+.sidenav-header {
+  background: white !important;
+  border: none !important;
+  box-shadow: none !important;
+  position: relative !important;
   
-  // Navigation enhancements (ADA Compliant)
-  .nav-item {
-    font-size: 16px !important; // ADA minimum font size
-    line-height: 1.5 !important; // WCAG AA line height
-    margin: 2px 8px !important;
-    border-radius: 8px !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    box-sizing: border-box !important;
-    overflow: hidden !important;
-    padding: 8px 12px !important; // Consistent padding for all nav items
-    display: flex !important;
-    align-items: center !important;
-    min-height: 44px !important; // Consistent minimum touch target
+  &.collapsed {
+    .bofa-logo-section {
+      display: none !important;
+    }
+    
+    .profile-section {
+      justify-content: center !important;
+      padding: 12px 8px !important;
+      
+      .profile-info {
+        display: none !important;
+      }
+    }
+  }
+}
+
+// Collapse toggle button at bottom right
+.collapse-toggle-bottom {
+  position: absolute !important;
+  bottom: 8px !important;
+  right: 8px !important;
+  width: 40px !important;
+  height: 40px !important;
+  background: transparent !important;
+  border: none !important;
+  z-index: 10 !important;
+  
+  mat-icon {
+    font-size: 24px !important;
+    color: #004080 !important;
+  }
+  
+  &:hover {
+    background: transparent !important;
+    
+    mat-icon {
+      color: #002040 !important;
+    }
+  }
+}
+
+// Bank of America Logo Section
+.bofa-logo-section {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 16px 12px !important;
+  
+  .bofa-logo {
+    max-width: 180px !important;
+    height: auto !important;
+    display: block !important;
+  }
+}
+
+// Profile section
+.profile-section {
+  padding: 6px 8px !important;
+  
+  .profile-name {
+    color: rgba(0, 0, 0, 0.87) !important;
+    font-weight: 500 !important;
+    font-size: 12px !important;
+  }
+  
+  .profile-role {
+    color: rgba(0, 0, 0, 0.6) !important;
+    font-size: 10px !important;
+  }
+  
+  .profile-avatar {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+    width: 28px !important;
+    height: 28px !important;
+    
+    .avatar-icon {
+      color: rgba(0, 0, 0, 0.87) !important;
+      font-size: 16px !important;
+    }
+  }
+}
+
+// Navigation items
+.nav-item {
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+  margin: 2px 8px !important;
+  border-radius: 8px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  padding: 8px 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  min-height: 44px !important;
+  
+  mat-icon:first-child {
+    margin-right: 12px !important;
+    flex-shrink: 0 !important;
+  }
+  
+  &.collapsed {
+    justify-content: center !important;
+    padding: 12px !important;
+    margin: 4px !important;
+    
+    mat-icon:first-child {
+      margin-right: 0 !important;
+    }
+  }
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.04) !important;
+    transform: translateX(1px) !important;
+  }
+  
+  &.active-link {
+    background: rgba(0, 0, 0, 0.08) !important;
+    border-left: 4px solid rgba(0, 0, 0, 0.87) !important;
+    border-radius: 0 8px 8px 0 !important;
+    position: relative !important;
+    
+    span {
+      font-weight: 600 !important;
+      color: rgba(0, 0, 0, 0.87) !important;
+    }
+  }
+  
+  &:focus-visible {
+    outline: 2px solid #004080 !important;
+    outline-offset: 1px !important;
+    box-shadow: inset 0 0 0 1px rgba(0, 64, 128, 0.2) !important;
+  }
+  
+  &:focus:not(:focus-visible) {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+// Submenu items
+.submenu {
+  .sub-item {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    margin: 2px 16px 2px 24px !important;
+    border-radius: 6px !important;
+    transition: all 0.2s ease !important;
     
     &:hover {
-      background: rgba(0, 101, 179, 0.08) !important; // Subtle BoA blue hover
-      transform: translateX(1px) !important; // Reduced transform to prevent overflow
+      background: rgba(0, 0, 0, 0.04) !important;
+      transform: translateX(2px) !important;
     }
     
     &.active-link {
-      background: linear-gradient(90deg, 
-        rgba(0, 101, 179, 0.12) 0%, 
-        rgba(0, 101, 179, 0.06) 100%) !important; // Professional gradient
-      border-left: 4px solid var(--mat-sys-primary) !important; // Clean left accent
-      border-radius: 0 8px 8px 0 !important; // Rounded on right only
-      position: relative !important;
-      
-      &::before {
-        content: '' !important;
-        position: absolute !important;
-        left: 0 !important;
-        top: 0 !important;
-        bottom: 0 !important;
-        width: 4px !important;
-        background: linear-gradient(180deg, 
-          var(--mat-sys-primary) 0%, 
-          var(--mat-sys-tertiary) 100%) !important;
-        border-radius: 0 4px 4px 0 !important;
-      }
-      
-      span {
-        font-weight: 600 !important; // Bold active text
-        color: var(--mat-sys-primary) !important; // Primary color text
-      }
+      background: rgba(0, 0, 0, 0.08) !important;
+      color: rgba(0, 0, 0, 0.87) !important;
+      font-weight: 600 !important;
+      border-left: 3px solid rgba(0, 0, 0, 0.87) !important;
+      border-radius: 0 6px 6px 0 !important;
     }
     
     &:focus-visible {
-      outline: 2px solid #004080 !important; // Subtle ADA focus indicator
+      outline: 2px solid #004080 !important;
       outline-offset: 1px !important;
-      box-shadow: inset 0 0 0 1px rgba(0, 64, 128, 0.2) !important; // Inner glow
+      box-shadow: inset 0 0 0 1px rgba(0, 64, 128, 0.2) !important;
     }
     
     &:focus:not(:focus-visible) {
-      outline: none !important; // No focus on mouse click
+      outline: none !important;
       box-shadow: none !important;
     }
   }
-  
-  // Submenu enhancements (ADA Compliant)
-  .submenu {
-    .sub-item {
-      font-size: 16px !important; // ADA minimum
-      line-height: 1.5 !important;
-      margin: 2px 16px 2px 24px !important;
-      border-radius: 6px !important;
-      transition: all 0.2s ease !important;
+}
+
+// Expandable items
+.expandable-item {
+  .expandable-header[role="button"],
+  button.expandable-header {
+    cursor: pointer;
+    user-select: none;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 0;
+    font: inherit;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    margin: 2px 8px !important;
+    border-radius: 8px !important;
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    
+    &:hover:not(.disabled):not(:disabled) {
+      background: rgba(0, 0, 0, 0.04) !important;
+      transform: translateX(1px) !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    
+    &:focus-visible {
+      outline: 2px solid #004080 !important;
+      outline-offset: 2px !important;
+      box-shadow: inset 0 0 0 1px rgba(0, 64, 128, 0.2) !important;
+      background: rgba(0, 64, 128, 0.05) !important;
+    }
+    
+    &:focus:not(:focus-visible) {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    
+    &.disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
       
       &:hover {
-        background: rgba(0, 101, 179, 0.06) !important; // Subtle hover
-        transform: translateX(2px) !important;
-      }
-      
-      &.active-link {
-        background: linear-gradient(90deg, 
-          rgba(0, 101, 179, 0.1) 0%, 
-          rgba(0, 101, 179, 0.05) 100%) !important; // Professional submenu active
-        color: var(--mat-sys-primary) !important; // Primary color text
-        font-weight: 600 !important;
-        border-left: 3px solid var(--mat-sys-secondary) !important;
-        border-radius: 0 6px 6px 0 !important;
-      }
-      
-      &:focus-visible {
-        outline: 2px solid #004080 !important; // Subtle ADA focus indicator  
-        outline-offset: 1px !important;
-        box-shadow: inset 0 0 0 1px rgba(0, 64, 128, 0.2) !important;
-      }
-      
-      &:focus:not(:focus-visible) {
-        outline: none !important; // No focus on mouse click
-        box-shadow: none !important;
+        background: transparent !important;
       }
     }
-  }
-  
-  // Expandable items (ADA Compliant with button element)
-  .expandable-item {
-    .expandable-header[role="button"],
-    button.expandable-header {
-      cursor: pointer;
-      user-select: none;
-      background: none;
-      border: none;
-      width: 100%;
-      text-align: left;
-      padding: 0;
-      font: inherit;
-      box-sizing: border-box !important;
-      overflow: hidden !important;
-      margin: 2px 8px !important; // Same margin as regular nav items
-      border-radius: 8px !important; // Same border radius as regular nav items
-      font-size: 16px !important; // Same font size as regular nav items
-      line-height: 1.5 !important; // Same line height as regular nav items
+    
+    .expand-icon {
+      color: #004080 !important;
+      transition: transform 0.2s ease;
       
-      &:hover:not(.disabled):not(:disabled) {
-        background: rgba(0, 101, 179, 0.08) !important; // Same hover as regular nav items
-        transform: translateX(1px) !important; // Reduced transform to prevent overflow
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important; // Same transition as regular nav items
-      }
-      
-      &:focus-visible {
-        outline: 2px solid #004080 !important; // WCAG AA compliant focus indicator
-        outline-offset: 2px !important;
-        box-shadow: inset 0 0 0 1px rgba(0, 64, 128, 0.2) !important;
-        background: rgba(0, 64, 128, 0.05) !important;
-      }
-      
-      &:focus:not(:focus-visible) {
-        outline: none !important; // No focus on mouse click
-        box-shadow: none !important;
-      }
-      
-      &.disabled {
-        cursor: not-allowed;
-        opacity: 0.6;
-        
-        &:hover {
-          background: transparent !important;
-        }
-      }
-      
-      .expand-icon {
-        color: #004080 !important; // Accessible BoA blue expand icons
-        transition: transform 0.2s ease;
-        
-        &.expanded {
-          transform: rotate(180deg);
-        }
+      &.expanded {
+        transform: rotate(180deg);
       }
     }
   }

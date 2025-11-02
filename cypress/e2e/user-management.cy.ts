@@ -3,8 +3,8 @@ describe('User Management Table', () => {
     // 1. Visit the app
     cy.visit('/');
 
-    // 2. Click the menu item for Angular Pilot Enablement (more robust selector)
-    cy.contains('Angular Pilot Enablement')
+    // 2. Click the menu item for Pilot Enablement (more robust selector)
+    cy.contains('Pilot Enablement')
       .scrollIntoView()
       .should('be.visible')
       .click();

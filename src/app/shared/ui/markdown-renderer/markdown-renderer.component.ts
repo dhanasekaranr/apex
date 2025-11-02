@@ -23,16 +23,18 @@ import { DocumentationService } from '../../services/documentation.service';
   imports: [CommonModule, MatProgressSpinnerModule, MatCardModule],
   template: `
     <div class="markdown-container">
-      <div *ngIf="isLoading" class="loading-container">
+      @if (isLoading) {
+      <div class="loading-container">
         <mat-spinner diameter="40"></mat-spinner>
         <p>Loading documentation...</p>
       </div>
+      } @if (!isLoading) {
       <div
-        *ngIf="!isLoading"
         class="markdown-content"
         [innerHTML]="renderedContent"
         #markdownContent
       ></div>
+      }
     </div>
   `,
   styleUrls: ['./markdown-renderer.component.scss'],

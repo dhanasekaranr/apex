@@ -9,6 +9,11 @@
 // Import the main theme (includes all variables and legacy overrides)
 @use 'themes/index' as *;
 
+// Import Fontsource fonts (proxy-friendly, optimized for corporate networks)
+// Variable Roboto - includes all weights in one file, optimized for performance
+@import "@fontsource-variable/roboto/wght.css"; // Latin subset only, variable weight
+@import "@fontsource/roboto-mono/400.css"; // Regular weight for monospace
+@import "@fontsource/roboto-mono/500.css"; // Medium weight for headings
 @import "@fontsource/material-icons/index.css";
 
 /* now define the ligature-class that Fontsource omits */

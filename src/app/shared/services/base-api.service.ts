@@ -37,14 +37,14 @@ export abstract class BaseApiService {
   /**
    * Generic POST request
    */
-  protected post<T>(data: any, path?: string): Observable<T> {
+  protected post<T, D = unknown>(data: D, path?: string): Observable<T> {
     return this.http.post<T>(this.buildUrl(path), data);
   }
 
   /**
    * Generic PUT request
    */
-  protected put<T>(data: any, path?: string): Observable<T> {
+  protected put<T, D = unknown>(data: D, path?: string): Observable<T> {
     return this.http.put<T>(this.buildUrl(path), data);
   }
 
@@ -58,7 +58,7 @@ export abstract class BaseApiService {
   /**
    * Generic PATCH request
    */
-  protected patch<T>(data: any, path?: string): Observable<T> {
+  protected patch<T, D = unknown>(data: D, path?: string): Observable<T> {
     return this.http.patch<T>(this.buildUrl(path), data);
   }
 }

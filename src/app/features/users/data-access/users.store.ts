@@ -7,7 +7,8 @@ import {
   withState,
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { catchError, of, pipe, switchMap, tap } from 'rxjs';
+import { catchError, filter, of, pipe, switchMap, tap } from 'rxjs';
+import { withConditionalDevTools } from '../../../shared/features/environment-devtools.feature';
 import { UsersApiService } from './api/users-api.service';
 import { User } from './state/users.state';
 
@@ -30,7 +31,7 @@ const initialState: UsersState = {
 export const UsersStore = signalStore(
   { providedIn: 'root' },
 
-  // Define state
+  // Define state with debugging name
   withState(initialState),
 
   // Define computed signals
@@ -112,7 +113,26 @@ export const UsersStore = signalStore(
     // Update an existing user
     updateUser: rxMethod<User>(
       pipe(
-        tap(() => patchState(store, { loading: true, error: null })),
+        tap((user) => {
+          // Set loading state for valid users
+          if (user && typeof user.id !== 'undefined') {
+            patchState(store, { loading: true, error: null });
+          }
+        }),
+        filter((user: User): user is User => {
+          // Validate and filter out invalid users
+          if (!user || typeof user.id === 'undefined' || !user.userCode) {
+            console.error('❌ Invalid user object in store updateUser:', user);
+            console.error('❌ Stack trace:', new Error().stack);
+            patchState(store, {
+              loading: false,
+              error:
+                'Invalid user data - user must have a valid id and userCode',
+            });
+            return false; // This stops the stream for invalid users
+          }
+          return true; // Allow valid users to continue
+        }),
         switchMap((user) =>
           usersApi.updateUser(user).pipe(
             tap((updatedUser: User) => {
@@ -188,5 +208,8 @@ export const UsersStore = signalStore(
     reset(): void {
       patchState(store, initialState);
     },
-  }))
+  })),
+
+  // 🎯 Environment-controlled Redux DevTools
+  withConditionalDevTools('UsersStore')
 );

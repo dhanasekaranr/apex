@@ -1,154 +1,318 @@
-# Navigation System Documentation
+# Navigation System Guide# Navigation System# Navigation System Documentation
+
+
 
 ## Overview
 
-The Apex Dashboard features a sophisticated, data-driven navigation system that includes both sidebar navigation and dynamic top navigation with multi-level dropdowns.
+
+
+The Apex Dashboard uses a dynamic, data-driven navigation system powered by NgRx Signal Store. Navigation items are configured via JSON and support multi-level nesting, icons, and breadcrumb trails.## Overview## Overview
+
+
 
 ## Architecture
 
-### Components
-- **Sidenav Component**: Left sidebar with expandable sections
-- **Top Navigation**: Horizontal menu bar with dropdown menus
-- **Breadcrumb Component**: Route-based breadcrumb navigation
-- **Menu Service**: Centralized menu configuration and state management
 
-## Sidenav Navigation
 
-### Features
-- Expandable/collapsible sections
-- Icon-based navigation items
-- Disabled states with tooltips
-- Nested menu support
-- Responsive design
+### Core ComponentsThe application uses a dynamic navigation system with signal-based state management.The Apex Dashboard features a sophisticated, data-driven navigation system that includes both sidebar navigation and dynamic top navigation with multi-level dropdowns.
 
-### Configuration
-```typescript
-// In sidenav.ts
-navItems: NavItem[] = [
-  {
-    name: 'Dashboard',
-    icon: 'dashboard',
-    route: '/dashboard',
-    type: 'item'
-  },
-  {
-    name: 'Access Management',
-    icon: 'security',
-    type: 'expandable',
-    expanded: false,
-    children: [
-      {
-        name: 'User Access',
-        icon: 'person',
-        route: '/access/users',
-        type: 'item'
-      }
-      // More items...
-    ]
-  }
-];
-```
+- **TopNav**: Horizontal navigation bar (data-driven from API)
 
-### NavItem Interface
-```typescript
-interface NavItem {
-  name: string;
-  icon: string;
-  route?: string;
-  disabled?: boolean;
-  disabledReason?: string;
-  children?: NavItem[];
-  expanded?: boolean;
-  type?: 'item' | 'expandable' | 'divider';
-}
-```
+- **Sidenav**: Vertical navigation menu (template-based)
 
-## Top Navigation System
+- **Breadcrumbs**: Dynamic breadcrumb trail based on active route
 
-### Features
-- Data-driven menu configuration
-- Multi-level dropdown menus
-- Dynamic menu sections
-- Action buttons with badges
-- Search functionality
+## Components## Architecture
 
-### Menu Service Configuration
+### Navigation Store
 
-#### Menu Structure
-```typescript
-interface TopNavConfig {
-  menuSections: MenuSection[];
-  actionButtons: ActionButton[];
-}
+Located in `src/app/store/navigation/`, the navigation store:
 
-interface MenuSection {
-  id: string;
-  label: string;
-  order: number;
-  items: MenuItem[];
-}
+- Loads navigation items from API
 
-interface MenuItem {
-  id: string;
-  label: string;
-  icon: string;
-  routerLink?: string;
-  action?: string;
-  children?: MenuItem[];
-  badge?: BadgeConfig;
-  dividerAfter?: boolean;
-}
-```
+- Tracks active navigation item### 1. Sidenav (Vertical Navigation)### Components
 
-#### Example Configuration
-```typescript
+- Manages navigation state reactively
+
+Collapsible sidebar with menu items:- **Sidenav Component**: Left sidebar with expandable sections
+
+## Configuration
+
+- Collapses to icon-only mode (260px → 72px)- **Top Navigation**: Horizontal menu bar with dropdown menus
+
+### Adding Navigation Items
+
+- Supports nested menu items- **Breadcrumb Component**: Route-based breadcrumb navigation
+
+Navigation items are defined in `api/data/navigation.json`:
+
+- Keyboard accessible- **Menu Service**: Centralized menu configuration and state management
+
+```json
+
 {
-  id: 'resources',
-  label: 'Resources',
-  order: 2,
-  items: [
+
+  "navigation": [
+
+    {### 2. Topnav (Horizontal Navigation)  ## Sidenav Navigation
+
+      "id": "dashboard",
+
+      "label": "Dashboard",Top menu bar with:
+
+      "route": "/dashboard",
+
+      "icon": "dashboard",- Search box (left side)### Features
+
+      "children": []
+
+    },- Dynamic menu items (center)- Expandable/collapsible sections
+
     {
-      id: 'resources-main',
-      label: 'Resources',
-      icon: 'people',
-      children: [
-        {
-          id: 'all-resources',
-          label: 'All Resources',
-          icon: 'list',
-          routerLink: '/users',
-          action: 'navigate'
-        },
-        {
-          id: 'resource-management',
-          label: 'Resource Management',
-          icon: 'manage_accounts',
-          children: [
-            {
-              id: 'create-resource',
-              label: 'Create Resource',
-              icon: 'person_add',
-              action: 'createUser'
-            }
-            // More nested items...
-          ]
-        }
-      ]
-    }
+
+      "id": "users",- Action buttons (right side)- Icon-based navigation items
+
+      "label": "Users",
+
+      "route": "/users",- Disabled states with tooltips
+
+      "icon": "people"
+
+    }### 3. Breadcrumbs- Nested menu support
+
   ]
-}
+
+}Auto-generated navigation trail:- Responsive design
+
 ```
 
-### Current Menu Sections
+- Shows current location
 
-1. **Health Check** - System monitoring and status
-2. **Resources** - User and resource management
-3. **Documents** - Reports and document management
-4. **Settings** - System and user preferences
-5. **Audit Log** - Activity logging and tracking
+### Navigation Item Properties
 
-### Action Buttons
+- `id` - Unique identifier- Clickable path navigation### Configuration
+
+- `label` - Display text
+
+- `route` - Angular route path- Always starts with Dashboard```typescript
+
+- `icon` - Material icon name
+
+- `children` - Optional nested navigation items// In sidenav.ts
+
+
+
+## Usage## ConfigurationnavItems: NavItem[] = [
+
+
+
+### Top Navigation  {
+
+The top navigation bar automatically loads items from the navigation store:
+
+```typescript### Menu Data Structure    name: 'Dashboard',
+
+// In topnav.component.ts
+
+navigationItems = this.navigationStore.navItems;```json    icon: 'dashboard',
+
+```
+
+{    route: '/dashboard',
+
+### Side Navigation
+
+Template-based menu in sidenav component:  "menuSections": [    type: 'item'
+
+```html
+
+<mat-nav-list>    {  },
+
+  <a mat-list-item routerLink="/dashboard">
+
+    <mat-icon>dashboard</mat-icon>      "id": "main",  {
+
+    Dashboard
+
+  </a>      "items": [    name: 'Access Management',
+
+</mat-nav-list>
+
+```        {    icon: 'security',
+
+
+
+### Breadcrumbs          "id": "dashboard",    type: 'expandable',
+
+Automatically generated based on route configuration with `data.breadcrumb`:
+
+```typescript          "label": "Dashboard",    expanded: false,
+
+{
+
+  path: 'users',          "icon": "dashboard",    children: [
+
+  component: UsersComponent,
+
+  data: { breadcrumb: 'Users' }          "routerLink": "/dashboard"      {
+
+}
+
+```        }        name: 'User Access',
+
+
+
+## Accessibility      ]        icon: 'person',
+
+
+
+All navigation components include:    }        route: '/access/users',
+
+- Proper ARIA labels
+
+- Keyboard navigation support  ]        type: 'item'
+
+- Screen reader announcements
+
+- Focus management}      }
+
+
+```      // More items...
+
+    ]
+
+### Breadcrumb Mapping  }
+
+```json];
+
+{```
+
+  "/dashboard": {
+
+    "label": "Dashboard",### NavItem Interface
+
+    "icon": "dashboard"```typescript
+
+  },interface NavItem {
+
+  "/users": {  name: string;
+
+    "label": "Users",  icon: string;
+
+    "icon": "people"  route?: string;
+
+  }  disabled?: boolean;
+
+}  disabledReason?: string;
+
+```  children?: NavItem[];
+
+  expanded?: boolean;
+
+## Navigation Store  type?: 'item' | 'expandable' | 'divider';
+
+}
+
+Centralized state management for all navigation:```
+
+
+
+```typescript## Top Navigation System
+
+// Access in components
+
+private navigationStore = inject(NavigationStore);### Features
+
+- Data-driven menu configuration
+
+// Get menu items- Multi-level dropdown menus
+
+menuItems = this.navigationStore.menuItems;- Dynamic menu sections
+
+- Action buttons with badges
+
+// Get breadcrumbs- Search functionality
+
+breadcrumbs = this.navigationStore.breadcrumbs;
+
+```### Menu Service Configuration
+
+
+
+## Adding New Routes#### Menu Structure
+
 ```typescript
+
+1. Add to `navigation.json`:interface TopNavConfig {
+
+```json  menuSections: MenuSection[];
+
+{  actionButtons: ActionButton[];
+
+  "id": "my-feature",}
+
+  "label": "My Feature",
+
+  "icon": "star",interface MenuSection {
+
+  "routerLink": "/my-feature"  id: string;
+
+}  label: string;
+
+```  order: number;
+
+  items: MenuItem[];
+
+2. Add to breadcrumb mapping:}
+
+```json
+
+{interface MenuItem {
+
+  "/my-feature": {  id: string;
+
+    "label": "My Feature",  label: string;
+
+    "icon": "star"  icon: string;
+
+  }  routerLink?: string;
+
+}  action?: string;
+
+```  children?: MenuItem[];
+
+  badge?: BadgeConfig;
+
+3. Define Angular route:  dividerAfter?: boolean;
+
+```typescript}
+
+{```
+
+  path: 'my-feature',
+
+  component: MyFeatureComponent#### Example Configuration
+
+}
+
+```### Current Menu Sections
+
+
+
+## Accessibility1. **Health** - System monitoring and status
+
+2. **Documents** - Reports and document management
+
+All navigation components are ADA compliant:3. **Settings** - System and user preferences
+
+- ✅ ARIA labels on interactive elements4. **Audit** - Activity logging and tracking
+
+- ✅ Keyboard navigation support
+
+- ✅ Focus indicators### Action Buttons
+
+- ✅ Screen reader friendly```typescript
+
 actionButtons: [
   {
     id: 'search',

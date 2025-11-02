@@ -133,6 +133,57 @@ export class EnvironmentService {
     return requestedLevelIndex <= currentLevelIndex;
   }
 
+  // DevTools Configuration
+  get isReduxDevToolsEnabled(): boolean {
+    return environment.devTools?.enableReduxDevTools ?? false;
+  }
+
+  get isConsoleDebuggingEnabled(): boolean {
+    return environment.devTools?.enableConsoleDebugging ?? false;
+  }
+
+  get isPerformanceTrackingEnabled(): boolean {
+    return environment.devTools?.enablePerformanceTracking ?? false;
+  }
+
+  get isStateExportEnabled(): boolean {
+    return environment.devTools?.enableStateExport ?? false;
+  }
+
+  get storesToDebug(): string[] {
+    return environment.devTools?.storesToDebug ?? [];
+  }
+
+  get maxHistorySize(): number {
+    return environment.devTools?.maxHistorySize ?? 25;
+  }
+
+  /**
+   * Check if a specific store should have debugging enabled
+   */
+  shouldDebugStore(storeName: string): boolean {
+    if (!this.isReduxDevToolsEnabled) {
+      return false;
+    }
+    
+    const storesToDebug = this.storesToDebug;
+    return storesToDebug.includes('*') || storesToDebug.includes(storeName);
+  }
+
+  /**
+   * Get DevTools configuration for a specific store
+   */
+  getDevToolsConfig(storeName: string) {
+    return {
+      enabled: this.shouldDebugStore(storeName),
+      console: this.isConsoleDebuggingEnabled,
+      performance: this.isPerformanceTrackingEnabled,
+      stateExport: this.isStateExportEnabled,
+      maxHistory: this.maxHistorySize,
+      name: `${storeName} (${environment.environmentName})`
+    };
+  }
+
   printEnvironmentInfo(): void {
     if (this.enableConsoleLogging) {
       console.group('🌍 Environment Configuration');
@@ -141,6 +192,12 @@ export class EnvironmentService {
       console.log('🌐 API Base URL:', this.apiBaseUrl);
       console.log('🎯 Enabled Features:', this.enabledFeatures);
       console.log('📊 Log Level:', this.logLevel);
+      console.log('🛠️ DevTools Config:', {
+        reduxDevTools: this.isReduxDevToolsEnabled,
+        consoleDebugging: this.isConsoleDebuggingEnabled,
+        performanceTracking: this.isPerformanceTrackingEnabled,
+        storesToDebug: this.storesToDebug
+      });
       console.groupEnd();
     }
   }

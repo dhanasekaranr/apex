@@ -105,7 +105,49 @@ export class Users implements OnInit {
     effect(() => {
       const users = this.users();
       console.log('📊 Users state updated:', users.length, 'users');
-      this.dataSource.data = users;
+
+      // Validate users data and ensure screenAccess is always an array
+      if (users && users.length > 0) {
+        const invalidUsers = users.filter(
+          (user) => !user || typeof user.id === 'undefined'
+        );
+        if (invalidUsers.length > 0) {
+          console.warn('⚠️ Found invalid users in data:', invalidUsers);
+        }
+
+        // Ensure all users have screenAccess array
+        const usersWithMissingScreenAccess = users.filter(
+          (user) => !user.screenAccess || !Array.isArray(user.screenAccess)
+        );
+        if (usersWithMissingScreenAccess.length > 0) {
+          console.warn(
+            '⚠️ Users missing screenAccess array:',
+            usersWithMissingScreenAccess
+          );
+        }
+
+        // Sanitize data - ensure screenAccess is always an array and filter out completely invalid records
+        const sanitizedUsers = users
+          .filter((user) => user && user.id && user.userCode && user.userName) // Remove truly invalid records
+          .map((user) => ({
+            ...user,
+            screenAccess: Array.isArray(user.screenAccess)
+              ? user.screenAccess
+              : [],
+          }));
+
+        if (sanitizedUsers.length !== users.length) {
+          console.warn(
+            `⚠️ Filtered out ${
+              users.length - sanitizedUsers.length
+            } invalid user records`
+          );
+        }
+
+        this.dataSource.data = sanitizedUsers;
+      } else {
+        this.dataSource.data = users;
+      }
     });
 
     // React to loading state changes
@@ -138,6 +180,31 @@ export class Users implements OnInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    // Custom sorting data accessor to handle null/undefined values
+    this.dataSource.sortingDataAccessor = (item: User, property: string) => {
+      switch (property) {
+        case 'screenAccess':
+          // Sort by number of screen accesses
+          return item.screenAccess?.length || 0;
+        case 'userName':
+          return item.userName?.toLowerCase() || '';
+        case 'userCode':
+          return item.userCode?.toLowerCase() || '';
+        case 'userRole':
+          return item.userRole?.toLowerCase() || '';
+        case 'status':
+          return item.status?.toLowerCase() || '';
+        case 'lastLogin':
+          return item.lastLogin || '';
+        case 'debugMode':
+          return item.debugMode || '';
+        case 'dualMode':
+          return item.dualMode ? 1 : 0;
+        default:
+          return (item as any)[property] || '';
+      }
+    };
 
     // Custom filter predicate for multiple filters
     this.dataSource.filterPredicate = (data: User, filter: string) => {
@@ -182,7 +249,17 @@ export class Users implements OnInit {
   }
 
   toggleDualMode(user: User) {
+    console.log('🔍 toggleDualMode called with:', user);
+
+    // Defensive programming - check if user exists and has required properties
+    if (!user || typeof user.id === 'undefined' || !user.userCode) {
+      console.error('❌ Invalid user object passed to toggleDualMode:', user);
+      console.error('❌ Stack trace:', new Error().stack);
+      return;
+    }
+
     const updatedUser = { ...user, dualMode: !user.dualMode };
+    console.log('🔄 Calling updateUser with:', updatedUser);
     this.usersStore.updateUser(updatedUser);
     console.log(
       `Dual mode ${updatedUser.dualMode ? 'enabled' : 'disabled'} for user ${
@@ -192,7 +269,17 @@ export class Users implements OnInit {
   }
 
   updateDebugMode(user: User, value: 'Y' | 'N') {
+    console.log('🔍 updateDebugMode called with:', user, 'value:', value);
+
+    // Defensive programming - check if user exists and has required properties
+    if (!user || typeof user.id === 'undefined' || !user.userCode) {
+      console.error('❌ Invalid user object passed to updateDebugMode:', user);
+      console.error('❌ Stack trace:', new Error().stack);
+      return;
+    }
+
     const updatedUser = { ...user, debugMode: value };
+    console.log('🔄 Calling updateUser with:', updatedUser);
     this.usersStore.updateUser(updatedUser);
     console.log(`Debug mode set to ${value} for user ${user.userCode}`);
   }

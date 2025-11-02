@@ -8,14 +8,11 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatTabGroup, MatTabsModule } from '@angular/material/tabs';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -35,13 +32,10 @@ import { MarkdownRendererComponent } from '../../../shared/ui/markdown-renderer/
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule,
     MatTabsModule,
     MatListModule,
     MatIconModule,
     MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
     MatCardModule,
     MatChipsModule,
     MatExpansionModule,
@@ -57,8 +51,6 @@ export class DocumentationViewerComponent
   documentationCategories: DocumentationCategory[] = [];
   allDocuments: DocumentationItem[] = [];
   selectedTabIndex: number = 0;
-  searchQuery: string = '';
-  searchResults: DocumentationItem[] = [];
 
   private destroy$ = new Subject<void>();
   private resizeObserver?: ResizeObserver;
@@ -146,16 +138,6 @@ export class DocumentationViewerComponent
     }
   }
 
-  onSearchChange(): void {
-    if (this.searchQuery.trim()) {
-      this.searchResults = this.documentationService.searchDocumentation(
-        this.searchQuery
-      );
-    } else {
-      this.searchResults = [];
-    }
-  }
-
   getCategoryName(categoryId: string): string {
     const category = this.documentationCategories.find(
       (c) => c.id === categoryId
@@ -167,8 +149,6 @@ export class DocumentationViewerComponent
     const icons: { [key: string]: string } = {
       'getting-started': 'rocket_launch',
       architecture: 'architecture',
-      components: 'widgets',
-      themes: 'palette',
     };
     return icons[categoryId] || 'description';
   }
@@ -221,14 +201,6 @@ export class DocumentationViewerComponent
   }
 
   /**
-   * Clear search query and results
-   */
-  clearSearch(): void {
-    this.searchQuery = '';
-    this.searchResults = [];
-  }
-
-  /**
    * Get document by index from all documents
    */
   getDocumentByIndex(index: number): DocumentationItem | null {
@@ -258,14 +230,6 @@ export class DocumentationViewerComponent
     if (documentIndex !== -1) {
       this.selectDocumentTab(documentIndex);
     }
-  }
-
-  /**
-   * Select document from search results
-   */
-  selectDocumentFromSearch(document: DocumentationItem): void {
-    this.clearSearch();
-    this.selectDocumentAndTab(document);
   }
 
   /**

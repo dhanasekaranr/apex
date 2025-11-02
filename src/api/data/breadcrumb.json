@@ -76,14 +76,9 @@
         "parentRoute": "dashboard",
         "order": 1
       },
-      "help": {
-        "label": "Help & Support",
-        "icon": "help",
-        "parentRoute": "dashboard",
-        "order": 1
-      },
+      
       "audit": {
-        "label": "Audit Log",
+        "label": "Audit",
         "icon": "history",
         "parentRoute": "dashboard",
         "order": 1

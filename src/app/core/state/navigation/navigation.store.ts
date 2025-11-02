@@ -245,31 +245,56 @@ export const NavigationStore = signalStore(
 
     buildBreadcrumbsFromRoute: (url: string) => {
       const routeMappings = store.routeMappings();
+      console.log('🍞 Building breadcrumbs for URL:', url);
+      console.log('📋 Available route mappings:', Object.keys(routeMappings));
+
       const segments = url.split('/').filter(Boolean);
       const breadcrumbs: BreadcrumbItem[] = [];
 
-      // Add home if not already there
-      if (routeMappings['/']) {
+      // Always add Dashboard as the first breadcrumb (home)
+      if (routeMappings['dashboard']) {
         breadcrumbs.push({
-          label: routeMappings['/'].label,
-          url: '/',
-          icon: routeMappings['/'].icon,
+          label: routeMappings['dashboard'].label,
+          url: '/dashboard',
+          icon: routeMappings['dashboard'].icon,
         });
+        console.log('✅ Added Dashboard as home breadcrumb');
       }
 
-      // Build breadcrumbs from segments
-      let currentPath = '';
-      segments.forEach((segment) => {
-        currentPath += `/${segment}`;
-        if (routeMappings[currentPath]) {
+      // Build breadcrumbs from URL segments (skip dashboard if it's already added)
+      segments.forEach((segment, index) => {
+        // Skip dashboard segment since we already added it as home
+        if (segment === 'dashboard') {
+          return;
+        }
+
+        // Check if this segment exists in route mappings (without leading /)
+        if (routeMappings[segment]) {
+          // Build the full URL path
+          const urlPath = '/' + segments.slice(0, index + 1).join('/');
+
           breadcrumbs.push({
-            label: routeMappings[currentPath].label,
-            url: currentPath,
-            icon: routeMappings[currentPath].icon,
+            label: routeMappings[segment].label,
+            url: urlPath,
+            icon: routeMappings[segment].icon,
           });
+          console.log(
+            '✅ Added breadcrumb:',
+            routeMappings[segment].label,
+            'for segment:',
+            segment
+          );
+        } else {
+          console.warn('⚠️ No mapping found for segment:', segment);
         }
       });
 
+      console.log(
+        '🍞 Final breadcrumbs:',
+        breadcrumbs.length,
+        'items:',
+        breadcrumbs.map((b) => b.label)
+      );
       patchState(store, { currentBreadcrumbs: breadcrumbs });
     },
 

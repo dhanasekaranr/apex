@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,6 +8,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { MenuItem } from '../../../shared/interfaces/menu.interface';
+import { SidenavService } from '../../../shared/services/sidenav.service';
 import { NavigationStore } from '../../state/navigation/navigation.store';
 
 @Component({
@@ -20,12 +22,17 @@ import { NavigationStore } from '../../state/navigation/navigation.store';
     CommonModule,
     MatExpansionModule,
     MatTooltipModule,
+    MatButtonModule,
   ],
   templateUrl: './sidenav.html',
   styleUrl: './sidenav.scss',
 })
 export class Sidenav implements OnInit {
   private navigationStore = inject(NavigationStore);
+  private sidenavService = inject(SidenavService);
+
+  // Collapsed state from service
+  isCollapsed = this.sidenavService.isCollapsed;
 
   // Direct signal access
   sidenavSections = this.navigationStore.sidenavSections;
@@ -57,6 +64,13 @@ export class Sidenav implements OnInit {
   ngOnInit(): void {
     // Sidenav configuration is already loaded by MenuService.initializeNavigation()
     // via loadAllNavigationData() - no need to load separately
+  }
+
+  /**
+   * Toggle the collapsed state of the sidenav
+   */
+  toggleCollapse(): void {
+    this.sidenavService.toggleCollapsed();
   }
 
   /**

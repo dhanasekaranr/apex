@@ -1,5 +1,27 @@
 <!-- Dynamic Horizontal Menu Bar -->
 <div class="horizontal-menu-bar">
+  <!-- Search Input Field - Moved to Left -->
+  @if (topNavConfig(); as config) {
+    <div class="search-container" role="search">
+      <mat-form-field appearance="outline" class="search-field">
+        <input 
+          matInput 
+          placeholder="Search..." 
+          [ngModel]="searchText()" 
+          (ngModelChange)="searchText.set($event)" 
+          (keyup.enter)="performSearch()"
+          aria-label="Search application content"
+          aria-describedby="search-description"
+          type="search"
+          autocomplete="off">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      <div id="search-description" class="sr-only">
+        Press Enter to search or type to filter results
+      </div>
+    </div>
+  }
+
   <nav class="menu-nav" role="navigation" aria-label="Main navigation">
     <!-- Generate menu items dynamically from configuration -->
     @if (topNavConfig(); as config) {
@@ -33,174 +55,10 @@
             <!-- Menu item with dropdown (simplified static approach) -->
             @if (hasChildren(item)) {
               @switch (item.id) {
-                
-                <!-- Resources Menu -->
-                @case ('resources-main') {
-                <button mat-button 
-                        [class.active]="activeMenuTab() === 'resources'" 
-                        [matMenuTriggerFor]="resourcesMenu"
-                        class="menu-item dropdown">
-                  <mat-icon>{{ item.icon }}</mat-icon>
-                  {{ item.label }}
-                  <mat-icon class="dropdown-arrow">arrow_drop_down</mat-icon>
-                </button>
-                
-                  <mat-menu #resourcesMenu="matMenu" class="custom-menu" [overlapTrigger]="false">
-                    @for (child of item.children; track child.id; let last = $last) {
-                      @if (!hasChildren(child)) {
-                        <button 
-                          mat-menu-item 
-                          [routerLink]="child.routerLink"
-                          (click)="onMenuItemClicked(child)">
-                          <mat-icon>{{ child.icon }}</mat-icon>
-                          <span>{{ child.label }}</span>
-                        </button>
-                      }
-                      
-                      @if (hasChildren(child) && child.id === 'resource-management') {
-                        <button 
-                          mat-menu-item 
-                          [matMenuTriggerFor]="resourceMgmtMenu">
-                          <mat-icon>{{ child.icon }}</mat-icon>
-                          <span>{{ child.label }}</span>
-                          <mat-icon class="submenu-arrow">arrow_right</mat-icon>
-                        </button>
-                      }
-                      
-                      @if (hasChildren(child) && child.id === 'resource-roles') {
-                        <button 
-                          mat-menu-item 
-                          [matMenuTriggerFor]="resourceRolesMenu">
-                          <mat-icon>{{ child.icon }}</mat-icon>
-                          <span>{{ child.label }}</span>
-                          <mat-icon class="submenu-arrow">arrow_right</mat-icon>
-                        </button>
-                      }
-                      
-                      @if (child.dividerAfter && !last) {
-                        <mat-divider></mat-divider>
-                      }
-                    }
-                  </mat-menu>
-
-                  <!-- Resource Management Submenu -->
-                  <mat-menu #resourceMgmtMenu="matMenu" class="custom-submenu">
-                    @for (mgmtItem of getChildrenById(item, 'resource-management'); track mgmtItem.id; let last = $last) {
-                      <button mat-menu-item (click)="onMenuItemClicked(mgmtItem)">
-                        <mat-icon>{{ mgmtItem.icon }}</mat-icon>
-                        <span>{{ mgmtItem.label }}</span>
-                      </button>
-                      @if (mgmtItem.dividerAfter && !last) {
-                        <mat-divider></mat-divider>
-                      }
-                    }
-                  </mat-menu>
-
-                  <!-- Resource Roles Submenu -->
-                  <mat-menu #resourceRolesMenu="matMenu" class="custom-submenu">
-                    @for (roleItem of getChildrenById(item, 'resource-roles'); track roleItem.id) {
-                      <button mat-menu-item (click)="onMenuItemClicked(roleItem)">
-                        <mat-icon>{{ roleItem.icon }}</mat-icon>
-                        <span>{{ roleItem.label }}</span>
-                      </button>
-                    }
-                  </mat-menu>
-                }
-
-                <!-- Documents Menu -->
-                @case ('documents-main') {
-                  <button mat-button 
-                          [class.active]="activeMenuTab() === 'documents'" 
-                          [matMenuTriggerFor]="documentsMenu"
-                          class="menu-item dropdown">
-                    <mat-icon>{{ item.icon }}</mat-icon>
-                    {{ item.label }}
-                    <mat-icon class="dropdown-arrow">arrow_drop_down</mat-icon>
-                  </button>
-                  
-                  <mat-menu #documentsMenu="matMenu" class="custom-menu" [overlapTrigger]="false">
-                    @for (child of item.children; track child.id; let last = $last) {
-                      @if (!hasChildren(child)) {
-                        <button 
-                          mat-menu-item 
-                          [routerLink]="child.routerLink"
-                          (click)="onMenuItemClicked(child)">
-                          <mat-icon>{{ child.icon }}</mat-icon>
-                          <span>{{ child.label }}</span>
-                        </button>
-                      }
-                      
-                      @if (hasChildren(child) && child.id === 'financial-reports') {
-                        <button 
-                          mat-menu-item 
-                          [matMenuTriggerFor]="financialReportsMenu">
-                          <mat-icon>{{ child.icon }}</mat-icon>
-                          <span>{{ child.label }}</span>
-                          <mat-icon class="submenu-arrow">arrow_right</mat-icon>
-                        </button>
-                      }
-                      
-                      @if (hasChildren(child) && child.id === 'operational-reports') {
-                        <button 
-                          mat-menu-item 
-                          [matMenuTriggerFor]="operationalReportsMenu">
-                          <mat-icon>{{ child.icon }}</mat-icon>
-                          <span>{{ child.label }}</span>
-                          <mat-icon class="submenu-arrow">arrow_right</mat-icon>
-                        </button>
-                      }
-                      
-                      @if (hasChildren(child) && child.id === 'custom-reports') {
-                        <button 
-                          mat-menu-item 
-                          [matMenuTriggerFor]="customReportsMenu">
-                          <mat-icon>{{ child.icon }}</mat-icon>
-                          <span>{{ child.label }}</span>
-                          <mat-icon class="submenu-arrow">arrow_right</mat-icon>
-                        </button>
-                      }
-                      
-                      @if (child.dividerAfter && !last) {
-                        <mat-divider></mat-divider>
-                      }
-                    }
-                  </mat-menu>
-
-                  <!-- Financial Reports Submenu -->
-                  <mat-menu #financialReportsMenu="matMenu" class="custom-submenu">
-                    @for (reportItem of getChildrenById(item, 'financial-reports'); track reportItem.id) {
-                      <button mat-menu-item (click)="onMenuItemClicked(reportItem)">
-                        <mat-icon>{{ reportItem.icon }}</mat-icon>
-                        <span>{{ reportItem.label }}</span>
-                      </button>
-                    }
-                  </mat-menu>
-
-                  <!-- Operational Reports Submenu -->
-                  <mat-menu #operationalReportsMenu="matMenu" class="custom-submenu">
-                    @for (reportItem of getChildrenById(item, 'operational-reports'); track reportItem.id) {
-                      <button mat-menu-item (click)="onMenuItemClicked(reportItem)">
-                        <mat-icon>{{ reportItem.icon }}</mat-icon>
-                        <span>{{ reportItem.label }}</span>
-                      </button>
-                    }
-                  </mat-menu>
-
-                  <!-- Custom Reports Submenu -->
-                  <mat-menu #customReportsMenu="matMenu" class="custom-submenu">
-                    @for (reportItem of getChildrenById(item, 'custom-reports'); track reportItem.id) {
-                      <button mat-menu-item (click)="onMenuItemClicked(reportItem)">
-                        <mat-icon>{{ reportItem.icon }}</mat-icon>
-                        <span>{{ reportItem.label }}</span>
-                      </button>
-                    }
-                  </mat-menu>
-                }
-
                 <!-- Settings Menu -->
                 @case ('settings-main') {
                   <button mat-button 
-                          [class.active]="activeMenuTab() === 'settings'" 
+                          [class.active]="isParentActive(item)" 
                           [matMenuTriggerFor]="settingsMenu"
                           class="menu-item dropdown">
                     <mat-icon>{{ item.icon }}</mat-icon>
@@ -214,7 +72,7 @@
                         <button 
                           mat-menu-item 
                           [routerLink]="child.routerLink"
-                          (click)="onMenuItemClicked(child)">
+                          (click)="onMenuItemClicked(child, item)">
                           <mat-icon>{{ child.icon }}</mat-icon>
                           <span>{{ child.label }}</span>
                         </button>
@@ -259,7 +117,7 @@
                   <!-- System Settings Submenu -->
                   <mat-menu #systemSettingsMenu="matMenu" class="custom-submenu">
                     @for (settingItem of getChildrenById(item, 'system-settings'); track settingItem.id) {
-                      <button mat-menu-item (click)="onMenuItemClicked(settingItem)">
+                      <button mat-menu-item (click)="onMenuItemClicked(settingItem, item)">
                         <mat-icon>{{ settingItem.icon }}</mat-icon>
                         <span>{{ settingItem.label }}</span>
                       </button>
@@ -269,7 +127,7 @@
                   <!-- User Preferences Submenu -->
                   <mat-menu #userPreferencesMenu="matMenu" class="custom-submenu">
                     @for (prefItem of getChildrenById(item, 'user-preferences'); track prefItem.id) {
-                      <button mat-menu-item (click)="onMenuItemClicked(prefItem)">
+                      <button mat-menu-item (click)="onMenuItemClicked(prefItem, item)">
                         <mat-icon>{{ prefItem.icon }}</mat-icon>
                         <span>{{ prefItem.label }}</span>
                       </button>
@@ -279,7 +137,7 @@
                   <!-- Security Settings Submenu -->
                   <mat-menu #securitySettingsMenu="matMenu" class="custom-submenu">
                     @for (secItem of getChildrenById(item, 'security-settings'); track secItem.id) {
-                      <button mat-menu-item (click)="onMenuItemClicked(secItem)">
+                      <button mat-menu-item (click)="onMenuItemClicked(secItem, item)">
                         <mat-icon>{{ secItem.icon }}</mat-icon>
                         <span>{{ secItem.label }}</span>
                       </button>
@@ -303,7 +161,7 @@
                       <button 
                         mat-menu-item 
                         [routerLink]="child.routerLink"
-                        (click)="onMenuItemClicked(child)">
+                        (click)="onMenuItemClicked(child, item)">
                         <mat-icon>{{ child.icon }}</mat-icon>
                         <span>{{ child.label }}</span>
                       </button>
@@ -324,29 +182,9 @@
   <!-- Dynamic Action Buttons Section -->
   <div class="action-buttons">
     @if (topNavConfig(); as config) {
-      <!-- Search Input Field -->
-      <div class="search-container" role="search">
-        <mat-form-field appearance="outline" class="search-field">
-          <input 
-            matInput 
-            placeholder="Search..." 
-            [ngModel]="searchText()" 
-            (ngModelChange)="searchText.set($event)" 
-            (keyup.enter)="performSearch()"
-            aria-label="Search application content"
-            aria-describedby="search-description"
-            type="search"
-            autocomplete="off">
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-        <div id="search-description" class="sr-only">
-          Press Enter to search or type to filter results
-        </div>
-      </div>
-      
       <!-- Generate action buttons dynamically -->
       @for (button of config.actionButtons; track button.id) {
-        @if (button.id !== 'more') {
+        @if (button.id !== 'more' && button.id !== 'search') {
           <button 
             mat-icon-button 
             [matTooltip]="button.tooltip" 
@@ -361,6 +199,22 @@
           </button>
         }
       }
+      
+      <!-- System Admin Dropdown -->
+      <button mat-icon-button 
+              [matMenuTriggerFor]="systemAdminMenu"
+              matTooltip="System Administration"
+              aria-label="System Administration">
+        <mat-icon>admin_panel_settings</mat-icon>
+      </button>
+      
+      <!-- User Profile Dropdown -->
+      <button mat-icon-button 
+              [matMenuTriggerFor]="userProfileMenu"
+              matTooltip="User Profile"
+              aria-label="User Profile">
+        <mat-icon>account_circle</mat-icon>
+      </button>
       
       <!-- More menu button -->
       <button mat-icon-button 
@@ -383,6 +237,182 @@
         <button mat-menu-item (click)="openSettings()">
           <mat-icon>tune</mat-icon>
           <span>System Settings</span>
+        </button>
+      </mat-menu>
+
+      <!-- System Admin Menu -->
+      <mat-menu #systemAdminMenu="matMenu" class="header-dropdown-menu">
+        <button mat-menu-item [matMenuTriggerFor]="systemAdminUserManagementSubmenu">
+          <mat-icon>group</mat-icon>
+          <span>User Management</span>
+          <mat-icon class="submenu-arrow">chevron_right</mat-icon>
+        </button>
+        
+        <button mat-menu-item [matMenuTriggerFor]="systemAdminSystemSettingsSubmenu">
+          <mat-icon>settings</mat-icon>
+          <span>System Settings</span>
+          <mat-icon class="submenu-arrow">chevron_right</mat-icon>
+        </button>
+        
+        <button mat-menu-item [matMenuTriggerFor]="systemAdminSecuritySubmenu">
+          <mat-icon>security</mat-icon>
+          <span>Security & Permissions</span>
+          <mat-icon class="submenu-arrow">chevron_right</mat-icon>
+        </button>
+        
+        <button mat-menu-item (click)="viewSystemLogs()">
+          <mat-icon>receipt_long</mat-icon>
+          <span>System Logs</span>
+        </button>
+        
+        <mat-divider></mat-divider>
+        
+        <button mat-menu-item [matMenuTriggerFor]="systemAdminMaintenanceSubmenu">
+          <mat-icon>build</mat-icon>
+          <span>Maintenance</span>
+          <mat-icon class="submenu-arrow">chevron_right</mat-icon>
+        </button>
+      </mat-menu>
+
+      <!-- User Management Submenu -->
+      <mat-menu #systemAdminUserManagementSubmenu="matMenu">
+        <button mat-menu-item (click)="manageUsers()">
+          <mat-icon>person</mat-icon>
+          <span>Manage Users</span>
+        </button>
+        <button mat-menu-item (click)="manageRoles()">
+          <mat-icon>badge</mat-icon>
+          <span>Roles & Permissions</span>
+        </button>
+        <button mat-menu-item (click)="activeUsers()">
+          <mat-icon>people_alt</mat-icon>
+          <span>Active Sessions</span>
+        </button>
+        <button mat-menu-item (click)="userAudit()">
+          <mat-icon>history</mat-icon>
+          <span>User Audit Trail</span>
+        </button>
+      </mat-menu>
+
+      <!-- System Settings Submenu -->
+      <mat-menu #systemAdminSystemSettingsSubmenu="matMenu">
+        <button mat-menu-item (click)="generalSettings()">
+          <mat-icon>tune</mat-icon>
+          <span>General Settings</span>
+        </button>
+        <button mat-menu-item (click)="emailSettings()">
+          <mat-icon>email</mat-icon>
+          <span>Email Configuration</span>
+        </button>
+        <button mat-menu-item (click)="databaseSettings()">
+          <mat-icon>storage</mat-icon>
+          <span>Database Settings</span>
+        </button>
+        <button mat-menu-item (click)="backupSettings()">
+          <mat-icon>backup</mat-icon>
+          <span>Backup Configuration</span>
+        </button>
+      </mat-menu>
+
+      <!-- Security Submenu -->
+      <mat-menu #systemAdminSecuritySubmenu="matMenu">
+        <button mat-menu-item (click)="passwordPolicy()">
+          <mat-icon>key</mat-icon>
+          <span>Password Policy</span>
+        </button>
+        <button mat-menu-item (click)="twoFactorAuth()">
+          <mat-icon>verified_user</mat-icon>
+          <span>Two-Factor Authentication</span>
+        </button>
+        <button mat-menu-item (click)="accessControl()">
+          <mat-icon>lock</mat-icon>
+          <span>Access Control</span>
+        </button>
+        <button mat-menu-item (click)="securityLogs()">
+          <mat-icon>shield</mat-icon>
+          <span>Security Logs</span>
+        </button>
+      </mat-menu>
+
+      <!-- Maintenance Submenu -->
+      <mat-menu #systemAdminMaintenanceSubmenu="matMenu">
+        <button mat-menu-item (click)="systemHealth()">
+          <mat-icon>monitor_heart</mat-icon>
+          <span>System Health</span>
+        </button>
+        <button mat-menu-item (click)="clearCache()">
+          <mat-icon>cached</mat-icon>
+          <span>Clear Cache</span>
+        </button>
+        <button mat-menu-item (click)="optimizeDatabase()">
+          <mat-icon>speed</mat-icon>
+          <span>Optimize Database</span>
+        </button>
+        <button mat-menu-item (click)="systemRestart()">
+          <mat-icon>restart_alt</mat-icon>
+          <span>System Restart</span>
+        </button>
+      </mat-menu>
+
+      <!-- User Profile Menu -->
+      <mat-menu #userProfileMenu="matMenu" class="user-profile-menu">
+        <div class="user-profile-header">
+          <mat-icon class="user-avatar-icon">account_circle</mat-icon>
+          <div class="user-info">
+            <div class="user-name">{{ currentUser.name }}</div>
+            <div class="user-role">{{ currentUser.role }}</div>
+            <div class="user-email">{{ currentUser.email }}</div>
+          </div>
+        </div>
+        
+        <mat-divider></mat-divider>
+        
+        <button mat-menu-item (click)="viewProfile()">
+          <mat-icon>person</mat-icon>
+          <span>My Profile</span>
+        </button>
+        
+        <button mat-menu-item [matMenuTriggerFor]="userProfilePreferencesSubmenu">
+          <mat-icon>settings</mat-icon>
+          <span>Preferences</span>
+          <mat-icon class="submenu-arrow">chevron_right</mat-icon>
+        </button>
+        
+        <button mat-menu-item (click)="changePassword()">
+          <mat-icon>lock</mat-icon>
+          <span>Change Password</span>
+        </button>
+        
+        <button mat-menu-item (click)="myActivity()">
+          <mat-icon>history</mat-icon>
+          <span>My Activity</span>
+        </button>
+        
+        <mat-divider></mat-divider>
+        
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+
+      <!-- Preferences Submenu -->
+      <mat-menu #userProfilePreferencesSubmenu="matMenu">
+        <button mat-menu-item (click)="themeSettings()">
+          <mat-icon>palette</mat-icon>
+          <span>Theme Settings</span>
+        </button>
+        <button mat-menu-item (click)="languageSettings()">
+          <mat-icon>language</mat-icon>
+          <span>Language</span>
+        </button>
+        <button mat-menu-item (click)="notificationSettings()">
+          <mat-icon>notifications</mat-icon>
+          <span>Notifications</span>
+        </button>
+        <button mat-menu-item (click)="privacySettings()">
+          <mat-icon>privacy_tip</mat-icon>
+          <span>Privacy Settings</span>
         </button>
       </mat-menu>
     }

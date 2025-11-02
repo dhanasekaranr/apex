@@ -22,6 +22,16 @@ export const environment = {
     enableExperimentalFeatures: false,
   },
 
+  // Development Tools Configuration (DISABLED in production)
+  devTools: {
+    enableReduxDevTools: false, // 🚫 No DevTools in production
+    enableConsoleDebugging: false, // No console logging
+    enablePerformanceTracking: false, // No performance tracking
+    enableStateExport: false, // No state export/import
+    storesToDebug: [], // No stores to debug
+    maxHistorySize: 0, // No history
+  },
+
   // Logging Configuration
   logging: {
     level: 'error', // Only log errors in production

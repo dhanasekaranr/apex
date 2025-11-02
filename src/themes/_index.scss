@@ -9,9 +9,6 @@
 @use 'mixins/forms' as forms;
 @use 'mixins/cards' as cards;
 @use 'mixins/layout' as layout;
-@use 'mixins/controls' as controls;
-@use 'mixins/tables' as tables;
-@use 'mixins/tabs' as tabs;
 
 // Import Material 3 Core System
 // @use 'material3-theme'; // Empty file - disabled
@@ -40,7 +37,6 @@ $icon-size-xs: 14px;
 
 // CSS Custom Properties for Runtime Theme Switching - Bank of America Theme
 :root {
-  // Bank of America Brand Colors
   --boa-blue: #{$boa-blue};
   --boa-red: #{$boa-red};
   --boa-white: #{$boa-white};

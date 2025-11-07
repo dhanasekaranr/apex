@@ -1,0 +1,181 @@
+/**
+ * Popover Component Styles
+ * 
+ * Centralized styles for the popover system including:
+ * - Base panel styles
+ * - Arrow positioning for all placements
+ * - Material Design 3 theming integration
+ * - WCAG 2.2 AAA compliant utilities
+ */
+
+/* ========================================
+   Popover Panel Base
+   ======================================== */
+
+.shared-popover-panel {
+  position: relative;
+  z-index: 1010;
+}
+
+/* ========================================
+   Arrow Base Styles
+   ======================================== */
+
+.shared-popover-panel .arrow {
+  position: absolute;
+  width: var(--arrow-size, 10px);
+  height: var(--arrow-size, 10px);
+}
+
+/* ========================================
+   Arrow Positioning - Top Placements
+   ======================================== */
+
+.shared-popover-panel--top .arrow {
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.shared-popover-panel--top-start .arrow {
+  bottom: -7px;
+  left: 20px;
+  transform: rotate(45deg);
+}
+
+.shared-popover-panel--top-end .arrow {
+  bottom: -7px;
+  right: 20px;
+  transform: rotate(45deg);
+}
+
+/* Dynamic arrow positioning for top placements with inline styles */
+.shared-popover-panel--top .arrow[style*='left'],
+.shared-popover-panel--top-start .arrow[style*='left'],
+.shared-popover-panel--top-end .arrow[style*='left'] {
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* ========================================
+   Arrow Positioning - Bottom Placements
+   ======================================== */
+
+.shared-popover-panel--bottom .arrow {
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.shared-popover-panel--bottom-start .arrow {
+  top: -7px;
+  left: 20px;
+  transform: rotate(45deg);
+}
+
+.shared-popover-panel--bottom-end .arrow {
+  top: -7px;
+  right: 20px;
+  transform: rotate(45deg);
+}
+
+/* Dynamic arrow positioning for bottom placements with inline styles */
+.shared-popover-panel--bottom .arrow[style*='left'],
+.shared-popover-panel--bottom-start .arrow[style*='left'],
+.shared-popover-panel--bottom-end .arrow[style*='left'] {
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* ========================================
+   Arrow Positioning - Left Placements
+   ======================================== */
+
+.shared-popover-panel--left .arrow {
+  right: -5px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+.shared-popover-panel--left-start .arrow {
+  right: -7px;
+  top: 20px;
+  transform: rotate(45deg);
+}
+
+.shared-popover-panel--left-end .arrow {
+  right: -7px;
+  bottom: 20px;
+  transform: rotate(45deg);
+}
+
+/* Dynamic arrow positioning for left placements with inline styles */
+.shared-popover-panel--left .arrow[style*='top'] {
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+/* ========================================
+   Arrow Positioning - Right Placements
+   ======================================== */
+
+.shared-popover-panel--right .arrow {
+  left: -5px;
+  top: 50%;
+  transform: translateY(-50%) rotate(135deg);
+}
+
+.shared-popover-panel--right-start .arrow {
+  left: -7px;
+  top: 20px;
+  transform: rotate(45deg);
+}
+
+.shared-popover-panel--right-end .arrow {
+  left: -7px;
+  bottom: 20px;
+  transform: rotate(45deg);
+}
+
+/* Dynamic arrow positioning for right placements with inline styles */
+.shared-popover-panel--right .arrow[style*='top'] {
+  transform: translateY(-50%) rotate(135deg);
+}
+
+/* ========================================
+   Material Design 3 Theming
+   ======================================== */
+
+:root {
+  --popover-bg: var(--md-sys-color-surface-container-high, #2a2d35);
+  --popover-fg: var(--md-sys-color-on-surface, #e1e5eb);
+}
+
+/* ========================================
+   WCAG 2.2 AAA Accessibility Utilities
+   ======================================== */
+
+/**
+ * Screen Reader Only Content
+ * Hides content visually while keeping it accessible to screen readers
+ */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/**
+ * Live Region for Announcements
+ * Used for dynamic content that should be announced to screen readers
+ */
+.sr-live-region {
+  position: absolute !important;
+  left: -10000px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}

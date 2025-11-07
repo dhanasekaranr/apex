@@ -10,6 +10,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { PopoverTriggerDirective } from '../../../shared/ui/popover';
 import { LookupItemsStore } from '../data-access/lookup-items.store';
 import {
   LookupItem,
@@ -32,6 +33,7 @@ import {
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    PopoverTriggerDirective,
   ],
   templateUrl: './lookup-management.html',
   styleUrl: './lookup-management.scss',
@@ -59,34 +61,26 @@ export class LookupManagement implements OnInit {
     // React to lookup items changes
     effect(() => {
       const lookups = this.lookupItems();
-      console.log('📊 Lookup items state updated:', lookups.length, 'items');
       this.filteredLookups = [...lookups];
     });
 
     // React to loading state changes
     effect(() => {
       const loading = this.loading();
-      console.log('� Lookup loading state changed:', loading);
+      // Loading state handled by template binding
     });
 
     // React to error state changes
     effect(() => {
       const error = this.error();
-      if (error) {
-        console.log('❌ Lookup error state updated:', error);
-      }
+      // Error state handled by template binding
     });
   }
 
   ngOnInit() {
-    console.log('🚀 Lookup management component initializing');
-
     // Load data if store is empty
     if (this.lookupItems().length === 0) {
-      console.log('� Store is empty, loading lookup items');
       this.lookupStore.loadLookupItems();
-    } else {
-      console.log('✅ Using cached data from store');
     }
   }
 
@@ -157,7 +151,7 @@ export class LookupManagement implements OnInit {
     const selectedItem = this.selectedLookup();
     if (selectedItem) {
       this.lookupStore.updateLookupItem(selectedItem);
-      console.log('Saving lookup:', selectedItem);
+      // Save lookup through store
     }
   }
 

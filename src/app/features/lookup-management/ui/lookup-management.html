@@ -1,7 +1,38 @@
 <div class="page-container">
   <div class="page-header">
     <div class="header-content">
-      <h1 class="page-title">Lookup Management</h1>
+      <div class="title-container">
+        <h1 class="page-title">Lookup Management</h1>
+        <button 
+          mat-icon-button 
+          class="page-help-button"
+          popoverTrigger="Lookup Management allows you to maintain system reference data used throughout the application.
+
+Key Features:
+• View and edit lookup tables (e.g., status codes, categories)
+• Add, modify, or remove lookup values
+• Control which values are active/inactive
+• Organize data with keys, display values, and descriptions
+
+How to Use:
+1. Select a lookup table from the left panel
+2. Edit values directly in the table on the right
+3. Use the help icons for field-specific guidance
+4. Save changes when done
+
+Note: Changes affect how data appears throughout the system, so please review carefully before saving."
+          [popoverConfig]="{ 
+            trigger: 'click', 
+            placement: 'bottom-start', 
+            showHeader: true, 
+            headerText: 'About Lookup Management',
+            showCopy: false,
+            maxWidth: '450px'
+          }"
+          aria-label="About lookup management">
+          <mat-icon class="help-icon">info_outline</mat-icon>
+        </button>
+      </div>
       <p class="page-subtitle">Manage system lookup tables and reference data</p>
       @if (loading()) {
         <mat-icon class="loading-icon">refresh</mat-icon>
@@ -33,15 +64,39 @@
         
         <mat-card-content>
           <!-- Search Bar -->
-          <mat-form-field appearance="outline" class="search-field">
-            <mat-label>Search lookups...</mat-label>
-            <input 
-              matInput 
-              [(ngModel)]="searchTerm" 
-              (ngModelChange)="onSearchChange()"
-              placeholder="Search by name, description, or category">
-            <mat-icon matSuffix>search</mat-icon>
-          </mat-form-field>
+          <div class="search-bar-container">
+            <mat-form-field appearance="outline" class="search-field">
+              <mat-label>Search lookups...</mat-label>
+              <input 
+                matInput 
+                [(ngModel)]="searchTerm" 
+                (ngModelChange)="onSearchChange()"
+                placeholder="Search by name, description, or category">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+            <button 
+              mat-icon-button 
+              class="search-help-button"
+              popoverTrigger="Search Tips:
+• Type any part of the lookup name
+• Search by category (e.g., 'status', 'type')
+• Use partial matches for quick filtering
+• Clear the field to see all lookups
+
+Examples:
+• 'status' - finds all status-related lookups
+• 'user' - finds user-related tables
+• 'active' - finds items containing 'active'"
+              [popoverConfig]="{ 
+                trigger: 'click', 
+                placement: 'bottom-start', 
+                showHeader: true, 
+                headerText: 'Search Help'
+              }"
+              aria-label="Search help">
+              <mat-icon class="help-icon">help_outline</mat-icon>
+            </button>
+          </div>
 
           <!-- Data List -->
           <mat-nav-list class="data-list">
@@ -97,7 +152,30 @@
             <table mat-table [dataSource]="selectedItem.values" class="data-table">
               <!-- Key Column -->
               <ng-container matColumnDef="key">
-                <th mat-header-cell *matHeaderCellDef>Key</th>
+                <th mat-header-cell *matHeaderCellDef>
+                  Key
+                  <button 
+                    mat-icon-button 
+                    class="help-button"
+                    popoverTrigger="The unique identifier for this lookup value. This should be:
+• Short and memorable
+• Use underscores instead of spaces (e.g., 'active_status')
+• Follow consistent naming conventions
+• Be unique within this lookup table
+
+Examples: 'pending', 'approved', 'rejected'"
+                    [popoverConfig]="{ 
+                      trigger: 'click', 
+                      placement: 'top', 
+                      showHeader: true, 
+                      headerText: 'Key Field Help',
+                      showCopy: true,
+                      role: 'tooltip'
+                    }"
+                    aria-label="Help for key field">
+                    <mat-icon class="help-icon">help_outline</mat-icon>
+                  </button>
+                </th>
                 <td mat-cell *matCellDef="let value; let i = index">
                   <mat-form-field appearance="outline" class="table-input">
                     <input matInput [(ngModel)]="value.key" placeholder="Enter key">
@@ -107,7 +185,32 @@
 
               <!-- Value Column -->
               <ng-container matColumnDef="value">
-                <th mat-header-cell *matHeaderCellDef>Display Value</th>
+                <th mat-header-cell *matHeaderCellDef>
+                  Display Value
+                  <button 
+                    mat-icon-button 
+                    class="help-button"
+                    popoverTrigger="The human-readable text that users will see in the application. This should be:
+• Clear and descriptive
+• User-friendly language
+• Properly capitalized
+• Meaningful to end users
+
+The display value can be different from the key. For example:
+• Key: 'pending_review' → Display Value: 'Pending Review'
+• Key: 'active' → Display Value: 'Active Status'"
+                    [popoverConfig]="{ 
+                      trigger: 'click', 
+                      placement: 'top', 
+                      showHeader: true, 
+                      headerText: 'Display Value Help',
+                      showCopy: true,
+                      role: 'tooltip'
+                    }"
+                    aria-label="Help for display value field">
+                    <mat-icon class="help-icon">help_outline</mat-icon>
+                  </button>
+                </th>
                 <td mat-cell *matCellDef="let value; let i = index">
                   <mat-form-field appearance="outline" class="table-input">
                     <input matInput [(ngModel)]="value.value" placeholder="Enter display value">
@@ -117,10 +220,39 @@
 
               <!-- Description Column -->
               <ng-container matColumnDef="description">
-                <th mat-header-cell *matHeaderCellDef>Description</th>
+                <th mat-header-cell *matHeaderCellDef>
+                  Description
+                  <button 
+                    mat-icon-button 
+                    class="help-button"
+                    popoverTrigger="Optional detailed explanation of what this lookup value represents. Use this to:
+• Provide additional context for developers
+• Explain business rules or conditions
+• Document when this value should be used
+• Add any special notes or warnings
+
+This field is typically used for:
+• Internal documentation
+• Developer reference
+• Business context that isn't obvious from the display value"
+                    [popoverConfig]="{ 
+                      trigger: 'click', 
+                      placement: 'top', 
+                      showHeader: true, 
+                      headerText: 'Description Field Help',
+                      showCopy: true,
+                      role: 'tooltip'
+                    }"
+                    aria-label="Help for description field">
+                    <mat-icon class="help-icon">help_outline</mat-icon>
+                  </button>
+                </th>
                 <td mat-cell *matCellDef="let value; let i = index">
                   <mat-form-field appearance="outline" class="table-input">
-                    <input matInput [(ngModel)]="value.description" placeholder="Enter description">
+                    <input 
+                      matInput 
+                      [(ngModel)]="value.description" 
+                      placeholder="Enter description" />
                   </mat-form-field>
                 </td>
               </ng-container>
@@ -173,6 +305,99 @@
         </mat-card-content>
       </mat-card>
       }
+    </div>
+  </div>
+
+  <!-- Popover Demo Section -->
+  <div class="demo-section" style="margin-top: 24px; padding: 20px; border: 1px dashed var(--md-sys-color-outline, #79747e); border-radius: 12px;">
+    <h3 style="margin: 0 0 16px 0; color: var(--md-sys-color-on-surface);">Popover Types Demo</h3>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <!-- External Popover Examples -->
+      <div>
+        <h4>External Popovers</h4>
+        <p>Icons positioned outside form elements:</p>
+        
+        <mat-form-field appearance="outline" style="width: 100%; margin-bottom: 16px;">
+          <mat-label>Standard Input</mat-label>
+          <input matInput placeholder="Type something...">
+          <button 
+            mat-icon-button 
+            matSuffix
+            popoverTrigger="This is an external popover positioned outside the form field using matSuffix."
+            [popoverConfig]="{ 
+              placement: 'left', 
+              showHeader: true, 
+              headerText: 'External Help' 
+            }">
+            <mat-icon>help_outline</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <!-- Inline Popover Examples -->
+      <div>
+        <h4>Inline Popovers</h4>
+        <p>Icons positioned inside form elements:</p>
+        
+        <mat-form-field appearance="outline" style="width: 100%; margin-bottom: 16px;">
+          <mat-label>Input with Inline Help</mat-label>
+          <input 
+            matInput 
+            placeholder="Notice the help icon inside" />
+          <button
+            matSuffix
+            mat-icon-button
+            type="button"
+            popoverTrigger="This shows help with Material's matSuffix approach:
+
+• Icon positioned inside form field
+• Professional Material Design styling  
+• Built-in accessibility support
+• Works with all form field types
+
+This is the recommended approach!"
+            [popoverConfig]="{
+              placement: 'bottom-end',
+              showHeader: true,
+              headerText: 'Inline Help Demo'
+            }"
+            aria-label="Help with input"
+          >
+            <mat-icon>help_outline</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Textarea with Inline Help</mat-label>
+          <textarea 
+            matInput 
+            rows="4"
+            placeholder="This textarea has help in the top-right corner">
+          </textarea>
+          <button
+            matSuffix
+            mat-icon-button
+            type="button"
+            popoverTrigger="Textarea with inline help:
+
+• Help icon positioned using matSuffix
+• Clean, professional appearance
+• Accessible by default
+• Works with Material Design themes
+
+Perfect for longer form descriptions!"
+            [popoverConfig]="{
+              placement: 'bottom-start',
+              showHeader: true,
+              headerText: 'Textarea Help'
+            }"
+            aria-label="Help with textarea"
+          >
+            <mat-icon>edit_note</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
     </div>
   </div>
 </div>

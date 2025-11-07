@@ -9,6 +9,9 @@
 // Import the main theme (includes all variables and legacy overrides)
 @use 'themes/index' as *;
 
+// Import popover styles
+@use 'app/shared/ui/popover/popover';
+
 // Import Fontsource fonts (proxy-friendly, optimized for corporate networks)
 // Variable Roboto - includes all weights in one file, optimized for performance
 @import "@fontsource-variable/roboto/wght.css"; // Latin subset only, variable weight
@@ -271,5 +274,4 @@ body.dialog-open {
   position: relative !important;
   z-index: 1001 !important;
 }
-
 

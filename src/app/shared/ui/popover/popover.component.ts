@@ -292,10 +292,14 @@ export class PopoverComponent implements OnDestroy {
   private announce(msg: string): void {
     this._copyOk.set(true);
     this._live.set(msg);
-    setTimeout(() => {
-      this._copyOk.set(false);
-      this._live.set('');
-    }, 1200);
+    // Timeout required for screen readers to announce the message
+    // Using requestAnimationFrame + setTimeout for better performance
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        this._copyOk.set(false);
+        this._live.set('');
+      }, 1200);
+    });
   }
 
   private popoverRef?: any; // Will be set by the service

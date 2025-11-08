@@ -17,7 +17,6 @@ import {
 } from './popover.types';
 
 const ARROW_SIZE = 10; // centralize magic numbers (Sonar)
-const ARROW_POSITIONING_DELAY_MS = 100;
 const ARROW_VERTICAL_MARGIN = 15;
 const ARROW_HORIZONTAL_MARGIN = 20;
 const DEFAULT_OFFSET = 8;
@@ -66,18 +65,24 @@ export class PopoverService {
     // Arrow + placement positioning
     this.applyArrowAndPlacement(overlayRef, cfg);
 
-    // Adjust arrow position based on actual overlay position after render
-    // Use longer delay to ensure overlay is fully positioned
-    setTimeout(
-      () => this.adjustArrowPosition(overlayRef, target, cfg),
-      ARROW_POSITIONING_DELAY_MS
-    );
+    // Adjust arrow position using requestAnimationFrame for better performance
+    // This ensures arrow positioning happens in the next frame after overlay renders
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        this.adjustArrowPosition(overlayRef, target, cfg);
+      });
+    });
 
     // Dismissals
     const subs: Array<() => void> = [];
 
     // Add scroll/resize listener to readjust arrow position
-    const adjustArrow = () => this.adjustArrowPosition(overlayRef, target, cfg);
+    const adjustArrow = () => {
+      // Use requestAnimationFrame to batch position updates
+      requestAnimationFrame(() => {
+        this.adjustArrowPosition(overlayRef, target, cfg);
+      });
+    };
     window.addEventListener('scroll', adjustArrow, true);
     window.addEventListener('resize', adjustArrow);
     subs.push(() => {
